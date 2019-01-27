@@ -5,6 +5,7 @@
 #include "gamestate.h"
 #include "fade.h"
 #include "intro_bg.h"
+#include "intro_bg_dx.h"
 #include "data/bg/ending_thanks.h"
 #include "data/sprite/ending_sprites1.h"
 #include "data/sprite/ending_sprites2.h"
@@ -33,9 +34,17 @@ void initEnding() {
 	OBP1_REG = 0xE0U; // 11100000
 	BGP_REG  = 0xE4U; // 11101000
 
-	set_bkg_data_rle(0U, intro_bg_data_length, intro_bg_data);
-	set_bkg_data_rle(ending_thanks_tiles_offset, ending_thanks_data_length, ending_thanks_data);
-	set_bkg_tiles_rle(0U, 0U, intro_bg_tiles_width, intro_bg_tiles_height, intro_bg_tiles);
+    if(CGB_MODE) {
+	    set_bkg_data_rle(0U, intro_bg_dx_data_length, intro_bg_dx_data);
+	    set_bkg_tiles_rle(0U, 0U, intro_bg_dx_tiles_width, intro_bg_dx_tiles_height, intro_bg_dx_tiles);
+        set_bkg_palette(0U, intro_bg_dx_palette_data_length, intro_bg_dx_palette_data);
+        VBK_REG = 1U;
+	    set_bkg_tiles_rle(0U, 0U, intro_bg_dx_tiles_width, intro_bg_dx_tiles_height, intro_bg_dx_palettes);
+        VBK_REG = 0U;
+    } else {
+	    set_bkg_data_rle(0U, intro_bg_data_length, intro_bg_data);
+	    set_bkg_tiles_rle(0U, 0U, intro_bg_tiles_width, intro_bg_tiles_height, intro_bg_tiles);
+    }
 
 	set_sprite_data(0U, ending_sprites1_data_length, ending_sprites1_data);
 

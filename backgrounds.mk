@@ -2,21 +2,24 @@ backgrounds: logos_backgrounds intro_backgrounds title_backgrounds select_backgr
 
 logos_backgrounds: data/bg/tangram.h data/bg/potato.h
 
-data/bg/tangram.h: data/bg/tangram.png
-	$(IMGTOGB) --map --rle $< $@
+data/bg/tangram.h: data/bg/tangram.png data/bg/tangram_dx.png
+	$(IMGTOGB) --map --rle $< --dx data/bg/tangram_dx.png $@
 
 data/bg/potato.h: data/bg/potato.png
 	$(IMGTOGB) --map --rle $< $@
 
 intro_backgrounds:
 
-title_backgrounds: data/bg/titlescreen.h data/bg/titlescreen_bg.h
+title_backgrounds: data/bg/titlescreen.h data/bg/titlescreen_dx.h data/bg/titlescreen_bg.h
 
 data/bg/titlescreen.h: data/bg/titlescreen.png
-	$(IMGTOGB) --map $< $@
+	$(IMGTOGB) --map --rle $< $@
 
-data/bg/titlescreen_bg.h: data/bg/titlescreen_bg.png
-	$(IMGTOGB) --map -O 90 $< $@
+data/bg/titlescreen_dx.h: data/bg/titlescreen_dx.png
+	$(IMGTOGB) --map --rle -c $< $@
+
+data/bg/titlescreen_bg.h: data/bg/titlescreen_bg.png data/bg/titlescreen_bg_dx.png
+	$(IMGTOGB) --map --rle -O 90 $< --dx data/bg/titlescreen_bg_dx.png $@
 
 select_backgrounds: data/bg/catface.h data/bg/select.h
 
@@ -34,17 +37,17 @@ data/bg/hud.h: data/bg/hud.png
 data/bg/clock.h: data/bg/clock.png
 	$(IMGTOGB) --map -O 20 $< $@
 
-background1.h background1.c: data/bg/background1.png
-	$(IMGTOGB) --map -O 34 --rle $< -C background1.c background1.h
+background1.h background1.c: data/bg/background1.png data/bg/background1_dx.png
+	$(IMGTOGB) --map -O 34 --rle $< --dx data/bg/background1_dx.png -C background1.c background1.h
 
-background2.h background2.c: data/bg/background2.png
-	$(IMGTOGB) --map -O 34 --rle $< -C background2.c background2.h
+background2.h background2.c: data/bg/background2.png data/bg/background2_dx.png
+	$(IMGTOGB) --map -O 34 --rle $< --dx data/bg/background2_dx.png -C background2.c background2.h
 
-background3.h background3.c: data/bg/background3.png
-	$(IMGTOGB) --map -O 34 --rle $< -C background3.c background3.h
+background3.h background3.c: data/bg/background3.png data/bg/background3_dx.png
+	$(IMGTOGB) --map -O 34 --rle $< --dx data/bg/background3_dx.png -C background3.c background3.h
 
-background4.h background4.c: data/bg/background4.png
-	$(IMGTOGB) --map -O 34 --rle $< -C background4.c background4.h
+background4.h background4.c: data/bg/background4.png data/bg/background4_dx.png
+	$(IMGTOGB) --map -O 34 --rle $< --dx data/bg/background4_dx.png -C background4.c background4.h
 
 pause_backgrounds: data/bg/pause_bg.h
 
@@ -89,9 +92,6 @@ unlocked_backgrounds: data/bg/unlocked.h
 data/bg/unlocked.h: data/bg/unlocked.png
 	$(IMGTOGB) --map -O 47 $< $@
 
-#data/bg/zoom_circles.h: data/bg/zoom_circles.png
-#	$(IMGTOGB) --map $< $@
-
 jukebox_backgrounds: data/bg/jukebox.h
 
 data/bg/jukebox.h: data/bg/jukebox.png
@@ -130,13 +130,17 @@ selection_jukebox.c selection_jukebox.h: data/bg/selection_jukebox.png
 selection_locked.c selection_locked.h: data/bg/selection_locked.png
 	$(IMGTOGB) --map -O 90 $< -C selection_locked.c selection_locked.h
 
-common_backgrounds: circles.c circles.h intro_bg.c intro_bg.h zoom_circles.c zoom_circles.h characters.c characters.h
+common_backgrounds: circles.c circles.h intro_bg.c intro_bg.h intro_bg_dx.c intro_bg_dx.h \
+	zoom_circles.c zoom_circles.h characters.c characters.h
 
 circles.c circles.h: data/bg/circles.png
 	$(IMGTOGB) --map $< -C circles.c circles.h
 
 intro_bg.c intro_bg.h: data/bg/intro_bg.png
 	$(IMGTOGB) --map $< --rle -C intro_bg.c intro_bg.h
+
+intro_bg_dx.c intro_bg_dx.h: data/bg/intro_bg_dx.png
+	$(IMGTOGB) --map -c $< --rle -C intro_bg_dx.c intro_bg_dx.h
 
 zoom_circles.c zoom_circles.h: data/bg/zoom_circles.png
 	$(IMGTOGB) --map $< -C zoom_circles.c zoom_circles.h

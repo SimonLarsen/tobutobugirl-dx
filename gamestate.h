@@ -10,6 +10,7 @@ void setWinscreenBackground(UBYTE level);
 void setCloudAnimation(UBYTE skin);
 void set_bkg_data_rle(UBYTE first, UBYTE n, UBYTE *data);
 void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
+void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
 void setGameBank(UBYTE i);
 void setMusicBank(UBYTE i);
 void playMusic(UBYTE *data);
@@ -83,6 +84,8 @@ extern UBYTE entity_sprites[10];
 #define GAME_BACKGROUNDS_BANK 7U
 #define WINSCREEN_BACKGROUNDS_BANK 9U
 #define CLOUD_ANIMATIONS_BANK 8U
+
+#define CGB_MODE (_cpu == CGB_TYPE)
 
 extern const UBYTE level_names[7][6];
 extern const UBYTE level_max_time[4];

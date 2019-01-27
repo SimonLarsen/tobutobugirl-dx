@@ -8,6 +8,7 @@
 #include "ram.h"
 
 #include "data/bg/titlescreen.h"
+#include "data/bg/titlescreen_dx.h"
 #include "data/bg/titlescreen_bg.h"
 #include "characters.h"
 #include "data/sprite/title_cat.h"
@@ -30,10 +31,21 @@ void initTitle() {
 	move_win(7U, 0U);
 	move_bkg(0U, 72U);
 
-	set_bkg_data(0U, titlescreen_data_length, titlescreen_data);
-	set_bkg_data(titlescreen_bg_tiles_offset, titlescreen_bg_data_length, titlescreen_bg_data);
-	set_win_tiles(0U, 0U, titlescreen_tiles_width, titlescreen_tiles_height, titlescreen_tiles);
-	set_bkg_tiles(0U, 0U, titlescreen_bg_tiles_width, titlescreen_bg_tiles_height, titlescreen_bg_tiles);
+    if(CGB_MODE) {
+	    set_bkg_data_rle(0U, titlescreen_dx_data_length, titlescreen_dx_data);
+	    set_win_tiles_rle(0U, 0U, titlescreen_dx_tiles_width, titlescreen_dx_tiles_height, titlescreen_dx_tiles);
+        set_bkg_palette(0U, titlescreen_dx_palette_data_length, titlescreen_dx_palette_data);
+        VBK_REG = 1U;
+	    set_win_tiles_rle(0U, 0U, titlescreen_dx_tiles_width, titlescreen_dx_tiles_height, titlescreen_dx_palettes);
+        VBK_REG = 0U;
+    } else {
+	    set_bkg_data_rle(0U, titlescreen_data_length, titlescreen_data);
+	    set_win_tiles_rle(0U, 0U, titlescreen_tiles_width, titlescreen_tiles_height, titlescreen_tiles);
+    }
+
+	set_bkg_data_rle(titlescreen_bg_tiles_offset, titlescreen_bg_data_length, titlescreen_bg_data);
+	set_bkg_tiles_rle(0U, 0U, titlescreen_bg_tiles_width, titlescreen_bg_tiles_height, titlescreen_bg_tiles);
+
 	set_sprite_data(0U, 37U, characters_data);
 	set_sprite_data(38U, title_cat_data_length, title_cat_data);
 

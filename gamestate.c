@@ -1,4 +1,5 @@
 #include <gb/gb.h>
+#include <gb/cgb.h>
 #include "defines.h"
 #include "gamestate.h"
 #include "background1.h"
@@ -152,18 +153,42 @@ void setIngameBackground(UBYTE level) {
 		case 1U:
 			set_bkg_data_rle(background1_tiles_offset, background1_data_length, background1_data);
 			set_bkg_tiles_rle(0U, 0U, background1_tiles_width, background1_tiles_height, background1_tiles);
+            if(CGB_MODE) {
+                set_bkg_palette(0U, background1_palette_data_length, background1_palette_data);
+                VBK_REG = 1U;
+			    set_bkg_tiles_rle(0U, 0U, background1_tiles_width, background1_tiles_height, background1_palettes);
+                VBK_REG = 0U;
+            }
 			break;
 		case 2U:
 			set_bkg_data_rle(background2_tiles_offset, background2_data_length, background2_data);
 			set_bkg_tiles_rle(0U, 0U, background2_tiles_width, background2_tiles_height, background2_tiles);
+            if(CGB_MODE) {
+                set_bkg_palette(0U, background2_palette_data_length, background2_palette_data);
+                VBK_REG = 1U;
+			    set_bkg_tiles_rle(0U, 0U, background2_tiles_width, background2_tiles_height, background2_palettes);
+                VBK_REG = 0U;
+            }
 			break;
 		case 3U:
 			set_bkg_data_rle(background3_tiles_offset, background3_data_length, background3_data);
 			set_bkg_tiles_rle(0U, 0U, background3_tiles_width, background3_tiles_height, background3_tiles);
+            if(CGB_MODE) {
+                set_bkg_palette(0U, background3_palette_data_length, background3_palette_data);
+                VBK_REG = 1U;
+			    set_bkg_tiles_rle(0U, 0U, background3_tiles_width, background3_tiles_height, background3_palettes);
+                VBK_REG = 0U;
+            }
 			break;
 		case 4U:
 			set_bkg_data_rle(background4_tiles_offset, background4_data_length, background4_data);
 			set_bkg_tiles_rle(0U, 0U, background4_tiles_width, background4_tiles_height, background4_tiles);
+            if(CGB_MODE) {
+                set_bkg_palette(0U, background4_palette_data_length, background4_palette_data);
+                VBK_REG = 1U;
+			    set_bkg_tiles_rle(0U, 0U, background4_tiles_width, background4_tiles_height, background4_palettes);
+                VBK_REG = 0U;
+            }
 			break;
 
 		case 255U: // pause menu
@@ -256,6 +281,27 @@ void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles
 				}
 			}
 			set_bkg_tiles(ix, iy, 1U, 1U, &tile);
+			run--;
+		}
+	}
+}
+
+void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles) {
+	UBYTE ix, iy, run, tile;
+	run = 0U;
+	for(iy = y; iy != y+height; ++iy) {
+		for(ix = x; ix != x+width; ++ix) {
+			if(run == 0U) {
+				tile = tiles[0];
+				if(tiles[0] == tiles[1]) {
+					run = tiles[2];
+					tiles += 3U;
+				} else {
+					run = 1U;
+					tiles++;
+				}
+			}
+			set_win_tiles(ix, iy, 1U, 1U, &tile);
 			run--;
 		}
 	}

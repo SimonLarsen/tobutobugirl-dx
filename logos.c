@@ -29,6 +29,13 @@ void initLogos() {
 	set_bkg_data_rle(0U, tangram_data_length, tangram_data);
 	set_bkg_tiles_rle(0U, 0U, tangram_tiles_width, tangram_tiles_height, tangram_tiles);
 
+    if(CGB_MODE) {
+        set_bkg_palette(0U, tangram_palette_data_length, tangram_palette_data);
+        VBK_REG = 1U;
+        set_bkg_tiles_rle(0U, 0U, tangram_tiles_width, tangram_tiles_height, tangram_palettes);
+        VBK_REG = 0U;
+    }
+
 	set_sprite_data(0U, shine_data_length, shine_data);
 
 	DISPLAY_ON;
