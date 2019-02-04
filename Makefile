@@ -25,7 +25,7 @@ OBJ_BANK3=intro.o intro_bg.o intro_bg_dx.o ending.o
 OBJ_BANK4=jukebox.o
 OBJ_BANK5=
 OBJ_BANK6=
-OBJ_BANK7=winscreen.o background1.o background2.o background3.o background4.o 
+OBJ_BANK7=winscreen.o background1.o background2.o background3.o background4.o pause_bg.o
 OBJ_BANK8=title.o pause_cloud1.o pause_cloud2.o
 OBJ_BANK9=logos.o win1.o win2.o win3.o win4.o
 OBJ_BANK10=sound_data.o
@@ -66,6 +66,9 @@ background3.o: background3.c background3.h
 background4.o: background4.c background4.h
 	${compile-source}
 
+pause_bg.o: pause_bg.c pause_bg.h
+	${compile-source}
+
 catface.o: catface.c catface.h
 	${compile-source}
 
@@ -81,13 +84,16 @@ cos.o: cos.c cos.h
 ending.o: ending.c defines.h ending.h gamestate.h fade.h intro_bg.h intro_bg_dx.h data/bg/ending_thanks.h data/sprite/ending_sprites1.h data/sprite/ending_sprites2.h mmlgb/driver/music.h
 	${compile-source}
 
-fade.o: fade.c sound.h fade.h
+fade.asm: fade.c gamestate.h sound.h fade.h
+	$(SDCCN) -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
+
+fade.o: fade.asm
 	${compile-source}
 
 game.o: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h data/bg/hud.h data/bg/clock.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h
 	${compile-source}
 
-gamestate.o: gamestate.c defines.h gamestate.h background1.h background2.h background3.h background4.h data/bg/pause_bg.h win1.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
+gamestate.o: gamestate.c defines.h gamestate.h background1.h background2.h background3.h background4.h pause_bg.h win1.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
 	${compile-source}
 
 highscore.o: highscore.c defines.h gamestate.h fade.h cos.h highscore.h ram.h sound.h characters.h arrow.h data/sprite/empty.h data/bg/highscore.h circles.h selection1.h selection2.h selection3.h selection4.h selection_locked.h

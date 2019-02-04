@@ -29,7 +29,7 @@ data/bg/catface.h: data/bg/catface.png
 data/bg/select.h: data/bg/select.png
 	$(IMGTOGB) --map --rle -O 13 $< $@
 
-ingame_backgrounds: data/bg/hud.h data/bg/clock.h background1.h background2.h background3.h background4.h
+ingame_backgrounds: data/bg/hud.h data/bg/clock.h background1.h background2.h background3.h background4.h pause_bg.h
 
 data/bg/hud.h: data/bg/hud.png
 	$(IMGTOGB) --map $< $@
@@ -49,10 +49,8 @@ background3.h background3.c: data/bg/background3.png data/bg/background3_dx.png
 background4.h background4.c: data/bg/background4.png data/bg/background4_dx.png
 	$(IMGTOGB) --map -O 34 --rle $< --dx data/bg/background4_dx.png -C background4.c background4.h
 
-pause_backgrounds: data/bg/pause_bg.h
-
-data/bg/pause_bg.h: data/bg/pause_bg.png
-	$(IMGTOGB) --map --rle -O 38 $< $@
+pause_bg.h pause_bg.c: data/bg/pause_bg.png
+	$(IMGTOGB) --map -O 38 --rle $< -C pause_bg.c pause_bg.h
 
 winscreen_backgrounds: data/bg/win_base.h data/bg/rank_banner.h win1.h win2.h win3.h win4.h
 

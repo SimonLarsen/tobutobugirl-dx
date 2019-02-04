@@ -6,7 +6,7 @@
 #include "background2.h"
 #include "background3.h"
 #include "background4.h"
-#include "data/bg/pause_bg.h"
+#include "pause_bg.h"
 #include "win1.h"
 #include "win2.h"
 #include "win3.h"
