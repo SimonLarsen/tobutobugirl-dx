@@ -21,6 +21,7 @@ const UBYTE spriteFadePals[] = {
 };
 
 UWORD palette_buffer[32];
+UWORD palette_buffer2[32];
 
 #define GET_RED(c) (c & 0x1FU)
 #define GET_GREEN(c) ((c >> 5) & 0x1FU)
@@ -57,10 +58,10 @@ void fadeToWhiteCGB(UBYTE delay) {
                 if(r <= 29U) r += 2U; else r = 31U;
                 if(g <= 29U) g += 2U; else g = 31U;
                 if(b <= 29U) b += 2U; else b = 31U;
-                data[c] = RGB(r, g, b);
+                palette_buffer[(p << 2) + c] = RGB(r, g, b);
             }
-            set_bkg_palette(p, 1U, data);
         }
+        set_bkg_palette(0, 8U, palette_buffer);
 
         for(p = 0U; p != delay; ++p) {
             snd_update();
@@ -109,10 +110,10 @@ void fadeFromWhiteCGB(UBYTE delay) {
                 if(r <= 31U-i) r += i; else r = 31U;
                 if(g <= 31U-i) g += i; else g = 31U;
                 if(b <= 31U-i) b += i; else b = 31U;
-                data[c] = RGB(r, g, b);
+                palette_buffer2[(p << 2) + c] = RGB(r, g, b);
             }
-            set_bkg_palette(p, 1U, data);
         }
+        set_bkg_palette(0U, 8U, palette_buffer2);
 
         for(p = 0U; p != delay; ++p) {
             snd_update();

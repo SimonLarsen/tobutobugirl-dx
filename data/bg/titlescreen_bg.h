@@ -60,6 +60,7 @@ const unsigned char titlescreen_bg_palettes[] = {
       0,   0,  85
 };
 #define titlescreen_bg_palette_data_length 3
+#define titlescreen_bg_palette_offset 0
 const unsigned int titlescreen_bg_palette_data[] = {
     32767, 21064, 16586,   0,
     18206, 21064, 16586,   0,

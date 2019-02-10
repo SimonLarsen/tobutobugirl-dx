@@ -85,7 +85,7 @@ void initUnlocked() {
 void enterUnlocked() {
 	initUnlocked();
 
-	fadeFromWhite(6U);
+	fadeFromWhite(8U);
 
 	setMusicBank(9U);
 	disable_interrupts();

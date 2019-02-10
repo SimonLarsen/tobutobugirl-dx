@@ -29,25 +29,28 @@ data/bg/catface.h: data/bg/catface.png
 data/bg/select.h: data/bg/select.png
 	$(IMGTOGB) --map --rle -O 13 $< $@
 
-ingame_backgrounds: data/bg/hud.h data/bg/clock.h background1.h background2.h background3.h background4.h pause_bg.h
+ingame_backgrounds: data/bg/hud.h data/bg/hud_dx.h data/bg/clock.h background1.h background2.h background3.h background4.h pause_bg.h
 
 data/bg/hud.h: data/bg/hud.png
 	$(IMGTOGB) --map $< $@
 
+data/bg/hud_dx.h: data/bg/hud_dx.png
+	$(IMGTOGB) --map -c -P 6 $< $@
+
 data/bg/clock.h: data/bg/clock.png
-	$(IMGTOGB) --map -O 20 $< $@
+	$(IMGTOGB) --map -O 21 $< $@
 
 background1.h background1.c: data/bg/background1.png data/bg/background1_dx.png
-	$(IMGTOGB) --map -O 34 --rle $< --dx data/bg/background1_dx.png -C background1.c background1.h
+	$(IMGTOGB) --map -O 35 --rle $< --dx data/bg/background1_dx.png -C background1.c background1.h
 
 background2.h background2.c: data/bg/background2.png data/bg/background2_dx.png
-	$(IMGTOGB) --map -O 34 --rle $< --dx data/bg/background2_dx.png -C background2.c background2.h
+	$(IMGTOGB) --map -O 35 --rle $< --dx data/bg/background2_dx.png -C background2.c background2.h
 
 background3.h background3.c: data/bg/background3.png data/bg/background3_dx.png
-	$(IMGTOGB) --map -O 34 --rle $< --dx data/bg/background3_dx.png -C background3.c background3.h
+	$(IMGTOGB) --map -O 35 --rle $< --dx data/bg/background3_dx.png -C background3.c background3.h
 
 background4.h background4.c: data/bg/background4.png data/bg/background4_dx.png
-	$(IMGTOGB) --map -O 34 --rle $< --dx data/bg/background4_dx.png -C background4.c background4.h
+	$(IMGTOGB) --map -O 35 --rle $< --dx data/bg/background4_dx.png -C background4.c background4.h
 
 pause_bg.h pause_bg.c: data/bg/pause_bg.png
 	$(IMGTOGB) --map -O 38 --rle $< -C pause_bg.c pause_bg.h

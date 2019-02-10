@@ -290,7 +290,7 @@ void enterEnding() {
 
 	move_bkg(0U, scroll_y);
 
-	fadeFromWhite(6U);
+	fadeFromWhite(8U);
 
 	ticks = 0U;
 	scroll_y = 20U;

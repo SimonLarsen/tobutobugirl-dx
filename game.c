@@ -13,6 +13,7 @@
 
 // Maps
 #include "data/bg/hud.h"
+#include "data/bg/hud_dx.h"
 #include "data/bg/clock.h"
 // Sprites
 #include "data/sprite/sprites.h"
@@ -88,20 +89,30 @@ void initGame() {
 	BGP_REG = 0xE4U;  // 11100100
 
 	// Load tile data
-	set_bkg_data(hud_tiles_offset, hud_data_length, hud_data);
-	set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
-	set_win_tiles(0U, 0U, hud_tiles_width, hud_tiles_height, hud_tiles);
+    if(CGB_MODE) {
+        set_bkg_data(hud_dx_tiles_offset, hud_dx_data_length, hud_dx_data);
+        set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
+        set_bkg_palette(hud_dx_palette_offset, hud_dx_palette_data_length, hud_dx_palette_data);
+        set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_tiles);
+        VBK_REG = 1U;
+        set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_palettes);
+        VBK_REG = 0U;
+    } else {
+        set_bkg_data(hud_tiles_offset, hud_data_length, hud_data);
+        set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
+        set_win_tiles(0U, 0U, hud_tiles_width, hud_tiles_height, hud_tiles);
+    }
 
 	skin_data = getSkinData();
 	set_sprite_data(24U, sprites_data_length, sprites_data);
 	set_sprite_data(0U, 4U, skin_data);
 	set_sprite_data(4U, portal_data_length, portal_data);
 
+    setIngameBackground(level);
+
 	if(first_load) {
 		first_load = 0U;
 		last_progress = 0U;
-
-		setIngameBackground(level);
 
 		switch(level) {
 			case 1U:
@@ -165,6 +176,7 @@ void initGame() {
 	move_win(151U, 0U);
 
 	updateHUDTime();
+	initSpawns();
 
 	SHOW_BKG;
 	SHOW_WIN;
@@ -956,9 +968,8 @@ void enterGame() {
 	first_load = 1U;
 ingame_start:
 	initGame();
-	initSpawns();
 
-	fadeFromWhite(10U);
+	fadeFromWhite(8U);
 
 	introAnimation();
 

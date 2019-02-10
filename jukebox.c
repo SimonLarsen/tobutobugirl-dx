@@ -149,7 +149,7 @@ void jukeboxUpdateTitle() {
 void enterJukebox() {
 	initJukebox();
 
-	fadeFromWhite(10U);
+	fadeFromWhite(8U);
 
 	while(1U) {
 		updateJoystate();

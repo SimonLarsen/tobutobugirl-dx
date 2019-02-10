@@ -247,7 +247,7 @@ void saveMinigameTime() {
 void enterTitle() {
 	initTitle();
 
-	fadeFromWhite(6U);
+	fadeFromWhite(8U);
 
 	setMusicBank(4U);
 	disable_interrupts();

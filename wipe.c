@@ -43,7 +43,7 @@ void initWipe() {
 void enterWipe() {
 	initWipe();
 
-	fadeFromWhite(6U);
+	fadeFromWhite(8U);
 
 	while(1U) {
 		updateJoystate();

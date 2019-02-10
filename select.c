@@ -271,7 +271,7 @@ void enterSelect() {
 	UBYTE i, offset, name_index;
 	initSelect();
 
-	fadeFromWhite(6U);
+	fadeFromWhite(4U);
 
 	while(gamestate == GAMESTATE_SELECT) {
 		updateJoystate();

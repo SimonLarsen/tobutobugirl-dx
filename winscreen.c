@@ -220,7 +220,7 @@ void enterWinscreen() {
 	UBYTE tile, tmp;
 	initWinscreen();
 
-	fadeFromWhite(10U);
+	fadeFromWhite(8U);
 
 	disable_interrupts();
 	// Did we come from end of ending sequence?

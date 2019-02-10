@@ -74,7 +74,7 @@ void initMinigamescore() {
 void enterMinigamescore() {
 	initMinigamescore();
 
-	fadeFromWhite(6U);
+	fadeFromWhite(8U);
 
 	while(1U) {
 		updateJoystate();

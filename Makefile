@@ -95,7 +95,7 @@ fade.asm: fade.c gamestate.h sound.h fade.h
 fade.o: fade.asm
 	${compile-source}
 
-game.o: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h data/bg/hud.h data/bg/clock.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h
+game.o: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h data/bg/hud.h data/bg/hud_dx.h data/bg/clock.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h
 	${compile-source}
 
 gamestate.o: gamestate.c defines.h gamestate.h background1.h background2.h background3.h background4.h pause_bg.h win1.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h

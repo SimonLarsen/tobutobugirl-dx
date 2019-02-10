@@ -7,6 +7,7 @@ extern const unsigned char intro_bg_dx_data[];
 #define intro_bg_dx_tiles_offset 0
 extern const unsigned char intro_bg_dx_tiles[];
 #define intro_bg_dx_palette_data_length 8
+#define intro_bg_dx_palette_offset 0
 extern const unsigned char intro_bg_dx_palettes[];
 extern const unsigned int intro_bg_dx_palette_data[];
 #endif

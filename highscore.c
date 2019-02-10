@@ -168,7 +168,7 @@ void enterHighscore() {
 
 	initHighscore();
 
-	fadeFromWhite(6U);
+	fadeFromWhite(8U);
 
 	disable_interrupts();
 	if(ending_flags & ENDING_FLAG_FROM_DREAM) {

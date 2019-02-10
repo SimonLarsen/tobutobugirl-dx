@@ -8,3 +8,5 @@ data/songs/*.asm
 *.noi
 *.map
 *.sym
+*.lk
+*.sav

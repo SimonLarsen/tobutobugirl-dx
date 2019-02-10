@@ -107,6 +107,7 @@ const unsigned char titlescreen_dx_palettes[] = {
       0,   0,  16,   3,   0,   0, 111
 };
 #define titlescreen_dx_palette_data_length 4
+#define titlescreen_dx_palette_offset 0
 const unsigned int titlescreen_dx_palette_data[] = {
     27055, 28336, 32767, 6364,
     6364, 13757, 28336, 32767,
