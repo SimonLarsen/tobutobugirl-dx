@@ -298,7 +298,7 @@ void enterWinscreen() {
 	}
 
 	clearSprites();
-	fadeToWhite(10U);
+	fadeToWhite(12U);
 
 	stopMusic();
 }

@@ -98,7 +98,7 @@ void enterMinigamescore() {
 	}
 
 	clearRemainingSprites();
-	fadeToWhite(6U);
+	fadeToWhite(8U);
 
 	stopMusic();
 	gamestate = GAMESTATE_TITLE;

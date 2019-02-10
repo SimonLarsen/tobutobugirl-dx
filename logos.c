@@ -90,16 +90,22 @@ void enterLogos() {
 	}
 
 	stopMusic();
-	fadeToWhite(8U);
+    fadeToWhite(8U);
 
 	disable_interrupts();
 	DISPLAY_OFF;
 	set_bkg_data_rle(0U, potato_data_length, potato_data);
 	set_bkg_tiles_rle(0U, 0U, potato_tiles_width, potato_tiles_height, potato_tiles);
+    if(CGB_MODE) {
+        for(i = 0U; i != 8U; ++i) {
+            set_bkg_palette(i, 1U, gs_palette);
+        }
+    }
 
 	DISPLAY_ON;
 	enable_interrupts();
 
+    BGP_REG = 0xE4U;
 	fadeFromWhite(8U);
 
 	disable_interrupts();
@@ -116,7 +122,7 @@ void enterLogos() {
 	}
 
 	stopMusic();
-	fadeToWhite(8U);
+    fadeToWhite(8U);
 
 	gamestate = GAMESTATE_INTRO;
 }

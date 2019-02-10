@@ -117,7 +117,7 @@ void enterUnlocked() {
 	}
 
 	clearRemainingSprites();
-	fadeToWhite(6U);
+	fadeToWhite(8U);
 
 	stopMusic();
 }

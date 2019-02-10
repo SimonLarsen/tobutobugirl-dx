@@ -246,6 +246,6 @@ void enterHighscore() {
 
 	stopMusic();
 	clearRemainingSprites();
-	fadeToWhite(6U);
+	fadeToWhite(8U);
 	wait_sound_done();
 }

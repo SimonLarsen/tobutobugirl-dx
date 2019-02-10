@@ -83,6 +83,13 @@ const UBYTE entity_sprites[10] = {
 	27*4	// E_CLOUD
 };
 
+const UWORD gs_palette[4] = {
+    RGB(31, 31, 31),
+    RGB(20, 20, 20),
+    RGB(10, 10, 10),
+    RGB(0, 0, 0)
+};
+
 UBYTE getRank(UBYTE score, UBYTE level) {
 	UBYTE i;
 	for(i = 0U; i != 4U; ++i) {

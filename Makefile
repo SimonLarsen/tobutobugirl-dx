@@ -1,5 +1,6 @@
 CC=lcc
-CFLAGS=-Wl-j
+CFLAGS=-Wa-l -Wl-m -Wl-j
+SDCCN=/home/simon/share/sdcc-3.8.0/bin/sdcc -mgbz80 --no-std-crt0 -I "$(GBDK_DIR)/include" -I "$(GBDK_DIR)/include/asm"
 IMGTOGB=imgtogb.py
 MMLGB=MMLGB.jar
 
@@ -15,7 +16,8 @@ include songs.mk
 include sounds.mk
 
 OBJ=main.o fade.o gamestate.o cos.o circles.o zoom_circles.o characters.o sound.o \
-	mmlgb/driver/music.o mmlgb/driver/freq.o mmlgb/driver/noisefreq.o mmlgb/driver/vib.o arrow.o
+	mmlgb/driver/music.o mmlgb/driver/freq.o mmlgb/driver/noisefreq.o mmlgb/driver/vib.o arrow.o \
+	getpal.o
 
 OBJ_BANK1=game.o pause.o wipe.o minigamescore.o
 OBJ_BANK2=select.o highscore.o unlocked.o \
@@ -50,6 +52,9 @@ $(OBJ_BANK10): CFLAGS+=-Wf-bo10
 $(OBJ_BANK11): CFLAGS+=-Wf-bo11
 
 $(RAM_BANK1): CFLAGS+=-Wf-ba0
+
+getpal.o: getpal.asm
+	${compile-source}
 
 arrow.o: arrow.c arrow.h
 	${compile-source}

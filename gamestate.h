@@ -91,4 +91,6 @@ extern const UBYTE level_names[7][6];
 extern const UBYTE level_max_time[4];
 extern const UBYTE rank_letters[4];
 
+extern const UWORD gs_palette[4];
+
 #endif

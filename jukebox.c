@@ -254,7 +254,7 @@ void enterJukebox() {
 
 	stopMusic();
 	clearRemainingSprites();
-	fadeToWhite(10U);
+	fadeToWhite(8U);
 	wait_sound_done();
 
 	remove_TIM(jukeboxUpdateMusic);

@@ -828,7 +828,7 @@ void intoPortalAnimation() {
 	}
 	stopMusic();
 
-	fadeToWhite(10U);
+	fadeToWhite(8U);
 	wait_sound_done();
 }
 
@@ -1030,7 +1030,7 @@ ingame_start:
 		}
 
 		clearRemainingSprites();
-		fadeToWhite(10U);
+		fadeToWhite(8U);
 		wait_sound_done();
 	}
 	else if(scene_state == INGAME_COMPLETED) {

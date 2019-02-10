@@ -37,6 +37,7 @@ extern UBYTE mainmenu_song_data;
 extern UBYTE potaka_song_data;
 
 void initSelect() {
+    UBYTE i;
 	disable_interrupts();
 	DISPLAY_OFF;
 
@@ -49,6 +50,12 @@ void initSelect() {
 	set_bkg_data(catface_tiles_offset, catface_data_length, catface_data);
 	set_bkg_data_rle(select_tiles_offset, select_data_length, select_data);
 	set_bkg_tiles_rle(0U, 0U, select_tiles_width, select_tiles_height, select_tiles);
+
+    if(CGB_MODE) {
+        for(i = 0U; i != 8U; ++i) {
+            set_bkg_palette(i, 1U, gs_palette);
+        }
+    }
 
 	ticks = 0U;
 	timer = 0U;
@@ -67,7 +74,7 @@ void initSelect() {
 
 	OBP0_REG = 0xD0U; // 11010000
 	OBP1_REG = 0xB4U; // 11100100
-	BGP_REG = 0xB4U; // 11100100
+	BGP_REG = 0xE4U; // 11100100
 
 	clearSprites();
 	_selectUpdateScreen();
@@ -368,6 +375,6 @@ void enterSelect() {
 
 	stopMusic();
 	clearRemainingSprites(); // Remove all sprites
-	fadeToWhite(6U);
+	fadeToWhite(8U);
 	wait_sound_done();
 }

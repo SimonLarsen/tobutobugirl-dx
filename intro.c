@@ -228,7 +228,7 @@ void enterIntro() {
 	}
 
 	clearRemainingSprites();
-	fadeToWhite(10U);
+	fadeToWhite(12U);
 
 	stopMusic();
 }
