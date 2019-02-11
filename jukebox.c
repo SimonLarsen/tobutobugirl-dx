@@ -8,6 +8,7 @@
 #include "mmlgb/driver/music.h"
 
 #include "data/bg/jukebox.h"
+#include "data/bg/jukebox_dx.h"
 #include "data/sprite/digital.h"
 #include "arrow.h"
 #include "data/sprite/notes.h"
@@ -49,7 +50,16 @@ const UBYTE song_names[JUKEBOX_NUM_SONGS][8] = {
 
 const UBYTE jukebox_unlocked[5U] = { 4U, 7U, 8U, 10U, 11U }; 
 
+const UWORD digital_palette[4] = {
+    RGB(31, 31, 31),
+    RGB(20, 20, 20),
+    RGB(6, 5, 5),
+    RGB(0, 0, 0)
+};
+
 void initJukebox() {
+    UBYTE i, j;
+
 	disable_interrupts();
 	DISPLAY_OFF;
 
@@ -62,9 +72,23 @@ void initJukebox() {
 	set_sprite_data(arrow_data_length, notes_data_length, notes_data);
 	set_sprite_data(arrow_data_length+notes_data_length, bobblehead_data_length, bobblehead_data);
 
-	set_bkg_data(0U, 37U, digital_data);
-	set_bkg_data_rle(jukebox_tiles_offset, jukebox_data_length, jukebox_data);
-	set_bkg_tiles_rle(0U, 0U, jukebox_tiles_width, jukebox_tiles_height, jukebox_tiles);
+    set_bkg_data(0U, 37U, digital_data);
+    if(CGB_MODE) {
+        set_bkg_data_rle(jukebox_dx_tiles_offset, jukebox_dx_data_length, jukebox_dx_data);
+        set_bkg_tiles_rle(0U, 0U, jukebox_dx_tiles_width, jukebox_dx_tiles_height, jukebox_dx_tiles);
+        set_bkg_palette_buffer(0U, jukebox_dx_palette_data_length, jukebox_dx_palette_data);
+        set_bkg_palette_buffer(7U, 1U, digital_palette);
+        VBK_REG = 1U;
+        set_bkg_tiles_rle(0U, 0U, jukebox_dx_tiles_width, jukebox_dx_tiles_height, jukebox_dx_palettes);
+        j = 7U;
+        for(i = 6U; i != 14U; ++i) {
+            set_bkg_tiles(i, 12U, 1U, 1U, &j);
+        }
+        VBK_REG = 0U;
+    } else {
+        set_bkg_data_rle(jukebox_tiles_offset, jukebox_data_length, jukebox_data);
+        set_bkg_tiles_rle(0U, 0U, jukebox_tiles_width, jukebox_tiles_height, jukebox_tiles);
+    }
 
 	OBP0_REG = 0xD0U; // 11010000
 	OBP1_REG = 0xE4; // 11100100

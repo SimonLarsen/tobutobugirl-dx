@@ -30,7 +30,7 @@ void initLogos() {
 	set_bkg_tiles_rle(0U, 0U, tangram_tiles_width, tangram_tiles_height, tangram_tiles);
 
     if(CGB_MODE) {
-        set_bkg_palette(0U, tangram_palette_data_length, tangram_palette_data);
+        set_bkg_palette_buffer(0U, tangram_palette_data_length, tangram_palette_data);
         VBK_REG = 1U;
         set_bkg_tiles_rle(0U, 0U, tangram_tiles_width, tangram_tiles_height, tangram_palettes);
         VBK_REG = 0U;
@@ -98,7 +98,7 @@ void enterLogos() {
 	set_bkg_tiles_rle(0U, 0U, potato_tiles_width, potato_tiles_height, potato_tiles);
     if(CGB_MODE) {
         for(i = 0U; i != 8U; ++i) {
-            set_bkg_palette(i, 1U, gs_palette);
+            set_bkg_palette_buffer(i, 1U, gs_palette);
         }
     }
 

@@ -29,7 +29,7 @@ void initIntro() {
     if(CGB_MODE) {
 	    set_bkg_data_rle(0U, intro_bg_dx_data_length, intro_bg_dx_data);
 	    set_bkg_tiles_rle(0U, 0U, intro_bg_dx_tiles_width, intro_bg_dx_tiles_height, intro_bg_dx_tiles);
-        set_bkg_palette(0U, intro_bg_dx_palette_data_length, intro_bg_dx_palette_data);
+        set_bkg_palette_buffer(0U, intro_bg_dx_palette_data_length, intro_bg_dx_palette_data);
         VBK_REG = 1U;
 	    set_bkg_tiles_rle(0U, 0U, intro_bg_dx_tiles_width, intro_bg_dx_tiles_height, intro_bg_dx_palettes);
         VBK_REG = 0U;

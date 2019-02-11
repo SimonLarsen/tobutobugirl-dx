@@ -20,6 +20,18 @@ const UBYTE title_message[11] = {
 	26U, 28U, 15U, 29U, 29U, 10U, 29U, 30U, 11U, 28U, 30U
 };
 
+const UWORD minigame_palette_data[4] = {
+    RGB(31, 31, 31),
+    RGB(18, 24, 26),
+    RGB(15, 13, 26),
+    RGB(0, 0, 0)
+};
+
+const UBYTE minigame_palettes[6] = {
+    4U, 4U, 180U,
+    4U, 4U, 180U
+};
+
 UBYTE next_enemy;
 
 void initTitle() {
@@ -34,9 +46,11 @@ void initTitle() {
     if(CGB_MODE) {
 	    set_bkg_data_rle(0U, titlescreen_dx_data_length, titlescreen_dx_data);
 	    set_win_tiles_rle(0U, 0U, titlescreen_dx_tiles_width, titlescreen_dx_tiles_height, titlescreen_dx_tiles);
-        set_bkg_palette(0U, titlescreen_dx_palette_data_length, titlescreen_dx_palette_data);
+        set_bkg_palette_buffer(0U, titlescreen_dx_palette_data_length, titlescreen_dx_palette_data);
+        set_bkg_palette_buffer(4U, 1U, minigame_palette_data);
         VBK_REG = 1U;
 	    set_win_tiles_rle(0U, 0U, titlescreen_dx_tiles_width, titlescreen_dx_tiles_height, titlescreen_dx_palettes);
+        set_bkg_tiles_rle(0U, 0U, 20U, 20U, minigame_palettes);
         VBK_REG = 0U;
     } else {
 	    set_bkg_data_rle(0U, titlescreen_data_length, titlescreen_data);
@@ -398,6 +412,8 @@ void enterTitle() {
 						scroll_x--;
 					}
 				} else {
+                    scroll_y = 144U;
+                    scroll_x = 0U;
 					updateTitleEnemies();
 				}
 

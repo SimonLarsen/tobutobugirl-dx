@@ -135,7 +135,7 @@ void main() {
 				enterEnding();
 				break;
 			case GAMESTATE_JUKEBOX:
-				setGameBank(4U);
+				setGameBank(12U);
 				enterJukebox();
 				break;
 			case GAMESTATE_WINSCREEN:

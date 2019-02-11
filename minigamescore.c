@@ -10,7 +10,7 @@
 #include "zoom_circles.h"
 
 void initMinigamescore() {
-	UBYTE tile;
+	UBYTE i;
 
 	disable_interrupts();
 	DISPLAY_OFF;
@@ -23,39 +23,42 @@ void initMinigamescore() {
 	set_bkg_data(18U, 8U, zoom_circles_data);
 
 	set_bkg_tiles_rle(0U, 0U, minigame_score_bg_tiles_width, minigame_score_bg_tiles_height, minigame_score_bg_tiles);
+    for(i = 0U; i != 8U; ++i) {
+        set_bkg_palette_buffer(i, 1U, gs_palette);
+    }
 
 	// draw this time
 	if(elapsed_minutes >= 10U) {
-		tile = elapsed_minutes / 10U;
-		set_bkg_tiles(13U, 7U, 1U, 1U, &tile);
+		i = elapsed_minutes / 10U;
+		set_bkg_tiles(13U, 7U, 1U, 1U, &i);
 	}
 
-	tile = elapsed_minutes % 10U;
-	set_bkg_tiles(14U, 7U, 1U, 1U, &tile);
+	i = elapsed_minutes % 10U;
+	set_bkg_tiles(14U, 7U, 1U, 1U, &i);
 
-	tile = elapsed_time / 10U;
-	set_bkg_tiles(16U, 7U, 1U, 1U, &tile);
+	i = elapsed_time / 10U;
+	set_bkg_tiles(16U, 7U, 1U, 1U, &i);
 
-	tile = elapsed_time % 10U;
-	set_bkg_tiles(17U, 7U, 1U, 1U, &tile);
+	i = elapsed_time % 10U;
+	set_bkg_tiles(17U, 7U, 1U, 1U, &i);
 
 	// draw best time
 	ENABLE_RAM_MBC1;
 	SWITCH_RAM_MBC1(0U);
 
 	if(elapsed_minutes >= 10U) {
-		tile = ram_data[RAM_MINIGAME_MIN] / 10U;
-		set_bkg_tiles(13U, 10U, 1U, 1U, &tile);
+		i = ram_data[RAM_MINIGAME_MIN] / 10U;
+		set_bkg_tiles(13U, 10U, 1U, 1U, &i);
 	}
 
-	tile = ram_data[RAM_MINIGAME_MIN] % 10U;
-	set_bkg_tiles(14U, 10U, 1U, 1U, &tile);
+	i = ram_data[RAM_MINIGAME_MIN] % 10U;
+	set_bkg_tiles(14U, 10U, 1U, 1U, &i);
 
-	tile = ram_data[RAM_MINIGAME_SEC] / 10U;
-	set_bkg_tiles(16U, 10U, 1U, 1U, &tile);
+	i = ram_data[RAM_MINIGAME_SEC] / 10U;
+	set_bkg_tiles(16U, 10U, 1U, 1U, &i);
 
-	tile = ram_data[RAM_MINIGAME_SEC] % 10U;
-	set_bkg_tiles(17U, 10U, 1U, 1U, &tile);
+	i = ram_data[RAM_MINIGAME_SEC] % 10U;
+	set_bkg_tiles(17U, 10U, 1U, 1U, &i);
 
 	DISABLE_RAM_MBC1;
 

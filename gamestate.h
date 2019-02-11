@@ -11,6 +11,7 @@ void setCloudAnimation(UBYTE skin);
 void set_bkg_data_rle(UBYTE first, UBYTE n, UBYTE *data);
 void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
 void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
+void set_bkg_palette_buffer(UBYTE first_palette, UBYTE nbpalettes, UWORD *data);
 void setGameBank(UBYTE i);
 void setMusicBank(UBYTE i);
 void playMusic(UBYTE *data);
@@ -42,6 +43,9 @@ extern UBYTE show_dashcounter;
 extern UBYTE circle_index;
 extern UBYTE next_spawn, next_clock;
 extern UBYTE next_entity;
+
+extern UWORD palette_buffer[32];
+extern UWORD palette_buffer2[32];
 
 #define MAX_ENTITIES 10U
 

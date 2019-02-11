@@ -93,10 +93,13 @@ unlocked_backgrounds: data/bg/unlocked.h
 data/bg/unlocked.h: data/bg/unlocked.png
 	$(IMGTOGB) --map -O 47 $< $@
 
-jukebox_backgrounds: data/bg/jukebox.h
+jukebox_backgrounds: data/bg/jukebox.h data/bg/jukebox_dx.h
 
 data/bg/jukebox.h: data/bg/jukebox.png
 	$(IMGTOGB) --map --rle -O 37 $< $@
+
+data/bg/jukebox_dx.h: data/bg/jukebox_dx.png
+	$(IMGTOGB) --map --rle -c -O 37 $< $@
 
 wipe_backgrounds: data/bg/wipe.h
 

@@ -24,13 +24,15 @@ OBJ_BANK2=select.o highscore.o unlocked.o \
 		  selection1.o selection2.o selection3.o selection4.o \
 		  selection_highscore.o selection_jukebox.o selection_locked.o
 OBJ_BANK3=intro.o intro_bg.o intro_bg_dx.o ending.o
-OBJ_BANK4=jukebox.o
+OBJ_BANK4=
 OBJ_BANK5=
 OBJ_BANK6=
 OBJ_BANK7=winscreen.o background1.o background2.o background3.o background4.o pause_bg.o
 OBJ_BANK8=title.o pause_cloud1.o pause_cloud2.o
 OBJ_BANK9=logos.o win1.o win2.o win3.o win4.o
 OBJ_BANK10=sound_data.o
+OBJ_BANK11=
+OBJ_BANK12=jukebox.o
 
 OBJ_ASM=title_song.o mainmenu_song.o score_tally_song.o highscore_song.o plains_song.o \
 		clouds_song.o space_song.o dream_song.o dream_score_song.o intro_song.o \
@@ -50,6 +52,7 @@ $(OBJ_BANK8): CFLAGS+=-Wf-bo8
 $(OBJ_BANK9): CFLAGS+=-Wf-bo9
 $(OBJ_BANK10): CFLAGS+=-Wf-bo10
 $(OBJ_BANK11): CFLAGS+=-Wf-bo11
+$(OBJ_BANK12): CFLAGS+=-Wf-bo12
 
 $(RAM_BANK1): CFLAGS+=-Wf-ba0
 
@@ -113,7 +116,7 @@ intro_bg_dx.o: intro_bg_dx.c intro_bg_dx.h
 intro.o: intro.c defines.h fade.h gamestate.h intro.h intro_bg_dx.h data/sprite/intro_sprites.h data/sprite/intro_flash.h
 	${compile-source}
 
-jukebox.o: jukebox.c defines.h jukebox.h fade.h gamestate.h cos.h sound.h mmlgb/driver/music.h data/bg/jukebox.h data/sprite/digital.h arrow.h data/sprite/notes.h data/sprite/bobblehead.h
+jukebox.o: jukebox.c defines.h jukebox.h fade.h gamestate.h cos.h sound.h mmlgb/driver/music.h data/bg/jukebox.h data/bg/jukebox_dx.h data/sprite/digital.h arrow.h data/sprite/notes.h data/sprite/bobblehead.h
 	${compile-source}
 
 logos.o: logos.c defines.h gamestate.h logos.h fade.h sound.h mmlgb/driver/music.h data/bg/tangram.h data/bg/potato.h data/sprite/shine.h
@@ -191,6 +194,8 @@ zoom_circles.o: zoom_circles.c zoom_circles.h
 %.o: data/songs/%.asm
 	$(CC) $(CFLAGS) -c $< -o $@
 
-tobu.gb: ram.o $(OBJ) $(OBJ_BANK1) $(OBJ_BANK2) $(OBJ_BANK3) $(OBJ_BANK4) $(OBJ_BANK5) \
-	$(OBJ_BANK6) $(OBJ_BANK7) $(OBJ_BANK8) $(OBJ_BANK9) $(OBJ_BANK10) $(OBJ_ASM)
+tobu.gb: ram.o $(OBJ) $(OBJ_ASM) \
+	$(OBJ_BANK1) $(OBJ_BANK2) $(OBJ_BANK3) $(OBJ_BANK4) \
+	$(OBJ_BANK5) $(OBJ_BANK6) $(OBJ_BANK7) $(OBJ_BANK8) \
+	$(OBJ_BANK9) $(OBJ_BANK10) $(OBJ_BANK11) $(OBJ_BANK12)
 	$(CC) $(CFLAGS) -Wl-yt3 -Wl-yo16 -Wl-ya1 -Wl-yp0x143=0x80 $^ -o $@

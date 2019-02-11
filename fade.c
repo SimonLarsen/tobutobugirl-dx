@@ -7,21 +7,18 @@
 void get_bkg_palette(UBYTE i, UBYTE *buffer);
 
 const UBYTE fadePals[] = {
-	0xE4U, // 11100100
-	0x90U, // 10010000
-	0x40U, // 01000000
-	0x00U  // 00000000
+    0xE4U, // 11100100
+    0x90U, // 10010000
+    0x40U, // 01000000
+    0x00U  // 00000000
 };
 
 const UBYTE spriteFadePals[] = {
-	0xD0U, // 11010000
-	0x80U, // 10000000
-	0x40U, // 01000000
-	0x00U  // 00000000
+    0xD0U, // 11010000
+    0x80U, // 10000000
+    0x40U, // 01000000
+    0x00U  // 00000000
 };
-
-UWORD palette_buffer[32];
-UWORD palette_buffer2[32];
 
 #define GET_RED(c) (c & 0x1FU)
 #define GET_GREEN(c) ((c >> 5) & 0x1FU)
@@ -33,7 +30,7 @@ void fadeToWhite(UBYTE delay) {
 }
 
 void fadeToWhiteGB(UBYTE delay) {
-	UINT8 i, j;
+    UINT8 i, j;
     for(i = 1U; i != 4U; ++i) {
         BGP_REG = spriteFadePals[i];
         for(j = 0U; j != delay; ++j) {
@@ -44,7 +41,7 @@ void fadeToWhiteGB(UBYTE delay) {
 }
 
 void fadeToWhiteCGB(UBYTE delay) {
-	UBYTE i, c, p;
+    UBYTE i, c, p;
     UBYTE r, g, b;
     UWORD data[4];
     for(i = 0U; i != 15U; ++i) {
@@ -76,28 +73,23 @@ void fadeFromWhite(UBYTE delay) {
 }
 
 void fadeFromWhiteGB(UBYTE delay) {
-	UINT8 i, j;
+    UINT8 i, j;
 
-	for(i = 3U; i != 0U; --i) {
-		BGP_REG = fadePals[i];
-		for(j = 0U; j != delay; ++j) {
-			snd_update();
-			wait_vbl_done();
-		}
-	}
+    for(i = 3U; i != 0U; --i) {
+        BGP_REG = fadePals[i];
+        for(j = 0U; j != delay; ++j) {
+            snd_update();
+            wait_vbl_done();
+        }
+    }
 
-	BGP_REG = fadePals[0U];
+    BGP_REG = fadePals[0U];
 }
 
 void fadeFromWhiteCGB(UBYTE delay) {
     UBYTE i, c, p;
     UBYTE r, g, b;
     UWORD v;
-    UWORD data[4];
-
-    for(p = 0U; p != 8U; ++p) {
-        get_bkg_palette(p, &palette_buffer[p << 2]);
-    }
 
     for(i = 31U; i != 1U; i -= 2U) {
         for(p = 0U; p != 8U; ++p) {
@@ -127,12 +119,12 @@ void fadeFromWhiteCGB(UBYTE delay) {
 }
 
 void fadeSpritesToWhite(UBYTE delay) {
-	UINT8 i, j;
-	for(i = 1U; i != 4U; ++i) {
-		OBP0_REG = fadePals[i];
-		for(j = 0U; j != delay; ++j) {
-			snd_update();
-			wait_vbl_done();
-		}
-	}
+    UINT8 i, j;
+    for(i = 1U; i != 4U; ++i) {
+        OBP0_REG = fadePals[i];
+        for(j = 0U; j != delay; ++j) {
+            snd_update();
+            wait_vbl_done();
+        }
+    }
 }

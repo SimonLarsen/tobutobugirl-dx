@@ -53,7 +53,7 @@ void initSelect() {
 
     if(CGB_MODE) {
         for(i = 0U; i != 8U; ++i) {
-            set_bkg_palette(i, 1U, gs_palette);
+            set_bkg_palette_buffer(i, 1U, gs_palette);
         }
     }
 
