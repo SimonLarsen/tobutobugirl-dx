@@ -78,7 +78,7 @@ const UBYTE spawn_levels[4][3][8] = {
 
 #define PROGRESS_POS(x) (((x) << 1U) / 3U)
 
-UWORD sprite_palettes[32] = {
+const UWORD sprite_palettes[32] = {
     32767, 28638, 8476, 0,
     32767, 28638, 9695, 0,
     32767, 28638, 13755, 0,
@@ -89,7 +89,7 @@ UWORD sprite_palettes[32] = {
     32767, 28638, 17050, 8500
 };
 
-UBYTE entity_palettes[10U] = {
+const UBYTE entity_palettes[10U] = {
     0U, // none
     2U, // spikes
     2U, // fireball
