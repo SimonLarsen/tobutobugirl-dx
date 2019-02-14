@@ -1,4 +1,5 @@
 #include <gb/gb.h>
+#include <gb/cgb.h>
 #include "defines.h"
 #include "unlocked.h"
 #include "fade.h"
@@ -31,6 +32,8 @@ const UBYTE unlocked_messages[3][24] = {
 
 
 void initUnlocked() {
+    UBYTE i;
+
 	disable_interrupts();
 	DISPLAY_OFF;
 
@@ -67,6 +70,8 @@ void initUnlocked() {
 		set_bkg_tiles(0U, 8U, 20U, 6U, selection4_tiles);
 		set_bkg_tiles(4U, 5U, 12U, 2U, unlocked_messages[2]);
 	}
+
+    if(CGB_MODE) { for(i = 0U; i != 8U; ++i) { set_bkg_palette_buffer(i, 1U, gs_palette); } }
 
 	BGP_REG = 0xE4U; // 11100100
 

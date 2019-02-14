@@ -1,4 +1,5 @@
 #include <gb/gb.h>
+#include <gb/cgb.h>
 #include <rand.h>
 #include "defines.h"
 #include "game.h"
@@ -77,6 +78,28 @@ const UBYTE spawn_levels[4][3][8] = {
 
 #define PROGRESS_POS(x) (((x) << 1U) / 3U)
 
+UWORD sprite_palettes[32] = {
+    32767, 28638, 8476, 0,
+    32767, 28638, 9695, 0,
+    32767, 28638, 13755, 0,
+    32767, 28638, 18777, 0,
+    32767, 28638, 13993, 0,
+    32767, 6940, 8476, 0,
+    32767, 19886, 11333, 0,
+    32767, 28638, 17050, 8500
+};
+
+UBYTE entity_palettes[10U] = {
+    0U, // none
+    2U, // spikes
+    2U, // fireball
+    4U, // alien
+    3U, // bat
+    2U, // bird
+    3U, // ghost
+    0U // clock
+};
+
 void initGame() {
     UBYTE *skin_data;
 
@@ -107,6 +130,7 @@ void initGame() {
     set_sprite_data(24U, sprites_data_length, sprites_data);
     set_sprite_data(0U, 4U, skin_data);
     set_sprite_data(4U, portal_data_length, portal_data);
+    set_sprite_palette(0U, 8U, sprite_palettes);
 
     setIngameBackground(level);
 
@@ -415,7 +439,7 @@ void updatePlayer() {
 
     // Dash marker
     if(show_dashcounter) {
-        setSprite(player_x-12U, player_y-9U, 24U+(dashes << 1), palette);
+        setSprite(player_x-12U, player_y-9U, 24U+(dashes << 1), palette | 5U);
     }
 
     if(player_xdir == LEFT) {
@@ -444,23 +468,23 @@ void updateHUD() {
     }
 
     // Blips
-    setSprite(168U-(blip_bar >> 3), 136U, 96U, OBJ_PAL0);
-    setSprite(176U-(blip_bar >> 3), 136U, 98U, OBJ_PAL0);
+    setSprite(168U-(blip_bar >> 3), 136U, 96U, OBJ_PAL0 | 5U);
+    setSprite(176U-(blip_bar >> 3), 136U, 98U, OBJ_PAL0 | 5U);
 
     // Progress bar
     frame = 100U + ((player_skin-1U) << 2U);
-    setSprite(152U, progressbar, frame, OBJ_PAL0);
-    setSprite(160U, progressbar, frame+2U, OBJ_PAL0);
+    setSprite(152U, progressbar, frame, OBJ_PAL0 | player_skin-1U);
+    setSprite(160U, progressbar, frame+2U, OBJ_PAL0 | player_skin-1U);
 
     // Set last progress flag
     if(last_progress) {
-        setSprite(153U, 119U - last_progress, 92U, OBJ_PAL0);
+        setSprite(153U, 119U - last_progress, 92U, OBJ_PAL0 | 6U);
     }
 
     // Low on time marker
     if(remaining_time <= LOW_TIME && ticks & 16U) {
-        setSprite(136U, 24U, 32U, OBJ_PAL0);
-        setSprite(144U, 24U, 34U, OBJ_PAL0);
+        setSprite(136U, 24U, 32U, OBJ_PAL0 | 5U);
+        setSprite(144U, 24U, 34U, OBJ_PAL0 | 5U);
     }
 }
 
@@ -489,7 +513,7 @@ void bouncePlayer(UBYTE entity, UBYTE str) {
 }
 
 void updateEntities() {
-    UBYTE i, x, y, frame, type, ghost_move;
+    UBYTE i, x, y, frame, pal, type, ghost_move;
 
     // Update last spawn position with last spawned
     // enemy if it still exists
@@ -582,35 +606,36 @@ void updateEntities() {
         switch(type) {
             case E_CLOUD:
                 frame += entity_dir[i] << 1U;
-                setSprite(x-16U, y, frame, OBJ_PAL0);
-                setSprite(x-8U,  y, frame, OBJ_PAL0 | FLIP_X);
+                setSprite(x-16U, y, frame, OBJ_PAL0 | 7U);
+                setSprite(x-8U,  y, frame, OBJ_PAL0 | FLIP_X | 7U);
                 break;
 
             case E_PORTAL:
                 if(level == 3U && player_skin == 1U) {
                     setSprite(x-16U, y-24U, 120U, OBJ_PAL0);
                     setSprite(x-8U,  y-24U, 122U, OBJ_PAL0);
-                    setSprite(x-16U, y-8U, 124U, OBJ_PAL0);
-                    setSprite(x-8U,  y-8U, 126U, OBJ_PAL0);
+                    setSprite(x-16U, y-8U, 124U, OBJ_PAL0 | 6U);
+                    setSprite(x-8U,  y-8U, 126U, OBJ_PAL0 | 6U);
                 } else {
                     if(entity_dir[i] == LEFT) {
-                        setSprite(x-16U, y, frame, OBJ_PAL0);
-                        setSprite(x-8U,  y, frame+2U, OBJ_PAL0);
+                        setSprite(x-16U, y, frame, OBJ_PAL0 | 6U);
+                        setSprite(x-8U,  y, frame+2U, OBJ_PAL0 | 6U);
                     } else {
-                        setSprite(x-8U,  y, frame, OBJ_PAL0 | FLIP_X);
-                        setSprite(x-16U, y, frame+2U, OBJ_PAL0 | FLIP_X);
+                        setSprite(x-8U,  y, frame, OBJ_PAL0 | FLIP_X | 6U);
+                        setSprite(x-16U, y, frame+2U, OBJ_PAL0 | FLIP_X | 6U);
                     }
                 }
                 break;
 
             default:
                 frame += ((ticks & 8U) >> 1);
+                pal = OBJ_PAL0 | entity_palettes[type];
                 if(entity_dir[i] == LEFT) {
-                    setSprite(x-16U, y, frame, OBJ_PAL0);
-                    setSprite(x-8U,  y, frame+2U, OBJ_PAL0);
+                    setSprite(x-16U, y, frame, pal);
+                    setSprite(x-8U,  y, frame+2U, pal);
                 } else {
-                    setSprite(x-8U,  y, frame, OBJ_PAL0 | FLIP_X);
-                    setSprite(x-16U, y, frame+2U, OBJ_PAL0 | FLIP_X);
+                    setSprite(x-8U,  y, frame, pal | FLIP_X);
+                    setSprite(x-16U, y, frame+2U, pal | FLIP_X);
                 }
                 break;
         }
@@ -748,11 +773,11 @@ void introAnimation() {
     for(ticks = 0U; ticks != 64U; ++ticks) {
         frame = 20U - ((ticks >> 4) << 2);
         if(ticks & 8U) {
-            setSprite(player_x-16U, player_y, frame, OBJ_PAL0);
-            setSprite(player_x-8U, player_y, frame+2U, OBJ_PAL0);
+            setSprite(player_x-16U, player_y, frame, OBJ_PAL0 | 6U);
+            setSprite(player_x-8U, player_y, frame+2U, OBJ_PAL0 | 6U);
         } else {
-            setSprite(player_x-8U, player_y, frame, FLIP_X | OBJ_PAL0);
-            setSprite(player_x-16U, player_y, frame+2U, FLIP_X | OBJ_PAL0);
+            setSprite(player_x-8U, player_y, frame, FLIP_X | OBJ_PAL0 | 6U);
+            setSprite(player_x-16U, player_y, frame+2U, FLIP_X | OBJ_PAL0 | 6U);
         }
 
         updateEntities();

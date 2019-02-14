@@ -27,7 +27,7 @@ const UBYTE sharkwave_data[16] = {
 };
 
 void initWinscreen() {
-	UBYTE rank;
+	UBYTE i, rank;
 	UBYTE *data;
 
 	disable_interrupts();
@@ -47,6 +47,8 @@ void initWinscreen() {
 	set_bkg_tiles(11U, 1U, 5U, 1U, winscreen_clear_text);
 
 	setWinscreenBackground(level);
+
+    if(CGB_MODE) { for(i = 0U; i != 8U; ++i) { set_bkg_palette_buffer(i, 1U, gs_palette); } }
 
 	// Load rank sprite
 	rank = getRank(TOTAL_SCORE, level);

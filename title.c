@@ -20,16 +20,17 @@ const UBYTE title_message[11] = {
 	26U, 28U, 15U, 29U, 29U, 10U, 29U, 30U, 11U, 28U, 30U
 };
 
-const UWORD minigame_palette_data[4] = {
-    RGB(31, 31, 31),
-    RGB(18, 24, 26),
-    RGB(15, 13, 26),
-    RGB(0, 0, 0)
+const UWORD minigame_bkg_palette_data[4] = {
+    RGB(31, 31, 31), RGB(18, 24, 26), RGB(15, 13, 26), RGB(0, 0, 0)
 };
 
-const UBYTE minigame_palettes[6] = {
-    4U, 4U, 180U,
-    4U, 4U, 180U
+const UBYTE minigame_bkg_palettes[6] = {
+    4U, 4U, 180U, 4U, 4U, 180U
+};
+
+const UWORD title_sprite_palette_data[8] = {
+    32767, 28638, 8476, 0,
+    32767, 28638, 9695, 0,
 };
 
 UBYTE next_enemy;
@@ -47,10 +48,10 @@ void initTitle() {
 	    set_bkg_data_rle(0U, titlescreen_dx_data_length, titlescreen_dx_data);
 	    set_win_tiles_rle(0U, 0U, titlescreen_dx_tiles_width, titlescreen_dx_tiles_height, titlescreen_dx_tiles);
         set_bkg_palette_buffer(0U, titlescreen_dx_palette_data_length, titlescreen_dx_palette_data);
-        set_bkg_palette_buffer(4U, 1U, minigame_palette_data);
+        set_bkg_palette_buffer(4U, 1U, minigame_bkg_palette_data);
         VBK_REG = 1U;
 	    set_win_tiles_rle(0U, 0U, titlescreen_dx_tiles_width, titlescreen_dx_tiles_height, titlescreen_dx_palettes);
-        set_bkg_tiles_rle(0U, 0U, 20U, 20U, minigame_palettes);
+        set_bkg_tiles_rle(0U, 0U, 20U, 20U, minigame_bkg_palettes);
         VBK_REG = 0U;
     } else {
 	    set_bkg_data_rle(0U, titlescreen_data_length, titlescreen_data);
@@ -62,6 +63,7 @@ void initTitle() {
 
 	set_sprite_data(0U, 37U, characters_data);
 	set_sprite_data(38U, title_cat_data_length, title_cat_data);
+    set_sprite_palette(0U, 2U, title_sprite_palette_data);
 
 	OBP0_REG = 0xD0U; // 11010000
 	BGP_REG = 0xE4U;  // 11100100
@@ -177,19 +179,20 @@ void drawTitleSprites(UBYTE triggered) {
 			}
 		}
 
-		// Draw cat
+        // Draw balloon
 		setSprite(player_x, player_y, 39U, OBJ_PAL0);
 		setSprite(player_x+8, player_y, 41U, OBJ_PAL0);
 
+		// Draw cat
 		frame = 42U;
 		if(ticks & 16U) frame += 4U;
 
 		for(i = 0U; i != 2U; ++i) {
 			for(j = 1U; j != 3U; ++j) {
 				if(player_xdir == LEFT) {
-					setSprite(player_x+(i<<3U), player_y+(j<<3U), frame, OBJ_PAL0);
+					setSprite(player_x+(i<<3U), player_y+(j<<3U), frame, OBJ_PAL0 | 1U);
 				} else {
-					setSprite(player_x+8U-(i<<3U), player_y+(j<<3U), frame, FLIP_X | OBJ_PAL0);
+					setSprite(player_x+8U-(i<<3U), player_y+(j<<3U), frame, FLIP_X | OBJ_PAL0 | 1U);
 				}
 				++frame;
 			}
@@ -203,11 +206,11 @@ void drawTitleSprites(UBYTE triggered) {
 			if(ticks & 16U) frame += 4U;
 
 			if(player_xdir == LEFT) {
-				setSprite(player_x, player_y+8, frame, OBJ_PAL0);
-				setSprite(player_x+8U, player_y+8, frame+2U, OBJ_PAL0);
+				setSprite(player_x, player_y+8, frame, OBJ_PAL0 | 1U);
+				setSprite(player_x+8U, player_y+8, frame+2U, OBJ_PAL0 | 1U);
 			} else {
-				setSprite(player_x+8U, player_y+8, frame, FLIP_X | OBJ_PAL0);
-				setSprite(player_x, player_y+8, frame+2U, FLIP_X | OBJ_PAL0);
+				setSprite(player_x+8U, player_y+8, frame, FLIP_X | OBJ_PAL0 | 1U);
+				setSprite(player_x, player_y+8, frame+2U, FLIP_X | OBJ_PAL0 | 1U);
 			}
 		} else {
 			if(player_xdir == LEFT) {

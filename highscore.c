@@ -1,4 +1,5 @@
 #include <gb/gb.h>
+#include <gb/cgb.h>
 #include "defines.h"
 #include "gamestate.h"
 #include "fade.h"
@@ -23,6 +24,8 @@ extern UBYTE highscore_song_data;
 extern UBYTE dream_score_song_data;
 
 void initHighscore() {
+    UBYTE i;
+
 	disable_interrupts();
 	DISPLAY_OFF;
 
@@ -30,6 +33,8 @@ void initHighscore() {
 	set_bkg_data(0U, 38U, characters_data);
 	set_bkg_data(38U, circles_data_length, circles_data);
 	set_bkg_data(highscore_tiles_offset, highscore_data_length, highscore_data);
+
+    if(CGB_MODE) { for(i = 0U; i != 8U; ++i) { set_bkg_palette_buffer(i, 1U, gs_palette); } }
 
 	set_bkg_tiles(0U, 0U, highscore_tiles_width, highscore_tiles_height, highscore_tiles);
 	set_sprite_data(0U, arrow_data_length, arrow_data);
@@ -55,11 +60,14 @@ void initHighscore() {
 }
 
 void highscoreUpdateScreen() {
+    UBYTE i;
+
 	clearRemainingSprites();
 	fadeToWhite(4U);
 	DISPLAY_OFF;
 
 	_highscoreUpdateScreen();
+    if(CGB_MODE) { for(i = 0U; i != 8U; ++i) { set_bkg_palette_buffer(i, 1U, gs_palette); } }
 
 	DISPLAY_ON;
 	fadeFromWhite(4U);
