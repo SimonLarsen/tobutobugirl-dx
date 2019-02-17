@@ -86,7 +86,7 @@ const UWORD sprite_palettes[32] = {
     32767, 28638, 13993, 0,
     32767, 6940, 8476, 0,
     32767, 19886, 11333, 0,
-    32767, 28638, 17050, 8500
+    32767, 28638, 13755, 3114
 };
 
 const UBYTE entity_palettes[10U] = {
@@ -490,7 +490,7 @@ void updateHUD() {
 
     // Set last progress flag
     if(last_progress) {
-        setSprite(153U, 119U - last_progress, 92U, OBJ_PAL0 | 6U);
+        setSprite(153U, 119U - last_progress, 92U, OBJ_PAL0 | 5U);
     }
 
     // Low on time marker
@@ -559,6 +559,7 @@ void updateEntities() {
 
         // Update entity
         switch(type) {
+            case E_NONE: break;
             case E_SPIKES: break;
 
             case E_FIREBALL:
@@ -843,8 +844,8 @@ void intoPortalAnimation() {
             BGP_REG = 0x1BU; // 00011011
         }
 
-        setSprite(player_x-16U, player_y, entity_sprites[E_PORTAL], OBJ_PAL0);
-        setSprite(player_x-8U, player_y, entity_sprites[E_PORTAL]+2U, OBJ_PAL0);
+        setSprite(player_x-16U, player_y, entity_sprites[E_PORTAL], OBJ_PAL0 | 6U);
+        setSprite(player_x-8U, player_y, entity_sprites[E_PORTAL]+2U, OBJ_PAL0 | 6U);
 
         clearRemainingSprites();
         snd_update();
@@ -854,11 +855,11 @@ void intoPortalAnimation() {
     for(ticks = 0U; ticks != 64U; ++ticks) {
         frame = 4U + ((ticks >> 4) << 2);
         if(ticks & 8U) {
-            setSprite(player_x-16U, player_y, frame, OBJ_PAL0);
-            setSprite(player_x-8U, player_y, frame+2U, OBJ_PAL0);
+            setSprite(player_x-16U, player_y, frame, OBJ_PAL0 | 6U);
+            setSprite(player_x-8U, player_y, frame+2U, OBJ_PAL0 | 6U);
         } else {
-            setSprite(player_x-8U, player_y, frame, FLIP_X | OBJ_PAL0);
-            setSprite(player_x-16U, player_y, frame+2U, FLIP_X | OBJ_PAL0);
+            setSprite(player_x-8U, player_y, frame, FLIP_X | OBJ_PAL0 | 6U);
+            setSprite(player_x-16U, player_y, frame+2U, FLIP_X | OBJ_PAL0 | 6U);
         }
 
         clearRemainingSprites();
