@@ -1,6 +1,6 @@
 #include <gb/gb.h>
 #include <gb/cgb.h>
-#include <rand.h>
+#include <gb/rand.h>
 #include "defines.h"
 #include "game.h"
 #include "fade.h"
@@ -76,7 +76,7 @@ const UBYTE spawn_levels[4][3][8] = {
     }
 };
 
-#define PROGRESS_POS(x) (((x) << 1U) / 3U)
+#define PROGRESS_POS(x) mydiv(((x) << 1U), 3U)
 
 const UWORD sprite_palettes[32] = {
     32767, 28638, 8476, 0,
@@ -99,6 +99,18 @@ const UBYTE entity_palettes[10U] = {
     3U, // ghost
     0U // clock
 };
+
+UBYTE mydiv(UBYTE num, UBYTE denom) {
+    UBYTE cnt;
+    cnt = 0;
+    while(num >= denom) {
+        ++cnt;
+        num -= denom;
+    }
+    return cnt;
+}
+
+UBYTE rand();
 
 void initGame() {
     UBYTE *skin_data;
@@ -394,12 +406,12 @@ void updatePlayer() {
         if(player_yspeed == 0U) {
             player_ydir = DOWN;
         }
-        player_y -= (player_yspeed / 7U);
+        player_y -= mydiv(player_yspeed, 7U);
     }
     // Flying DOWN
     else {
         player_yspeed++;
-        player_y += (player_yspeed / 7U);
+        player_y += mydiv(player_yspeed, 7U);
         if(player_yspeed > MAX_YSPEED) {
             player_yspeed = MAX_YSPEED;
         }
@@ -677,7 +689,7 @@ void initSpawns() {
     spawnEntity(E_BAT, x, y, NONE);
 
     for(i = 0U; i != 3U; ++i) {
-        last_spawn_x = (last_spawn_x + 32U + ((UBYTE)rand() & 63U)) & 127U;
+        last_spawn_x = (last_spawn_x + 32U + (rand() & 63U)) & 127U;
         x = last_spawn_x + 24U;
         y -= 36U;
         last_spawn_index = spawnEntity(E_BAT, x, y, RIGHT);
@@ -693,10 +705,10 @@ void updateSpawns() {
     if(progress < 111U) {
         next_spawn -= SPAWN_INTERVAL;
 
-        x = ((last_spawn_x + 32U + ((UBYTE)rand() & 63U)) & 127U) + 24U;
+        x = ((last_spawn_x + 32U + (rand() & 63U)) & 127U) + 24U;
 
-        step = progress / 39U; // TODO: Optimize?
-        dice = (UBYTE)rand() & 7U;
+        step = mydiv(progress, 39U); // TODO: Optimize?
+        dice = rand() & 7U;
 
         while(dice != 8U) {
             type = spawn_levels[level-1U][step][dice];
@@ -755,7 +767,7 @@ void updateSpawns() {
         next_clock--;
         if(!next_clock) {
             next_clock = clock_interval[level-1U];
-            x = ((last_spawn_x + 32U + ((UBYTE)rand() & 63U)) & 127U) + 24U;
+            x = ((last_spawn_x + 32U + (rand() & 63U)) & 127U) + 24U;
             spawnEntity(E_CLOCK, x, 1U, NONE);
         }
     }
