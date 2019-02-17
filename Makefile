@@ -8,7 +8,7 @@ define compile-source
 	$(CC) $(CFLAGS) -c $<
 endef
 
-default: tobu.gb
+default: tobudx.gb
 
 include backgrounds.mk
 include sprites.mk
@@ -197,7 +197,7 @@ zoom_circles.o: zoom_circles.c zoom_circles.h
 %.o: data/songs/%.asm
 	$(CC) $(CFLAGS) -c $< -o $@
 
-tobu.gb: ram.o $(OBJ) $(OBJ_ASM) \
+tobudx.gb: ram.o $(OBJ) $(OBJ_ASM) \
 	$(OBJ_BANK1) $(OBJ_BANK2) $(OBJ_BANK3) $(OBJ_BANK4) \
 	$(OBJ_BANK5) $(OBJ_BANK6) $(OBJ_BANK7) $(OBJ_BANK8) \
 	$(OBJ_BANK9) $(OBJ_BANK10) $(OBJ_BANK11) $(OBJ_BANK12)
