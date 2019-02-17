@@ -205,6 +205,12 @@ void setIngameBackground(UBYTE level) {
         case 255U: // pause menu
             set_bkg_data_rle(pause_bg_tiles_offset, pause_bg_data_length, pause_bg_data);
             set_bkg_tiles_rle(0U, 0U, pause_bg_tiles_width, pause_bg_tiles_height, pause_bg_tiles);
+            if(CGB_MODE) {
+                set_bkg_palette(0U, pause_bg_palette_data_length, pause_bg_palette_data);
+                VBK_REG = 1U;
+                set_bkg_tiles_rle(0U, 0U, pause_bg_tiles_width, pause_bg_tiles_height, pause_bg_palettes);
+                VBK_REG = 0U;
+            }
             break;
     }
 

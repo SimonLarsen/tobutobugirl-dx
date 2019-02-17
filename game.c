@@ -1,6 +1,7 @@
 #include <gb/gb.h>
 #include <gb/cgb.h>
 #include <gb/rand.h>
+#include <string.h>
 #include "defines.h"
 #include "game.h"
 #include "fade.h"
@@ -228,15 +229,29 @@ void restoreGame() {
     disable_interrupts();
     DISPLAY_OFF;
 
-    setIngameBackground(level);
-
-    set_bkg_data(hud_tiles_offset, hud_data_length, hud_data);
-    set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
-    set_win_tiles(0U, 0U, hud_tiles_width, hud_tiles_height, hud_tiles);
+    if(CGB_MODE) {
+        set_bkg_data(hud_dx_tiles_offset, hud_dx_data_length, hud_dx_data);
+        set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
+        set_bkg_palette_buffer(hud_dx_palette_offset, hud_dx_palette_data_length, hud_dx_palette_data);
+        set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_tiles);
+        VBK_REG = 1U;
+        set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_palettes);
+        VBK_REG = 0U;
+    } else {
+        set_bkg_data(hud_tiles_offset, hud_data_length, hud_data);
+        set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
+        set_win_tiles(0U, 0U, hud_tiles_width, hud_tiles_height, hud_tiles);
+    }
 
     skin_data = getSkinData();
     set_sprite_data(0U, 24U, skin_data);
     set_sprite_data(24U, sprites_data_length, sprites_data);
+    set_sprite_palette(0U, 8U, sprite_palettes);
+
+    set_bkg_palette(0U, 8U, palette_buffer);
+
+    setIngameBackground(level);
+
     updateHUDTime();
 
     move_bkg(0U, 112U-progress);
