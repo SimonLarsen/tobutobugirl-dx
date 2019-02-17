@@ -89,7 +89,7 @@ circles.o: circles.c circles.h
 cos.o: cos.c cos.h
 	${compile-source}
 
-ending.o: ending.c defines.h ending.h gamestate.h fade.h intro_bg.h intro_bg_dx.h data/bg/ending_thanks.h data/sprite/ending_sprites1.h data/sprite/ending_sprites2.h mmlgb/driver/music.h
+ending.o: ending.c defines.h ending.h gamestate.h fade.h intro_bg.h intro_bg_dx.h data/bg/ending_thanks.h data/bg/ending_thanks_dx.h data/sprite/ending_sprites1.h data/sprite/ending_sprites2.h mmlgb/driver/music.h
 	${compile-source}
 
 fade.asm: fade.c gamestate.h sound.h fade.h

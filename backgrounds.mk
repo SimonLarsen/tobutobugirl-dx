@@ -88,6 +88,9 @@ ending_backgrounds: data/bg/ending_thanks.h
 data/bg/ending_thanks.h: data/bg/ending_thanks.png
 	$(IMGTOGB) --map -O 174 --rle $< $@
 
+data/bg/ending_thanks_dx.h: data/bg/ending_thanks_dx.png
+	$(IMGTOGB) --map -O 174 $< --rle $@
+
 unlocked_backgrounds: data/bg/unlocked.h
 
 data/bg/unlocked.h: data/bg/unlocked.png

@@ -17,6 +17,13 @@ extern UBYTE intro_song_data;
 #define INTRO_STATE_TRIP  2U
 #define INTRO_STATE_BLINK 3U
 
+const UWORD intro_sprite_palettes[16] = {
+    32767, 28638, 8476, 0,
+    32767, 28638, 9695, 0,
+    32767, 32767, 28180, 0,
+    32767, 6940, 6940, 0
+};
+
 void initIntro() {
 	disable_interrupts();
 	DISPLAY_OFF;
@@ -39,6 +46,7 @@ void initIntro() {
     }
 
 	set_sprite_data(0U, intro_sprites_data_length, intro_sprites_data);
+    set_sprite_palette(0U, 4U, intro_sprite_palettes);
 
 	clearSprites();
 	
@@ -74,10 +82,10 @@ void updateIntro() {
 
 			// Cat sprites
 			cat_y = player_y-12U + ((ticks & 16U) >> 4);
-			setSprite(cat_x, cat_y-scroll_y-16U, 32U, OBJ_PAL0);
-			setSprite(cat_x+8U, cat_y-scroll_y-16U, 34U, OBJ_PAL0);
-			setSprite(cat_x, cat_y-scroll_y, 36U, OBJ_PAL0);
-			setSprite(cat_x+8U, cat_y-scroll_y, 38U, OBJ_PAL0);
+			setSprite(cat_x, cat_y-scroll_y-16U, 32U, OBJ_PAL0 | 1U);
+			setSprite(cat_x+8U, cat_y-scroll_y-16U, 34U, OBJ_PAL0 | 1U);
+			setSprite(cat_x, cat_y-scroll_y, 36U, OBJ_PAL0 | 1U);
+			setSprite(cat_x+8U, cat_y-scroll_y, 38U, OBJ_PAL0 | 1U);
 
 			if(player_x == 77U) {
 				scene_state = INTRO_STATE_TRIP;
@@ -120,13 +128,13 @@ void updateIntro() {
 
 			// Player shocked mark
 			if(player_x > 68U) {
-				setSprite(player_x, player_y-scroll_y-13U, 52U, OBJ_PAL0);
-				setSprite(player_x+8, player_y-scroll_y-13U, 54U, OBJ_PAL0);
+				setSprite(player_x, player_y-scroll_y-13U, 52U, OBJ_PAL0 | 2U);
+				setSprite(player_x+8, player_y-scroll_y-13U, 54U, OBJ_PAL0 | 2U);
 			}
 
 			// Exclamation mark
 			if((ticks & 16U) && cat_y < 210U && cat_y > 180U) {
-				setSprite(player_x+4U, player_y-scroll_y-13U, 50U, OBJ_PAL0);
+				setSprite(player_x+4U, player_y-scroll_y-13U, 50U, OBJ_PAL0 | 3U);
 			}
 
 			frame = 56U;
@@ -135,12 +143,12 @@ void updateIntro() {
 			}
 
 			if(cat_y < 130U) {
-				setSprite(cat_x+4U, cat_y-scroll_y-10U, 48U, OBJ_PAL0);
+				setSprite(cat_x+4U, cat_y-scroll_y-10U, 48U, OBJ_PAL0 | 1U);
 			} else {
-				setSprite(cat_x, cat_y-scroll_y-16U, frame, OBJ_PAL0);
-				setSprite(cat_x+8U, cat_y-scroll_y-16U, frame+2U, OBJ_PAL0);
-				setSprite(cat_x, cat_y-scroll_y, frame+4U, OBJ_PAL0);
-				setSprite(cat_x+8U, cat_y-scroll_y, frame+6U, OBJ_PAL0);
+				setSprite(cat_x, cat_y-scroll_y-16U, frame, OBJ_PAL0 | 1U);
+				setSprite(cat_x+8U, cat_y-scroll_y-16U, frame+2U, OBJ_PAL0 | 1U);
+				setSprite(cat_x, cat_y-scroll_y, frame+4U, OBJ_PAL0 | 1U);
+				setSprite(cat_x+8U, cat_y-scroll_y, frame+6U, OBJ_PAL0 | 1U);
 			}
 
 			if(cat_y < 110U) {
@@ -162,31 +170,31 @@ void updateIntro() {
 			}
 
 			if(intro_frame == 0U) {
-				setSprite(cat_x, cat_y-scroll_y-16U, 0U, OBJ_PAL0);
-				setSprite(cat_x+8U, cat_y-scroll_y-16U, 2U, OBJ_PAL0);
-				setSprite(cat_x+16U, cat_y-scroll_y-16U, 4U, OBJ_PAL0);
-				setSprite(cat_x, cat_y-scroll_y, 6U, OBJ_PAL0);
-				setSprite(cat_x+8U, cat_y-scroll_y, 8U, OBJ_PAL0);
-				setSprite(cat_x+16U, cat_y-scroll_y, 10U, OBJ_PAL0);
+				setSprite(cat_x, cat_y-scroll_y-16U, 0U, OBJ_PAL0 | 1U);
+				setSprite(cat_x+8U, cat_y-scroll_y-16U, 2U, OBJ_PAL0 | 1U);
+				setSprite(cat_x+16U, cat_y-scroll_y-16U, 4U, OBJ_PAL0 | 1U);
+				setSprite(cat_x, cat_y-scroll_y, 6U, OBJ_PAL0 | 1U);
+				setSprite(cat_x+8U, cat_y-scroll_y, 8U, OBJ_PAL0 | 1U);
+				setSprite(cat_x+16U, cat_y-scroll_y, 10U, OBJ_PAL0 | 1U);
 			}
 			else if(intro_frame == 1U) {
-				setSprite(cat_x+9U, cat_y-scroll_y-4U, 12U, OBJ_PAL0);
+				setSprite(cat_x+9U, cat_y-scroll_y-4U, 12U, OBJ_PAL0 | 1U);
 			}
 			else if(intro_frame == 2U) {
-				setSprite(cat_x+4U, cat_y-scroll_y-8U, 16U, OBJ_PAL0);
-				setSprite(cat_x+12U, cat_y-scroll_y-8U, 18U, OBJ_PAL0);
+				setSprite(cat_x+4U, cat_y-scroll_y-8U, 16U, OBJ_PAL0 | 2U);
+				setSprite(cat_x+12U, cat_y-scroll_y-8U, 18U, OBJ_PAL0 | 2U);
 			}
 			else if(intro_frame == 3U) {
-				setSprite(cat_x-2U, cat_y-scroll_y-11U, 20U, OBJ_PAL0);
-				setSprite(cat_x+2U, cat_y-scroll_y-11U, 22U, OBJ_PAL0);
-				setSprite(cat_x+10U, cat_y-scroll_y-11U, 24U, OBJ_PAL0);
-				setSprite(cat_x+18U, cat_y-scroll_y-11U, 26U, OBJ_PAL0);
+				setSprite(cat_x-2U, cat_y-scroll_y-11U, 20U, OBJ_PAL0 | 2U);
+				setSprite(cat_x+2U, cat_y-scroll_y-11U, 22U, OBJ_PAL0 | 2U);
+				setSprite(cat_x+10U, cat_y-scroll_y-11U, 24U, OBJ_PAL0 | 2U);
+				setSprite(cat_x+18U, cat_y-scroll_y-11U, 26U, OBJ_PAL0 | 2U);
 			}
 			else if(intro_frame == 4U) {
-				setSprite(cat_x-2U, cat_y-scroll_y-11U, 28U, OBJ_PAL0);
-				setSprite(cat_x+2U, cat_y-scroll_y-11U, 30U, OBJ_PAL0);
-				setSprite(cat_x+10U, cat_y-scroll_y-11U, 32U, OBJ_PAL0);
-				setSprite(cat_x+18U, cat_y-scroll_y-11U, 34U, OBJ_PAL0);
+				setSprite(cat_x-2U, cat_y-scroll_y-11U, 28U, OBJ_PAL0 | 2U);
+				setSprite(cat_x+2U, cat_y-scroll_y-11U, 30U, OBJ_PAL0 | 2U);
+				setSprite(cat_x+10U, cat_y-scroll_y-11U, 32U, OBJ_PAL0 | 2U);
+				setSprite(cat_x+18U, cat_y-scroll_y-11U, 34U, OBJ_PAL0 | 2U);
 			}
 
 			if(scroll_y == 16U) {

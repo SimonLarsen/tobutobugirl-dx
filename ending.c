@@ -7,6 +7,7 @@
 #include "intro_bg.h"
 #include "intro_bg_dx.h"
 #include "data/bg/ending_thanks.h"
+#include "data/bg/ending_thanks_dx.h"
 #include "data/sprite/ending_sprites1.h"
 #include "data/sprite/ending_sprites2.h"
 #include "mmlgb/driver/music.h"
@@ -26,6 +27,14 @@ UBYTE ending_frame;
 extern UBYTE ending_part1_song_data;
 extern UBYTE ending_part2_song_data;
 
+const UWORD ending_sprite_palettes[16] = {
+    32767, 28638, 8476, 0,
+    32767, 28638, 9695, 0,
+    32767, 6940, 6940, 0,
+    8476, 8476, 8476, 8476
+};
+
+
 void initEnding() {
 	disable_interrupts();
 	DISPLAY_OFF;
@@ -36,6 +45,7 @@ void initEnding() {
 
     if(CGB_MODE) {
 	    set_bkg_data_rle(0U, intro_bg_dx_data_length, intro_bg_dx_data);
+	    set_bkg_data_rle(ending_thanks_dx_tiles_offset, ending_thanks_dx_data_length, ending_thanks_dx_data);
 	    set_bkg_tiles_rle(0U, 0U, intro_bg_dx_tiles_width, intro_bg_dx_tiles_height, intro_bg_dx_tiles);
         set_bkg_palette_buffer(0U, intro_bg_dx_palette_data_length, intro_bg_dx_palette_data);
         VBK_REG = 1U;
@@ -43,10 +53,12 @@ void initEnding() {
         VBK_REG = 0U;
     } else {
 	    set_bkg_data_rle(0U, intro_bg_data_length, intro_bg_data);
+	    set_bkg_data_rle(ending_thanks_tiles_offset, ending_thanks_data_length, ending_thanks_data);
 	    set_bkg_tiles_rle(0U, 0U, intro_bg_tiles_width, intro_bg_tiles_height, intro_bg_tiles);
     }
 
 	set_sprite_data(0U, ending_sprites1_data_length, ending_sprites1_data);
+    set_sprite_palette(0U, 4U, ending_sprite_palettes);
 
 	clearSprites();
 
@@ -106,16 +118,16 @@ void updateEnding() {
 				tmp = 4U;
 			}
 
-			setSprite(player_x-4U, player_y-scroll_y-12U, tmp, OBJ_PAL0);
-			setSprite(player_x+4U, player_y-scroll_y-12U, tmp+2U, OBJ_PAL0);
+			setSprite(player_x-4U, player_y-scroll_y-12U, tmp, OBJ_PAL0 | 1U);
+			setSprite(player_x+4U, player_y-scroll_y-12U, tmp+2U, OBJ_PAL0 | 1U);
 
 			if(ticks & 8U) tmp = 28U;
 			else tmp = 20U;
 
 			setSprite(player_x-4U, player_y-scroll_y+4U,  tmp+0U, OBJ_PAL0);
 			setSprite(player_x+4U, player_y-scroll_y+4U,  tmp+2U, OBJ_PAL0);
-			setSprite(player_x-4U, player_y-scroll_y+20U, tmp+4U, OBJ_PAL0);
-			setSprite(player_x+4U, player_y-scroll_y+20U, tmp+6U, OBJ_PAL0);
+			setSprite(player_x-4U, player_y-scroll_y+20U, tmp+4U, OBJ_PAL0 | 1U);
+			setSprite(player_x+4U, player_y-scroll_y+20U, tmp+6U, OBJ_PAL0 | 1U);
 
 			if(player_y >= 143U) {
 				scene_state = ENDING_STATE_POP;
@@ -128,11 +140,11 @@ void updateEnding() {
 			// Shocked
 			setSprite(player_x-4U, player_y-scroll_y+4U,  36U, OBJ_PAL0);
 			setSprite(player_x+4U, player_y-scroll_y+4U,  38U, OBJ_PAL0);
-			setSprite(player_x-4U, player_y-scroll_y+20U, 40U, OBJ_PAL0);
-			setSprite(player_x+4U, player_y-scroll_y+20U, 42U, OBJ_PAL0);
+			setSprite(player_x-4U, player_y-scroll_y+20U, 40U, OBJ_PAL0 | 1U);
+			setSprite(player_x+4U, player_y-scroll_y+20U, 42U, OBJ_PAL0 | 1U);
 
 			if(ticks & 16U) {
-				setSprite(player_x-1U, player_y-scroll_y-10U, 16U, OBJ_PAL0);
+				setSprite(player_x-1U, player_y-scroll_y-10U, 16U, OBJ_PAL0 | 2U);
 			}
 
 			if(ticks >= 64U) {
@@ -160,8 +172,8 @@ void updateEnding() {
 			setSprite(player_x, player_y-scroll_y, 44U, OBJ_PAL0);
 			setSprite(player_x+8U, player_y-scroll_y, 46U, OBJ_PAL0);
 
-			setSprite(cat_x, cat_y-scroll_y, 48U, OBJ_PAL0);
-			setSprite(cat_x+8U, cat_y-scroll_y, 50U, OBJ_PAL0);
+			setSprite(cat_x, cat_y-scroll_y, 48U, OBJ_PAL0 | 1U);
+			setSprite(cat_x+8U, cat_y-scroll_y, 50U, OBJ_PAL0 | 1U);
 
 			if(player_y >= 240U) {
 				scene_state = ENDING_STATE_SHAKE;
@@ -181,10 +193,10 @@ void updateEnding() {
 				tmp = 52U + (((ticks-12U) >> 3) << 2);
 				tmp2 = 144U; if(tmp != 52U) tmp2 -= 4U;
 
-				setSprite(cat_x-8U, tmp2, tmp, OBJ_PAL0);
-				setSprite(cat_x, tmp2, tmp+2U, OBJ_PAL0);
-				setSprite(player_x+16U, tmp2, tmp, OBJ_PAL0 | FLIP_X);
-				setSprite(player_x+8U, tmp2, tmp+2U, OBJ_PAL0 | FLIP_X);
+				setSprite(cat_x-8U, tmp2, tmp, OBJ_PAL0 | 3U);
+				setSprite(cat_x, tmp2, tmp+2U, OBJ_PAL0 | 3U);
+				setSprite(player_x+16U, tmp2, tmp, OBJ_PAL0 | FLIP_X | 3U);
+				setSprite(player_x+8U, tmp2, tmp+2U, OBJ_PAL0 | FLIP_X | 3U);
 			}
 
 			if(ticks >= 225U) {
@@ -207,8 +219,8 @@ void updateEnding() {
 				}
 			}
 			
-			setSprite(cat_x, cat_y-scroll_y, 0U, OBJ_PAL0);
-			setSprite(cat_x+8U, cat_y-scroll_y, 2U, OBJ_PAL0);
+			setSprite(cat_x, cat_y-scroll_y, 0U, OBJ_PAL0 | 1U);
+			setSprite(cat_x+8U, cat_y-scroll_y, 2U, OBJ_PAL0 | 1U);
 
 			setSprite(player_x, player_y-scroll_y, 28U, OBJ_PAL0);
 			setSprite(player_x+8U, player_y-scroll_y, 30U, OBJ_PAL0);
@@ -238,8 +250,8 @@ void updateEnding() {
 			}
 
 			tmp = ending_frame << 2;
-			setSprite(cat_x, cat_y-scroll_y, tmp, OBJ_PAL0);
-			setSprite(cat_x+8U, cat_y-scroll_y, tmp+2U, OBJ_PAL0);
+			setSprite(cat_x, cat_y-scroll_y, tmp, OBJ_PAL0 | 1U);
+			setSprite(cat_x+8U, cat_y-scroll_y, tmp+2U, OBJ_PAL0 | 1U);
 
 			tmp += 28U;
 			setSprite(player_x, player_y-scroll_y, tmp, OBJ_PAL0);
@@ -256,7 +268,11 @@ void updateEnding() {
 
 				if(ending_frame == 12U) {
 					disable_interrupts();
-					set_bkg_tiles_rle(5U, 15U, ending_thanks_tiles_width, ending_thanks_tiles_height, ending_thanks_tiles);
+                    if(CGB_MODE) {
+					    set_bkg_tiles_rle(5U, 15U, ending_thanks_dx_tiles_width, ending_thanks_dx_tiles_height, ending_thanks_dx_tiles);
+                    } else {
+					    set_bkg_tiles_rle(5U, 15U, ending_thanks_tiles_width, ending_thanks_tiles_height, ending_thanks_tiles);
+                    }
 					enable_interrupts();
 				}
 			}
@@ -265,8 +281,8 @@ void updateEnding() {
 			if(tmp <= 4U) tmp = tmp << 2;
 			else if(tmp >= 5 && tmp <= 7) tmp = 20U;
 			else tmp = (5U + (tmp & 1U)) << 2;
-			setSprite(cat_x, cat_y-scroll_y, tmp, OBJ_PAL0);
-			setSprite(cat_x+8U, cat_y-scroll_y, tmp+2U, OBJ_PAL0);
+			setSprite(cat_x, cat_y-scroll_y, tmp, OBJ_PAL0 | 1U);
+			setSprite(cat_x+8U, cat_y-scroll_y, tmp+2U, OBJ_PAL0 | 1U);
 
 			tmp = ending_frame;
 			if(tmp <= 4U) tmp = tmp << 2;
