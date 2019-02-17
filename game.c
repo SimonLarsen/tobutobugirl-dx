@@ -585,7 +585,9 @@ void updateEntities() {
                 break;
 
             case E_CLOCK: break;
-            case E_PORTAL: break;
+            case E_PORTAL:
+                if((ticks & 15U) == 15U) entity_dir[i]++;
+                break;
 
             case E_CLOUD:
                 if((ticks & 3U) == 3U) entity_dir[i]++;
@@ -617,7 +619,7 @@ void updateEntities() {
                     setSprite(x-16U, y-8U, 124U, OBJ_PAL0 | 6U);
                     setSprite(x-8U,  y-8U, 126U, OBJ_PAL0 | 6U);
                 } else {
-                    if(entity_dir[i] == LEFT) {
+                    if(entity_dir[i] & 1U) {
                         setSprite(x-16U, y, frame, OBJ_PAL0 | 6U);
                         setSprite(x-8U,  y, frame+2U, OBJ_PAL0 | 6U);
                     } else {
