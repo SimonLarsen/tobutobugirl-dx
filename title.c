@@ -33,6 +33,13 @@ const UWORD title_sprite_palette_data[8] = {
     32767, 28638, 9695, 0,
 };
 
+const UWORD minigame_fade_palettes[32] = {
+    27055, 27054, 27022, 27022, 25998, 25998, 25966, 24941,
+    24941, 23917, 23917, 23885, 22861, 22861, 22861, 22860,
+    21804, 21804, 21804, 20780, 20780, 20748, 19723, 19723,
+    18699, 18699, 18667, 18667, 17642, 17642, 17610, 16586
+};
+
 UBYTE next_enemy;
 
 void initTitle() {
@@ -435,6 +442,13 @@ void enterTitle() {
 		else if(player_xspeed > 240U) player_xspeed = 240U;
 		if(player_yspeed < 16U) player_yspeed = 16U;
 		else if(player_yspeed > 240U) player_yspeed = 240U;
+
+        if(scroll_y < 0x40U) {
+            palette_buffer[0] = minigame_fade_palettes[scroll_y >> 1];
+            palette_buffer[18] = minigame_fade_palettes[scroll_y >> 1];
+            set_bkg_palette(0U, 1U, palette_buffer);
+            set_bkg_palette(4U, 1U, &palette_buffer + 16);
+        }
 
 		move_win(7U, scroll_y);
 		move_bkg(0U, scroll_x);

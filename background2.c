@@ -110,6 +110,6 @@ const unsigned char background2_palettes[] = {
       1,   1, 146
 };
 const unsigned int background2_palette_data[] = {
-    32767, 18934, 17745, 7236,
-    18206, 18934,   0,   0
+    32767, 15894, 18765, 7236,
+    18206, 15894,   0,   0
 };
