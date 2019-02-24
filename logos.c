@@ -1,8 +1,8 @@
 #include <gb/gb.h>
 #include "defines.h"
 #include "gamestate.h"
-#include "logos.h"
 #include "fade.h"
+#include "logos.h"
 #include "sound.h"
 #include "mmlgb/driver/music.h"
 

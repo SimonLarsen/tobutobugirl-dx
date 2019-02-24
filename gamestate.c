@@ -49,6 +49,13 @@ UBYTE entity_y[MAX_ENTITIES];
 UBYTE entity_type[MAX_ENTITIES];
 UBYTE entity_dir[MAX_ENTITIES];
 
+const UBYTE fadePals[] = {
+    0xE4U, // 11100100
+    0x90U, // 10010000
+    0x40U, // 01000000
+    0x00U  // 00000000
+};
+
 const UBYTE level_names[7][6] = {
     {22U, 25U, 13U, 21U, 15U, 14U}, // "LOCKED"
     {26U, 22U, 11U, 19U, 24U, 29U}, // "PLAINS"

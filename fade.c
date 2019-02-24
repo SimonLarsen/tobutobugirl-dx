@@ -6,13 +6,6 @@
 
 void get_bkg_palette(UBYTE i, UBYTE *buffer);
 
-const UBYTE fadePals[] = {
-    0xE4U, // 11100100
-    0x90U, // 10010000
-    0x40U, // 01000000
-    0x00U  // 00000000
-};
-
 const UBYTE spriteFadePals[] = {
     0xD0U, // 11010000
     0x80U, // 10000000
@@ -115,16 +108,5 @@ void fadeFromWhiteCGB(UBYTE delay) {
 
     for(p = 0U; p != 8U; ++p) {
         set_bkg_palette(0, 8U, palette_buffer);
-    }
-}
-
-void fadeSpritesToWhite(UBYTE delay) {
-    UINT8 i, j;
-    for(i = 1U; i != 4U; ++i) {
-        OBP0_REG = fadePals[i];
-        for(j = 0U; j != delay; ++j) {
-            snd_update();
-            wait_vbl_done();
-        }
     }
 }

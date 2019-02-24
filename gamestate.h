@@ -90,6 +90,7 @@ extern UBYTE entity_dir[MAX_ENTITIES];
 
 #define CGB_MODE (_cpu == CGB_TYPE)
 
+extern const UBYTE fadePals[4];
 extern const UBYTE level_names[7][6];
 extern const UBYTE level_max_time[4];
 extern const UBYTE rank_letters[4];

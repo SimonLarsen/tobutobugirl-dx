@@ -944,7 +944,6 @@ void saveCatAnimation() {
         setSprite(player_x-16U, player_y, 4U, OBJ_PAL0);
         setSprite(player_x-8U, player_y, 6U, OBJ_PAL0);
 
-        updateHUD();
         clearRemainingSprites();
         snd_update();
         wait_vbl_done();
@@ -1036,6 +1035,51 @@ void addScore() {
     }
 
     DISABLE_RAM_MBC1;
+}
+
+void fadeSpritesToWhite(UBYTE delay) {
+    if(CGB_MODE) fadeSpritesToWhiteCGB(delay >> 2);
+    else fadeSpritesToWhiteGB(delay);
+}
+
+void fadeSpritesToWhiteGB(UBYTE delay) {
+    UINT8 i, j;
+    for(i = 1U; i != 4U; ++i) {
+        OBP0_REG = fadePals[i];
+        for(j = 0U; j != delay; ++j) {
+            snd_update();
+            wait_vbl_done();
+        }
+    }
+}
+
+void fadeSpritesToWhiteCGB(UBYTE delay) {
+    /*
+    UBYTE i, c, p;
+    UBYTE r, g, b;
+    UWORD data[4];
+    for(i = 0U; i != 15U; ++i) {
+        for(p = 0U; p != 8U; ++p) {
+            get_bkg_palette(p, data);
+            for(c = 0U; c != 4U; ++c) {
+                r = GET_RED(data[c]);
+                g = GET_GREEN(data[c]);
+                b = GET_BLUE(data[c]);
+
+                if(r <= 29U) r += 2U; else r = 31U;
+                if(g <= 29U) g += 2U; else g = 31U;
+                if(b <= 29U) b += 2U; else b = 31U;
+                palette_buffer[(p << 2) + c] = RGB(r, g, b);
+            }
+        }
+        set_sprite_palette(0, 8U, palette_buffer);
+
+        for(p = 0U; p != delay; ++p) {
+            snd_update();
+            wait_vbl_done();
+        }
+    }
+    */
 }
 
 void enterGame() {
