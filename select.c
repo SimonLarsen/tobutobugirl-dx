@@ -172,10 +172,10 @@ void selectUpdateSprites() {
 		}
 
 		frame = 41U + (cat_frame << 2);
-		setSprite(136U, 20U, frame++, OBJ_PAL0);
-		setSprite(144U, 20U, frame++, OBJ_PAL0);
-		setSprite(136U, 28U, frame++, OBJ_PAL0);
-		setSprite(144U, 28U, frame, OBJ_PAL0);
+		setSprite(136U, 20U, frame++, OBJ_PAL0 | 1U);
+		setSprite(144U, 20U, frame++, OBJ_PAL0 | 1U);
+		setSprite(136U, 28U, frame++, OBJ_PAL0 | 1U);
+		setSprite(144U, 28U, frame, OBJ_PAL0 | 1U);
 	}
 }
 

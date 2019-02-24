@@ -90,6 +90,23 @@ const UWORD sprite_palettes[32] = {
     32767, 28638, 13755, 3114
 };
 
+const UBYTE entity_sprites[10] = {
+    0,        // E_NONE
+     // Hazards
+    9*4,    // E_SPIKES
+    19*4,     // E_FIREBALL
+     // Enemies
+    17*4,    // E_ALIEN
+    13*4,    // E_BAT
+    11*4,    // E_BIRD
+    15*4,    // E_GHOST
+    // Powerups
+    21*4,    // E_CLOCK
+    // Special
+    29*4,    // E_PORTAL
+    27*4    // E_CLOUD
+};
+
 const UBYTE entity_palettes[10U] = {
     0U, // none
     2U, // spikes
@@ -642,10 +659,10 @@ void updateEntities() {
 
             case E_PORTAL:
                 if(level == 3U && player_skin == 1U) {
-                    setSprite(x-16U, y-24U, 120U, OBJ_PAL0);
-                    setSprite(x-8U,  y-24U, 122U, OBJ_PAL0);
-                    setSprite(x-16U, y-8U, 124U, OBJ_PAL0 | 6U);
-                    setSprite(x-8U,  y-8U, 126U, OBJ_PAL0 | 6U);
+                    setSprite(x-16U, y-24U, 120U, OBJ_PAL0 | 1U);
+                    setSprite(x-8U,  y-24U, 122U, OBJ_PAL0 | 1U);
+                    setSprite(x-16U, y-8U, 124U, OBJ_PAL0 | 1U);
+                    setSprite(x-8U,  y-8U, 126U, OBJ_PAL0 | 1U);
                 } else {
                     if(entity_dir[i] & 1U) {
                         setSprite(x-16U, y, frame, OBJ_PAL0 | 6U);
@@ -862,6 +879,7 @@ void intoPortalAnimation() {
         setSprite(player_x-16U, player_y, entity_sprites[E_PORTAL], OBJ_PAL0 | 6U);
         setSprite(player_x-8U, player_y, entity_sprites[E_PORTAL]+2U, OBJ_PAL0 | 6U);
 
+        updateHUD();
         clearRemainingSprites();
         snd_update();
         wait_vbl_done();
@@ -877,11 +895,13 @@ void intoPortalAnimation() {
             setSprite(player_x-16U, player_y, frame+2U, FLIP_X | OBJ_PAL0 | 6U);
         }
 
+        updateHUD();
         clearRemainingSprites();
         snd_update();
         wait_vbl_done();
     }
 
+    updateHUD();
     clearRemainingSprites();
     wait_vbl_done();
 
@@ -895,6 +915,7 @@ void intoPortalAnimation() {
     }
     stopMusic();
 
+    clearRemainingSprites();
     fadeToWhite(8U);
     wait_sound_done();
 }
@@ -915,14 +936,15 @@ void saveCatAnimation() {
 
         if((ticks & 15U) == 15U) player_y++;
 
+        setSprite(player_x-16U, player_y-24U, 120U, OBJ_PAL0 | 1U);
+        setSprite(player_x-8U,  player_y-24U, 122U, OBJ_PAL0 | 1U);
+        setSprite(player_x-16U, player_y-8U, 124U, OBJ_PAL0 | 1U);
+        setSprite(player_x-8U,  player_y-8U, 126U, OBJ_PAL0 | 1U);
+
         setSprite(player_x-16U, player_y, 4U, OBJ_PAL0);
         setSprite(player_x-8U, player_y, 6U, OBJ_PAL0);
 
-        setSprite(player_x-16U, player_y-24U, 120U, OBJ_PAL0);
-        setSprite(player_x-8U,  player_y-24U, 122U, OBJ_PAL0);
-        setSprite(player_x-16U, player_y-8U, 124U, OBJ_PAL0);
-        setSprite(player_x-8U,  player_y-8U, 126U, OBJ_PAL0);
-
+        updateHUD();
         clearRemainingSprites();
         snd_update();
         wait_vbl_done();

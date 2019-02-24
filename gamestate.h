@@ -53,7 +53,6 @@ extern UBYTE entity_x[MAX_ENTITIES];
 extern UBYTE entity_y[MAX_ENTITIES];
 extern UBYTE entity_type[MAX_ENTITIES];
 extern UBYTE entity_dir[MAX_ENTITIES];
-extern UBYTE entity_sprites[10];
 
 #define CLICKED(x) ((joystate & x) && (joystate & x) != (oldjoystate & x))
 #define RELEASED(x) (!(joystate & x) && (joystate & x) != (oldjoystate & x))

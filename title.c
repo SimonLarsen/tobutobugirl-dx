@@ -28,9 +28,10 @@ const UBYTE minigame_bkg_palettes[6] = {
     4U, 4U, 180U, 4U, 4U, 180U
 };
 
-const UWORD title_sprite_palette_data[8] = {
+const UWORD title_sprite_palette_data[12] = {
     32767, 28638, 8476, 0,
     32767, 28638, 9695, 0,
+    32767, 32767, 28180, 0
 };
 
 const UWORD minigame_fade_palettes[32] = {
@@ -70,7 +71,7 @@ void initTitle() {
 
 	set_sprite_data(0U, 37U, characters_data);
 	set_sprite_data(38U, title_cat_data_length, title_cat_data);
-    set_sprite_palette(0U, 2U, title_sprite_palette_data);
+    set_sprite_palette(0U, 3U, title_sprite_palette_data);
 
 	OBP0_REG = 0xD0U; // 11010000
 	BGP_REG = 0xE4U;  // 11100100
@@ -187,8 +188,8 @@ void drawTitleSprites(UBYTE triggered) {
 		}
 
         // Draw balloon
-		setSprite(player_x, player_y, 39U, OBJ_PAL0);
-		setSprite(player_x+8, player_y, 41U, OBJ_PAL0);
+		setSprite(player_x, player_y, 39U, OBJ_PAL0 | 1U);
+		setSprite(player_x+8, player_y, 41U, OBJ_PAL0 | 1U);
 
 		// Draw cat
 		frame = 42U;
@@ -206,8 +207,8 @@ void drawTitleSprites(UBYTE triggered) {
 		}
 	} else {
 		if(scene_state == TITLE_MINIGAME) {
-			setSprite(player_x, player_y-8U, 38U, OBJ_PAL0);
-			setSprite(player_x+8, player_y-8U, 40U, OBJ_PAL0);
+			setSprite(player_x, player_y-8U, 38U, OBJ_PAL0 | 1U);
+			setSprite(player_x+8, player_y-8U, 40U, OBJ_PAL0 | 1U);
 
 			frame = 42U;
 			if(ticks & 16U) frame += 4U;
@@ -221,16 +222,16 @@ void drawTitleSprites(UBYTE triggered) {
 			}
 		} else {
 			if(player_xdir == LEFT) {
-				setSprite(player_x, player_y+8, 50U, OBJ_PAL0);
-				setSprite(player_x+8U, player_y+8, 52U, OBJ_PAL0);
+				setSprite(player_x, player_y+8, 50U, OBJ_PAL0 | 1U);
+				setSprite(player_x+8U, player_y+8, 52U, OBJ_PAL0 | 1U);
 			} else {
-				setSprite(player_x+8U, player_y+8, 50U, FLIP_X | OBJ_PAL0);
-				setSprite(player_x, player_y+8, 52U, FLIP_X | OBJ_PAL0);
+				setSprite(player_x+8U, player_y+8, 50U, FLIP_X | OBJ_PAL0 | 1U);
+				setSprite(player_x, player_y+8, 52U, FLIP_X | OBJ_PAL0 | 1U);
 			}
 
 			if(timer <= 12U) {
-				setSprite(player_x, player_y-6U, 54U, OBJ_PAL0);
-				setSprite(player_x+8U, player_y-6U, 56U, OBJ_PAL0);
+				setSprite(player_x, player_y-6U, 54U, OBJ_PAL0 | 2U);
+				setSprite(player_x+8U, player_y-6U, 56U, OBJ_PAL0 | 2U);
 			}
 		}
 
