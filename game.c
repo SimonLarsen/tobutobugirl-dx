@@ -87,7 +87,7 @@ const UWORD sprite_palettes[32] = {
     32767, 28638, 13993, 0,
     32767, 6940, 8476, 0,
     32767, 19886, 11333, 0,
-    32767, 28638, 13755, 3114
+    32767, 28638, 22207, 12701
 };
 
 const UBYTE entity_sprites[10] = {
@@ -479,7 +479,7 @@ void updatePlayer() {
 
     // Blink
     palette = OBJ_PAL0;
-    if(!dashes && (ticks & 4U)) palette = OBJ_PAL1;
+    if(!dashes && (ticks & 4U)) palette = OBJ_PAL1 | 7U;
 
     // Dash marker
     if(show_dashcounter) {
@@ -653,8 +653,8 @@ void updateEntities() {
         switch(type) {
             case E_CLOUD:
                 frame += entity_dir[i] << 1U;
-                setSprite(x-16U, y, frame, OBJ_PAL0 | 7U);
-                setSprite(x-8U,  y, frame, OBJ_PAL0 | FLIP_X | 7U);
+                setSprite(x-16U, y, frame, OBJ_PAL0 | 3U);
+                setSprite(x-8U,  y, frame, OBJ_PAL0 | FLIP_X | 3U);
                 break;
 
             case E_PORTAL:
@@ -863,6 +863,7 @@ void introAnimation() {
 void intoPortalAnimation() {
     UBYTE frame;
 
+    clearRemainingSprites();
     disable_interrupts();
     set_sprite_data(0U, portal_data_length, portal_data);
     enable_interrupts();
