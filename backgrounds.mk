@@ -26,8 +26,8 @@ select_backgrounds: data/bg/catface.h data/bg/select.h
 data/bg/catface.h: data/bg/catface.png
 	$(IMGTOGB) --map -O 9 $< $@
 
-data/bg/select.h: data/bg/select.png
-	$(IMGTOGB) --map --rle -O 13 $< $@
+data/bg/select.h: data/bg/select.png data/bg/select_dx.png
+	$(IMGTOGB) --map --rle -O 13 $< --dx data/bg/select_dx.png $@
 
 ingame_backgrounds: data/bg/hud.h data/bg/hud_dx.h data/bg/clock.h background1.h background2.h background3.h background4.h pause_bg.h
 
@@ -35,7 +35,7 @@ data/bg/hud.h: data/bg/hud.png
 	$(IMGTOGB) --map $< $@
 
 data/bg/hud_dx.h: data/bg/hud_dx.png
-	$(IMGTOGB) --map -c -P 6 $< $@
+	$(IMGTOGB) --map -c -P 5 $< $@
 
 data/bg/clock.h: data/bg/clock.png
 	$(IMGTOGB) --map -O 21 $< $@

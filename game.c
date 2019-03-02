@@ -90,6 +90,10 @@ const UWORD sprite_palettes[32] = {
     32767, 28638, 22207, 12701
 };
 
+const UWORD clock_palettes[4] = {
+    32767, 18668, 18668, 0
+};
+
 const UBYTE entity_sprites[10] = {
     0,        // E_NONE
      // Hazards
@@ -131,6 +135,8 @@ UBYTE mydiv(UBYTE num, UBYTE denom) {
 UBYTE rand();
 
 void initGame() {
+    UBYTE i;
+    UBYTE buf[4];
     UBYTE *skin_data;
 
     disable_interrupts();
@@ -146,9 +152,12 @@ void initGame() {
         set_bkg_data(hud_dx_tiles_offset, hud_dx_data_length, hud_dx_data);
         set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
         set_bkg_palette_buffer(hud_dx_palette_offset, hud_dx_palette_data_length, hud_dx_palette_data);
+        set_bkg_palette_buffer(7U, 1U, clock_palettes);
         set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_tiles);
         VBK_REG = 1U;
         set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_palettes);
+        for(i = 0U; i != 4U; ++i) buf[i] = 7U;
+        set_win_tiles(0U, 1U, 2U, 2U, buf);
         VBK_REG = 0U;
     } else {
         set_bkg_data(hud_tiles_offset, hud_data_length, hud_data);
@@ -241,6 +250,8 @@ void initGame() {
 }
 
 void restoreGame() {
+    UBYTE i;
+    UBYTE buf[4];
     UBYTE *skin_data;
 
     disable_interrupts();
@@ -250,9 +261,12 @@ void restoreGame() {
         set_bkg_data(hud_dx_tiles_offset, hud_dx_data_length, hud_dx_data);
         set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
         set_bkg_palette_buffer(hud_dx_palette_offset, hud_dx_palette_data_length, hud_dx_palette_data);
+        set_bkg_palette_buffer(7U, 1U, clock_palettes);
         set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_tiles);
         VBK_REG = 1U;
         set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_palettes);
+        for(i = 0U; i != 4U; ++i) buf[i] = 7U;
+        set_win_tiles(0U, 1U, 2U, 2U, buf);
         VBK_REG = 0U;
     } else {
         set_bkg_data(hud_tiles_offset, hud_data_length, hud_data);

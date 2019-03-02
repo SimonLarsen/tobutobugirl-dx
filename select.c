@@ -36,8 +36,12 @@ UBYTE cat_frame_reverse;
 extern UBYTE mainmenu_song_data;
 extern UBYTE potaka_song_data;
 
+const UWORD select_sprite_palettes[8] = {
+    32767, 7318, 9695, 0,
+    32767, 28638, 9695, 0
+};
+
 void initSelect() {
-    UBYTE i;
 	disable_interrupts();
 	DISPLAY_OFF;
 
@@ -51,7 +55,13 @@ void initSelect() {
 	set_bkg_data_rle(select_tiles_offset, select_data_length, select_data);
 	set_bkg_tiles_rle(0U, 0U, select_tiles_width, select_tiles_height, select_tiles);
 
-    if(CGB_MODE) { for(i = 0U; i != 8U; ++i) { set_bkg_palette_buffer(i, 1U, gs_palette); } }
+    if(CGB_MODE) {
+        set_bkg_palette_buffer(0U, select_palette_data_length, select_palette_data);
+        VBK_REG = 1U;
+	    set_bkg_tiles_rle(0U, 0U, select_tiles_width, select_tiles_height, select_palettes);
+        VBK_REG = 0U;
+        set_sprite_palette(0U, 2U, select_sprite_palettes);
+    }
 
 	ticks = 0U;
 	timer = 0U;

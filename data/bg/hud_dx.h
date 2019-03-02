@@ -31,12 +31,12 @@ const unsigned char hud_dx_tiles[] = {
       4,   5,  17,  18
 };
 const unsigned char hud_dx_palettes[] = {
-      6,   6,   6,   6,   6,   6,   6,   6,   6,   6,   6,   6,   6,   6,   6,   6,
-      6,   6,   6,   6,   6,   6,   6,   6,   6,   6,   7,   7,   6,   6,   6,   6,
-      6,   6,   6,   6
+      5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,
+      5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   6,   6,   5,   5,   5,   5,
+      5,   5,   5,   5
 };
 #define hud_dx_palette_data_length 2
-#define hud_dx_palette_offset 6
+#define hud_dx_palette_offset 5
 const unsigned int hud_dx_palette_data[] = {
     28638, 30300,   0, 18668,
     28638, 8937, 27849,   0
