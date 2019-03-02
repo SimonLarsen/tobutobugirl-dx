@@ -193,10 +193,10 @@ void updateEnding() {
 				tmp = 52U + (((ticks-12U) >> 3) << 2);
 				tmp2 = 144U; if(tmp != 52U) tmp2 -= 4U;
 
-				setSprite(cat_x-8U, tmp2, tmp, OBJ_PAL0 | 3U);
-				setSprite(cat_x, tmp2, tmp+2U, OBJ_PAL0 | 3U);
-				setSprite(player_x+16U, tmp2, tmp, OBJ_PAL0 | FLIP_X | 3U);
-				setSprite(player_x+8U, tmp2, tmp+2U, OBJ_PAL0 | FLIP_X | 3U);
+				setSprite(cat_x-8U, tmp2, tmp, OBJ_PAL0);
+				setSprite(cat_x, tmp2, tmp+2U, OBJ_PAL0);
+				setSprite(player_x+16U, tmp2, tmp, OBJ_PAL0 | FLIP_X);
+				setSprite(player_x+8U, tmp2, tmp+2U, OBJ_PAL0 | FLIP_X);
 			}
 
 			if(ticks >= 225U) {
