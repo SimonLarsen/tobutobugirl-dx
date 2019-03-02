@@ -6,7 +6,7 @@ define make-sprite-8x8
 	$(IMGTOGB) $< $@
 endef
 
-sprites: data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h data/sprite/notes.h data/sprite/intro_sprites.h data/sprite/intro_flash.h data/sprite/bobblehead.h data/sprite/ending_sprites1.h data/sprite/ending_sprites2.h data/sprite/digital.h data/sprite/togglecat.h pause_cloud1.h pause_cloud2.h data/sprite/shine.h data/sprite/title_cat.h data/sprite/wipe_marker.h data/sprite/ranks.h
+sprites: data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h data/sprite/notes.h data/sprite/intro_sprites.h data/sprite/intro_flash.h data/sprite/bobblehead.h data/sprite/bobblehead_dx.h data/sprite/ending_sprites1.h data/sprite/ending_sprites2.h data/sprite/digital.h data/sprite/togglecat.h pause_cloud1.h pause_cloud2.h data/sprite/shine.h data/sprite/title_cat.h data/sprite/wipe_marker.h data/sprite/ranks.h
 
 data/sprite/sprites.h: data/sprite/sprites.png
 	$(make-sprite-8x16)
@@ -30,6 +30,9 @@ data/sprite/intro_flash.h: data/sprite/intro_flash.png
 	$(make-sprite-8x16)
 
 data/sprite/bobblehead.h: data/sprite/bobblehead.png
+	$(make-sprite-8x16)
+
+data/sprite/bobblehead_dx.h: data/sprite/bobblehead_dx.png
 	$(make-sprite-8x16)
 
 data/sprite/ending_sprites1.h: data/sprite/ending_sprites1.png

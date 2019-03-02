@@ -13,6 +13,7 @@
 #include "arrow.h"
 #include "data/sprite/notes.h"
 #include "data/sprite/bobblehead.h"
+#include "data/sprite/bobblehead_dx.h"
 
 UBYTE jukebox_active;
 UBYTE jukebox_playing;
@@ -57,6 +58,13 @@ const UWORD digital_palette[4] = {
     RGB(0, 0, 0)
 };
 
+const UWORD jukebox_palettes[16] = {
+    32767, 8476, 4245, 0,
+    32767, 2187, 4245, 0,
+    32767, 29461, 25099, 0,
+    32767, 32767, 13755, 3114
+};
+
 void initJukebox() {
     UBYTE i, j;
 
@@ -68,12 +76,13 @@ void initJukebox() {
 
 	move_bkg(0U, 0U);
 
-	set_sprite_data(0U, arrow_data_length, arrow_data);
-	set_sprite_data(arrow_data_length, notes_data_length, notes_data);
-	set_sprite_data(arrow_data_length+notes_data_length, bobblehead_data_length, bobblehead_data);
-
+    set_sprite_data(0U, arrow_data_length, arrow_data);
+    set_sprite_data(arrow_data_length, notes_data_length, notes_data);
     set_bkg_data(0U, 37U, digital_data);
+
     if(CGB_MODE) {
+        set_sprite_data(arrow_data_length+notes_data_length, bobblehead_dx_data_length, bobblehead_dx_data);
+        set_sprite_palette(0U, 4U, jukebox_palettes);
         set_bkg_data_rle(jukebox_dx_tiles_offset, jukebox_dx_data_length, jukebox_dx_data);
         set_bkg_tiles_rle(0U, 0U, jukebox_dx_tiles_width, jukebox_dx_tiles_height, jukebox_dx_tiles);
         set_bkg_palette_buffer(0U, jukebox_dx_palette_data_length, jukebox_dx_palette_data);
@@ -81,11 +90,11 @@ void initJukebox() {
         VBK_REG = 1U;
         set_bkg_tiles_rle(0U, 0U, jukebox_dx_tiles_width, jukebox_dx_tiles_height, jukebox_dx_palettes);
         j = 7U;
-        for(i = 6U; i != 14U; ++i) {
-            set_bkg_tiles(i, 12U, 1U, 1U, &j);
-        }
+        for(i = 6U; i != 14U; ++i) set_bkg_tiles(i, 12U, 1U, 1U, &j);
         VBK_REG = 0U;
     } else {
+        set_sprite_data(arrow_data_length+notes_data_length, bobblehead_data_length, bobblehead_data);
+
         set_bkg_data_rle(jukebox_tiles_offset, jukebox_data_length, jukebox_data);
         set_bkg_tiles_rle(0U, 0U, jukebox_tiles_width, jukebox_tiles_height, jukebox_tiles);
     }
@@ -128,23 +137,23 @@ void jukeboxUpdateSprites() {
 	offset = cos32_64[(ticks & 63U)] >> 3;
 
 	// Left arrow
-	setSprite(36U-offset, 108U, 0U, OBJ_PAL0);
-	setSprite(44U-offset, 108U, 2U, OBJ_PAL0);
+	setSprite(36U-offset, 108U, 0U, OBJ_PAL0 | 2U);
+	setSprite(44U-offset, 108U, 2U, OBJ_PAL0 | 2U);
 
 	// Right arrow
-	setSprite(124U+offset, 108U, 2U, OBJ_PAL0 | FLIP_X);
-	setSprite(132U+offset, 108U, 0U, OBJ_PAL0 | FLIP_X);
+	setSprite(124U+offset, 108U, 2U, OBJ_PAL0 | FLIP_X | 2U);
+	setSprite(132U+offset, 108U, 0U, OBJ_PAL0 | FLIP_X | 2U);
 
 	if(jukebox_active) {
 		// Small notes
 		offset = jukebox_bop & 1U;
-		setSprite(11U, 94U+offset, 4U, OBJ_PAL0);
-		setSprite(145U, 18U+offset, 4U, OBJ_PAL0);
+		setSprite(11U, 94U+offset, 4U, OBJ_PAL0 | 3U);
+		setSprite(145U, 18U+offset, 4U, OBJ_PAL0 | 3U);
 
 		// Double note
 		offset = (jukebox_bop & 1U) ^ 1U;
-		setSprite(12U, 19U+offset, 8U, OBJ_PAL0);
-		setSprite(20U, 19U+offset, 10U, OBJ_PAL0);
+		setSprite(12U, 19U+offset, 8U, OBJ_PAL0 | 3U);
+		setSprite(20U, 19U+offset, 10U, OBJ_PAL0 | 3U);
 	}
 
 	// Bobble head figurine
@@ -160,9 +169,9 @@ void jukeboxUpdateSprites() {
 	setSprite(135U, 34U, offset, OBJ_PAL1);
 	setSprite(143U, 34U, offset+2U, OBJ_PAL1);
 	setSprite(151U, 34U, offset+4U, OBJ_PAL1);
-	setSprite(135U, 50U, offset+6U, OBJ_PAL1);
-	setSprite(143U, 50U, offset+8U, OBJ_PAL1);
-	setSprite(151U, 50U, offset+10U, OBJ_PAL1);
+	setSprite(135U, 50U, offset+6U, OBJ_PAL1 | 1U);
+	setSprite(143U, 50U, offset+8U, OBJ_PAL1 | 1U);
+	setSprite(151U, 50U, offset+10U, OBJ_PAL1 | 1U);
 }
 
 void jukeboxUpdateTitle() {
