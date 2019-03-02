@@ -159,11 +159,11 @@ void jukeboxUpdateSprites() {
 	// Bobble head figurine
 	offset = jukebox_bop & 3U;
 	if(offset == 1U) {
-		offset = 20U;
+		offset = 12U;
 	} else if(offset == 3U) {
-		offset = 44U;
+		offset = 36U;
 	} else {
-		offset = 32U;
+		offset = 24U;
 	}
 	if(offset == 3U) offset = 0U;
 	setSprite(135U, 34U, offset, OBJ_PAL1);
