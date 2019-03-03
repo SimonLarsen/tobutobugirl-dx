@@ -21,8 +21,6 @@
 
 const UBYTE RAM_SIG[8] = {'T','O','B','U','T','O','B','U'};
 
-const UINT16 GS_SPR_PALETTE[] = { RGB(31, 31, 31), RGB(31, 31, 31), RGB(20, 20, 20), RGB(0, 0, 0) };
-
 void initRAM(UBYTE force_clear) {
 	UBYTE initialized, i;
 
@@ -89,12 +87,6 @@ void main() {
 	add_TIM(updateMusic);
 	add_VBL(vbl_update);
 	set_interrupts(TIM_IFLAG | VBL_IFLAG);
-
-    if(_cpu == CGB_TYPE) {
-        VBK_REG = 1U;
-        set_sprite_palette(0U, 1U, GS_SPR_PALETTE);
-        VBK_REG = 0U;
-    }
 
     DISPLAY_ON;
 	enable_interrupts();

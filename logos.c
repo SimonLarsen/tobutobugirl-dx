@@ -14,6 +14,10 @@ extern UBYTE tangram_shine_song_data;
 extern UBYTE tangram_vox_song_data;
 extern UBYTE potato_jingle_song_data;
 
+const UWORD tangram_flash_palette[4] = {
+    32767, 32767, 32767, 32767
+};
+
 void initLogos() {
 	disable_interrupts();
 	DISPLAY_OFF;
@@ -30,6 +34,7 @@ void initLogos() {
 	set_bkg_tiles_rle(0U, 0U, tangram_tiles_width, tangram_tiles_height, tangram_tiles);
 
     if(CGB_MODE) {
+        set_sprite_palette(0U, 1U, tangram_flash_palette);
         set_bkg_palette_buffer(0U, tangram_palette_data_length, tangram_palette_data);
         VBK_REG = 1U;
         set_bkg_tiles_rle(0U, 0U, tangram_tiles_width, tangram_tiles_height, tangram_palettes);
