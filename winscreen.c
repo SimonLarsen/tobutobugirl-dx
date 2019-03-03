@@ -9,7 +9,9 @@
 
 #include "characters.h"
 #include "data/bg/win_base.h"
+#include "data/bg/win_base_dx.h"
 #include "data/bg/rank_banner.h"
+#include "data/bg/rank_banner_dx.h"
 #include "data/sprite/ranks.h"
 #include "circles.h"
 #include "mmlgb/driver/music.h"
@@ -26,8 +28,12 @@ const UBYTE sharkwave_data[16] = {
 	1U, 35U, 69U, 103U, 138U, 166U, 205U, 239U, 255U, 134U, 67U, 50U, 162U, 17U, 16U, 0U
 };
 
+const UWORD ranks_palettes[4] = {
+    31775, 32767, 8476, 0
+};
+
 void initWinscreen() {
-	UBYTE i, rank;
+	UBYTE rank;
 	UBYTE *data;
 
 	disable_interrupts();
@@ -40,15 +46,27 @@ void initWinscreen() {
 	BGP_REG = 0xE4U; // 11100100
 
 	set_bkg_data(0U, 40U, characters_data);
-	set_bkg_data_rle(win_base_tiles_offset, win_base_data_length, win_base_data);
-	set_bkg_data_rle(rank_banner_tiles_offset, rank_banner_data_length, rank_banner_data);
 
-	set_bkg_tiles_rle(0U, 0U, win_base_tiles_width, win_base_tiles_height, win_base_tiles);
-	set_bkg_tiles(11U, 1U, 5U, 1U, winscreen_clear_text);
+    if(CGB_MODE) {
+	    set_bkg_data_rle(win_base_dx_tiles_offset, win_base_dx_data_length, win_base_dx_data);
+        set_bkg_data_rle(rank_banner_dx_tiles_offset, rank_banner_dx_data_length, rank_banner_dx_data);
+
+	    set_bkg_tiles_rle(0U, 0U, win_base_dx_tiles_width, win_base_dx_tiles_height, win_base_dx_tiles);
+	    set_bkg_tiles(11U, 1U, 5U, 1U, winscreen_clear_text);
+        set_bkg_palette_buffer(0U, win_base_dx_palette_data_length, win_base_dx_palette_data);
+        VBK_REG = 1U;
+	    set_bkg_tiles_rle(0U, 0U, win_base_dx_tiles_width, win_base_dx_tiles_height, win_base_dx_palettes);
+        VBK_REG = 0U;
+        set_sprite_palette(0U, 1U, ranks_palettes);
+    } else {
+	    set_bkg_data_rle(win_base_tiles_offset, win_base_data_length, win_base_data);
+        set_bkg_data_rle(rank_banner_tiles_offset, rank_banner_data_length, rank_banner_data);
+
+	    set_bkg_tiles_rle(0U, 0U, win_base_tiles_width, win_base_tiles_height, win_base_tiles);
+	    set_bkg_tiles(11U, 1U, 5U, 1U, winscreen_clear_text);
+    }
 
 	setWinscreenBackground(level);
-
-    if(CGB_MODE) { for(i = 0U; i != 8U; ++i) { set_bkg_palette_buffer(i, 1U, gs_palette); } }
 
 	// Load rank sprite
 	rank = getRank(TOTAL_SCORE, level);
@@ -149,38 +167,47 @@ void winscreenTextJingle() {
 
 void winscreenShowRank() {
 	UBYTE i, offset;
+    UBYTE buf[3];
 
 	disable_interrupts();
-	set_bkg_tiles_rle(0U, 6U, 20U, 6U, rank_banner_tiles);
+    if(CGB_MODE) {
+	    set_bkg_tiles_rle(0U, 6U, 20U, 6U, rank_banner_dx_tiles);
+        VBK_REG = 1U;
+        buf[0] = 1U; buf[1] = 1U; buf[2] = 120U;
+	    set_bkg_tiles_rle(0U, 6U, 20U, 6U, buf);
+        VBK_REG = 0U;
+    } else {
+	    set_bkg_tiles_rle(0U, 6U, 20U, 6U, rank_banner_tiles);
+    }
 	enable_interrupts();
 
 	winscreenWait(15U);
 
 	for(offset = 64U; offset != 252U; offset -= 4U) {
-		setSprite(104U-offset, 72U-offset, 0U, OBJ_PAL0);
-		setSprite(112U-offset, 72U-offset, 2U, OBJ_PAL0);
-		setSprite(120U+offset, 72U-offset, 4U, OBJ_PAL0);
-		setSprite(128U+offset, 72U-offset, 6U, OBJ_PAL0);
+		setSprite(100U-offset, 72U-offset, 0U, OBJ_PAL0);
+		setSprite(108U-offset, 72U-offset, 2U, OBJ_PAL0);
+		setSprite(116U+offset, 72U-offset, 4U, OBJ_PAL0);
+		setSprite(124U+offset, 72U-offset, 6U, OBJ_PAL0);
 
-		setSprite(104U-offset, 88U+offset,  8U, OBJ_PAL0);
-		setSprite(112U-offset, 88U+offset, 10U, OBJ_PAL0);
-		setSprite(120U+offset, 88U+offset, 12U, OBJ_PAL0);
-		setSprite(128U+offset, 88U+offset, 14U, OBJ_PAL0);
+		setSprite(100U-offset, 88U+offset,  8U, OBJ_PAL0);
+		setSprite(108U-offset, 88U+offset, 10U, OBJ_PAL0);
+		setSprite(116U+offset, 88U+offset, 12U, OBJ_PAL0);
+		setSprite(124U+offset, 88U+offset, 14U, OBJ_PAL0);
 
 		winscreenWait(1U);
 	}
 
 	clearRemainingSprites();
 
-	setSprite(104U, 72U, 0U, OBJ_PAL0);
-	setSprite(112U, 72U, 2U, OBJ_PAL0);
-	setSprite(120U, 72U, 4U, OBJ_PAL0);
-	setSprite(128U, 72U, 6U, OBJ_PAL0);
+	setSprite(100U, 72U, 0U, OBJ_PAL0);
+	setSprite(108U, 72U, 2U, OBJ_PAL0);
+	setSprite(116U, 72U, 4U, OBJ_PAL0);
+	setSprite(124U, 72U, 6U, OBJ_PAL0);
 
-	setSprite(104U, 88U, 8U, OBJ_PAL0);
-	setSprite(112U, 88U, 10U, OBJ_PAL0);
-	setSprite(120U, 88U, 12U, OBJ_PAL0);
-	setSprite(128U, 88U, 14U, OBJ_PAL0);
+	setSprite(100U, 88U, 8U, OBJ_PAL0);
+	setSprite(108U, 88U, 10U, OBJ_PAL0);
+	setSprite(116U, 88U, 12U, OBJ_PAL0);
+	setSprite(124U, 88U, 14U, OBJ_PAL0);
 
 	playSound(SFX_RANK_CRASH);
 

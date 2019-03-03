@@ -37,7 +37,7 @@ extern UBYTE mainmenu_song_data;
 extern UBYTE potaka_song_data;
 
 const UWORD select_sprite_palettes[8] = {
-    32767, 7318, 9695, 0,
+    32767, 32767, 11516, 0,
     32767, 28638, 9695, 0
 };
 

@@ -29,7 +29,7 @@ OBJ_BANK5=
 OBJ_BANK6=
 OBJ_BANK7=winscreen.o background1.o background2.o background3.o background4.o pause_bg.o
 OBJ_BANK8=title.o pause_cloud1.o pause_cloud2.o
-OBJ_BANK9=logos.o win1.o win2.o win3.o win4.o
+OBJ_BANK9=logos.o win1.o win1_dx.o win2.o win3.o win4.o
 OBJ_BANK10=sound_data.o
 OBJ_BANK11=
 OBJ_BANK12=jukebox.o
@@ -104,7 +104,7 @@ game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sou
 game.o: game.asm
 	${compile-source}
 
-gamestate.o: gamestate.c defines.h gamestate.h background1.h background2.h background3.h background4.h pause_bg.h win1.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
+gamestate.o: gamestate.c defines.h gamestate.h background1.h background2.h background3.h background4.h pause_bg.h win1.h win1_dx.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
 	${compile-source}
 
 highscore.o: highscore.c defines.h gamestate.h fade.h cos.h highscore.h ram.h sound.h characters.h arrow.h data/sprite/empty.h data/bg/highscore.h circles.h selection1.h selection2.h selection3.h selection4.h selection_locked.h
@@ -176,6 +176,9 @@ unlocked.o: unlocked.c defines.h unlocked.h fade.h gamestate.h characters.h zoom
 win1.o: win1.c win1.h
 	${compile-source}
 
+win1_dx.o: win1_dx.c win1_dx.h
+	${compile-source}
+
 win2.o: win2.c win2.h
 	${compile-source}
 
@@ -185,7 +188,7 @@ win3.o: win3.c win3.h
 win4.o: win4.c win4.h
 	${compile-source}
 
-winscreen.o: winscreen.c defines.h gamestate.h fade.h winscreen.h sound.h characters.h data/bg/win_base.h data/bg/rank_banner.h data/sprite/ranks.h circles.h mmlgb/driver/music.h mmlgb/driver/notes.h mmlgb/driver/freq.h
+winscreen.o: winscreen.c defines.h gamestate.h fade.h winscreen.h sound.h characters.h data/bg/win_base.h data/bg/win_base_dx.h data/bg/rank_banner.h data/bg/rank_banner_dx.h data/sprite/ranks.h circles.h mmlgb/driver/music.h mmlgb/driver/notes.h mmlgb/driver/freq.h
 	${compile-source}
 
 wipe.o: wipe.c main.h wipe.h defines.h fade.h gamestate.h sound.h circles.h data/bg/wipe.h data/sprite/wipe_marker.h

@@ -74,7 +74,6 @@ void main() {
 
 	vbl_count = 0U;
 	joystate = oldjoystate = 0U;
-	level = 1U;
 	unlocked_bits = 0U;
 	player_skin = 1U;
 	ending_flags = 0U;
@@ -84,7 +83,7 @@ void main() {
 	last_progress = 0U;
 	selection = level = 1U;
 	
-	gamestate = GAMESTATE_LOGOS;
+	gamestate = GAMESTATE_WINSCREEN;
 
 	SWITCH_16_8_MODE_MBC1;
 	add_TIM(updateMusic);

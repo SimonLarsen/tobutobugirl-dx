@@ -9,6 +9,7 @@
 #include "background4.h"
 #include "pause_bg.h"
 #include "win1.h"
+#include "win1_dx.h"
 #include "win2.h"
 #include "win3.h"
 #include "win4.h"
@@ -212,20 +213,29 @@ void setWinscreenBackground(UBYTE level) {
 
     switch(level) {
         case 1:
-            set_bkg_data_rle(win1_tiles_offset, win1_data_length, win1_data);
-            set_bkg_tiles_rle(8U, 3U, win1_tiles_width, win1_tiles_height, win1_tiles);
+            if(CGB_MODE) {
+                set_bkg_data_rle(win1_dx_tiles_offset, win1_dx_data_length, win1_dx_data);
+                set_bkg_tiles_rle(11U, 4U, win1_dx_tiles_width, win1_dx_tiles_height, win1_dx_tiles);
+                set_bkg_palette_buffer(win1_dx_palette_offset, win1_dx_palette_data_length, win1_dx_palette_data);
+                VBK_REG = 1U;
+                set_bkg_tiles_rle(11U, 4U, win1_dx_tiles_width, win1_dx_tiles_height, win1_dx_palettes);
+                VBK_REG = 0U;
+            } else {
+                set_bkg_data_rle(win1_tiles_offset, win1_data_length, win1_data);
+                set_bkg_tiles_rle(11U, 4U, win1_tiles_width, win1_tiles_height, win1_tiles);
+            }
             break;
         case 2:
             set_bkg_data_rle(win2_tiles_offset, win2_data_length, win2_data);
-            set_bkg_tiles_rle(8U, 3U, win2_tiles_width, win2_tiles_height, win2_tiles);
+            set_bkg_tiles_rle(8U, 4U, win2_tiles_width, win2_tiles_height, win2_tiles);
             break;
         case 3:
             set_bkg_data_rle(win3_tiles_offset, win3_data_length, win3_data);
-            set_bkg_tiles_rle(8U, 3U, win3_tiles_width, win3_tiles_height, win3_tiles);
+            set_bkg_tiles_rle(9U, 4U, win3_tiles_width, win3_tiles_height, win3_tiles);
             break;
         case 4:
             set_bkg_data_rle(win4_tiles_offset, win4_data_length, win4_data);
-            set_bkg_tiles_rle(8U, 3U, win4_tiles_width, win4_tiles_height, win4_tiles);
+            set_bkg_tiles_rle(8U, 5U, win4_tiles_width, win4_tiles_height, win4_tiles);
             break;
     }
 
