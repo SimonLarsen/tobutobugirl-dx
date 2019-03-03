@@ -13,6 +13,7 @@
 #include "data/sprite/empty.h"
 
 #include "data/bg/highscore.h"
+#include "data/bg/highscore_dx.h"
 #include "circles.h"
 #include "selection1.h"
 #include "selection2.h"
@@ -23,20 +24,32 @@
 extern UBYTE highscore_song_data;
 extern UBYTE dream_score_song_data;
 
-void initHighscore() {
-    UBYTE i;
+const UWORD highscore_palettes[4] = {
+    32767, 32767, 11516, 0,
+};
 
+void initHighscore() {
 	disable_interrupts();
 	DISPLAY_OFF;
 
 	move_bkg(0U, 0U);
 	set_bkg_data(0U, 38U, characters_data);
 	set_bkg_data(38U, circles_data_length, circles_data);
-	set_bkg_data(highscore_tiles_offset, highscore_data_length, highscore_data);
 
-    if(CGB_MODE) { for(i = 0U; i != 8U; ++i) { set_bkg_palette_buffer(i, 1U, gs_palette); } }
+    if(CGB_MODE) {
+	    set_bkg_data(highscore_dx_tiles_offset, highscore_dx_data_length, highscore_dx_data);
+	    set_bkg_tiles(0U, 0U, highscore_dx_tiles_width, highscore_dx_tiles_height, highscore_dx_tiles);
+        set_bkg_palette_buffer(0U, 1U, gs_palette);
+        set_bkg_palette_buffer(highscore_dx_palette_offset, highscore_dx_palette_data_length, highscore_dx_palette_data);
+        set_sprite_palette(0U, 1U, highscore_palettes);
+        VBK_REG = 1U;
+	    set_bkg_tiles(0U, 0U, highscore_dx_tiles_width, highscore_dx_tiles_height, highscore_dx_palettes);
+        VBK_REG = 0U;
+    } else {
+	    set_bkg_data(highscore_tiles_offset, highscore_data_length, highscore_data);
+	    set_bkg_tiles(0U, 0U, highscore_tiles_width, highscore_tiles_height, highscore_tiles);
+    }
 
-	set_bkg_tiles(0U, 0U, highscore_tiles_width, highscore_tiles_height, highscore_tiles);
 	set_sprite_data(0U, arrow_data_length, arrow_data);
 	set_sprite_data(arrow_data_length, 1U, empty_data);
 
@@ -60,14 +73,11 @@ void initHighscore() {
 }
 
 void highscoreUpdateScreen() {
-    UBYTE i;
-
 	clearRemainingSprites();
 	fadeToWhite(4U);
 	DISPLAY_OFF;
 
 	_highscoreUpdateScreen();
-    if(CGB_MODE) { for(i = 0U; i != 8U; ++i) { set_bkg_palette_buffer(i, 1U, gs_palette); } }
 
 	DISPLAY_ON;
 	fadeFromWhite(4U);
@@ -109,6 +119,11 @@ void _highscoreUpdateScreen() {
 	set_bkg_tiles(0U, 4U, 20U, 6U, data);
 	set_bkg_tiles(5U, 8U, 10U, 1U, highscore_tiles+165U);
 	set_bkg_tiles(5U, 9U, 10U, 1U, highscore_tiles+185U);
+
+    if(CGB_MODE) {
+        set_bkg_palette_buffer(0U, 1U, gs_palette);
+        set_bkg_palette_buffer(highscore_dx_palette_offset, highscore_dx_palette_data_length, highscore_dx_palette_data);
+    }
 
 	// Set level name
 	data = level_names[tile];

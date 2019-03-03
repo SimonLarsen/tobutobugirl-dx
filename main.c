@@ -83,7 +83,7 @@ void main() {
 	last_progress = 0U;
 	selection = level = 1U;
 	
-	gamestate = GAMESTATE_WINSCREEN;
+	gamestate = GAMESTATE_LOGOS;
 
 	SWITCH_16_8_MODE_MBC1;
 	add_TIM(updateMusic);

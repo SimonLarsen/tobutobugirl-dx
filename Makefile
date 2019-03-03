@@ -107,7 +107,7 @@ game.o: game.asm
 gamestate.o: gamestate.c defines.h gamestate.h background1.h background2.h background3.h background4.h pause_bg.h win1.h win1_dx.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
 	${compile-source}
 
-highscore.o: highscore.c defines.h gamestate.h fade.h cos.h highscore.h ram.h sound.h characters.h arrow.h data/sprite/empty.h data/bg/highscore.h circles.h selection1.h selection2.h selection3.h selection4.h selection_locked.h
+highscore.o: highscore.c defines.h gamestate.h fade.h cos.h highscore.h ram.h sound.h characters.h arrow.h data/sprite/empty.h data/bg/highscore.h data/bg/highscore_dx.h circles.h selection1.h selection2.h selection3.h selection4.h selection_locked.h
 	${compile-source}
 
 intro_bg.o: intro_bg.c intro_bg.h

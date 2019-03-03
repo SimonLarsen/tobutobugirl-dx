@@ -84,10 +84,13 @@ win3.c win3.h: data/bg/win3.png
 win4.c win4.h: data/bg/win4.png
 	$(IMGTOGB) --map -O 91 --rle $< -C win4.c win4.h
 
-highscore_backgrounds: data/bg/highscore.h data/sprite/empty.h
+highscore_backgrounds: data/bg/highscore.h data/bg/highscore_dx.h data/sprite/empty.h
 
 data/bg/highscore.h: data/bg/highscore.png
 	$(IMGTOGB) --map -O 47 $< $@
+
+data/bg/highscore_dx.h: data/bg/highscore_dx.png
+	$(IMGTOGB) --map -O 47 $< -c -I data/palettes/highscore.png $@
 
 data/sprite/empty.h: data/sprite/empty.png
 	$(IMGTOGB) $< $@
