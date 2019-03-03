@@ -42,6 +42,7 @@ const UWORD select_sprite_palettes[8] = {
 };
 
 void initSelect() {
+    UBYTE buf[3];
 	disable_interrupts();
 	DISPLAY_OFF;
 
@@ -57,8 +58,11 @@ void initSelect() {
 
     if(CGB_MODE) {
         set_bkg_palette_buffer(0U, select_palette_data_length, select_palette_data);
+        set_bkg_palette_buffer(select_palette_data_length, 1U, gs_palette);
         VBK_REG = 1U;
 	    set_bkg_tiles_rle(0U, 0U, select_tiles_width, select_tiles_height, select_palettes);
+        buf[0] = 3U; buf[1] = 3U; buf[2] = 120U;
+	    set_bkg_tiles_rle(0U, 10U, 20U, 6U, buf);
         VBK_REG = 0U;
         set_sprite_palette(0U, 2U, select_sprite_palettes);
     }

@@ -65,7 +65,7 @@ void vbl_update() {
 
 void main() {
 	disable_interrupts();
-    DISPLAY_OFF;
+	DISPLAY_OFF;
 
 	initRAM(0U);
 	snd_init();
@@ -88,7 +88,7 @@ void main() {
 	add_VBL(vbl_update);
 	set_interrupts(TIM_IFLAG | VBL_IFLAG);
 
-    DISPLAY_ON;
+	DISPLAY_ON;
 	enable_interrupts();
 
 	while(1U) {
