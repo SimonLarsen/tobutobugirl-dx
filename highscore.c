@@ -195,10 +195,10 @@ void enterHighscore() {
 
 	disable_interrupts();
 	if(ending_flags & ENDING_FLAG_FROM_DREAM) {
-		setMusicBank(6U);
+		setMusicBank(SONG_BANK_DREAM_SCORE);
 		playMusic(&dream_score_song_data);
 	} else {
-		setMusicBank(4U);
+		setMusicBank(SONG_BANK_HIGHSCORE);
 		playMusic(&highscore_song_data);
 	}
 	ending_flags = 0U;

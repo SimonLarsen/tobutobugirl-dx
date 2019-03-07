@@ -3,8 +3,6 @@
 
 void initSelect();
 UBYTE *selectGetBannerData();
-void selectUpdateScreen();
-void _selectUpdateScreen();
 void selectUpdateSprites();
 void enterSelect();
 

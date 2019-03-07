@@ -43,6 +43,8 @@ const UWORD select_sprite_palettes[8] = {
 
 void initSelect() {
     UBYTE buf[3];
+    UBYTE *data;
+
 	disable_interrupts();
 	DISPLAY_OFF;
 
@@ -87,9 +89,10 @@ void initSelect() {
 	BGP_REG = 0xE4U; // 11100100
 
 	clearSprites();
-	_selectUpdateScreen();
+	data = selectGetBannerData();
+	set_bkg_tiles(0U, 10U, 20U, 6U, data);
 
-	setMusicBank(4U);
+	setMusicBank(SONG_BANK_MAINMENU);
 	playMusic(&mainmenu_song_data);
 
 	HIDE_WIN;
@@ -125,11 +128,6 @@ UBYTE *selectGetBannerData() {
 		return selection_highscore_tiles;
 	}
 	return 0U;
-}
-
-void _selectUpdateScreen() {
-	UBYTE *data = selectGetBannerData();
-	set_bkg_tiles(0U, 10U, 20U, 6U, data);
 }
 
 void selectUpdateSprites() {
@@ -305,7 +303,7 @@ void enterSelect() {
 
 			else if(elapsed_time == 120U) {
 				disable_interrupts();
-				setMusicBank(4U);
+				setMusicBank(SONG_BANK_MAINMENU);
 				playMusic(&mainmenu_song_data);
 				enable_interrupts();
 
@@ -315,7 +313,7 @@ void enterSelect() {
 
 		if(elapsed_time == 110U && timer == 32) {
 			disable_interrupts();
-			setMusicBank(11U);
+			setMusicBank(SONG_BANK_POTAKA);
 			playMusic(&potaka_song_data);
 			enable_interrupts();
 		}

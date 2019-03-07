@@ -193,7 +193,7 @@ void enterJukebox() {
 			jukebox_playing = 42U;
 			disable_interrupts();
 			stopMusic();
-			setMusicBank(9U);
+			setMusicBank(SONG_BANK_ENDING_PART2);
 			playMusic(&ending_part2_song_data);
 			enable_interrupts();
 		}
@@ -223,47 +223,47 @@ void enterJukebox() {
 			disable_interrupts();
 			switch(sub_selection) {
 				case 0U:
-					setMusicBank(6U);
+					setMusicBank(SONG_BANK_INTRO);
 					playMusic(&intro_song_data);
 					break;
 				case 1U:
-					setMusicBank(4U);
+					setMusicBank(SONG_BANK_TITLE);
 					playMusic(&title_song_data);
 					break;
 				case 2U:
-					setMusicBank(4U);
+					setMusicBank(SONG_BANK_MAINMENU);
 					playMusic(&mainmenu_song_data);
 					break;
 				case 3U:
-					setMusicBank(5U);
+					setMusicBank(SONG_BANK_PLAINS);
 					playMusic(&plains_song_data);
 					break;
 				case 4U:
-					setMusicBank(4U);
+					setMusicBank(SONG_BANK_SCORE_TALLY);
 					playMusic(&score_tally_song_data);
 					break;
 				case 5U:
-					setMusicBank(4U);
+					setMusicBank(SONG_BANK_HIGHSCORE);
 					playMusic(&highscore_song_data);
 					break;
 				case 6U:
-					setMusicBank(5U);
+					setMusicBank(SONG_BANK_CLOUDS);
 					playMusic(&clouds_song_data);
 					break;
 				case 7U:
-					setMusicBank(5U);
+					setMusicBank(SONG_BANK_SPACE);
 					playMusic(&space_song_data);
 					break;
 				case 8U:
-					setMusicBank(9U);
+					setMusicBank(SONG_BANK_ENDING_PART1);
 					playMusic(&ending_part1_song_data);
 					break;
 				case 9U:
-					setMusicBank(6U);
+					setMusicBank(SONG_BANK_DREAM);
 					playMusic(&dream_song_data);
 					break;
 				case 10U:
-					setMusicBank(6U);
+					setMusicBank(SONG_BANK_DREAM_SCORE);
 					playMusic(&dream_score_song_data);
 					break;
 			}

@@ -56,7 +56,7 @@ void enterLogos() {
 
 	for(i = 0U; i != 8U; ++i) wait_vbl_done();
 
-	setMusicBank(9U);
+	setMusicBank(SONG_BANK_TANGRAM_VOX);
 	disable_interrupts();
 	playMusic(&tangram_vox_song_data);
 	enable_interrupts();
@@ -64,6 +64,7 @@ void enterLogos() {
 	for(i = 0U; i != 60U; ++i) wait_vbl_done();
 	stopMusic();
 
+	setMusicBank(SONG_BANK_TANGRAM_SHINE);
 	disable_interrupts();
 	playMusic(&tangram_shine_song_data);
 	enable_interrupts();
@@ -118,7 +119,7 @@ void enterLogos() {
 	for(i = 0U; i != 10U; ++i) wait_vbl_done();
 
 	disable_interrupts();
-	setMusicBank(9U);
+	setMusicBank(SONG_BANK_POTATO_JINGLE);
 	playMusic(&potato_jingle_song_data);
 	enable_interrupts();
 

@@ -92,7 +92,7 @@ void enterUnlocked() {
 
 	fadeFromWhite(8U);
 
-	setMusicBank(9U);
+	setMusicBank(SONG_BANK_UNLOCKED);
 	disable_interrupts();
 	playMusic(&unlocked_song_data);
 	enable_interrupts();

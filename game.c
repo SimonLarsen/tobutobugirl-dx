@@ -179,19 +179,19 @@ void initGame() {
 
         switch(level) {
             case 1U:
-                setMusicBank(5U);
+                setMusicBank(SONG_BANK_PLAINS);
                 playMusic(&plains_song_data);
                 break;
             case 2U:
-                setMusicBank(5U);
+                setMusicBank(SONG_BANK_CLOUDS);
                 playMusic(&clouds_song_data);
                 break;
             case 3U:
-                setMusicBank(5U);
+                setMusicBank(SONG_BANK_SPACE);
                 playMusic(&space_song_data);
                 break;
             case 4U:
-                setMusicBank(6U);
+                setMusicBank(SONG_BANK_DREAM);
                 playMusic(&dream_song_data);
                 break;
         }
@@ -921,7 +921,7 @@ void intoPortalAnimation() {
     wait_vbl_done();
 
     disable_interrupts();
-    setMusicBank(9U);
+    setMusicBank(SONG_BANK_LEVEL_CLEAR);
     playMusic(&level_clear_song_data);
     enable_interrupts();
 
@@ -938,7 +938,7 @@ void intoPortalAnimation() {
 void saveCatAnimation() {
     disable_interrupts();
     stopMusic();
-    setMusicBank(9U);
+    setMusicBank(SONG_BANK_LEVEL_CLEAR);
     playMusic(&level_clear_song_data);
     enable_interrupts();
 

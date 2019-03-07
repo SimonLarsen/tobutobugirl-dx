@@ -257,7 +257,7 @@ void enterWinscreen() {
 		mus_setPaused(0U);
 	// Else just play regular music
 	} else {
-		setMusicBank(4U);
+		setMusicBank(SONG_BANK_SCORE_TALLY);
 		playMusic(&score_tally_song_data);
 	}
 	enable_interrupts(); 

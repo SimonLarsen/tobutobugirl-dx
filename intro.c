@@ -50,7 +50,7 @@ void initIntro() {
 
 	clearSprites();
 	
-	setMusicBank(6U);
+	setMusicBank(SONG_BANK_INTRO);
 	playMusic(&intro_song_data);
 
 	HIDE_WIN;

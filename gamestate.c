@@ -4,6 +4,7 @@
 #include "defines.h"
 #include "gamestate.h"
 #include "background1.h"
+#include "background1_dx.h"
 #include "background2.h"
 #include "background3.h"
 #include "background4.h"
@@ -149,17 +150,24 @@ void clearRemainingSprites() {
 }
 
 void setIngameBackground(UBYTE level) {
-    SWITCH_ROM_MBC1(GAME_BACKGROUNDS_BANK);
+    if(level == 255U) {
+        SWITCH_ROM_MBC1(PAUSE_DATA_BANK);
+    } else {
+        SWITCH_ROM_MBC1(GAME_BACKGROUNDS_BANK);
+    }
 
     switch(level) {
         case 1U:
-            set_bkg_data_rle(background1_tiles_offset, background1_data_length, background1_data);
-            set_bkg_tiles_rle(0U, 0U, background1_tiles_width, background1_tiles_height, background1_tiles);
             if(CGB_MODE) {
-                set_bkg_palette_buffer(0U, background1_palette_data_length, background1_palette_data);
+                set_bkg_data_rle(background1_dx_tiles_offset, background1_dx_data_length, background1_dx_data);
+                set_bkg_tiles_rle(0U, 0U, background1_dx_tiles_width, background1_dx_tiles_height, background1_dx_tiles);
+                set_bkg_palette_buffer(0U, background1_dx_palette_data_length, background1_dx_palette_data);
                 VBK_REG = 1U;
-                set_bkg_tiles_rle(0U, 0U, background1_tiles_width, background1_tiles_height, background1_palettes);
+                set_bkg_tiles_rle(0U, 0U, background1_dx_tiles_width, background1_dx_tiles_height, background1_dx_palettes);
                 VBK_REG = 0U;
+            } else {
+                set_bkg_data_rle(background1_tiles_offset, background1_data_length, background1_data);
+                set_bkg_tiles_rle(0U, 0U, background1_tiles_width, background1_tiles_height, background1_tiles);
             }
             break;
         case 2U:

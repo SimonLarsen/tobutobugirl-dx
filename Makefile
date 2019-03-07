@@ -16,23 +16,21 @@ include songs.mk
 include sounds.mk
 
 OBJ=main.o fade.o gamestate.o cos.o circles.o zoom_circles.o characters.o sound.o \
-	mmlgb/driver/music.o mmlgb/driver/freq.o mmlgb/driver/noisefreq.o mmlgb/driver/vib.o arrow.o \
-	getpal.o
+	mmlgb/driver/music.o mmlgb/driver/freq.o mmlgb/driver/noisefreq.o mmlgb/driver/vib.o \
+	arrow.o getpal.o
 
 OBJ_BANK1=game.o pause.o wipe.o minigamescore.o
 OBJ_BANK2=select.o highscore.o unlocked.o \
 		  selection1.o selection2.o selection3.o selection4.o \
 		  selection_highscore.o selection_jukebox.o selection_locked.o
 OBJ_BANK3=intro.o intro_bg.o intro_bg_dx.o ending.o
-OBJ_BANK4=
-OBJ_BANK5=
-OBJ_BANK6=
-OBJ_BANK7=winscreen.o background1.o background2.o background3.o background4.o pause_bg.o
-OBJ_BANK8=title.o pause_cloud1.o pause_cloud2.o
+OBJ_BANK4=jukebox.o
+OBJ_BANK5=winscreen.o
+OBJ_BANK6=title.o
+OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o
+OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o
 OBJ_BANK9=logos.o win1.o win1_dx.o win2.o win3.o win4.o
 OBJ_BANK10=sound_data.o
-OBJ_BANK11=
-OBJ_BANK12=jukebox.o
 
 OBJ_ASM=title_song.o mainmenu_song.o score_tally_song.o highscore_song.o plains_song.o \
 		clouds_song.o space_song.o dream_song.o dream_score_song.o intro_song.o \
@@ -51,8 +49,6 @@ $(OBJ_BANK7): CFLAGS+=-Wf-bo7
 $(OBJ_BANK8): CFLAGS+=-Wf-bo8
 $(OBJ_BANK9): CFLAGS+=-Wf-bo9
 $(OBJ_BANK10): CFLAGS+=-Wf-bo10
-$(OBJ_BANK11): CFLAGS+=-Wf-bo11
-$(OBJ_BANK12): CFLAGS+=-Wf-bo12
 
 $(RAM_BANK1): CFLAGS+=-Wf-ba0
 
@@ -63,6 +59,9 @@ arrow.o: arrow.c arrow.h
 	${compile-source}
 
 background1.o: background1.c background1.h
+	${compile-source}
+
+background1_dx.o: background1_dx.c background1_dx.h
 	${compile-source}
 
 background2.o: background2.c background2.h
@@ -104,7 +103,7 @@ game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sou
 game.o: game.asm
 	${compile-source}
 
-gamestate.o: gamestate.c defines.h gamestate.h background1.h background2.h background3.h background4.h pause_bg.h win1.h win1_dx.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
+gamestate.o: gamestate.c defines.h gamestate.h background1.h background1_dx.h background2.h background3.h background4.h pause_bg.h win1.h win1_dx.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
 	${compile-source}
 
 highscore.o: highscore.c defines.h gamestate.h fade.h cos.h highscore.h ram.h sound.h characters.h arrow.h data/sprite/empty.h data/bg/highscore.h data/bg/highscore_dx.h circles.h selection1.h selection2.h selection3.h selection4.h selection_locked.h

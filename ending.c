@@ -62,7 +62,7 @@ void initEnding() {
 
 	clearSprites();
 
-	setMusicBank(9U);
+	setMusicBank(SONG_BANK_ENDING_PART1);
 	playMusic(&ending_part1_song_data);
 
 	HIDE_WIN;
@@ -244,7 +244,7 @@ void updateEnding() {
 				ending_frame = 0U;
 
 				disable_interrupts();
-				setMusicBank(9U);
+				setMusicBank(SONG_BANK_ENDING_PART2);
 				playMusic(&ending_part2_song_data);
 				enable_interrupts();
 			}

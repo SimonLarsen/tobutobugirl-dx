@@ -34,14 +34,18 @@ void fadeToWhiteGB(UBYTE delay) {
 }
 
 void fadeToWhiteCGB(UBYTE delay) {
-    UBYTE i, c, p;
+    UBYTE i, c;
     UBYTE r, g, b;
+    UWORD v;
+
     get_bkg_palette(palette_buffer);
+
     for(i = 0U; i != 15U; ++i) {
-        for(c = 0U; c != 64U; ++c) {
-            r = GET_RED(palette_buffer[c]);
-            g = GET_GREEN(palette_buffer[c]);
-            b = GET_BLUE(palette_buffer[c]);
+        for(c = 0U; c != 32U; ++c) {
+            v = palette_buffer[c];
+            r = GET_RED(v);
+            g = GET_GREEN(v);
+            b = GET_BLUE(v);
 
             if(r <= 29U) r += 2U; else r = 31U;
             if(g <= 29U) g += 2U; else g = 31U;
@@ -50,7 +54,7 @@ void fadeToWhiteCGB(UBYTE delay) {
         }
         set_bkg_palette(0, 8U, palette_buffer);
 
-        for(p = 0U; p != delay; ++p) {
+        for(c = 0U; c != delay; ++c) {
             snd_update();
             wait_vbl_done();
         }
@@ -77,33 +81,31 @@ void fadeFromWhiteGB(UBYTE delay) {
 }
 
 void fadeFromWhiteCGB(UBYTE delay) {
-    UBYTE i, c, p;
+    UBYTE i, c;
     UBYTE r, g, b;
     UWORD v;
 
     for(i = 31U; i != 1U; i -= 2U) {
-        for(p = 0U; p != 8U; ++p) {
-            for(c = 0U; c != 4U; ++c) {
-                v = palette_buffer[(p << 2) + c];
-                r = GET_RED(v);
-                g = GET_GREEN(v);
-                b = GET_BLUE(v);
+        for(c = 0U; c != 32U; ++c) {
+            v = palette_buffer[c];
+            r = GET_RED(v);
+            g = GET_GREEN(v);
+            b = GET_BLUE(v);
 
-                if(r <= 31U-i) r += i; else r = 31U;
-                if(g <= 31U-i) g += i; else g = 31U;
-                if(b <= 31U-i) b += i; else b = 31U;
-                palette_buffer2[(p << 2) + c] = RGB(r, g, b);
-            }
+            if(r <= 31U-i) r += i; else r = 31U;
+            if(g <= 31U-i) g += i; else g = 31U;
+            if(b <= 31U-i) b += i; else b = 31U;
+            palette_buffer2[c] = RGB(r, g, b);
         }
         set_bkg_palette(0U, 8U, palette_buffer2);
 
-        for(p = 0U; p != delay; ++p) {
+        for(c = 0U; c != delay; ++c) {
             snd_update();
             wait_vbl_done();
         }
     }
 
-    for(p = 0U; p != 8U; ++p) {
+    for(c = 0U; c != 8U; ++c) {
         set_bkg_palette(0, 8U, palette_buffer);
     }
 }

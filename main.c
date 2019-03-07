@@ -102,7 +102,7 @@ void main() {
 				enterGame();
 				break;
 			case GAMESTATE_TITLE:
-				setGameBank(8U);
+				setGameBank(6U);
 				enterTitle();
 				break;
 			case GAMESTATE_SELECT:
@@ -126,11 +126,11 @@ void main() {
 				enterEnding();
 				break;
 			case GAMESTATE_JUKEBOX:
-				setGameBank(12U);
+				setGameBank(4U);
 				enterJukebox();
 				break;
 			case GAMESTATE_WINSCREEN:
-				setGameBank(7U);
+				setGameBank(5U);
 				enterWinscreen();
 				break;
 			case GAMESTATE_WIPE:
