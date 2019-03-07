@@ -4,7 +4,7 @@
 #include "sound.h"
 #include "fade.h"
 
-void get_bkg_palette(UBYTE i, UBYTE *buffer);
+void get_bkg_palette(UBYTE *buffer);
 
 const UBYTE spriteFadePals[] = {
     0xD0U, // 11010000
@@ -36,20 +36,17 @@ void fadeToWhiteGB(UBYTE delay) {
 void fadeToWhiteCGB(UBYTE delay) {
     UBYTE i, c, p;
     UBYTE r, g, b;
-    UWORD data[4];
+    get_bkg_palette(palette_buffer);
     for(i = 0U; i != 15U; ++i) {
-        for(p = 0U; p != 8U; ++p) {
-            get_bkg_palette(p, data);
-            for(c = 0U; c != 4U; ++c) {
-                r = GET_RED(data[c]);
-                g = GET_GREEN(data[c]);
-                b = GET_BLUE(data[c]);
+        for(c = 0U; c != 64U; ++c) {
+            r = GET_RED(palette_buffer[c]);
+            g = GET_GREEN(palette_buffer[c]);
+            b = GET_BLUE(palette_buffer[c]);
 
-                if(r <= 29U) r += 2U; else r = 31U;
-                if(g <= 29U) g += 2U; else g = 31U;
-                if(b <= 29U) b += 2U; else b = 31U;
-                palette_buffer[(p << 2) + c] = RGB(r, g, b);
-            }
+            if(r <= 29U) r += 2U; else r = 31U;
+            if(g <= 29U) g += 2U; else g = 31U;
+            if(b <= 29U) b += 2U; else b = 31U;
+            palette_buffer[c] = RGB(r, g, b);
         }
         set_bkg_palette(0, 8U, palette_buffer);
 
