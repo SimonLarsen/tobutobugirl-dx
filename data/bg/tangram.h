@@ -76,8 +76,8 @@ const unsigned char tangram_palettes[] = {
 #define tangram_palette_data_length 3
 #define tangram_palette_offset 0
 const unsigned int tangram_palette_data[] = {
-    32767, 15929, 6376,   0,
-    32767, 26423, 6376,   0,
-    32767, 21140, 6376,   0
+    32767, 13816, 7434,   0,
+    32767, 26423, 7434,   0,
+    32767, 21140, 7434,   0
 };
 #endif

@@ -92,8 +92,8 @@ highscore_backgrounds: data/bg/highscore.h data/bg/highscore_dx.h data/sprite/em
 data/bg/highscore.h: data/bg/highscore.png
 	$(IMGTOGB) --map -O 47 $< $@
 
-data/bg/highscore_dx.h: data/bg/highscore_dx.png
-	$(IMGTOGB) --map -O 47 $< -c -I data/palettes/highscore.png $@
+data/bg/highscore_dx.h: data/bg/highscore_dx.png data/palettes/highscore.png
+	$(IMGTOGB) --map -O 47 -P 1 $< -c -I data/palettes/highscore.png $@
 
 data/sprite/empty.h: data/sprite/empty.png
 	$(IMGTOGB) $< $@
@@ -109,7 +109,7 @@ data/bg/ending_thanks_dx.h: data/bg/ending_thanks_dx.png
 unlocked_backgrounds: data/bg/unlocked.h
 
 data/bg/unlocked.h: data/bg/unlocked.png
-	$(IMGTOGB) --map -O 47 $< $@
+	$(IMGTOGB) --map --rle -O 47 $< $@
 
 jukebox_backgrounds: data/bg/jukebox.h data/bg/jukebox_dx.h
 
@@ -121,36 +121,42 @@ data/bg/jukebox_dx.h: data/bg/jukebox_dx.png
 
 wipe_backgrounds: data/bg/wipe.h
 
-data/bg/wipe.h: data/bg/wipe.png
-	$(IMGTOGB) --map --rle -O 13 $< $@
+data/bg/wipe.h: data/bg/wipe.png data/bg/wipe_dx.png
+	$(IMGTOGB) --map --rle -O 13 $< --dx data/bg/wipe_dx.png $@
 
 minigame_score_backgrounds: data/bg/minigame_score_bg.h
 
 data/bg/minigame_score_bg.h: data/bg/minigame_score_bg.png
 	$(IMGTOGB) --map --rle -O 18 $< $@
 
-selection_backgrounds: selection1.c selection1.h selection2.c selection2.h selection3.c selection3.h selection4.c selection4.h selection_highscore.c selection_highscore.h selection_jukebox.c selection_jukebox.h selection_locked.c selection_locked.h data/bg/catface.h
+selection_backgrounds: selection1.c selection1.h \
+	selection2.c selection2.h \
+	selection3.c selection3.h \
+	selection4.c selection4.h \
+	selection_highscore.c selection_highscore.h \
+	selection_jukebox.c selection_jukebox.h \
+	selection_locked.c selection_locked.h data/bg/catface.h
 
 selection1.c selection1.h: data/bg/selection1.png
-	$(IMGTOGB) --map -O 90 $< -C selection1.c selection1.h
+	$(IMGTOGB) --map -O 90 -P 3 --rle_data $< -C selection1.c selection1.h
 
 selection2.c selection2.h: data/bg/selection2.png
-	$(IMGTOGB) --map -O 90 $< -C selection2.c selection2.h
+	$(IMGTOGB) --map -O 90 -P 3 --rle_data $< -C selection2.c selection2.h
 
 selection3.c selection3.h: data/bg/selection3.png
-	$(IMGTOGB) --map -O 90 $< -C selection3.c selection3.h
+	$(IMGTOGB) --map -O 90 -P 3 $< --rle_data -C selection3.c selection3.h
 
 selection4.c selection4.h: data/bg/selection4.png
-	$(IMGTOGB) --map -O 90 $< -C selection4.c selection4.h
+	$(IMGTOGB) --map -O 90 -P 3 $< --rle_data -C selection4.c selection4.h
 
 selection_highscore.c selection_highscore.h: data/bg/selection_highscore.png
-	$(IMGTOGB) --map -O 90 $< -C selection_highscore.c selection_highscore.h
+	$(IMGTOGB) --map -O 90 -P 3 $< --rle_data -C selection_highscore.c selection_highscore.h
 
 selection_jukebox.c selection_jukebox.h: data/bg/selection_jukebox.png
-	$(IMGTOGB) --map -O 90 $< -C selection_jukebox.c selection_jukebox.h
+	$(IMGTOGB) --map -O 90 -P 3 $< --rle_data -C selection_jukebox.c selection_jukebox.h
 
 selection_locked.c selection_locked.h: data/bg/selection_locked.png
-	$(IMGTOGB) --map -O 90 $< -C selection_locked.c selection_locked.h
+	$(IMGTOGB) --map -O 90 -P 3 $< --rle_data -C selection_locked.c selection_locked.h
 
 common_backgrounds: circles.c circles.h intro_bg.c intro_bg.h intro_bg_dx.c intro_bg_dx.h \
 	zoom_circles.c zoom_circles.h characters.c characters.h

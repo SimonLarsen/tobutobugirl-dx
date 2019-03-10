@@ -24,11 +24,16 @@
 extern UBYTE highscore_song_data;
 extern UBYTE dream_score_song_data;
 
+const UWORD sepia_palette2[4] = {
+    32767, 15898, 5327, 0
+};
+
 const UWORD highscore_palettes[4] = {
     32767, 32767, 11516, 0,
 };
 
 void initHighscore() {
+    UBYTE buf[3];
 	disable_interrupts();
 	DISPLAY_OFF;
 
@@ -39,11 +44,16 @@ void initHighscore() {
     if(CGB_MODE) {
 	    set_bkg_data(highscore_dx_tiles_offset, highscore_dx_data_length, highscore_dx_data);
 	    set_bkg_tiles(0U, 0U, highscore_dx_tiles_width, highscore_dx_tiles_height, highscore_dx_tiles);
-        set_bkg_palette_buffer(0U, 1U, gs_palette);
+        set_bkg_palette_buffer(0U, 1U, sepia_palette2);
         set_bkg_palette_buffer(highscore_dx_palette_offset, highscore_dx_palette_data_length, highscore_dx_palette_data);
         set_sprite_palette(0U, 1U, highscore_palettes);
         VBK_REG = 1U;
 	    set_bkg_tiles(0U, 0U, highscore_dx_tiles_width, highscore_dx_tiles_height, highscore_dx_palettes);
+        buf[0] = 0U; buf[1] = 0U; buf[2] = 18U;
+	    set_bkg_tiles_rle(2U, 4U, 3U, 6U, buf);
+	    set_bkg_tiles_rle(15U, 4U, 3U, 6U, buf);
+        buf[2] = 40U;
+	    set_bkg_tiles_rle(5U, 4U, 10U, 4U, buf);
         VBK_REG = 0U;
     } else {
 	    set_bkg_data(highscore_tiles_offset, highscore_data_length, highscore_data);
@@ -95,33 +105,33 @@ void _highscoreUpdateScreen() {
 
 	switch(tile) {
 		case 1U:
-			set_bkg_data(selection1_tiles_offset, selection1_data_length, selection1_data);
+			set_bkg_data_rle(selection1_tiles_offset, selection1_data_length, selection1_data);
 			data = selection1_tiles;
 			break;
 		case 2U:
-			set_bkg_data(selection2_tiles_offset, selection2_data_length, selection2_data);
+			set_bkg_data_rle(selection2_tiles_offset, selection2_data_length, selection2_data);
 			data = selection2_tiles;
 			break;
 		case 3U:
-			set_bkg_data(selection3_tiles_offset, selection3_data_length, selection3_data);
+			set_bkg_data_rle(selection3_tiles_offset, selection3_data_length, selection3_data);
 			data = selection3_tiles;
 			break;
 		case 4U:
-			set_bkg_data(selection4_tiles_offset, selection4_data_length, selection4_data);
+			set_bkg_data_rle(selection4_tiles_offset, selection4_data_length, selection4_data);
 			data = selection4_tiles;
 			break;
 		case 0U:
-			set_bkg_data(selection_locked_tiles_offset, selection_locked_data_length, selection_locked_data);
+			set_bkg_data_rle(selection_locked_tiles_offset, selection_locked_data_length, selection_locked_data);
 			data = selection_locked_tiles;
 			break;
 	}
 
-	set_bkg_tiles(0U, 4U, 20U, 6U, data);
+	set_bkg_tiles(2U, 4U, 16U, 6U, data);
 	set_bkg_tiles(5U, 8U, 10U, 1U, highscore_tiles+165U);
 	set_bkg_tiles(5U, 9U, 10U, 1U, highscore_tiles+185U);
 
     if(CGB_MODE) {
-        set_bkg_palette_buffer(0U, 1U, gs_palette);
+        set_bkg_palette_buffer(0U, 1U, sepia_palette2);
         set_bkg_palette_buffer(highscore_dx_palette_offset, highscore_dx_palette_data_length, highscore_dx_palette_data);
     }
 
@@ -235,15 +245,15 @@ void enterHighscore() {
 		offset = cos32_64[(ticks & 63U)] >> 3;
 
 		// Draw arrows
-		setSprite(20U-offset, 64U, 0U, OBJ_PAL0);
-		setSprite(28U-offset, 64U, 2U, OBJ_PAL0);
-		setSprite(20U-offset, 72U, 1U, OBJ_PAL0);
-		setSprite(28U-offset, 72U, 3U, OBJ_PAL0);
+		setSprite(12U-offset, 64U, 0U, OBJ_PAL0);
+		setSprite(20U-offset, 64U, 2U, OBJ_PAL0);
+		setSprite(12U-offset, 72U, 1U, OBJ_PAL0);
+		setSprite(20U-offset, 72U, 3U, OBJ_PAL0);
 
-		setSprite(140U+offset, 64U, 2U, OBJ_PAL0 | FLIP_X);
-		setSprite(148U+offset, 64U, 0U, OBJ_PAL0 | FLIP_X);
-		setSprite(140U+offset, 72U, 3U, OBJ_PAL0 | FLIP_X);
-		setSprite(148U+offset, 72U, 1U, OBJ_PAL0 | FLIP_X);
+		setSprite(148U+offset, 64U, 2U, OBJ_PAL0 | FLIP_X);
+		setSprite(156U+offset, 64U, 0U, OBJ_PAL0 | FLIP_X);
+		setSprite(148U+offset, 72U, 3U, OBJ_PAL0 | FLIP_X);
+		setSprite(156U+offset, 72U, 1U, OBJ_PAL0 | FLIP_X);
 
 		if((ticks & 63U) < 16U
 		&& last_highscore_level == sub_selection

@@ -20,6 +20,12 @@ void initWipe() {
 	set_sprite_data(0U, wipe_marker_data_length, wipe_marker_data);
 
 	set_bkg_tiles_rle(0U, 0U, wipe_tiles_width, wipe_tiles_height, wipe_tiles);
+    if(CGB_MODE) {
+        set_bkg_palette_buffer(0U, wipe_palette_data_length, wipe_palette_data);
+        VBK_REG = 1U;
+	    set_bkg_tiles_rle(0U, 0U, wipe_tiles_width, wipe_tiles_height, wipe_palettes);
+        VBK_REG = 0U;
+    }
 
 	ticks = 0U;
 	circle_index = 0U;
@@ -43,7 +49,7 @@ void initWipe() {
 void enterWipe() {
 	initWipe();
 
-	fadeFromWhite(8U);
+    fadeFromWhite(4U);
 
 	while(1U) {
 		updateJoystate();

@@ -30,10 +30,25 @@ const UBYTE unlocked_messages[3][24] = {
 	}
 };
 
+const UWORD unlocked_palettes[8] = {
+    19749, 10370, 32767, 0,
+    32767, 15898, 5327, 0
+
+};
+
+const UBYTE unlocked_bkg_palettes[45] = {
+    0U, 0U, 80U,
+    1U, 1U, 80U,
+    0U, 0U, 2U, 1U, 1U, 16U,
+    0U, 0U, 4U, 1U, 1U, 16U,
+    0U, 0U, 4U, 1U, 1U, 16U,
+    0U, 0U, 4U, 1U, 1U, 16U,
+    0U, 0U, 4U, 1U, 1U, 16U,
+    0U, 0U, 4U, 1U, 1U, 16U,
+    0U, 0U, 82U,
+};
 
 void initUnlocked() {
-    UBYTE i;
-
 	disable_interrupts();
 	DISPLAY_OFF;
 
@@ -41,37 +56,42 @@ void initUnlocked() {
 
 	set_bkg_data(0U, 38U, characters_data);
 	set_bkg_data(38U, zoom_circles_data_length, zoom_circles_data);
-	set_bkg_data(unlocked_tiles_offset, unlocked_data_length, unlocked_data);
+	set_bkg_data_rle(unlocked_tiles_offset, unlocked_data_length, unlocked_data);
 	set_bkg_data(47U, 8U, zoom_circles_data);
 
-	set_bkg_tiles(0U, 0U, unlocked_tiles_width, unlocked_tiles_height, unlocked_tiles);
+	set_bkg_tiles_rle(0U, 0U, unlocked_tiles_width, unlocked_tiles_height, unlocked_tiles);
+
+    if(CGB_MODE) {
+        set_bkg_palette_buffer(0U, 2U, unlocked_palettes);
+        VBK_REG = 1U;
+        set_bkg_tiles_rle(0U, 0U, 20U, 18U, unlocked_bkg_palettes);
+        VBK_REG = 0U;
+    }
 
 	if(unlocked_bits & UNLOCKED_CLOUDS) {
 		unlocked_bits ^= UNLOCKED_CLOUDS;
-		set_bkg_data(selection2_tiles_offset, selection2_data_length, selection2_data);
-		set_bkg_tiles(0U, 8U, 20U, 6U, selection2_tiles);
+		set_bkg_data_rle(selection2_tiles_offset, selection2_data_length, selection2_data);
+		set_bkg_tiles(2U, 8U, 16U, 6U, selection2_tiles);
 		set_bkg_tiles(4U, 5U, 12U, 2U, unlocked_messages[0]);
 	}
 	else if(unlocked_bits & UNLOCKED_SPACE) {
 		unlocked_bits ^= UNLOCKED_SPACE;
-		set_bkg_data(selection3_tiles_offset, selection3_data_length, selection3_data);
-		set_bkg_tiles(0U, 8U, 20U, 6U, selection3_tiles);
+		set_bkg_data_rle(selection3_tiles_offset, selection3_data_length, selection3_data);
+		set_bkg_tiles(2U, 8U, 16U, 6U, selection3_tiles);
 		set_bkg_tiles(4U, 5U, 12U, 2U, unlocked_messages[0]);
 	}
 	else if(unlocked_bits & UNLOCKED_MUSIC) {
 		unlocked_bits ^= UNLOCKED_MUSIC;
-		set_bkg_data(selection_jukebox_tiles_offset, selection_jukebox_data_length, selection_jukebox_data);
-		set_bkg_tiles(0U, 8U, 20U, 6U, selection_jukebox_tiles);
+		set_bkg_data_rle(selection_jukebox_tiles_offset, selection_jukebox_data_length, selection_jukebox_data);
+		set_bkg_tiles(2U, 8U, 16U, 6U, selection_jukebox_tiles);
 		set_bkg_tiles(4U, 5U, 12U, 2U, unlocked_messages[1]);
 	}
 	else if(unlocked_bits & UNLOCKED_DREAM) {
 		unlocked_bits ^= UNLOCKED_DREAM;
-		set_bkg_data(selection4_tiles_offset, selection4_data_length, selection4_data);
-		set_bkg_tiles(0U, 8U, 20U, 6U, selection4_tiles);
+		set_bkg_data_rle(selection4_tiles_offset, selection4_data_length, selection4_data);
+		set_bkg_tiles(2U, 8U, 16U, 6U, selection4_tiles);
 		set_bkg_tiles(4U, 5U, 12U, 2U, unlocked_messages[2]);
 	}
-
-    if(CGB_MODE) { for(i = 0U; i != 8U; ++i) { set_bkg_palette_buffer(i, 1U, gs_palette); } }
 
 	BGP_REG = 0xE4U; // 11100100
 

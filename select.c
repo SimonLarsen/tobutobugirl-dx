@@ -36,6 +36,10 @@ UBYTE cat_frame_reverse;
 extern UBYTE mainmenu_song_data;
 extern UBYTE potaka_song_data;
 
+const UWORD sepia_palette[4] = {
+    32767, 15898, 5327, 0
+};
+
 const UWORD select_sprite_palettes[8] = {
     32767, 32767, 11516, 0,
     32767, 28638, 9695, 0
@@ -60,11 +64,11 @@ void initSelect() {
 
     if(CGB_MODE) {
         set_bkg_palette_buffer(0U, select_palette_data_length, select_palette_data);
-        set_bkg_palette_buffer(select_palette_data_length, 1U, gs_palette);
+        set_bkg_palette_buffer(select_palette_data_length, 1U, sepia_palette);
         VBK_REG = 1U;
 	    set_bkg_tiles_rle(0U, 0U, select_tiles_width, select_tiles_height, select_palettes);
-        buf[0] = 3U; buf[1] = 3U; buf[2] = 120U;
-	    set_bkg_tiles_rle(0U, 10U, 20U, 6U, buf);
+        buf[0] = 3U; buf[1] = 3U; buf[2] = 96U;
+	    set_bkg_tiles_rle(2U, 10U, 16U, 6U, buf);
         VBK_REG = 0U;
         set_sprite_palette(0U, 2U, select_sprite_palettes);
     }
@@ -90,7 +94,7 @@ void initSelect() {
 
 	clearSprites();
 	data = selectGetBannerData();
-	set_bkg_tiles(0U, 10U, 20U, 6U, data);
+	set_bkg_tiles(2U, 10U, 16U, 6U, data);
 
 	setMusicBank(SONG_BANK_MAINMENU);
 	playMusic(&mainmenu_song_data);
@@ -106,25 +110,25 @@ void initSelect() {
 
 UBYTE *selectGetBannerData() {
 	if(selection <= 4U && selection > levels_completed+1U) {
-		set_bkg_data(selection_locked_tiles_offset, selection_locked_data_length, selection_locked_data);
+		set_bkg_data_rle(selection_locked_tiles_offset, selection_locked_data_length, selection_locked_data);
 		return selection_locked_tiles;
 	} else if(selection == 1U) {
-		set_bkg_data(selection1_tiles_offset, selection1_data_length, selection1_data);
+		set_bkg_data_rle(selection1_tiles_offset, selection1_data_length, selection1_data);
 		return selection1_tiles;
 	} else if(selection == 2U) {
-		set_bkg_data(selection2_tiles_offset, selection2_data_length, selection2_data);
+		set_bkg_data_rle(selection2_tiles_offset, selection2_data_length, selection2_data);
 		return selection2_tiles;
 	} else if(selection == 3U) {
-		set_bkg_data(selection3_tiles_offset, selection3_data_length, selection3_data);
+		set_bkg_data_rle(selection3_tiles_offset, selection3_data_length, selection3_data);
 		return selection3_tiles;
 	} else if(selection == 4U) {
-		set_bkg_data(selection4_tiles_offset, selection4_data_length, selection4_data);
+		set_bkg_data_rle(selection4_tiles_offset, selection4_data_length, selection4_data);
 		return selection4_tiles;
 	} else if(selection == 5U) {
-		set_bkg_data(selection_jukebox_tiles_offset, selection_jukebox_data_length, selection_jukebox_data);
+		set_bkg_data_rle(selection_jukebox_tiles_offset, selection_jukebox_data_length, selection_jukebox_data);
 		return selection_jukebox_tiles;
 	} else if(selection == 6U) {
-		set_bkg_data(selection_highscore_tiles_offset, selection_highscore_data_length, selection_highscore_data);
+		set_bkg_data_rle(selection_highscore_tiles_offset, selection_highscore_data_length, selection_highscore_data);
 		return selection_highscore_tiles;
 	}
 	return 0U;
@@ -201,16 +205,16 @@ void selectFadeOut() {
 	UBYTE even_tiles[6U];
 	UBYTE odd_tiles[6U];
 
-	even_tiles[0] = 10U;
-	even_tiles[1] = 12U;
+	even_tiles[0] = 9U;
+	even_tiles[1] = 11U;
 
-	odd_tiles[0] = 9U;
-	odd_tiles[1] = 11U;
+	odd_tiles[0] = 10;
+	odd_tiles[1] = 12U;
 
-	for(i = 0U; i != 20U; ++i) {
+	for(i = 0U; i != 16U; ++i) {
 		disable_interrupts();
-		if(select_scroll_dir == LEFT) x = i;
-		else x = 19U - i;
+		if(select_scroll_dir == LEFT) x = i+2U;
+		else x = 17U - i;
 		if(x & 1U) {
 			set_bkg_tiles(x, 10U, 1U, 2U, odd_tiles);
 			set_bkg_tiles(x, 12U, 1U, 2U, odd_tiles);
@@ -246,13 +250,13 @@ void selectFadeIn() {
 	data = selectGetBannerData();
 	enable_interrupts();
 
-	for(i = 0U; i != 20U; ++i) {
-		if(select_scroll_dir == LEFT) x = i;
-		else x = 19U - i;
-		ptr = data + x;
+	for(i = 0U; i != 16U; ++i) {
+		if(select_scroll_dir == LEFT) x = i+2U;
+		else x = 17U - i;
+		ptr = data + x - 2U;
 		for(j = 0U; j != 6U; ++j) {
 			tiles[j] = *ptr;
-			ptr += 20U;
+			ptr += 16U;
 		}
 		++ptr;
 

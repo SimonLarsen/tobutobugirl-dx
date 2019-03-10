@@ -38,6 +38,6 @@ const unsigned char win_base_dx_palettes[] = {
 #define win_base_dx_palette_offset 0
 const unsigned int win_base_dx_palette_data[] = {
     32767, 20083, 14798,   0,
-    15555, 5185, 32767,   0
+    19749, 10370, 32767,   0
 };
 #endif

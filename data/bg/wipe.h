@@ -55,5 +55,15 @@ const unsigned char wipe_tiles[] = {
      13,  13,  14,  46,  27,  47,  48,  49,  50,  13,  13,  14,  46,  27,  51,  52,
      53,  54,  13,  13,  14,  55,  43,  43,   4,  56,  13,  13,  27
 };
-
+const unsigned char wipe_palettes[] = {
+      0,   0,  65,   1,   1,   9,   0,   0,  46,   1,   1, 120,   0,   0,  27,   1,
+      1,   6,   0,   0,  14,   1,   1,   6,   0,   0,  14,   1,   1,   6,   0,   0,
+     14,   1,   1,   6,   0,   0,  27
+};
+#define wipe_palette_data_length 2
+#define wipe_palette_offset 0
+const unsigned int wipe_palette_data[] = {
+    19749, 10370, 11516,   0,
+    32767, 10370, 11516,   0
+};
 #endif
