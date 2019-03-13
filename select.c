@@ -137,15 +137,15 @@ UBYTE *selectGetBannerData() {
 void selectUpdateSprites() {
 	UBYTE frame;
 
-	setSprite(24U-arrow_offset1, 69U, 37U, OBJ_PAL0);
-	setSprite(32U-arrow_offset1, 69U, 39U, OBJ_PAL0);
-	setSprite(24U-arrow_offset1, 77U, 38U, OBJ_PAL0);
-	setSprite(32U-arrow_offset1, 77U, 40U, OBJ_PAL0);
+	setSprite(24U-arrow_offset1, 68U, 37U, OBJ_PAL0);
+	setSprite(32U-arrow_offset1, 68U, 39U, OBJ_PAL0);
+	setSprite(24U-arrow_offset1, 76U, 38U, OBJ_PAL0);
+	setSprite(32U-arrow_offset1, 76U, 40U, OBJ_PAL0);
 
-	setSprite(136U+arrow_offset2, 69U, 39U, OBJ_PAL0 | FLIP_X);
-	setSprite(144U+arrow_offset2, 69U, 37U, OBJ_PAL0 | FLIP_X);
-	setSprite(136U+arrow_offset2, 77U, 40U, OBJ_PAL0 | FLIP_X);
-	setSprite(144U+arrow_offset2, 77U, 38U, OBJ_PAL0 | FLIP_X);
+	setSprite(136U+arrow_offset2, 68U, 39U, OBJ_PAL0 | FLIP_X);
+	setSprite(144U+arrow_offset2, 68U, 37U, OBJ_PAL0 | FLIP_X);
+	setSprite(136U+arrow_offset2, 76U, 40U, OBJ_PAL0 | FLIP_X);
+	setSprite(144U+arrow_offset2, 76U, 38U, OBJ_PAL0 | FLIP_X);
 
 	if(levels_completed >= 3U) {
 		switch(select_cat_state) {
