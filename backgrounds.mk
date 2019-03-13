@@ -58,7 +58,11 @@ background4.h background4.c: data/bg/background4.png data/bg/background4_dx.png
 pause_bg.h pause_bg.c: data/bg/pause_bg.png data/bg/pause_bg_dx.png
 	$(IMGTOGB) --map -O 35 --rle $< --dx data/bg/pause_bg_dx.png -C pause_bg.c pause_bg.h
 
-winscreen_backgrounds: data/bg/win_base.h data/bg/win_base_dx.h data/bg/rank_banner.h data/bg/rank_banner_dx.h win1.h win2.h win3.h win4.h
+winscreen_backgrounds: data/bg/win_base.h data/bg/win_base_dx.h data/bg/rank_banner.h data/bg/rank_banner_dx.h \
+	win1.c win1.h win1_dx.c win1_dx.h \
+	win2.c win2.h win2_dx.c win2_dx.h \
+	win3.c win3.h win3_dx.c win3_dx.h \
+	win4.c win4.h win4_dx.c win4_dx.h
 
 data/bg/win_base.h: data/bg/win_base.png
 	$(IMGTOGB) --map -O 40 --rle $< $@
@@ -79,13 +83,22 @@ win1_dx.c win1_dx.h: data/bg/win1_dx.png
 	$(IMGTOGB) --map -O 91 --rle $< -c -P 2 -C win1_dx.c win1_dx.h
 
 win2.c win2.h: data/bg/win2.png
-	$(IMGTOGB) --map -O 91 --rle $< -C win2.c win2.h
+	$(IMGTOGB) --map -O 91 --rle $< -P 2 -C win2.c win2.h
+
+win2_dx.c win2_dx.h: data/bg/win2_dx.png
+	$(IMGTOGB) --map -O 91 --rle $< -P 2 -c -C win2_dx.c win2_dx.h
 
 win3.c win3.h: data/bg/win3.png
-	$(IMGTOGB) --map -O 91 --rle $< -C win3.c win3.h
+	$(IMGTOGB) --map -O 91 --rle $< -P 2 -C win3.c win3.h
+
+win3_dx.c win3_dx.h: data/bg/win3_dx.png
+	$(IMGTOGB) --map -O 91 --rle $< -P 2 -c -C win3_dx.c win3_dx.h
 
 win4.c win4.h: data/bg/win4.png
-	$(IMGTOGB) --map -O 91 --rle $< -C win4.c win4.h
+	$(IMGTOGB) --map -O 91 --rle $< -P 2 -C win4.c win4.h
+
+win4_dx.c win4_dx.h: data/bg/win4_dx.png
+	$(IMGTOGB) --map -O 91 --rle $< -P 2 -c -C win4_dx.c win4_dx.h
 
 highscore_backgrounds: data/bg/highscore.h data/bg/highscore_dx.h data/sprite/empty.h
 

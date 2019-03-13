@@ -29,7 +29,7 @@ OBJ_BANK5=winscreen.o
 OBJ_BANK6=title.o
 OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o
 OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o
-OBJ_BANK9=logos.o win1.o win1_dx.o win2.o win3.o win4.o
+OBJ_BANK9=logos.o win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o
 OBJ_BANK10=sound_data.o
 
 OBJ_ASM=title_song.o mainmenu_song.o score_tally_song.o highscore_song.o plains_song.o \
@@ -203,4 +203,4 @@ tobudx.gb: ram.o $(OBJ) $(OBJ_ASM) \
 	$(OBJ_BANK1) $(OBJ_BANK2) $(OBJ_BANK3) $(OBJ_BANK4) \
 	$(OBJ_BANK5) $(OBJ_BANK6) $(OBJ_BANK7) $(OBJ_BANK8) \
 	$(OBJ_BANK9) $(OBJ_BANK10) $(OBJ_BANK11) $(OBJ_BANK12)
-	$(CC) $(CFLAGS) -Wl-yt3 -Wl-yo16 -Wl-ya1 -Wl-yp0x143=0x80 $^ -o $@
+	$(CC) $(CFLAGS) -Wl-yt19 -Wl-yo16 -Wl-ya1 -Wl-yp0x143=0x80 $^ -o $@
