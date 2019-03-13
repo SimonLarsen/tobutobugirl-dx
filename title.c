@@ -21,24 +21,24 @@ const UBYTE title_message[11] = {
 };
 
 const UWORD minigame_bkg_palette_data[4] = {
-    RGB(31, 31, 31), RGB(18, 24, 26), RGB(15, 13, 26), RGB(0, 0, 0)
+	RGB(31, 31, 31), RGB(18, 24, 26), RGB(15, 13, 26), RGB(0, 0, 0)
 };
 
 const UBYTE minigame_bkg_palettes[6] = {
-    4U, 4U, 180U, 4U, 4U, 180U
+	4U, 4U, 180U, 4U, 4U, 180U
 };
 
 const UWORD title_sprite_palette_data[12] = {
-    32767, 28638, 8476, 0,
-    32767, 28638, 9695, 0,
-    32767, 32767, 28180, 0
+	32767, 28638, 8476, 0,
+	32767, 28638, 9695, 0,
+	32767, 32767, 28180, 0
 };
 
 const UWORD minigame_fade_palettes[32] = {
-    27055, 27054, 27022, 27022, 25998, 25998, 25966, 24941,
-    24941, 23917, 23917, 23885, 22861, 22861, 22861, 22860,
-    21804, 21804, 21804, 20780, 20780, 20748, 19723, 19723,
-    18699, 18699, 18667, 18667, 17642, 17642, 17610, 16586
+	27055, 27054, 27022, 27022, 25998, 25998, 25966, 24941,
+	24941, 23917, 23917, 23885, 22861, 22861, 22861, 22860,
+	21804, 21804, 21804, 20780, 20780, 20748, 19723, 19723,
+	18699, 18699, 18667, 18667, 17642, 17642, 17610, 16586
 };
 
 UBYTE next_enemy;
@@ -52,26 +52,26 @@ void initTitle() {
 	move_win(7U, 0U);
 	move_bkg(0U, 72U);
 
-    if(CGB_MODE) {
-	    set_bkg_data_rle(0U, titlescreen_dx_data_length, titlescreen_dx_data);
-	    set_win_tiles_rle(0U, 0U, titlescreen_dx_tiles_width, titlescreen_dx_tiles_height, titlescreen_dx_tiles);
-        set_bkg_palette_buffer(0U, titlescreen_dx_palette_data_length, titlescreen_dx_palette_data);
-        set_bkg_palette_buffer(4U, 1U, minigame_bkg_palette_data);
-        VBK_REG = 1U;
-	    set_win_tiles_rle(0U, 0U, titlescreen_dx_tiles_width, titlescreen_dx_tiles_height, titlescreen_dx_palettes);
-        set_bkg_tiles_rle(0U, 0U, 20U, 20U, minigame_bkg_palettes);
-        VBK_REG = 0U;
-    } else {
-	    set_bkg_data_rle(0U, titlescreen_data_length, titlescreen_data);
-	    set_win_tiles_rle(0U, 0U, titlescreen_tiles_width, titlescreen_tiles_height, titlescreen_tiles);
-    }
+	if(CGB_MODE) {
+		set_bkg_data_rle(0U, titlescreen_dx_data_length, titlescreen_dx_data);
+		set_win_tiles_rle(0U, 0U, titlescreen_dx_tiles_width, titlescreen_dx_tiles_height, titlescreen_dx_tiles);
+		set_bkg_palette_buffer(0U, titlescreen_dx_palette_data_length, titlescreen_dx_palette_data);
+		set_bkg_palette_buffer(4U, 1U, minigame_bkg_palette_data);
+		VBK_REG = 1U;
+		set_win_tiles_rle(0U, 0U, titlescreen_dx_tiles_width, titlescreen_dx_tiles_height, titlescreen_dx_palettes);
+		set_bkg_tiles_rle(0U, 0U, 20U, 20U, minigame_bkg_palettes);
+		VBK_REG = 0U;
+	} else {
+		set_bkg_data_rle(0U, titlescreen_data_length, titlescreen_data);
+		set_win_tiles_rle(0U, 0U, titlescreen_tiles_width, titlescreen_tiles_height, titlescreen_tiles);
+	}
 
 	set_bkg_data_rle(titlescreen_bg_tiles_offset, titlescreen_bg_data_length, titlescreen_bg_data);
 	set_bkg_tiles_rle(0U, 0U, titlescreen_bg_tiles_width, titlescreen_bg_tiles_height, titlescreen_bg_tiles);
 
 	set_sprite_data(0U, 37U, characters_data);
 	set_sprite_data(38U, title_cat_data_length, title_cat_data);
-    set_sprite_palette(0U, 3U, title_sprite_palette_data);
+	set_sprite_palette(0U, 3U, title_sprite_palette_data);
 
 	OBP0_REG = 0xD0U; // 11010000
 	BGP_REG = 0xE4U;  // 11100100
@@ -187,7 +187,7 @@ void drawTitleSprites(UBYTE triggered) {
 			}
 		}
 
-        // Draw balloon
+		// Draw balloon
 		setSprite(player_x, player_y, 39U, OBJ_PAL0 | 1U);
 		setSprite(player_x+8, player_y, 41U, OBJ_PAL0 | 1U);
 
@@ -423,8 +423,8 @@ void enterTitle() {
 						scroll_x--;
 					}
 				} else {
-                    scroll_y = 144U;
-                    scroll_x = 0U;
+					scroll_y = 144U;
+					scroll_x = 0U;
 					updateTitleEnemies();
 				}
 
@@ -444,12 +444,12 @@ void enterTitle() {
 		if(player_yspeed < 16U) player_yspeed = 16U;
 		else if(player_yspeed > 240U) player_yspeed = 240U;
 
-        if(scroll_y < 0x40U) {
-            palette_buffer[0] = minigame_fade_palettes[scroll_y >> 1];
-            palette_buffer[18] = minigame_fade_palettes[scroll_y >> 1];
-            set_bkg_palette(0U, 1U, palette_buffer);
-            set_bkg_palette(4U, 1U, &palette_buffer + 16);
-        }
+		if(scroll_y < 0x40U) {
+			palette_buffer[0] = minigame_fade_palettes[scroll_y >> 1];
+			palette_buffer[18] = minigame_fade_palettes[scroll_y >> 1];
+			set_bkg_palette(0U, 1U, palette_buffer);
+			set_bkg_palette(4U, 1U, &palette_buffer + 16);
+		}
 
 		move_win(7U, scroll_y);
 		move_bkg(0U, scroll_x);
