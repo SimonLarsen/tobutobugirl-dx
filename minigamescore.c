@@ -9,6 +9,15 @@
 #include "characters.h"
 #include "zoom_circles.h"
 
+const UWORD minigame_score_palette_data[8] = {
+	19749, 10370, 32767, 0,
+	32767, 22197, 10570, 0
+};
+
+const UBYTE minigame_score_palettes[9] = {
+	0U, 0U, 120U, 1U, 1U, 120U, 0U, 0U, 120U
+};
+
 void initMinigamescore() {
 	UBYTE i;
 
@@ -23,9 +32,13 @@ void initMinigamescore() {
 	set_bkg_data(18U, 8U, zoom_circles_data);
 
 	set_bkg_tiles_rle(0U, 0U, minigame_score_bg_tiles_width, minigame_score_bg_tiles_height, minigame_score_bg_tiles);
-    for(i = 0U; i != 8U; ++i) {
-        set_bkg_palette_buffer(i, 1U, gs_palette);
-    }
+
+	if(CGB_MODE) {
+		set_bkg_palette_buffer(0U, 2U, minigame_score_palette_data);
+		VBK_REG = 1U;
+		set_bkg_tiles_rle(0U, 0U, 20U, 18U, minigame_score_palettes);
+		VBK_REG = 0U;
+	}
 
 	// draw this time
 	if(elapsed_minutes >= 10U) {
