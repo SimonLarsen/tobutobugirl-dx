@@ -4,18 +4,12 @@
 #include "sound.h"
 #include "fade.h"
 
-void get_bkg_palette(UBYTE *buffer);
-
 const UBYTE spriteFadePals[] = {
     0xD0U, // 11010000
     0x80U, // 10000000
     0x40U, // 01000000
     0x00U  // 00000000
 };
-
-#define GET_RED(c) (c & 0x1FU)
-#define GET_GREEN(c) ((c >> 5) & 0x1FU)
-#define GET_BLUE(c) ((c >> 10) & 0x1FU)
 
 void fadeToWhite(UBYTE delay) {
     if(CGB_MODE) fadeToWhiteCGB(delay >> 2);

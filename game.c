@@ -936,18 +936,42 @@ void intoPortalAnimation() {
 }
 
 void saveCatAnimation() {
+    UBYTE c;
+    UBYTE r, g, b;
+    UWORD v;
     disable_interrupts();
+
     STOP_MUSIC;
     setMusicBank(SONG_BANK_LEVEL_CLEAR);
     playMusic(&level_clear_song_data);
+
+    get_bkg_palette(palette_buffer);
+
     enable_interrupts();
 
     player_y++;
 
     for(ticks = 0U; ticks != 180U; ++ticks) {
-        if(ticks == 24U) BGP_REG = 0x90U;
-        else if(ticks == 48U) BGP_REG = 0x40U;
-        else if(ticks == 72U) BGP_REG = 0x00U;
+        if(CGB_MODE) {
+            if((ticks & 3U) == 3U) {
+                for(c = 0U; c != 32U; ++c) {
+                    v = palette_buffer[c];
+                    r = GET_RED(v);
+                    g = GET_GREEN(v);
+                    b = GET_BLUE(v);
+
+                    if(r <= 29U) r += 1U; else r = 31U;
+                    if(g <= 29U) g += 1U; else g = 31U;
+                    if(b <= 29U) b += 1U; else b = 31U;
+                    palette_buffer[c] = RGB(r, g, b);
+                }
+                set_bkg_palette(0U, 8U, palette_buffer);
+            }
+        } else {
+            if(ticks == 24U) BGP_REG = 0x90U;
+            else if(ticks == 48U) BGP_REG = 0x40U;
+            else if(ticks == 72U) BGP_REG = 0x00U;
+        }
 
         if((ticks & 15U) == 15U) player_y++;
 
@@ -1069,32 +1093,31 @@ void fadeSpritesToWhiteGB(UBYTE delay) {
 }
 
 void fadeSpritesToWhiteCGB(UBYTE delay) {
-    /*
-    UBYTE i, c, p;
+    UBYTE i, c;
     UBYTE r, g, b;
-    UWORD data[4];
-    for(i = 0U; i != 15U; ++i) {
-        for(p = 0U; p != 8U; ++p) {
-            get_bkg_palette(p, data);
-            for(c = 0U; c != 4U; ++c) {
-                r = GET_RED(data[c]);
-                g = GET_GREEN(data[c]);
-                b = GET_BLUE(data[c]);
+    UWORD v;
 
-                if(r <= 29U) r += 2U; else r = 31U;
-                if(g <= 29U) g += 2U; else g = 31U;
-                if(b <= 29U) b += 2U; else b = 31U;
-                palette_buffer[(p << 2) + c] = RGB(r, g, b);
-            }
+    get_sprite_palette(palette_buffer);
+
+    for(i = 0U; i != 15U; ++i) {
+        for(c = 0U; c != 32U; ++c) {
+            v = palette_buffer[c];
+            r = GET_RED(v);
+            g = GET_GREEN(v);
+            b = GET_BLUE(v);
+
+            if(r <= 29U) r += 2U; else r = 31U;
+            if(g <= 29U) g += 2U; else g = 31U;
+            if(b <= 29U) b += 2U; else b = 31U;
+            palette_buffer[c] = RGB(r, g, b);
         }
         set_sprite_palette(0, 8U, palette_buffer);
 
-        for(p = 0U; p != delay; ++p) {
+        for(c = 0U; c != delay; ++c) {
             snd_update();
             wait_vbl_done();
         }
     }
-    */
 }
 
 void enterGame() {

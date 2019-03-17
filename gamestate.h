@@ -122,6 +122,11 @@ extern const UBYTE level_names[7][6];
 extern const UBYTE level_max_time[4];
 extern const UBYTE rank_letters[4];
 
-extern const UWORD gs_palette[4];
+void get_bkg_palette(UBYTE *buffer);
+void get_sprite_palette(UBYTE *buffer);
+
+#define GET_RED(c) (c & 0x1FU)
+#define GET_GREEN(c) ((c >> 5) & 0x1FU)
+#define GET_BLUE(c) ((c >> 10) & 0x1FU)
 
 #endif
