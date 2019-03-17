@@ -19,14 +19,14 @@ OBJ=main.o fade.o gamestate.o set_data_rle.o cos.o circles.o zoom_circles.o char
 	mmlgb/driver/music.o mmlgb/driver/freq.o mmlgb/driver/noisefreq.o mmlgb/driver/vib.o \
 	arrow.o getpal.o
 
-OBJ_BANK1=game.o pause.o wipe.o minigamescore.o
+OBJ_BANK1=game.o pause.o minigamescore.o
 OBJ_BANK2=select.o highscore.o unlocked.o \
 		  selection1.o selection2.o selection3.o selection4.o \
 		  selection_highscore.o selection_jukebox.o selection_locked.o
 OBJ_BANK3=intro.o intro_bg.o intro_bg_dx.o ending.o
 OBJ_BANK4=jukebox.o
 OBJ_BANK5=winscreen.o
-OBJ_BANK6=title.o
+OBJ_BANK6=title.o wipe.o
 OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o
 OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o
 OBJ_BANK9=logos.o win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o

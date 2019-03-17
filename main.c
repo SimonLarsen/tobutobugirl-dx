@@ -134,7 +134,7 @@ void main() {
 				enterWinscreen();
 				break;
 			case GAMESTATE_WIPE:
-				setGameBank(1U);
+				setGameBank(6U);
 				enterWipe();
 				break;
 			case GAMESTATE_MINIGAME_SCORE:
