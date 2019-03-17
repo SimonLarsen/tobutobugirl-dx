@@ -21,12 +21,8 @@ const UBYTE title_message[11] = {
 	26U, 28U, 15U, 29U, 29U, 10U, 29U, 30U, 11U, 28U, 30U
 };
 
-const UWORD minigame_bkg_palette_data[4] = {
-	RGB(31, 31, 31), RGB(18, 24, 26), RGB(15, 13, 26), RGB(0, 0, 0)
-};
-
 const UBYTE minigame_bkg_palettes[6] = {
-	4U, 4U, 180U, 4U, 4U, 180U
+	0U, 0U, 180U, 0U, 0U, 180U
 };
 
 const UWORD title_sprite_palette_data[12] = {
@@ -57,7 +53,6 @@ void initTitle() {
 		set_bkg_data_rle(0U, titlescreen_dx_data_length, titlescreen_dx_data);
 		set_win_tiles_rle(0U, 0U, titlescreen_dx_tiles_width, titlescreen_dx_tiles_height, titlescreen_dx_tiles);
 		set_bkg_palette_buffer(0U, titlescreen_dx_palette_data_length, titlescreen_dx_palette_data);
-		set_bkg_palette_buffer(4U, 1U, minigame_bkg_palette_data);
 		VBK_REG = 1U;
 		set_win_tiles_rle(0U, 0U, titlescreen_dx_tiles_width, titlescreen_dx_tiles_height, titlescreen_dx_palettes);
 		set_bkg_tiles_rle(0U, 0U, 20U, 20U, minigame_bkg_palettes);
@@ -446,10 +441,8 @@ void enterTitle() {
 		else if(player_yspeed > 240U) player_yspeed = 240U;
 
 		if(scroll_y < 0x40U) {
-			palette_buffer[0] = minigame_fade_palettes[scroll_y >> 1];
-			palette_buffer[18] = minigame_fade_palettes[scroll_y >> 1];
+			palette_buffer[2] = minigame_fade_palettes[scroll_y >> 1];
 			set_bkg_palette(0U, 1U, palette_buffer);
-			set_bkg_palette(4U, 1U, &palette_buffer + 16);
 		}
 
 		move_win(7U, scroll_y);

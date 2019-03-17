@@ -16,10 +16,10 @@ data/bg/titlescreen.h: data/bg/titlescreen.png
 	$(IMGTOGB) --map --rle $< $@
 
 data/bg/titlescreen_dx.h: data/bg/titlescreen_dx.png
-	$(IMGTOGB) --map --rle -c $< $@
+	$(IMGTOGB) --map --rle -c $< $@ -I data/palettes/titlescreen_base.png
 
-data/bg/titlescreen_bg.h: data/bg/titlescreen_bg.png data/bg/titlescreen_bg_dx.png
-	$(IMGTOGB) --map --rle -O 90 $< --dx data/bg/titlescreen_bg_dx.png $@
+data/bg/titlescreen_bg.h: data/bg/titlescreen_bg.png
+	$(IMGTOGB) --map --rle -O 117 $< $@
 
 select_backgrounds: data/bg/catface.h data/bg/select.h
 
