@@ -339,6 +339,8 @@ void set_bkg_data_rle(UBYTE first, UBYTE n, UBYTE *data) {
     run = 0U;
 
     while(count != 0UL) {
+        if(out >= (UBYTE*)0x9800UL) out -= (UBYTE*)0x1000UL;
+
         if(run == 0U) {
             value = *data;
             if(value == data[1]) {
@@ -355,7 +357,6 @@ void set_bkg_data_rle(UBYTE first, UBYTE n, UBYTE *data) {
         *out = value;
         ++out;
 
-        if(out == (UBYTE*)0x9800UL) out = (UBYTE*)0x8800UL;
         count--;
     }
 }
