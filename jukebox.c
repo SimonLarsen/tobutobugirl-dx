@@ -192,7 +192,7 @@ void enterJukebox() {
 		if(mus_is_done() && jukebox_playing == 8U) {
 			jukebox_playing = 42U;
 			disable_interrupts();
-			stopMusic();
+			STOP_MUSIC;
 			setMusicBank(SONG_BANK_ENDING_PART2);
 			playMusic(&ending_part2_song_data);
 			enable_interrupts();
@@ -218,7 +218,7 @@ void enterJukebox() {
 			playSound(SFX_MENU_CONFIRM);
 		}
 		if(CLICKED(J_A) || CLICKED(J_START)) {
-			stopMusic();
+			STOP_MUSIC;
 			wait_sound_done();
 			disable_interrupts();
 			switch(sub_selection) {
@@ -285,7 +285,7 @@ void enterJukebox() {
 		wait_vbl_done();
 	}
 
-	stopMusic();
+	STOP_MUSIC;
 	clearRemainingSprites();
 	fadeToWhite(8U);
 	wait_sound_done();

@@ -7,6 +7,7 @@
 #include "highscore.h"
 #include "ram.h"
 #include "sound.h"
+#include "mmlgb/driver/music.h"
 
 #include "characters.h"
 #include "arrow.h"
@@ -277,7 +278,7 @@ void enterHighscore() {
 	// Clear blinking after exit
 	last_highscore_slot = 5U;
 
-	stopMusic();
+	STOP_MUSIC;
 	clearRemainingSprites();
 	fadeToWhite(8U);
 	wait_sound_done();

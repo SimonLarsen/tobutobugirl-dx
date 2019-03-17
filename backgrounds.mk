@@ -5,8 +5,8 @@ logos_backgrounds: data/bg/tangram.h data/bg/potato.h
 data/bg/tangram.h: data/bg/tangram.png data/bg/tangram_dx.png
 	$(IMGTOGB) --map --rle $< --dx data/bg/tangram_dx.png $@
 
-data/bg/potato.h: data/bg/potato.png
-	$(IMGTOGB) --map --rle $< $@
+data/bg/potato.h: data/bg/potato.png data/bg/potato_dx.png
+	$(IMGTOGB) --map --rle $< --dx data/bg/potato_dx.png $@
 
 intro_backgrounds:
 

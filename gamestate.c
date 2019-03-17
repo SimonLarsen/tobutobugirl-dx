@@ -1,6 +1,5 @@
 #include <gb/gb.h>
 #include <gb/cgb.h>
-#include <string.h>
 #include "defines.h"
 #include "gamestate.h"
 #include "background1.h"
@@ -82,28 +81,12 @@ const UBYTE level_tiers[4][4] = {
 
 const UBYTE rank_letters[4] = {29U, 11U, 12U, 13U};
 
-const UWORD gs_palette[4] = {
-    RGB(31, 31, 31),
-    RGB(20, 20, 20),
-    RGB(10, 10, 10),
-    RGB(0, 0, 0)
-};
-
 UBYTE getRank(UBYTE score, UBYTE level) {
     UBYTE i;
     for(i = 0U; i != 4U; ++i) {
         if(score >= level_tiers[level-1U][i]) break;
     }
     return i;
-}
-
-void setGameBank(UBYTE i) {
-    game_bank = i;
-    SWITCH_ROM_MBC1(i);
-}
-
-void setMusicBank(UBYTE i) {
-    music_bank = i;
 }
 
 void playMusic(UBYTE *data) {
@@ -116,10 +99,6 @@ void updateMusic() {
     SWITCH_ROM_MBC1(music_bank);
     mus_update();
     SWITCH_ROM_MBC1(game_bank);
-}
-
-void stopMusic() {
-    mus_setPaused(1U);
 }
 
 void clearSprites() {
@@ -153,6 +132,9 @@ void clearRemainingSprites() {
 }
 
 void setIngameBackground(UBYTE level) {
+    UBYTE *tile_data, *tiles, *palette_data, *palettes;
+    UBYTE data_length, palette_data_length;
+
     if(level == 255U) {
         SWITCH_ROM_MBC1(PAUSE_DATA_BANK);
     } else {
@@ -162,58 +144,76 @@ void setIngameBackground(UBYTE level) {
     switch(level) {
         case 1U:
             if(CGB_MODE) {
-                set_bkg_data_rle(background1_dx_tiles_offset, background1_dx_data_length, background1_dx_data);
-                set_bkg_tiles_rle(0U, 0U, background1_dx_tiles_width, background1_dx_tiles_height, background1_dx_tiles);
-                set_bkg_palette_buffer(0U, background1_dx_palette_data_length, background1_dx_palette_data);
-                VBK_REG = 1U;
-                set_bkg_tiles_rle(0U, 0U, background1_dx_tiles_width, background1_dx_tiles_height, background1_dx_palettes);
-                VBK_REG = 0U;
+                tile_data = background1_dx_data;
+                tiles = background1_dx_tiles;
+                data_length = background1_dx_data_length;
+                palette_data = background1_dx_palette_data;
+                palettes = background1_dx_palettes;
+                palette_data_length = background1_dx_palette_data_length;
             } else {
-                set_bkg_data_rle(background1_tiles_offset, background1_data_length, background1_data);
-                set_bkg_tiles_rle(0U, 0U, background1_tiles_width, background1_tiles_height, background1_tiles);
+                tile_data = background1_data;
+                tiles = background1_tiles;
+                data_length = background1_data_length;
             }
             break;
         case 2U:
-            set_bkg_data_rle(background2_tiles_offset, background2_data_length, background2_data);
-            set_bkg_tiles_rle(0U, 0U, background2_tiles_width, background2_tiles_height, background2_tiles);
+            tile_data = background2_data;
+            tiles = background2_tiles;
+            data_length = background2_data_length;
             if(CGB_MODE) {
-                set_bkg_palette_buffer(0U, background2_palette_data_length, background2_palette_data);
-                VBK_REG = 1U;
-                set_bkg_tiles_rle(0U, 0U, background2_tiles_width, background2_tiles_height, background2_palettes);
-                VBK_REG = 0U;
+                palette_data = background2_palette_data;
+                palettes = background2_palettes;
+                palette_data_length = background2_palette_data_length;
             }
             break;
         case 3U:
-            set_bkg_data_rle(background3_tiles_offset, background3_data_length, background3_data);
-            set_bkg_tiles_rle(0U, 0U, background3_tiles_width, background3_tiles_height, background3_tiles);
+            tile_data = background3_data;
+            tiles = background3_tiles;
+            data_length = background3_data_length;
             if(CGB_MODE) {
-                set_bkg_palette_buffer(0U, background3_palette_data_length, background3_palette_data);
-                VBK_REG = 1U;
-                set_bkg_tiles_rle(0U, 0U, background3_tiles_width, background3_tiles_height, background3_palettes);
-                VBK_REG = 0U;
+                palette_data = background3_palette_data;
+                palettes = background3_palettes;
+                palette_data_length = background3_palette_data_length;
             }
             break;
         case 4U:
-            set_bkg_data_rle(background4_tiles_offset, background4_data_length, background4_data);
-            set_bkg_tiles_rle(0U, 0U, background4_tiles_width, background4_tiles_height, background4_tiles);
+            tile_data = background4_data;
+            tiles = background4_tiles;
+            data_length = background4_data_length;
             if(CGB_MODE) {
-                set_bkg_palette_buffer(0U, background4_palette_data_length, background4_palette_data);
-                VBK_REG = 1U;
-                set_bkg_tiles_rle(0U, 0U, background4_tiles_width, background4_tiles_height, background4_palettes);
-                VBK_REG = 0U;
+                palette_data = background4_palette_data;
+                palettes = background4_palettes;
+                palette_data_length = background4_palette_data_length;
             }
             break;
+        case 255U:
+            tile_data = pause_bg_data;
+            tiles = pause_bg_tiles;
+            data_length = pause_bg_data_length;
+            if(CGB_MODE) {
+                palette_data = pause_bg_palette_data;
+                palettes = pause_bg_palettes;
+                palette_data_length = pause_bg_palette_data_length;
+            }
+            break;
+    }
 
-        case 255U: // pause menu
-            set_bkg_data_rle(pause_bg_tiles_offset, pause_bg_data_length, pause_bg_data);
-            set_bkg_tiles_rle(0U, 0U, pause_bg_tiles_width, pause_bg_tiles_height, pause_bg_tiles);
-            if(CGB_MODE) {
-                set_bkg_palette(0U, pause_bg_palette_data_length, pause_bg_palette_data);
-                VBK_REG = 1U;
-                set_bkg_tiles_rle(0U, 0U, pause_bg_tiles_width, pause_bg_tiles_height, pause_bg_palettes);
-                VBK_REG = 0U;
-            }
-            break;
+    set_bkg_data_rle(background1_dx_tiles_offset, data_length, tile_data);
+    if(level == 255U) {
+        set_bkg_tiles_rle(0U, 0U, 20U, 18U, tiles);
+    } else {
+        set_bkg_tiles_rle(0U, 0U, 18U, 32U, tiles);
+    }
+    if(CGB_MODE) {
+        VBK_REG = 1U;
+        if(level == 255U) {
+            set_bkg_palette(0U, palette_data_length, palette_data);
+            set_bkg_tiles_rle(0U, 0U, 20U, 18U, palettes);
+        } else {
+            set_bkg_palette_buffer(0U, palette_data_length, palette_data);
+            set_bkg_tiles_rle(0U, 0U, 18U, 32U, palettes);
+        }
+        VBK_REG = 0U;
     }
 
     SWITCH_ROM_MBC1(game_bank);
@@ -282,20 +282,25 @@ void setWinscreenBackground(UBYTE level) {
 }
 
 void setCloudAnimation(UBYTE skin) {
+    UBYTE *data;
+
     SWITCH_ROM_MBC1(CLOUD_ANIMATIONS_BANK);
 
     switch(skin) {
         case 1U:
-            set_sprite_data(0U, pause_cloud1_data_length, pause_cloud1_data);
+            data = pause_cloud1_data;
             break;
         case 2U:
-            set_sprite_data(0U, pause_cloud2_data_length, pause_cloud2_data);
+            data = pause_cloud2_data;
             break;
     }
+
+    set_sprite_data(0U, pause_cloud1_data_length, data);
 
     SWITCH_ROM_MBC1(game_bank);
 }
 
+/*
 void set_bkg_data_rle(UBYTE first, UBYTE n, UBYTE *data) {
     UBYTE i, j, run, tile;
     UBYTE block[16];
@@ -319,6 +324,42 @@ void set_bkg_data_rle(UBYTE first, UBYTE n, UBYTE *data) {
         set_bkg_data(i, 1U, block);
     }
 }
+*/
+
+/*
+void set_bkg_data_rle(UBYTE first, UBYTE n, UBYTE *data) {
+    UBYTE run, value;
+    UWORD count;
+    UBYTE *out;
+    
+    out = (UBYTE*)0x9000UL;
+    out += (UWORD)first << 4UL;
+
+    count = (UWORD)n << 4UL;
+    run = 0U;
+
+    while(count != 0UL) {
+        if(run == 0U) {
+            value = *data;
+            if(value == data[1]) {
+                run = data[2];
+                data += 3U;
+            } else {
+                run = 1U;
+                data++;
+            }
+        }
+        run--;
+
+        while(STAT_REG & 2U) {}
+        *out = value;
+        ++out;
+
+        if(out == (UBYTE*)0x9800UL) out = (UBYTE*)0x8800UL;
+        count--;
+    }
+}
+*/
 
 void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles) {
     UBYTE ix, iy, run, tile;
@@ -360,8 +401,4 @@ void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles
             run--;
         }
     }
-}
-
-void set_bkg_palette_buffer(UBYTE first_palette, UBYTE nbpalettes, UWORD *data) {
-    memcpy(&palette_buffer[first_palette << 2], data, nbpalettes << 3);
 }

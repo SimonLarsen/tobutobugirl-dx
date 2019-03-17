@@ -4,6 +4,7 @@
 #include "gamestate.h"
 #include "sound.h"
 #include "ram.h"
+#include "mmlgb/driver/music.h"
 
 #include "data/bg/minigame_score_bg.h"
 #include "characters.h"
@@ -116,6 +117,6 @@ void enterMinigamescore() {
 	clearRemainingSprites();
 	fadeToWhite(8U);
 
-	stopMusic();
+	STOP_MUSIC;
 	gamestate = GAMESTATE_TITLE;
 }

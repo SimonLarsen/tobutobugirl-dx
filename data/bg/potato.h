@@ -110,5 +110,12 @@ const unsigned char potato_tiles[] = {
     110, 111, 112,   0,   0,  15, 113, 114, 115, 116, 117, 118,   0,   0,  14, 119,
     120, 121, 122, 123, 124,   0,   0,  41
 };
-
+const unsigned char potato_palettes[] = {
+      0,   0, 255,   0,   0, 105
+};
+#define potato_palette_data_length 1
+#define potato_palette_offset 0
+const unsigned int potato_palette_data[] = {
+    32767, 16058, 5455,   0
+};
 #endif

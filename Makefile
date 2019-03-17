@@ -15,7 +15,7 @@ include sprites.mk
 include songs.mk
 include sounds.mk
 
-OBJ=main.o fade.o gamestate.o cos.o circles.o zoom_circles.o characters.o sound.o \
+OBJ=main.o fade.o gamestate.o set_data_rle.o cos.o circles.o zoom_circles.o characters.o sound.o \
 	mmlgb/driver/music.o mmlgb/driver/freq.o mmlgb/driver/noisefreq.o mmlgb/driver/vib.o \
 	arrow.o getpal.o
 
@@ -104,6 +104,9 @@ game.o: game.asm
 	${compile-source}
 
 gamestate.o: gamestate.c defines.h gamestate.h background1.h background1_dx.h background2.h background3.h background4.h pause_bg.h win1.h win1_dx.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
+	${compile-source}
+
+set_data_rle.o: set_data_rle.asm
 	${compile-source}
 
 highscore.o: highscore.c defines.h gamestate.h fade.h cos.h highscore.h ram.h sound.h characters.h arrow.h data/sprite/empty.h data/bg/highscore.h data/bg/highscore_dx.h circles.h selection1.h selection2.h selection3.h selection4.h selection_locked.h

@@ -329,5 +329,5 @@ void enterWinscreen() {
 	clearSprites();
 	fadeToWhite(12U);
 
-	stopMusic();
+	STOP_MUSIC;
 }

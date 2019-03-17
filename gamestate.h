@@ -1,6 +1,8 @@
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 
+#include <string.h>
+
 void clearSprites();
 void updateJoystate();
 void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop);
@@ -11,13 +13,17 @@ void setCloudAnimation(UBYTE skin);
 void set_bkg_data_rle(UBYTE first, UBYTE n, UBYTE *data);
 void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
 void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
-void set_bkg_palette_buffer(UBYTE first_palette, UBYTE nbpalettes, UWORD *data);
-void setGameBank(UBYTE i);
-void setMusicBank(UBYTE i);
+//void set_bkg_palette_buffer(UBYTE first_palette, UBYTE nbpalettes, UWORD *data);
 void playMusic(UBYTE *data);
 void updateMusic();
-void stopMusic();
 UBYTE getRank(UBYTE score, UBYTE level);
+
+#define setGameBank(i) { game_bank = i; *((UBYTE*)0x2000) = (i); }
+#define setMusicBank(i) (music_bank = (i))
+
+#define STOP_MUSIC mus_setPaused(1U)
+
+#define set_bkg_palette_buffer(first_palette, nbpalettes, data) (memcpy(&palette_buffer[(first_palette) << 2], (data), (nbpalettes) << 3))
 
 extern UBYTE vbl_count;
 extern UBYTE ticks, paused, timer;

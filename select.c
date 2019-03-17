@@ -301,7 +301,7 @@ void enterSelect() {
 			if(elapsed_time == 110U) {
 				//mus_setPaused(1U);
 				disable_interrupts();
-				stopMusic();
+				STOP_MUSIC;
 				enable_interrupts();
 			}
 
@@ -385,7 +385,7 @@ void enterSelect() {
 		wait_vbl_done();
 	}
 
-	stopMusic();
+	STOP_MUSIC;
 	clearRemainingSprites(); // Remove all sprites
 	fadeToWhite(8U);
 	wait_sound_done();

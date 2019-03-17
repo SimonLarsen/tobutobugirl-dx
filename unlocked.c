@@ -4,6 +4,7 @@
 #include "unlocked.h"
 #include "fade.h"
 #include "gamestate.h"
+#include "mmlgb/driver/music.h"
 
 #include "characters.h"
 #include "zoom_circles.h"
@@ -144,5 +145,5 @@ void enterUnlocked() {
 	clearRemainingSprites();
 	fadeToWhite(8U);
 
-	stopMusic();
+	STOP_MUSIC;
 }

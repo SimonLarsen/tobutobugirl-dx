@@ -62,7 +62,7 @@ void enterLogos() {
 	enable_interrupts();
 
 	for(i = 0U; i != 60U; ++i) wait_vbl_done();
-	stopMusic();
+	STOP_MUSIC;
 
 	setMusicBank(SONG_BANK_TANGRAM_SHINE);
 	disable_interrupts();
@@ -95,7 +95,7 @@ void enterLogos() {
 		wait_vbl_done();
 	}
 
-	stopMusic();
+	STOP_MUSIC;
     fadeToWhite(8U);
 
 	disable_interrupts();
@@ -103,9 +103,10 @@ void enterLogos() {
 	set_bkg_data_rle(0U, potato_data_length, potato_data);
 	set_bkg_tiles_rle(0U, 0U, potato_tiles_width, potato_tiles_height, potato_tiles);
     if(CGB_MODE) {
-        for(i = 0U; i != 8U; ++i) {
-            set_bkg_palette_buffer(i, 1U, gs_palette);
-        }
+        set_bkg_palette_buffer(0U, potato_palette_data_length, potato_palette_data);
+        VBK_REG = 1U;
+        set_bkg_tiles_rle(0U, 0U, potato_tiles_width, potato_tiles_height, potato_palettes);
+        VBK_REG = 0U;
     }
 
 	DISPLAY_ON;
@@ -127,7 +128,7 @@ void enterLogos() {
 		wait_vbl_done();
 	}
 
-	stopMusic();
+	STOP_MUSIC;
     fadeToWhite(8U);
 
 	gamestate = GAMESTATE_INTRO;

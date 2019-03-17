@@ -928,7 +928,7 @@ void intoPortalAnimation() {
     while(!mus_is_done()) {
         wait_vbl_done();
     }
-    stopMusic();
+    STOP_MUSIC;
 
     clearRemainingSprites();
     fadeToWhite(8U);
@@ -937,7 +937,7 @@ void intoPortalAnimation() {
 
 void saveCatAnimation() {
     disable_interrupts();
-    stopMusic();
+    STOP_MUSIC;
     setMusicBank(SONG_BANK_LEVEL_CLEAR);
     playMusic(&level_clear_song_data);
     enable_interrupts();
@@ -967,7 +967,7 @@ void saveCatAnimation() {
     while(!mus_is_done()) {
         wait_vbl_done();
     }
-    stopMusic();
+    STOP_MUSIC;
 
     fadeSpritesToWhite(8U);
 }
@@ -1168,7 +1168,7 @@ ingame_start:
         vbl_count = 0U;
     }
 
-    stopMusic();
+    STOP_MUSIC;
 
     if(scene_state == INGAME_DEAD) {
         deathAnimation();

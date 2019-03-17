@@ -3,6 +3,7 @@
 #include "fade.h"
 #include "gamestate.h"
 #include "intro.h"
+#include "mmlgb/driver/music.h"
 
 #include "intro_bg.h"
 #include "intro_bg_dx.h"
@@ -238,5 +239,5 @@ void enterIntro() {
 	clearRemainingSprites();
 	fadeToWhite(12U);
 
-	stopMusic();
+	STOP_MUSIC;
 }

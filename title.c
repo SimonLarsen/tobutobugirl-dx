@@ -6,6 +6,7 @@
 #include "gamestate.h"
 #include "sound.h"
 #include "ram.h"
+#include "mmlgb/driver/music.h"
 
 #include "data/bg/titlescreen.h"
 #include "data/bg/titlescreen_dx.h"
@@ -162,7 +163,7 @@ void updateTitleEnemies() {
 		if((player_x - entity_x[i] + 11U) <= 22U
 		&& (player_y - entity_y[i] + 14U) <= 22U) {
 			scene_state = TITLE_DEAD;
-			stopMusic();
+			STOP_MUSIC;
 			playSound(SFX_PLAYER_DIE);
 			timer = 0U;
 			player_xspeed = 128U;
@@ -284,7 +285,7 @@ void enterTitle() {
 
 		if(CLICKED(J_START)) {
 			initrand(DIV_REG);
-			stopMusic();
+			STOP_MUSIC;
 			playSound(SFX_MENU_CONFIRM);
 			
 			for(ticks = 0U; ticks != 32U; ++ticks) {
@@ -299,7 +300,7 @@ void enterTitle() {
 		}
 		else if(ISDOWN(J_DOWN) && ISDOWN(J_SELECT) && ISDOWN(J_B)) {
 			gamestate = GAMESTATE_WIPE;
-			stopMusic();
+			STOP_MUSIC;
 			break;
 		}
 
@@ -316,7 +317,7 @@ void enterTitle() {
 
 		if(elapsed_time == 33U && scene_state <= TITLE_MOVE) {
 			gamestate = GAMESTATE_INTRO;
-			stopMusic();
+			STOP_MUSIC;
 			break;
 		}
 
