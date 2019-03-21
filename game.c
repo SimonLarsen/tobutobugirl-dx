@@ -86,7 +86,7 @@ const UWORD sprite_palettes[32] = {
     32767, 28638, 18777, 0,
     32767, 28638, 13993, 0,
     32767, 6940, 8476, 0,
-    32767, 19886, 11333, 0,
+    32767, 31513, 11333, 0,
     32767, 28638, 22207, 12701
 };
 
@@ -679,11 +679,11 @@ void updateEntities() {
                     setSprite(x-8U,  y-8U, 126U, OBJ_PAL0 | 1U);
                 } else {
                     if(entity_dir[i] & 1U) {
-                        setSprite(x-16U, y, frame, OBJ_PAL0 | 6U);
-                        setSprite(x-8U,  y, frame+2U, OBJ_PAL0 | 6U);
+                        setSprite(x-16U, y, frame, OBJ_PAL0 | 0U);
+                        setSprite(x-8U,  y, frame+2U, OBJ_PAL0 | 0U);
                     } else {
-                        setSprite(x-8U,  y, frame, OBJ_PAL0 | FLIP_X | 6U);
-                        setSprite(x-16U, y, frame+2U, OBJ_PAL0 | FLIP_X | 6U);
+                        setSprite(x-8U,  y, frame, OBJ_PAL0 | FLIP_X | 0U);
+                        setSprite(x-16U, y, frame+2U, OBJ_PAL0 | FLIP_X | 0U);
                     }
                 }
                 break;
