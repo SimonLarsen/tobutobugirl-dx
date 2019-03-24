@@ -103,10 +103,10 @@ win4_dx.c win4_dx.h: data/bg/win4_dx.png
 highscore_backgrounds: data/bg/highscore.h data/bg/highscore_dx.h data/sprite/empty.h
 
 data/bg/highscore.h: data/bg/highscore.png
-	$(IMGTOGB) --map -O 47 $< $@
+	$(IMGTOGB) --map -O 47 --rle $< $@
 
 data/bg/highscore_dx.h: data/bg/highscore_dx.png data/palettes/highscore.png
-	$(IMGTOGB) --map -O 47 -P 1 $< -c -I data/palettes/highscore.png $@
+	$(IMGTOGB) --map -O 47 -P 1 --rle $< -c -I data/palettes/highscore.png $@
 
 data/sprite/empty.h: data/sprite/empty.png
 	$(IMGTOGB) $< $@

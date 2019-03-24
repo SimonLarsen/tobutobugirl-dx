@@ -21,8 +21,7 @@ const unsigned char ending_thanks_data[] = {
 #define ending_thanks_tiles_height 2
 #define ending_thanks_tiles_offset 174
 const unsigned char ending_thanks_tiles[] = {
-    174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 180, 184, 185, 176, 186, 187,
-    177, 188, 189, 180
+    174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 180, 184, 185, 176, 186, 187, 177, 188, 189, 180
 };
 
 #endif

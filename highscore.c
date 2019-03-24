@@ -43,13 +43,13 @@ void initHighscore() {
 	set_bkg_data(38U, circles_data_length, circles_data);
 
     if(CGB_MODE) {
-	    set_bkg_data(highscore_dx_tiles_offset, highscore_dx_data_length, highscore_dx_data);
-	    set_bkg_tiles(0U, 0U, highscore_dx_tiles_width, highscore_dx_tiles_height, highscore_dx_tiles);
+	    set_bkg_data_rle(highscore_dx_tiles_offset, highscore_dx_data_length, highscore_dx_data);
+	    set_bkg_tiles_rle(0U, 0U, highscore_dx_tiles_width, highscore_dx_tiles_height, highscore_dx_tiles);
         set_bkg_palette_buffer(0U, 1U, sepia_palette2);
         set_bkg_palette_buffer(highscore_dx_palette_offset, highscore_dx_palette_data_length, highscore_dx_palette_data);
         set_sprite_palette(0U, 1U, highscore_palettes);
         VBK_REG = 1U;
-	    set_bkg_tiles(0U, 0U, highscore_dx_tiles_width, highscore_dx_tiles_height, highscore_dx_palettes);
+	    set_bkg_tiles_rle(0U, 0U, highscore_dx_tiles_width, highscore_dx_tiles_height, highscore_dx_palettes);
         buf[0] = 0U; buf[1] = 0U; buf[2] = 18U;
 	    set_bkg_tiles_rle(2U, 4U, 3U, 6U, buf);
 	    set_bkg_tiles_rle(15U, 4U, 3U, 6U, buf);
@@ -57,8 +57,8 @@ void initHighscore() {
 	    set_bkg_tiles_rle(5U, 4U, 10U, 4U, buf);
         VBK_REG = 0U;
     } else {
-	    set_bkg_data(highscore_tiles_offset, highscore_data_length, highscore_data);
-	    set_bkg_tiles(0U, 0U, highscore_tiles_width, highscore_tiles_height, highscore_tiles);
+	    set_bkg_data_rle(highscore_tiles_offset, highscore_data_length, highscore_data);
+	    set_bkg_tiles_rle(0U, 0U, highscore_tiles_width, highscore_tiles_height, highscore_tiles);
     }
 
 	set_sprite_data(0U, arrow_data_length, arrow_data);
@@ -128,8 +128,8 @@ void _highscoreUpdateScreen() {
 	}
 
 	set_bkg_tiles(2U, 4U, 16U, 6U, data);
-	set_bkg_tiles(5U, 8U, 10U, 1U, highscore_tiles+165U);
-	set_bkg_tiles(5U, 9U, 10U, 1U, highscore_tiles+185U);
+	set_bkg_tiles_rle(5U, 8U, 10U, 1U, highscore_tiles+55U);
+	set_bkg_tiles_rle(5U, 9U, 10U, 1U, highscore_tiles+69U);
 
     if(CGB_MODE) {
         set_bkg_palette_buffer(0U, 1U, sepia_palette2);
