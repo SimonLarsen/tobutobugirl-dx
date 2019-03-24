@@ -2,6 +2,7 @@ CC=lcc
 CFLAGS=-Wa-l -Wl-m -Wl-j
 SDCCN=/home/simon/share/sdcc-3.8.0/bin/sdcc -mgbz80 --no-std-crt0 -I "$(GBDK_DIR)/include" -I "$(GBDK_DIR)/include/asm"
 IMGTOGB=imgtogb.py
+IMGTOSGB=imgtosgb.py
 MMLGB=MMLGB.jar
 
 define compile-source
@@ -12,6 +13,7 @@ default: tobudx.gb
 
 include backgrounds.mk
 include sprites.mk
+include sgb.mk
 include songs.mk
 include sounds.mk
 
@@ -30,7 +32,7 @@ OBJ_BANK6=title.o wipe.o
 OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o
 OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o
 OBJ_BANK9=logos.o win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o
-OBJ_BANK10=sound_data.o
+OBJ_BANK10=sound_data.o sgb.o
 
 OBJ_ASM=title_song.o mainmenu_song.o score_tally_song.o highscore_song.o plains_song.o \
 		clouds_song.o space_song.o dream_song.o dream_score_song.o intro_song.o \
@@ -103,7 +105,10 @@ game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sou
 game.o: game.asm
 	${compile-source}
 
-gamestate.o: gamestate.c defines.h gamestate.h background1.h background1_dx.h background2.h background3.h background4.h pause_bg.h win1.h win1_dx.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
+gamestate.asm: gamestate.c defines.h gamestate.h background1.h background1_dx.h background2.h background3.h background4.h pause_bg.h win1.h win1_dx.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
+	$(SDCCN) -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
+
+gamestate.o: gamestate.asm
 	${compile-source}
 
 set_data_rle.o: set_data_rle.asm
@@ -163,6 +168,12 @@ selection_jukebox.o: selection_jukebox.c selection_jukebox.h
 selection_locked.o: selection_locked.c selection_locked.h
 	${compile-source}
 
+sgb.asm: sgb.c sgb.h data/sgb/border.h
+	$(SDCCN) -bo 10 -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
+
+sgb.o: sgb.asm
+	${compile-source}
+
 sound.o: sound.c sound.h gamestate.h mmlgb/driver/music.h mmlgb/driver/notes.h mmlgb/driver/freq.h mmlgb/driver/noisefreq.h mmlgb/driver/vib.h
 	${compile-source}
 
@@ -206,4 +217,4 @@ tobudx.gb: ram.o $(OBJ) $(OBJ_ASM) \
 	$(OBJ_BANK1) $(OBJ_BANK2) $(OBJ_BANK3) $(OBJ_BANK4) \
 	$(OBJ_BANK5) $(OBJ_BANK6) $(OBJ_BANK7) $(OBJ_BANK8) \
 	$(OBJ_BANK9) $(OBJ_BANK10) $(OBJ_BANK11) $(OBJ_BANK12)
-	$(CC) $(CFLAGS) -Wl-yt19 -Wl-yo16 -Wl-ya1 -Wl-yp0x143=0x80 $^ -o $@
+	$(CC) $(CFLAGS) -Wl-yt19 -Wl-yo16 -Wl-ya1 -Wl-yp0x143=0x80 -Wl-yp0x146=0x03 -Wl-yp0x14A=0x01 -Wl-yp0x14B=0x33 $^ -o $@

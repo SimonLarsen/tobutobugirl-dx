@@ -12,6 +12,7 @@ def rgb_to_5bit(r, g, b):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("infile", help="Image file.", type=str)
+    parser.add_argument("-b","--bytes", help="Output bytes instead of words.", action="store_true")
     args = parser.parse_args()
 
     source = png.Reader(args.infile)
@@ -27,6 +28,14 @@ def main():
     palette = meta["palette"]
 
     out = [rgb_to_5bit(*palette[data[x,y]]) for y in range(height) for x in range(4)]
+
+    if args.bytes:
+        out2 = []
+        for x in out:
+            out2.append(x & 0xFF)
+            out2.append(x >> 8)
+        out = out2
+
     print(", ".join(map(str, out)))
 
 if __name__ == "__main__":

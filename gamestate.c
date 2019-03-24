@@ -367,9 +367,9 @@ void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles
     run = 0U;
     for(iy = y; iy != y+height; ++iy) {
         for(ix = x; ix != x+width; ++ix) {
-            if(run == 0U) {
+            if(!run) {
                 tile = tiles[0];
-                if(tiles[0] == tiles[1]) {
+                if(tile == tiles[1]) {
                     run = tiles[2];
                     tiles += 3U;
                 } else {
@@ -388,9 +388,9 @@ void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles
     run = 0U;
     for(iy = y; iy != y+height; ++iy) {
         for(ix = x; ix != x+width; ++ix) {
-            if(run == 0U) {
+            if(!run) {
                 tile = tiles[0];
-                if(tiles[0] == tiles[1]) {
+                if(tile == tiles[1]) {
                     run = tiles[2];
                     tiles += 3U;
                 } else {

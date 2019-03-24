@@ -4,6 +4,7 @@
 #include "main.h"
 #include "ram.h"
 #include "sound.h"
+#include "sgb.h"
 #include "mmlgb/driver/music.h"
 
 #include "logos.h"
@@ -66,6 +67,11 @@ void vbl_update() {
 void main() {
 	disable_interrupts();
 	DISPLAY_OFF;
+
+	SWITCH_ROM_MBC1(SGB_BANK);
+	if(sgb_check2()) {
+		sgb_init();
+	}
 
 	initRAM(0U);
 	snd_init();
