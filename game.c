@@ -849,13 +849,15 @@ void introAnimation() {
         wait_vbl_done();
     }
 
-    for(ticks = 0U; ticks != 32U; ++ticks) {
+    //for(ticks = 0U; ticks != 32U; ++ticks) {
+        /*
         if(ticks & 4U) {
             BGP_REG = 0xE4U; // 11100100
         } else {
             BGP_REG = 0x1BU; // 00011011
         }
-
+        */
+    for(ticks = 0U; ticks != 18U; ++ticks) {
         setSprite(player_x-8U, player_y, 0U, FLIP_X | OBJ_PAL0);
         setSprite(player_x-16U, player_y, 2U, FLIP_X | OBJ_PAL0);
 
@@ -884,13 +886,15 @@ void intoPortalAnimation() {
 
     playSound(SFX_WARP_START);
 
-    for(ticks = 0U; ticks != 32U; ++ticks) {
+    //for(ticks = 0U; ticks != 32U; ++ticks) {
+        /*
         if(ticks & 4U) {
             BGP_REG = 0xE4U; // 11100100
         } else {
             BGP_REG = 0x1BU; // 00011011
         }
-
+        */
+    for(ticks = 0U; ticks != 18U; ++ticks) {
         setSprite(player_x-16U, player_y, entity_sprites[E_PORTAL], OBJ_PAL0 | 6U);
         setSprite(player_x-8U, player_y, entity_sprites[E_PORTAL]+2U, OBJ_PAL0 | 6U);
 
