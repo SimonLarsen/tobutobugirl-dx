@@ -51,8 +51,6 @@ void sgb_copy_rle(UBYTE *data, UBYTE *dest, UWORD n, UBYTE step) {
 void sgb_send_packet(UBYTE* data) {
     UBYTE i, b, val;
 
-    disable_interrupts();
-
     P1_REG = P1_NEUTRAL;
 
     P1_REG = 0U;
@@ -73,8 +71,6 @@ void sgb_send_packet(UBYTE* data) {
 
     P1_REG = P1_LOW;
     P1_REG = P1_NEUTRAL;
-
-    enable_interrupts();
 }
 
 UBYTE sgb_check2() {
@@ -107,10 +103,9 @@ void sgb_init() {
     UBYTE x, y, i;
     UBYTE *dout;
 
-    sgb_send_packet(SGB_FREEZE); delay(65U);
-
-    disable_interrupts();
     DISPLAY_OFF;
+
+    sgb_send_packet(SGB_FREEZE); delay(65U);
 
     BGP_REG = 0xE4U;
     OBP0_REG = 0xE4U;
@@ -165,13 +160,10 @@ void sgb_init() {
     sgb_send_packet(SGB_BORDER_PCT_TRN); delay(65U);
     DISPLAY_OFF;
 
-    enable_interrupts();
-
     sgb_send_packet(SGB_PAL01); delay(65U);
 
     sgb_send_packet(SGB_UNFREEZE); delay(65U);
 
     LCDC_REG ^= 16U;
     HIDE_BKG;
-    DISPLAY_ON;
 }

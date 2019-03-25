@@ -94,7 +94,6 @@ void main() {
 	add_VBL(vbl_update);
 	set_interrupts(TIM_IFLAG | VBL_IFLAG);
 
-	DISPLAY_ON;
 	enable_interrupts();
 
 	while(1U) {
