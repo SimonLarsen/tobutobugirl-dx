@@ -679,11 +679,11 @@ void updateEntities() {
                     setSprite(x-8U,  y-8U, 126U, OBJ_PAL0 | 1U);
                 } else {
                     if(entity_dir[i] & 1U) {
-                        setSprite(x-16U, y, frame, OBJ_PAL0 | 0U);
-                        setSprite(x-8U,  y, frame+2U, OBJ_PAL0 | 0U);
+                        setSprite(x-16U, y, frame, OBJ_PAL0 | 6U);
+                        setSprite(x-8U,  y, frame+2U, OBJ_PAL0 | 6U);
                     } else {
-                        setSprite(x-8U,  y, frame, OBJ_PAL0 | FLIP_X | 0U);
-                        setSprite(x-16U, y, frame+2U, OBJ_PAL0 | FLIP_X | 0U);
+                        setSprite(x-8U,  y, frame, OBJ_PAL0 | FLIP_X | 6U);
+                        setSprite(x-16U, y, frame+2U, OBJ_PAL0 | FLIP_X | 6U);
                     }
                 }
                 break;
