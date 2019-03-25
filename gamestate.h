@@ -13,7 +13,6 @@ void setCloudAnimation(UBYTE skin);
 void set_bkg_data_rle(UBYTE first, UBYTE n, UBYTE *data);
 void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
 void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
-//void set_bkg_palette_buffer(UBYTE first_palette, UBYTE nbpalettes, UWORD *data);
 void playMusic(UBYTE *data);
 void updateMusic();
 UBYTE getRank(UBYTE score, UBYTE level);

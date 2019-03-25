@@ -114,9 +114,11 @@ void updateJoystate() {
 }
 
 void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop) {
-    move_sprite(next_sprite, x, y);
-    set_sprite_tile(next_sprite, tile);
-    set_sprite_prop(next_sprite, prop);
+    UBYTE* oam = (UBYTE*)0xC000UL + (next_sprite << 2);
+    *oam++ = y;
+    *oam++ = x;
+    *oam++ = tile;
+    *oam = prop;
 
     sprites_used++;
     next_sprite++;
@@ -124,10 +126,12 @@ void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop) {
 }
 
 void clearRemainingSprites() {
-    for(; sprites_used != 40U; ++sprites_used) {
-        move_sprite(next_sprite++, 0, 0);
-        if(next_sprite == 40U) next_sprite = 0U;
+    UBYTE* oam = (UBYTE*)0xC000UL + (next_sprite << 2);
+    for(; next_sprite != 40U; ++next_sprite) {
+        *oam = 0U;
+        oam += 4UL;
     }
+    next_sprite = 0U;
     sprites_used = 0U;
 }
 
