@@ -19,7 +19,7 @@ include sounds.mk
 
 OBJ=main.o fade.o gamestate.o set_data_rle.o cos.o circles.o zoom_circles.o characters.o sound.o \
 	mmlgb/driver/music.o mmlgb/driver/freq.o mmlgb/driver/noisefreq.o mmlgb/driver/vib.o \
-	arrow.o getpal.o
+	arrow.o getpal.o sgb_send_packet.o
 
 OBJ_BANK1=game.o pause.o minigamescore.o
 OBJ_BANK2=select.o highscore.o unlocked.o \
@@ -166,6 +166,9 @@ selection_jukebox.o: selection_jukebox.c selection_jukebox.h
 	${compile-source}
 
 selection_locked.o: selection_locked.c selection_locked.h
+	${compile-source}
+
+sgb_send_packet.o: sgb_send_packet.asm
 	${compile-source}
 
 sgb.asm: sgb.c sgb.h data/sgb/border.h

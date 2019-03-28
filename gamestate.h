@@ -16,6 +16,7 @@ void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles
 void playMusic(UBYTE *data);
 void updateMusic();
 UBYTE getRank(UBYTE score, UBYTE level);
+void sgb_send_packet(UBYTE* data);
 
 #define setGameBank(i) { game_bank = i; *((UBYTE*)0x2000) = (i); }
 #define setMusicBank(i) (music_bank = (i))
@@ -91,32 +92,6 @@ extern UBYTE entity_dir[MAX_ENTITIES];
 #define ENDING_FLAG_ENDING_FINISHED 1U
 #define ENDING_FLAG_FROM_DREAM      2U
 
-#define GAME_BACKGROUNDS_BANK 7U
-#define PAUSE_DATA_BANK 8U 
-#define WINSCREEN_BACKGROUNDS_BANK 9U
-#define CLOUD_ANIMATIONS_BANK 8U
-#define SGB_BANK 10U
-
-#define SONG_BANK_TITLE 11U
-#define SONG_BANK_MAINMENU 11U
-#define SONG_BANK_SCORE_TALLY 11U
-#define SONG_BANK_HIGHSCORE 11U
-#define SONG_BANK_PLAINS 12U
-#define SONG_BANK_CLOUDS 12U
-#define SONG_BANK_SPACE 12U
-#define SONG_BANK_INTRO 13U
-#define SONG_BANK_DREAM 13U
-#define SONG_BANK_DREAM_SCORE 13U
-#define SONG_BANK_ENDING_PART1 14U
-#define SONG_BANK_ENDING_PART2 14U
-#define SONG_BANK_POTATO_JINGLE 14U
-#define SONG_BANK_TANGRAM_SHINE 14U
-#define SONG_BANK_TANGRAM_VOX 14U
-#define SONG_BANK_LEVEL_CLEAR 14U
-#define SONG_BANK_UNLOCKED 14U
-#define SONG_BANK_MINIGAME 15U
-#define SONG_BANK_POTAKA 15U
-
 extern const UBYTE fadePals[4];
 extern const UBYTE level_names[7][6];
 extern const UBYTE level_max_time[4];
@@ -124,9 +99,5 @@ extern const UBYTE rank_letters[4];
 
 void get_bkg_palette(UBYTE *buffer);
 void get_sprite_palette(UBYTE *buffer);
-
-#define GET_RED(c) (c & 0x1FU)
-#define GET_GREEN(c) ((c >> 5) & 0x1FU)
-#define GET_BLUE(c) ((c >> 10) & 0x1FU)
 
 #endif

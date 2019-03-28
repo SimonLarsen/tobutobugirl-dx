@@ -1,10 +1,8 @@
 #include <string.h>
+#include "defines.h"
 #include "sgb.h"
+#include "gamestate.h"
 #include "data/sgb/border.h"
-
-#define P1_LOW 32U
-#define P1_HIGH 16U
-#define P1_NEUTRAL 48U
 
 const UBYTE SGB_INIT1[16] = { 0x79U, 0x5DU, 0x08U, 0x00U, 0x0BU, 0x8CU, 0xD0U, 0xF4U, 0x60U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U };
 const UBYTE SGB_INIT2[16] = { 0x79U, 0x52U, 0x08U, 0x00U, 0x0BU, 0xA9U, 0xE7U, 0x9FU, 0x01U, 0xC0U, 0x7EU, 0xE8U, 0xE8U, 0xE8U, 0xE8U, 0xE0U };
@@ -48,47 +46,22 @@ void sgb_copy_rle(UBYTE *data, UBYTE *dest, UWORD n, UBYTE step) {
     }
 }
 
-void sgb_send_packet(UBYTE* data) {
-    UBYTE i, b, val;
-
-    P1_REG = P1_NEUTRAL;
-
-    P1_REG = 0U;
-    P1_REG = P1_NEUTRAL;
-
-    for(i = 0U; i != 16U; ++i) {
-        val = data[i];
-        for(b = 0U; b != 8U; ++b) {
-            if(val & 1U) {
-                P1_REG = P1_HIGH;
-            } else {
-                P1_REG = P1_LOW;
-            }
-            P1_REG = P1_NEUTRAL;
-            val = val >> 1;
-        }
-    }
-
-    P1_REG = P1_LOW;
-    P1_REG = P1_NEUTRAL;
-}
-
 UBYTE sgb_check2() {
     UBYTE a, b;
 
     sgb_send_packet(SGB_MLT_REQ2); delay(65U);
 
-    P1_REG = P1_NEUTRAL;
+    P1_REG = SGB_P1_NEUTRAL;
 
     a = P1_REG;
     a = P1_REG;
     a = P1_REG;
     a = P1_REG;
 
-    P1_REG = P1_LOW;
-    P1_REG = P1_HIGH;
+    P1_REG = SGB_P1_LOW;
+    P1_REG = SGB_P1_HIGH;
 
-    P1_REG = P1_NEUTRAL;
+    P1_REG = SGB_P1_NEUTRAL;
     b = P1_REG;
     b = P1_REG;
     b = P1_REG;
