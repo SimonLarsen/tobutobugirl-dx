@@ -1,5 +1,6 @@
 #include <gb/gb.h>
 #include <gb/cgb.h>
+#include "defines.h"
 #include "gamestate.h"
 #include "sound.h"
 #include "fade.h"

@@ -23,6 +23,8 @@
 #include "data/sprite/skin1.h"
 #include "data/sprite/skin2.h"
 
+UBYTE rand();
+
 UBYTE first_load;
 UBYTE scrolled;
 UBYTE last_spawn_x, last_spawn_index;
@@ -131,8 +133,6 @@ UBYTE mydiv(UBYTE num, UBYTE denom) {
     }
     return cnt;
 }
-
-UBYTE rand();
 
 void initGame() {
     UBYTE i;
