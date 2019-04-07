@@ -1,12 +1,15 @@
 backgrounds: logos_backgrounds intro_backgrounds title_backgrounds select_backgrounds ingame_backgrounds pause_backgrounds winscreen_backgrounds highscore_backgrounds ending_backgrounds unlocked_backgrounds jukebox_backgrounds wipe_backgrounds minigame_score_backgrounds selection_backgrounds common_backgrounds
 
-logos_backgrounds: data/bg/tangram.h data/bg/potato.h
+logos_backgrounds: data/bg/tangram.h data/bg/potato.h data/bg/potato_dx.h
 
 data/bg/tangram.h: data/bg/tangram.png data/bg/tangram_dx.png
 	$(IMGTOGB) --map --rle $< --dx data/bg/tangram_dx.png $@
 
-data/bg/potato.h: data/bg/potato.png data/bg/potato_dx.png
-	$(IMGTOGB) --map --rle $< --dx data/bg/potato_dx.png $@
+data/bg/potato.h: data/bg/potato.png
+	$(IMGTOGB) --map --rle $< $@
+
+data/bg/potato_dx.h: data/bg/potato_dx.png
+	$(IMGTOGB) --map --rle -c $< --dx data/bg/potato_dx.png $@
 
 intro_backgrounds:
 

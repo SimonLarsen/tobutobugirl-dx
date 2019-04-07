@@ -129,7 +129,7 @@ intro.o: intro.c defines.h fade.h gamestate.h intro.h intro_bg_dx.h data/sprite/
 jukebox.o: jukebox.c defines.h jukebox.h fade.h gamestate.h cos.h sound.h mmlgb/driver/music.h data/bg/jukebox.h data/bg/jukebox_dx.h data/sprite/digital.h arrow.h data/sprite/notes.h data/sprite/bobblehead.h data/sprite/bobblehead_dx.h
 	${compile-source}
 
-logos.o: logos.c defines.h gamestate.h logos.h fade.h sound.h mmlgb/driver/music.h data/bg/tangram.h data/bg/potato.h data/sprite/shine.h
+logos.o: logos.c defines.h gamestate.h logos.h fade.h sound.h mmlgb/driver/music.h data/bg/tangram.h data/bg/potato.h data/bg/potato_dx.h data/sprite/shine.h
 	${compile-source}
 
 main.o: main.c gamestate.h main.h ram.h sound.h mmlgb/driver/music.h logos.h intro.h title.h select.h game.h winscreen.h highscore.h unlocked.h jukebox.h ending.h wipe.h minigamescore.h

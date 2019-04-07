@@ -8,6 +8,7 @@
 
 #include "data/bg/tangram.h"
 #include "data/bg/potato.h"
+#include "data/bg/potato_dx.h"
 #include "data/sprite/shine.h"
 
 extern UBYTE tangram_shine_song_data;
@@ -100,13 +101,16 @@ void enterLogos() {
 
 	disable_interrupts();
 	DISPLAY_OFF;
-	set_bkg_data_rle(0U, potato_data_length, potato_data);
-	set_bkg_tiles_rle(0U, 0U, potato_tiles_width, potato_tiles_height, potato_tiles);
     if(CGB_MODE) {
-        set_bkg_palette_buffer(0U, potato_palette_data_length, potato_palette_data);
+	    set_bkg_data_rle(0U, potato_dx_data_length, potato_dx_data);
+	    set_bkg_tiles_rle(0U, 0U, potato_dx_tiles_width, potato_dx_tiles_height, potato_dx_tiles);
+        set_bkg_palette_buffer(0U, potato_dx_palette_data_length, potato_dx_palette_data);
         VBK_REG = 1U;
-        set_bkg_tiles_rle(0U, 0U, potato_tiles_width, potato_tiles_height, potato_palettes);
+        set_bkg_tiles_rle(0U, 0U, potato_dx_tiles_width, potato_dx_tiles_height, potato_dx_palettes);
         VBK_REG = 0U;
+    } else {
+	    set_bkg_data_rle(0U, potato_data_length, potato_data);
+	    set_bkg_tiles_rle(0U, 0U, potato_tiles_width, potato_tiles_height, potato_tiles);
     }
 
 	DISPLAY_ON;
