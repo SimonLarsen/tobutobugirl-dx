@@ -975,6 +975,7 @@ void intoPortalAnimation() {
     updateHUD();
     clearRemainingSprites();
     wait_vbl_done();
+    wait_sound_done();
 
     if(level != 5U) {
         disable_interrupts();
@@ -990,7 +991,6 @@ void intoPortalAnimation() {
 
     clearRemainingSprites();
     fadeToWhite(8U);
-    wait_sound_done();
 }
 
 void saveCatAnimation() {
