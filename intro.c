@@ -50,7 +50,7 @@ void initIntro() {
     set_sprite_palette(0U, 4U, intro_sprite_palettes);
 
 	clearSprites();
-	
+
 	setMusicBank(SONG_BANK_INTRO);
 	playMusic(&intro_song_data);
 
@@ -87,7 +87,7 @@ void updateIntro() {
 			setSprite(cat_x+8U, cat_y-scroll_y-16U, 34U, OBJ_PAL0 | 1U);
 			setSprite(cat_x, cat_y-scroll_y, 36U, OBJ_PAL0 | 1U);
 			setSprite(cat_x+8U, cat_y-scroll_y, 38U, OBJ_PAL0 | 1U);
-
+            
 			if(player_x == 77U) {
 				scene_state = INTRO_STATE_TRIP;
 				player_y = 239U;

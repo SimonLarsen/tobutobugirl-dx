@@ -12,7 +12,6 @@ void setWinscreenBackground(UBYTE level);
 void setCloudAnimation(UBYTE skin);
 void set_bkg_data_rle(UBYTE first, UBYTE n, UBYTE *data);
 void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
-void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
 void playMusic(UBYTE *data);
 void updateMusic();
 UBYTE getRank(UBYTE score, UBYTE level);

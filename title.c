@@ -461,3 +461,24 @@ void enterTitle() {
 	fadeToWhite(8U);
 	wait_sound_done();
 }
+
+void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles) {
+    UBYTE ix, iy, run, tile;
+    run = 0U;
+    for(iy = y; iy != y+height; ++iy) {
+        for(ix = x; ix != x+width; ++ix) {
+            if(!run) {
+                tile = tiles[0];
+                if(tile == tiles[1]) {
+                    run = tiles[2];
+                    tiles += 3U;
+                } else {
+                    run = 1U;
+                    tiles++;
+                }
+            }
+            set_win_tiles(ix, iy, 1U, 1U, &tile);
+            run--;
+        }
+    }
+}

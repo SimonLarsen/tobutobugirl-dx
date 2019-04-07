@@ -17,9 +17,9 @@ include sgb.mk
 include songs.mk
 include sounds.mk
 
-OBJ=main.o fade.o gamestate.o set_data_rle.o cos.o circles.o zoom_circles.o characters.o sound.o \
+OBJ=main.o fade.o gamestate.o set_data_rle.o cos.o circles.o zoom_circles.o characters.o arrow.o sound.o \
 	mmlgb/driver/music.o mmlgb/driver/freq.o mmlgb/driver/noisefreq.o mmlgb/driver/vib.o \
-	arrow.o getpal.o sgb_send_packet.o
+	getpal.o sgb_send_packet.o
 
 OBJ_BANK1=game.o pause.o minigamescore.o
 OBJ_BANK2=select.o highscore.o unlocked.o \

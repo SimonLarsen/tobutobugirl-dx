@@ -66,6 +66,7 @@ const UBYTE level_names[7][6] = {
     {13U, 22U, 25U, 31U, 14U, 29U}, // "CLOUDS"
     {29U, 26U, 11U, 13U, 15U, 10U}, // "SPACE "
     {14U, 28U, 15U, 11U, 23U, 10U}, // "DREAM "
+    //{18U, 15U, 11U, 32U, 15U, 24U}, // "HEAVEN"
     {23U, 31U, 29U, 19U, 13U, 10U}, // "MUSIC "
     {29U, 13U, 25U, 28U, 15U, 29U}  // "SCORES"
 };
@@ -188,6 +189,16 @@ void setIngameBackground(UBYTE level) {
                 palette_data = background4_palette_data;
                 palettes = background4_palettes;
                 palette_data_length = background4_palette_data_length;
+            }
+            break;
+        case 5U:
+            tile_data = background2_data;
+            tiles = background2_tiles;
+            data_length = background2_data_length;
+            if(CGB_MODE) {
+                palette_data = background2_palette_data;
+                palettes = background2_palettes;
+                palette_data_length = background2_palette_data_length;
             }
             break;
         case 255U:
@@ -382,27 +393,6 @@ void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles
                 }
             }
             set_bkg_tiles(ix, iy, 1U, 1U, &tile);
-            run--;
-        }
-    }
-}
-
-void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles) {
-    UBYTE ix, iy, run, tile;
-    run = 0U;
-    for(iy = y; iy != y+height; ++iy) {
-        for(ix = x; ix != x+width; ++ix) {
-            if(!run) {
-                tile = tiles[0];
-                if(tile == tiles[1]) {
-                    run = tiles[2];
-                    tiles += 3U;
-                } else {
-                    run = 1U;
-                    tiles++;
-                }
-            }
-            set_win_tiles(ix, iy, 1U, 1U, &tile);
             run--;
         }
     }

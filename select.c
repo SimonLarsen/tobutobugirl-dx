@@ -37,17 +37,17 @@ extern UBYTE mainmenu_song_data;
 extern UBYTE potaka_song_data;
 
 const UWORD sepia_palette[4] = {
-    32767, 15898, 5327, 0
+	32767, 15898, 5327, 0
 };
 
 const UWORD select_sprite_palettes[8] = {
-    32767, 32767, 11516, 0,
-    32767, 28638, 9695, 0
+	32767, 32767, 11516, 0,
+	32767, 28638, 9695, 0
 };
 
 void initSelect() {
-    UBYTE buf[3];
-    UBYTE *data;
+	UBYTE buf[3];
+	UBYTE *data;
 
 	disable_interrupts();
 	DISPLAY_OFF;
@@ -62,16 +62,16 @@ void initSelect() {
 	set_bkg_data_rle(select_tiles_offset, select_data_length, select_data);
 	set_bkg_tiles_rle(0U, 0U, select_tiles_width, select_tiles_height, select_tiles);
 
-    if(CGB_MODE) {
-        set_bkg_palette_buffer(0U, select_palette_data_length, select_palette_data);
-        set_bkg_palette_buffer(select_palette_data_length, 1U, sepia_palette);
-        VBK_REG = 1U;
-	    set_bkg_tiles_rle(0U, 0U, select_tiles_width, select_tiles_height, select_palettes);
-        buf[0] = 3U; buf[1] = 3U; buf[2] = 96U;
-	    set_bkg_tiles_rle(2U, 10U, 16U, 6U, buf);
-        VBK_REG = 0U;
-        set_sprite_palette(0U, 2U, select_sprite_palettes);
-    }
+	if(CGB_MODE) {
+		set_bkg_palette_buffer(0U, select_palette_data_length, select_palette_data);
+		set_bkg_palette_buffer(select_palette_data_length, 1U, sepia_palette);
+		VBK_REG = 1U;
+		set_bkg_tiles_rle(0U, 0U, select_tiles_width, select_tiles_height, select_palettes);
+		buf[0] = 3U; buf[1] = 3U; buf[2] = 96U;
+		set_bkg_tiles_rle(2U, 10U, 16U, 6U, buf);
+		VBK_REG = 0U;
+		set_sprite_palette(0U, 2U, select_sprite_palettes);
+	}
 
 	ticks = 0U;
 	timer = 0U;
@@ -352,6 +352,7 @@ void enterSelect() {
 			} else {
 				if(selection <= levels_completed+1U) {
 					level = selection;
+					if(ISDOWN(J_UP)) level = 5U;
 					gamestate = GAMESTATE_INGAME;
 					playSound(SFX_MENU_CONFIRM);
 				} else {

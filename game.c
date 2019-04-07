@@ -30,9 +30,12 @@ UBYTE scrolled;
 UBYTE last_spawn_x, last_spawn_index;
 
 UBYTE progress, progressbar, portal_spawned, repeat_spikes;
+UBYTE wave;
+UBYTE scrolled_length, allowed_spikes;
 UBYTE blips, blip_bar;
 UBYTE dashing, dashes, dash_xdir, dash_ydir;
 UBYTE ghost_frame;
+UBYTE *spawn_levels;
 
 extern UBYTE plains_song_data;
 extern UBYTE clouds_song_data;
@@ -40,44 +43,44 @@ extern UBYTE space_song_data;
 extern UBYTE dream_song_data;
 extern UBYTE level_clear_song_data;
 
-const UBYTE scrolled_length[4] = {
+const UBYTE scrolled_length_data[5] = {
     16U, // 16 * 111 / 36 = 49
     24U, // 24 * 111 / 36 = 74
     32U, // 32 * 111 / 36 = 98
-    40U  // 40 * 111 / 36 = 123
+    40U, // 40 * 111 / 36 = 123
+    8U  // 16 * 111 / 36 = 49
 };
 
-const UBYTE clock_interval[4] = {
+const UBYTE clock_interval[5] = {
     8U, //  49/8 = 6.125
     10U, //  74/12 = 7.4
     11U, //  98/11 = 8.9
-    14U  // 123/14 = 8.85
+    14U, // 123/14 = 8.85
+    255U
 };
 
-const UBYTE allowed_spikes[4] = { 1U, 1U, 1U, 3U };
+const UBYTE allowed_spikes_data[4] = { 1U, 1U, 1U, 3U };
 
-const UBYTE spawn_levels[4][3][8] = {
-    { // Plains
-        {E_BIRD, E_BIRD, E_BAT, E_BAT, E_BAT, E_BAT, E_BAT, E_BAT},
-        {E_SPIKES, E_SPIKES, E_BIRD, E_BIRD, E_BAT, E_BAT, E_BAT, E_BAT},
-        {E_SPIKES, E_SPIKES, E_SPIKES, E_BIRD, E_BIRD, E_BIRD, E_BAT, E_BAT}
-    },
-    { // Clouds
-        {E_SPIKES, E_SPIKES, E_SPIKES, E_BIRD, E_BIRD, E_BAT, E_BAT, E_BAT},
-        {E_SPIKES, E_SPIKES, E_ALIEN, E_ALIEN, E_BIRD, E_BIRD, E_BAT, E_BAT},
-        {E_FIREBALL, E_FIREBALL, E_ALIEN, E_ALIEN, E_BIRD, E_BIRD, E_BAT, E_BAT}
-    },
-    { // Space
-        {E_SPIKES, E_SPIKES, E_ALIEN, E_ALIEN, E_BIRD, E_BIRD, E_BAT, E_BAT},
-        {E_FIREBALL, E_FIREBALL, E_GHOST, E_GHOST, E_GHOST, E_BIRD, E_BIRD, E_ALIEN},
-        {E_FIREBALL, E_FIREBALL, E_FIREBALL, E_BIRD, E_GHOST, E_GHOST, E_GHOST, E_ALIEN}
-    },
-    { // Dream
-        {E_SPIKES, E_SPIKES, E_GHOST, E_GHOST, E_GHOST, E_ALIEN, E_BIRD, E_BIRD},
-        {E_FIREBALL, E_FIREBALL, E_SPIKES, E_GHOST, E_GHOST, E_GHOST, E_BIRD, E_ALIEN},
-        {E_FIREBALL, E_FIREBALL, E_SPIKES, E_ALIEN, E_GHOST, E_GHOST, E_BIRD, E_BIRD}
-    }
+const UBYTE spawn_level_data[96] = {
+    // Plains
+    E_BIRD, E_BIRD, E_BAT, E_BAT, E_BAT, E_BAT, E_BAT, E_BAT,
+    E_SPIKES, E_SPIKES, E_BIRD, E_BIRD, E_BAT, E_BAT, E_BAT, E_BAT,
+    E_SPIKES, E_SPIKES, E_SPIKES, E_BIRD, E_BIRD, E_BIRD, E_BAT, E_BAT,
+    // Clouds
+    E_SPIKES, E_SPIKES, E_SPIKES, E_BIRD, E_BIRD, E_BAT, E_BAT, E_BAT,
+    E_SPIKES, E_SPIKES, E_ALIEN, E_ALIEN, E_BIRD, E_BIRD, E_BAT, E_BAT,
+    E_FIREBALL, E_FIREBALL, E_ALIEN, E_ALIEN, E_BIRD, E_BIRD, E_BAT, E_BAT,
+    // Space
+    E_SPIKES, E_SPIKES, E_ALIEN, E_ALIEN, E_BIRD, E_BIRD, E_BAT, E_BAT,
+    E_FIREBALL, E_FIREBALL, E_GHOST, E_GHOST, E_GHOST, E_BIRD, E_BIRD, E_ALIEN,
+    E_FIREBALL, E_FIREBALL, E_FIREBALL, E_BIRD, E_GHOST, E_GHOST, E_GHOST, E_ALIEN,
+    // Dream
+    E_SPIKES, E_SPIKES, E_GHOST, E_GHOST, E_GHOST, E_ALIEN, E_BIRD, E_BIRD,
+    E_FIREBALL, E_FIREBALL, E_SPIKES, E_GHOST, E_GHOST, E_GHOST, E_BIRD, E_ALIEN,
+    E_FIREBALL, E_FIREBALL, E_SPIKES, E_ALIEN, E_GHOST, E_GHOST, E_BIRD, E_BIRD
 };
+
+UBYTE spawn_level_gen[8];
 
 #define PROGRESS_POS(x) mydiv(((x) << 1U), 3U)
 
@@ -134,6 +137,13 @@ UBYTE mydiv(UBYTE num, UBYTE denom) {
     return cnt;
 }
 
+UBYTE mymod(UBYTE num, UBYTE denom) {
+    while(num >= denom) {
+        num -= denom;
+    }
+    return num;
+}
+
 void initGame() {
     UBYTE i;
     UBYTE buf[4];
@@ -174,7 +184,6 @@ void initGame() {
     setIngameBackground(level);
 
     if(first_load) {
-        first_load = 0U;
         last_progress = 0U;
 
         switch(level) {
@@ -194,6 +203,10 @@ void initGame() {
                 setMusicBank(SONG_BANK_DREAM);
                 playMusic(&dream_song_data);
                 break;
+            case 5U:
+                setMusicBank(SONG_BANK_DREAM);
+                playMusic(&dream_song_data);
+                break;
         }
     }
     mus_setPaused(1U);
@@ -209,15 +222,32 @@ void initGame() {
     player_yspeed = 0U;
     player_bounce = 0U;
     dashing = 0U;
-    dashes = 3U;
+    dashes = MAX_DASHES;
     dash_xdir = 0U;
     dash_ydir = 0U;
     paused = 0U;
     scrolled = 0U;
     scroll_y = 0U;
 
+    if (level == 5U) {
+        spawn_levels = (UBYTE*)spawn_level_gen;
+        scrolled_length = 8U + (wave << 1);
+
+        allowed_spikes = (wave >> 3) + 1U;
+        if(allowed_spikes >= 4U) allowed_spikes = 3U;
+
+        generateSpawnData();
+    } else {
+        spawn_levels = (UBYTE*)&spawn_level_data[(level-1U) * 24];
+        scrolled_length = scrolled_length_data[level-1U];
+
+        allowed_spikes = allowed_spikes_data[level-1U];
+    }
+
     scene_state = INGAME_ACTIVE;
-    blips = MAX_BOOST;
+    if(first_load || level != 5U) {
+        blips = MAX_BOOST; // don't reset boost when progressing in level 5
+    }
     blip_bar = 0U;
     kills = 0U;
 
@@ -234,6 +264,7 @@ void initGame() {
     timer = 0U;
     remaining_time = MAX_TIME;
     elapsed_time = 0U;
+    first_load = 0U;
 
     move_bkg(0U, 112U);
     move_win(151U, 0U);
@@ -564,7 +595,7 @@ void killPlayer() {
 void bouncePlayer(UBYTE entity, UBYTE str) {
     player_ydir = UP;
     player_bounce = 16U;
-    dashes = 3U;
+    dashes = MAX_DASHES;
     dashing = 0;
     player_y = entity_y[entity]-12U;
     player_yspeed = str;
@@ -743,6 +774,40 @@ void initSpawns() {
     }
 }
 
+void generateSpawnData() {
+    UBYTE i;
+    UBYTE spike_count, fireball_count;
+
+    spike_count = (wave >> 2) + 1U;
+    fireball_count = wave >> 3;
+
+    if(fireball_count >= 4U) fireball_count = 3U;
+    spike_count -= fireball_count;
+    if(spike_count >= 4U) spike_count = 3U;
+
+    for(i = 0U; i != spike_count; ++i) {
+        spawn_levels[i] = E_SPIKES;
+    }
+
+    for(; i != fireball_count+spike_count; ++i) {
+        spawn_levels[i] = E_FIREBALL;
+    }
+
+    if(wave == 0) {
+        for(; i != 8U; ++i) {
+            spawn_levels[i] = (rand() & 1U) + E_BAT;
+        }
+    } else if(wave == 1) {
+        for(; i != 8U; ++i) {
+            spawn_levels[i] = mymod(rand(), 3U) + E_BAT;
+        }
+    } else {
+        for(; i != 8U; ++i) {
+            spawn_levels[i] = (rand() & 3U) + E_ALIEN;
+        }
+    }
+}
+
 void updateSpawns() {
     UBYTE x, dice, type, step;
     next_spawn += scroll_y;
@@ -754,14 +819,17 @@ void updateSpawns() {
 
         x = ((last_spawn_x + 32U + (rand() & 63U)) & 127U) + 24U;
 
-        step = mydiv(progress, 39U); // TODO: Optimize?
+        step = 0U;
+        if(level != 5U) {
+            step = mydiv(progress, 39U); // TODO: Optimize?
+        }
         dice = rand() & 7U;
 
         while(dice != 8U) {
-            type = spawn_levels[level-1U][step][dice];
+            type = spawn_levels[(step << 3) + dice];
             switch(type) {
                 case E_FIREBALL:
-                    if(repeat_spikes < allowed_spikes[level-1U]) {
+                    if(repeat_spikes < allowed_spikes) {
                         last_spawn_index = spawnEntity(E_FIREBALL, x, 1U, NONE);
                         repeat_spikes++;
                         dice = 8U;
@@ -770,7 +838,7 @@ void updateSpawns() {
                     dice++;
                     break;
                 case E_SPIKES:
-                    if(repeat_spikes < allowed_spikes[level-1U]) {
+                    if(repeat_spikes < allowed_spikes) {
                         last_spawn_index = spawnEntity(E_SPIKES, x, 1U, NONE);
                         repeat_spikes++;
                         dice = 8U;
@@ -849,14 +917,6 @@ void introAnimation() {
         wait_vbl_done();
     }
 
-    //for(ticks = 0U; ticks != 32U; ++ticks) {
-        /*
-        if(ticks & 4U) {
-            BGP_REG = 0xE4U; // 11100100
-        } else {
-            BGP_REG = 0x1BU; // 00011011
-        }
-        */
     for(ticks = 0U; ticks != 18U; ++ticks) {
         setSprite(player_x-8U, player_y, 0U, FLIP_X | OBJ_PAL0);
         setSprite(player_x-16U, player_y, 2U, FLIP_X | OBJ_PAL0);
@@ -886,14 +946,6 @@ void intoPortalAnimation() {
 
     playSound(SFX_WARP_START);
 
-    //for(ticks = 0U; ticks != 32U; ++ticks) {
-        /*
-        if(ticks & 4U) {
-            BGP_REG = 0xE4U; // 11100100
-        } else {
-            BGP_REG = 0x1BU; // 00011011
-        }
-        */
     for(ticks = 0U; ticks != 18U; ++ticks) {
         setSprite(player_x-16U, player_y, entity_sprites[E_PORTAL], OBJ_PAL0 | 6U);
         setSprite(player_x-8U, player_y, entity_sprites[E_PORTAL]+2U, OBJ_PAL0 | 6U);
@@ -924,15 +976,17 @@ void intoPortalAnimation() {
     clearRemainingSprites();
     wait_vbl_done();
 
-    disable_interrupts();
-    setMusicBank(SONG_BANK_LEVEL_CLEAR);
-    playMusic(&level_clear_song_data);
-    enable_interrupts();
+    if(level != 5U) {
+        disable_interrupts();
+        setMusicBank(SONG_BANK_LEVEL_CLEAR);
+        playMusic(&level_clear_song_data);
+        enable_interrupts();
 
-    while(!mus_is_done()) {
-        wait_vbl_done();
+        while(!mus_is_done()) {
+            wait_vbl_done();
+        }
+        STOP_MUSIC;
     }
-    STOP_MUSIC;
 
     clearRemainingSprites();
     fadeToWhite(8U);
@@ -1125,9 +1179,7 @@ void fadeSpritesToWhiteCGB(UBYTE delay) {
 }
 
 void enterGame() {
-    UBYTE level_scrolled_length;
-
-    level_scrolled_length = scrolled_length[level-1U];
+    wave = 0U;
     first_load = 1U;
 ingame_start:
     initGame();
@@ -1169,13 +1221,13 @@ ingame_start:
 
         // Scroll screen
         scrolled += scroll_y;
-        if(scrolled >= level_scrolled_length) {
-            scrolled -= level_scrolled_length;
+        if(scrolled >= scrolled_length) {
+            scrolled -= scrolled_length;
             if(progress < 112U) {
                 progress++;
                 progressbar = 117U - PROGRESS_POS(progress);
+                move_bkg(0U, 112U-progress);
             }
-            move_bkg(0U, 112U-progress);
         }
 
         if(CLICKED(J_START)) {
@@ -1203,6 +1255,10 @@ ingame_start:
             last_progress = PROGRESS_POS(progress);
         }
 
+        if(level == 5U) {
+            gamestate = GAMESTATE_WINSCREEN;
+        }
+
         clearRemainingSprites();
         fadeToWhite(8U);
         wait_sound_done();
@@ -1212,25 +1268,31 @@ ingame_start:
         if(level == 4U) {
             ending_flags |= ENDING_FLAG_FROM_DREAM;
         }
-        if(level == 3U && player_skin == 1U) {
-            saveCatAnimation();
-            gamestate = GAMESTATE_ENDING;
-        } else {
-            intoPortalAnimation();
-            gamestate = GAMESTATE_WINSCREEN;
-        }
-        addScore();
 
-        if(level > levels_completed) {
-            levels_completed = level;
-            if(level == 1U) {
-                unlocked_bits = UNLOCKED_CLOUDS;
+        if(level == 5U) {
+            wave++;
+            intoPortalAnimation();
+        } else {
+            if(level == 3U && player_skin == 1U) {
+                saveCatAnimation();
+                gamestate = GAMESTATE_ENDING;
+            } else {
+                intoPortalAnimation();
+                gamestate = GAMESTATE_WINSCREEN;
             }
-            else if(level == 2U) {
-                unlocked_bits = UNLOCKED_SPACE | UNLOCKED_MUSIC;
-            }
-            else if(level == 3U) {
-                unlocked_bits = UNLOCKED_DREAM;
+            addScore();
+
+            if(level > levels_completed) {
+                levels_completed = level;
+                if(level == 1U) {
+                    unlocked_bits = UNLOCKED_CLOUDS;
+                }
+                else if(level == 2U) {
+                    unlocked_bits = UNLOCKED_SPACE | UNLOCKED_MUSIC;
+                }
+                else if(level == 3U) {
+                    unlocked_bits = UNLOCKED_DREAM;
+                }
             }
         }
     }

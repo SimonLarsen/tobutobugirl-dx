@@ -14,6 +14,7 @@ void updateEntities();
 UBYTE spawnEntity(UBYTE type, UBYTE x, UBYTE y, UBYTE dir);
 void clearEntities();
 void initSpawns();
+void generateSpawnData();
 void updateSpawns();
 
 void introAnimation();
@@ -41,6 +42,7 @@ void enterGame();
 #define ALIEN_BUMP_SPEED 19U
 #define MAX_YSPEED       24U
 #define MAX_FLY_SPEED    23U
+#define MAX_DASHES        3U
 
 #define KEY_DASH J_A
 #define KEY_USE  J_B
