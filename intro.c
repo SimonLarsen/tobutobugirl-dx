@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "fade.h"
 #include "gamestate.h"
+#include "set_data_rle.h"
 #include "intro.h"
 #include "mmlgb/driver/music.h"
 

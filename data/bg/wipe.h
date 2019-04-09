@@ -1,6 +1,9 @@
 #ifndef WIPE_MAP_H
 #define WIPE_MAP_H
 #define wipe_data_length 44
+#define wipe_tiles_width 20
+#define wipe_tiles_height 18
+#define wipe_tiles_offset 13
 const unsigned char wipe_data[] = {
     255,   0, 231,   0, 195,   0, 129,   0, 129,   0, 195,   0, 231,   0, 255,   0,
     255, 255,   2,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0,
@@ -42,9 +45,7 @@ const unsigned char wipe_data[] = {
     128, 128,  10, 192,  64, 224,  32, 255,  31,   1,   1,  10,   3,   2,   7,   4,
     255, 248
 };
-#define wipe_tiles_width 20
-#define wipe_tiles_height 18
-#define wipe_tiles_offset 13
+
 const unsigned char wipe_tiles[] = {
      13,  13,  40,  14,  14,  20,  15,  15,   5,  16,  17,  18,  19,  20,  21,  22,  23,  24,  15,  15,
       6,  25,  25,  20,  13,  13,  20,  26,  26,  20,  27,  27,   2,  28,  29,  30,  29,  31,  27,  30,
@@ -54,14 +55,15 @@ const unsigned char wipe_tiles[] = {
      27,  47,  48,  49,  50,  13,  13,  14,  46,  27,  51,  52,  53,  54,  13,  13,  14,  55,  43,  43,
       4,  56,  13,  13,  27
 };
+#define wipe_palette_data_length 2
+#define wipe_palette_offset 0
 const unsigned char wipe_palettes[] = {
       0,   0,  65,   1,   1,   9,   0,   0,  46,   1,   1, 120,   0,   0,  27,   1,   1,   6,   0,   0,
      14,   1,   1,   6,   0,   0,  14,   1,   1,   6,   0,   0,  14,   1,   1,   6,   0,   0,  27
 };
-#define wipe_palette_data_length 2
-#define wipe_palette_offset 0
+
 const unsigned int wipe_palette_data[] = {
-    19749, 10370, 11516,   0,
-    32767, 10370, 11516,   0
+    23911, 14531, 11516,   0,
+    32767, 14531, 11516,   0
 };
 #endif

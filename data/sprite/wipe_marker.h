@@ -8,4 +8,5 @@ const unsigned char wipe_marker_data[] = {
      36, 252, 244,  44, 216,  56, 224, 224,   0,   0,   0,   0,   0,   0,   0,   0
 };
 
+
 #endif

@@ -1,6 +1,9 @@
 #ifndef TITLESCREEN_BG_MAP_H
 #define TITLESCREEN_BG_MAP_H
 #define titlescreen_bg_data_length 38
+#define titlescreen_bg_tiles_width 20
+#define titlescreen_bg_tiles_height 18
+#define titlescreen_bg_tiles_offset 117
 const unsigned char titlescreen_bg_data[] = {
       0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,
       0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   1, 254,   2, 253,
@@ -41,9 +44,7 @@ const unsigned char titlescreen_bg_data[] = {
       7, 112,  15, 240,  15, 224,  31, 192,  63, 128, 127,   0, 255,  32, 159, 128,
      15,  16,  15,  64, 159,   0, 255,   0, 255,   0, 255,   0, 255
 };
-#define titlescreen_bg_tiles_width 20
-#define titlescreen_bg_tiles_height 18
-#define titlescreen_bg_tiles_offset 117
+
 const unsigned char titlescreen_bg_tiles[] = {
     117, 117,  43, 118, 117, 117,   3, 119, 117, 117,  15, 120, 117, 117,  19, 121, 122, 123, 124, 125,
     117, 117,   8, 119, 117, 117,  10, 126, 127, 128, 117, 117,  11, 129, 130, 131, 132, 133, 134, 135,
@@ -52,5 +53,6 @@ const unsigned char titlescreen_bg_tiles[] = {
     117, 117,   7, 119, 117, 117,  28, 154, 117, 117,  34, 119, 117, 117,  13, 119, 117, 117,  13, 119,
     117, 117,  22
 };
+
 
 #endif

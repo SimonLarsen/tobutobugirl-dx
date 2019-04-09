@@ -77,6 +77,7 @@ const unsigned char background2_data[] = {
       0, 255,   0,   1,   0,   0,   3, 224,   0, 192,   0, 192,   0, 192,   0, 192,
       0, 192,   0, 192,   0,   0,   3
 };
+
 const unsigned char background2_tiles[] = {
      35,  35,  18,  36,  36,  18,  37,  37,  36,  38,  39,  37,  37,   3,  40,  37,  37,   3,  41,  37,
      37,   4,  42,  37,  43,  37,  37,  12,  44,  37,  37,   8,  45,  37,  37,   5,  46,  37,  37,   5,
@@ -94,6 +95,7 @@ const unsigned char background2_tiles[] = {
 const unsigned char background2_palettes[] = {
       0,   0, 255,   0,   0, 255,   0,   0,  66
 };
+
 const unsigned int background2_palette_data[] = {
     32767, 29296, 19690, 7236
 };

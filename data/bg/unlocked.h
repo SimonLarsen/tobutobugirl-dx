@@ -1,6 +1,9 @@
 #ifndef UNLOCKED_MAP_H
 #define UNLOCKED_MAP_H
 #define unlocked_data_length 11
+#define unlocked_tiles_width 20
+#define unlocked_tiles_height 18
+#define unlocked_tiles_offset 47
 const unsigned char unlocked_data[] = {
     255,   0, 255,  60, 255, 102, 255, 102, 255, 102, 255, 102, 255,  60, 255,   0,
     255,   0, 255,  24, 255,  56, 255,  24, 255,  24, 255,  24, 255,  60, 255,   0,
@@ -12,9 +15,7 @@ const unsigned char unlocked_data[] = {
     255,   0, 255, 126, 255,   6, 255,  14, 255,  28, 255,  24, 255,  24, 255,   0,
     255, 255,   2,   0,   0,  44, 255, 255,   2
 };
-#define unlocked_tiles_width 20
-#define unlocked_tiles_height 18
-#define unlocked_tiles_offset 47
+
 const unsigned char unlocked_tiles[] = {
      47,  48,  49,  50,  51,  52,  53,  54,  47,  48,  49,  50,  51,  52,  53,  54,  47,  48,  49,  50,
      48,  49,  50,  51,  52,  53,  54,  47,  48,  49,  50,  51,  52,  53,  54,  47,  48,  49,  50,  51,
@@ -28,5 +29,6 @@ const unsigned char unlocked_tiles[] = {
      48,  49,  50,  51,  52,  53,  54,  47,  48,  49,  50,  48,  49,  50,  51,  52,  53,  54,  47,  48,
      49,  50,  51,  52,  53,  54,  47,  48,  49,  50,  51
 };
+
 
 #endif

@@ -1,6 +1,9 @@
 #ifndef SELECT_MAP_H
 #define SELECT_MAP_H
 #define select_data_length 21
+#define select_tiles_width 20
+#define select_tiles_height 18
+#define select_tiles_offset 13
 const unsigned char select_data[] = {
     255,   0, 231,   0, 195,   0, 129,   0, 129,   0, 195,   0, 231,   0, 255,   0,
     255, 255,   2,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0,
@@ -19,9 +22,7 @@ const unsigned char select_data[] = {
      16, 128, 128,  10, 192,  64, 224,  32, 255,  31,   0,   0,  14, 255, 255,   2,
       1,   1,  10,   3,   2,   7,   4, 255, 248
 };
-#define select_tiles_width 20
-#define select_tiles_height 18
-#define select_tiles_offset 13
+
 const unsigned char select_tiles[] = {
      13,  13,  40,  14,  14,  20,  15,  15,   6,  16,  17,  18,  19,  20,  21,  22,  23,  15,  15,   6,
      24,  24,  20,  13,  13,  25,  25,  26,  26,   8,  27,  13,  13,  10,  28,  29,  29,   8,  30,  13,
@@ -29,17 +30,18 @@ const unsigned char select_tiles[] = {
      13,   4,  29,  29,  16,  13,  13,   4,  29,  29,  16,  13,  13,   4,  29,  29,  16,  13,  13,   4,
      29,  29,  16,  13,  13,  42
 };
+#define select_palette_data_length 3
+#define select_palette_offset 0
 const unsigned char select_palettes[] = {
       0,   0,  66,   1,   1,   8,   0,   0,  51,   2,   2,  10,   0,   0,  10,   2,   2,  10,   0,   0,
      10,   2,   2,  10,   0,   0,  27,   2,   2,  16,   0,   0,   4,   2,   2,  16,   0,   0,   4,   2,
       2,  16,   0,   0,   4,   2,   2,  16,   0,   0,   4,   2,   2,  16,   0,   0,   4,   2,   2,  16,
       0,   0,  42
 };
-#define select_palette_data_length 3
-#define select_palette_offset 0
+
 const unsigned int select_palette_data[] = {
-    19749, 10370, 11516,   0,
+    23911, 14531, 11516,   0,
     31710,   0, 11516,   0,
-    32767, 10370,   0,   0
+    32767, 14531,   0,   0
 };
 #endif

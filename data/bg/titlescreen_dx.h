@@ -1,6 +1,9 @@
 #ifndef TITLESCREEN_DX_MAP_H
 #define TITLESCREEN_DX_MAP_H
 #define titlescreen_dx_data_length 117
+#define titlescreen_dx_tiles_width 20
+#define titlescreen_dx_tiles_height 18
+#define titlescreen_dx_tiles_offset 0
 const unsigned char titlescreen_dx_data[] = {
       0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,
       0, 255,   0, 255,   0, 255,  14, 241,  63, 192, 127, 128, 127, 128, 255,   0,
@@ -104,9 +107,7 @@ const unsigned char titlescreen_dx_data[] = {
      31, 127,  15, 127,  15,  63,   7,  63,   3,  63,   0, 255,   0, 255,   0, 255,
       0, 255,  24, 255, 252, 255, 252, 255, 248, 255,   0, 255,   0, 255,   0, 255
 };
-#define titlescreen_dx_tiles_width 20
-#define titlescreen_dx_tiles_height 18
-#define titlescreen_dx_tiles_offset 0
+
 const unsigned char titlescreen_dx_tiles[] = {
       0,   0,  61,   1,   2,   3,   4,   5,   6,   7,   0,   0,   7,   8,   0,   0,   2,   9,  10,  11,
      12,  13,  14,  14,   5,  15,   0,  16,  17,  18,  19,  20,  14,  21,  22,  23,  14,  24,  25,  14,
@@ -118,6 +119,8 @@ const unsigned char titlescreen_dx_tiles[] = {
      10,  97,  98,  99, 100, 101, 102, 103, 104, 105, 106,  31,  31,  10, 107, 108, 109, 110, 111, 112,
     113, 114, 115, 116,  31,  31, 105
 };
+#define titlescreen_dx_palette_data_length 8
+#define titlescreen_dx_palette_offset 0
 const unsigned char titlescreen_dx_palettes[] = {
       0,   0, 122,   1,   1,   3,   0,   1,   0,   0,   2,   1,   1,   4,   0,   1,   0,   1,   0,   0,
       6,   1,   1,   4,   0,   1,   0,   0,   2,   1,   1,   4,   0,   1,   0,   0,   6,   1,   1,   3,
@@ -125,8 +128,7 @@ const unsigned char titlescreen_dx_palettes[] = {
       3,   2,   4,   5,   6,   6,   4,   0,   0,  12,   3,   7,   4,   4,   2,   6,   6,   4,   0,   0,
      12,   3,   7,   4,   4,   2,   6,   6,   4,   0,   0, 105
 };
-#define titlescreen_dx_palette_data_length 8
-#define titlescreen_dx_palette_offset 0
+
 const unsigned int titlescreen_dx_palette_data[] = {
     32767, 28336, 27055, 6364,
     6364, 13757, 28336, 32767,

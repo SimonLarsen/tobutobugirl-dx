@@ -1,6 +1,7 @@
 #include <gb/gb.h>
 #include "defines.h"
 #include "gamestate.h"
+#include "set_data_rle.h"
 #include "fade.h"
 #include "logos.h"
 #include "sound.h"

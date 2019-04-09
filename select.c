@@ -1,8 +1,10 @@
 #include <gb/gb.h>
+#include <string.h>
 #include "defines.h"
 #include "select.h"
 #include "fade.h"
 #include "gamestate.h"
+#include "set_data_rle.h"
 #include "cos.h"
 #include "ram.h"
 #include "sound.h"
@@ -14,15 +16,8 @@
 
 #include "circles.h"
 #include "data/bg/catface.h"
+#include "data/bg/catface_dx.h"
 #include "data/bg/select.h"
-
-#include "selection1.h"
-#include "selection2.h"
-#include "selection3.h"
-#include "selection4.h"
-#include "selection_highscore.h"
-#include "selection_jukebox.h"
-#include "selection_locked.h"
 
 UBYTE select_scroll_dir;
 UBYTE select_cat_state;
@@ -36,18 +31,17 @@ UBYTE cat_frame_reverse;
 extern UBYTE mainmenu_song_data;
 extern UBYTE potaka_song_data;
 
-const UWORD sepia_palette[4] = {
-	32767, 15898, 5327, 0
-};
-
 const UWORD select_sprite_palettes[8] = {
 	32767, 32767, 11516, 0,
 	32767, 28638, 9695, 0
 };
 
+const UBYTE cat_even_tiles[6] = { 9U, 11U, 9U, 11U, 9U, 11U };
+const UBYTE cat_odd_tiles[6]  = { 10U, 12U, 10U, 12U, 10U, 12U };
+const UBYTE cat_palettes[6]  = { 0U, 0U, 0U, 0U, 0U, 0U };
+
 void initSelect() {
 	UBYTE buf[3];
-	UBYTE *data;
 
 	disable_interrupts();
 	DISPLAY_OFF;
@@ -58,20 +52,21 @@ void initSelect() {
 	set_sprite_data(41U, togglecat_data_length, togglecat_data);
 
 	set_bkg_data(0U, circles_data_length, circles_data);
-	set_bkg_data(catface_tiles_offset, catface_data_length, catface_data);
 	set_bkg_data_rle(select_tiles_offset, select_data_length, select_data);
 	set_bkg_tiles_rle(0U, 0U, select_tiles_width, select_tiles_height, select_tiles);
 
 	if(CGB_MODE) {
+	    set_bkg_data(catface_dx_tiles_offset, catface_dx_data_length, catface_dx_data);
 		set_bkg_palette_buffer(0U, select_palette_data_length, select_palette_data);
-		set_bkg_palette_buffer(select_palette_data_length, 1U, sepia_palette);
 		VBK_REG = 1U;
 		set_bkg_tiles_rle(0U, 0U, select_tiles_width, select_tiles_height, select_palettes);
 		buf[0] = 3U; buf[1] = 3U; buf[2] = 96U;
 		set_bkg_tiles_rle(2U, 10U, 16U, 6U, buf);
 		VBK_REG = 0U;
 		set_sprite_palette(0U, 2U, select_sprite_palettes);
-	}
+	} else {
+	    set_bkg_data(catface_tiles_offset, catface_data_length, catface_data);
+    }
 
 	ticks = 0U;
 	timer = 0U;
@@ -93,8 +88,8 @@ void initSelect() {
 	BGP_REG = 0xE4U; // 11100100
 
 	clearSprites();
-	data = selectGetBannerData();
-	set_bkg_tiles(2U, 10U, 16U, 6U, data);
+    selectSetBannerData(selection, 1U);
+    selectSetBannerTiles(selection, 2U, 10U);
 
 	setMusicBank(SONG_BANK_MAINMENU);
 	playMusic(&mainmenu_song_data);
@@ -106,32 +101,6 @@ void initSelect() {
 
 	DISPLAY_ON;
 	enable_interrupts();
-}
-
-UBYTE *selectGetBannerData() {
-	if(selection <= 4U && selection > levels_completed+1U) {
-		set_bkg_data_rle(selection_locked_tiles_offset, selection_locked_data_length, selection_locked_data);
-		return selection_locked_tiles;
-	} else if(selection == 1U) {
-		set_bkg_data_rle(selection1_tiles_offset, selection1_data_length, selection1_data);
-		return selection1_tiles;
-	} else if(selection == 2U) {
-		set_bkg_data_rle(selection2_tiles_offset, selection2_data_length, selection2_data);
-		return selection2_tiles;
-	} else if(selection == 3U) {
-		set_bkg_data_rle(selection3_tiles_offset, selection3_data_length, selection3_data);
-		return selection3_tiles;
-	} else if(selection == 4U) {
-		set_bkg_data_rle(selection4_tiles_offset, selection4_data_length, selection4_data);
-		return selection4_tiles;
-	} else if(selection == 5U) {
-		set_bkg_data_rle(selection_jukebox_tiles_offset, selection_jukebox_data_length, selection_jukebox_data);
-		return selection_jukebox_tiles;
-	} else if(selection == 6U) {
-		set_bkg_data_rle(selection_highscore_tiles_offset, selection_highscore_data_length, selection_highscore_data);
-		return selection_highscore_tiles;
-	}
-	return 0U;
 }
 
 void selectUpdateSprites() {
@@ -202,28 +171,21 @@ void selectScrollCircles() {
 
 void selectFadeOut() {
 	UBYTE i, x;
-	UBYTE even_tiles[6U];
-	UBYTE odd_tiles[6U];
-
-	even_tiles[0] = 9U;
-	even_tiles[1] = 11U;
-
-	odd_tiles[0] = 10;
-	odd_tiles[1] = 12U;
 
 	for(i = 0U; i != 16U; ++i) {
-		disable_interrupts();
 		if(select_scroll_dir == LEFT) x = i+2U;
 		else x = 17U - i;
+		disable_interrupts();
 		if(x & 1U) {
-			set_bkg_tiles(x, 10U, 1U, 2U, odd_tiles);
-			set_bkg_tiles(x, 12U, 1U, 2U, odd_tiles);
-			set_bkg_tiles(x, 14U, 1U, 2U, odd_tiles);
+			set_bkg_tiles(x, 10U, 1U, 6U, cat_odd_tiles);
 		} else {
-			set_bkg_tiles(x, 10U, 1U, 2U, even_tiles);
-			set_bkg_tiles(x, 12U, 1U, 2U, even_tiles);
-			set_bkg_tiles(x, 14U, 1U, 2U, even_tiles);
+			set_bkg_tiles(x, 10U, 1U, 6U, cat_even_tiles);
 		}
+        if(CGB_MODE) {
+            VBK_REG = 1U;
+			set_bkg_tiles(x, 10U, 1U, 6U, cat_palettes);
+            VBK_REG = 0U;
+        }
 		enable_interrupts();
 		if(!(i & 1U)) {
 			ticks++;
@@ -241,28 +203,19 @@ void selectFadeOut() {
 }
 
 void selectFadeIn() {
-	UBYTE i, j, x;
-	UBYTE *data;
-	UBYTE *ptr;
-	UBYTE tiles[6];
+	UBYTE i, x;
 
 	disable_interrupts();
-	data = selectGetBannerData();
+	selectSetBannerData(selection, 0U);
 	enable_interrupts();
 
 	for(i = 0U; i != 16U; ++i) {
 		if(select_scroll_dir == LEFT) x = i+2U;
 		else x = 17U - i;
-		ptr = data + x - 2U;
-		for(j = 0U; j != 6U; ++j) {
-			tiles[j] = *ptr;
-			ptr += 16U;
-		}
-		++ptr;
+        disable_interrupts();
+        selectSetBannerColumn(selection, x, 10U);
+        enable_interrupts();
 
-		disable_interrupts();
-		set_bkg_tiles(x, 10U, 1U, 6U, tiles);
-		enable_interrupts();
 		if(i & 1U) {
 			ticks++;
 			if((ticks & 3U) == 3U) selectScrollCircles();
@@ -299,7 +252,6 @@ void enterSelect() {
 			elapsed_time++;
 
 			if(elapsed_time == 110U) {
-				//mus_setPaused(1U);
 				disable_interrupts();
 				STOP_MUSIC;
 				enable_interrupts();
@@ -388,6 +340,6 @@ void enterSelect() {
 
 	STOP_MUSIC;
 	clearRemainingSprites(); // Remove all sprites
-	fadeToWhite(8U);
+	fadeToWhite(4U);
 	wait_sound_done();
 }

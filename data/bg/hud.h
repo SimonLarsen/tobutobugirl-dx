@@ -1,6 +1,9 @@
 #ifndef HUD_MAP_H
 #define HUD_MAP_H
 #define hud_data_length 19
+#define hud_tiles_width 2
+#define hud_tiles_height 18
+#define hud_tiles_offset 0
 const unsigned char hud_data[] = {
     128, 128, 128, 128, 128, 128, 224, 128, 240, 128, 248, 128, 248, 128, 240, 128,
      12,   0,  30,   0,  63,   0,  63,   0,  30,   0,  12,   0,   0,   0,   0,   0,
@@ -22,12 +25,11 @@ const unsigned char hud_data[] = {
     224, 128, 131, 128, 135, 128, 143, 128, 143, 128, 135, 128, 131, 128, 128, 128,
       0,   0,   0,   0, 128,   0, 192,   0, 192,   0, 128,   0,   0,   0,   0,   0
 };
-#define hud_tiles_width 2
-#define hud_tiles_height 18
-#define hud_tiles_offset 0
+
 const unsigned char hud_tiles[] = {
       0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  10,  11,  12,  13,  10,  11,  12,  13,  10,  11,
      12,  13,  10,  11,  14,  13,  15,  16,   0,   1,   2,   3,   4,   5,  17,  18
 };
+
 
 #endif

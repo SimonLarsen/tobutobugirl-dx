@@ -44,4 +44,5 @@ const unsigned char togglecat_data[] = {
     255, 129, 229, 251,  71, 255,  90, 254, 242, 254,  20,  28,  24,  24,   0,   0
 };
 
+
 #endif

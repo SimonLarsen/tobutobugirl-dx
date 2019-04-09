@@ -1,6 +1,9 @@
 #ifndef JUKEBOX_MAP_H
 #define JUKEBOX_MAP_H
 #define jukebox_data_length 161
+#define jukebox_tiles_width 20
+#define jukebox_tiles_height 18
+#define jukebox_tiles_offset 37
 const unsigned char jukebox_data[] = {
       0,   0,  26,   1,   1,   2,   7,   6,  31,  24,   3,   3,   2,  15,  12,  31,
      24,  47,  48, 127,  64, 255, 128, 255,   0, 255,   0, 128, 128,   4,  64, 192,
@@ -149,9 +152,7 @@ const unsigned char jukebox_data[] = {
     254,   2, 252, 252,   2, 248, 248,   2, 255, 255,   2,   0, 255,   0, 255,   0,
     255, 255,   3, 128, 128,   6, 255, 255,   2,   0, 255,   0, 255,   0, 255
 };
-#define jukebox_tiles_width 20
-#define jukebox_tiles_height 18
-#define jukebox_tiles_offset 37
+
 const unsigned char jukebox_tiles[] = {
      37,  37,  25,  38,  39,  40,  37,  37,   2,  41,  42,  43,  37,  37,   9,  44,  45,  46,  47,  48,
      49,  50,  51,  52,  48,  53,  54,  55,  37,  37,   7,  56,  57,  58,  59,  60,  61,  62,  63,  64,
@@ -170,5 +171,6 @@ const unsigned char jukebox_tiles[] = {
      37,   2, 188, 188,   2, 189, 190, 191, 192, 193, 194, 194,   4, 195, 196, 194, 194,   2, 189, 190,
     197, 188, 188,   2
 };
+
 
 #endif

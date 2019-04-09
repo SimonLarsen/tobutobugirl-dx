@@ -1,6 +1,9 @@
 #ifndef JUKEBOX_DX_MAP_H
 #define JUKEBOX_DX_MAP_H
 #define jukebox_dx_data_length 160
+#define jukebox_dx_tiles_width 20
+#define jukebox_dx_tiles_height 18
+#define jukebox_dx_tiles_offset 37
 const unsigned char jukebox_dx_data[] = {
       0,   0,  26,   1,   0,   6,   1,  24,   7,   3,   0,  12,   3,  24,   7,  48,
      31,  64,  63, 128, 127,   0, 255,   0, 255, 128,   0, 128,   0, 192, 128,  64,
@@ -146,9 +149,7 @@ const unsigned char jukebox_dx_data[] = {
     252,   0, 248,   0, 255,   0, 255, 255,   7,   0, 128,   0, 128,   0, 128,   0,
     255,   0, 255, 255,   6
 };
-#define jukebox_dx_tiles_width 20
-#define jukebox_dx_tiles_height 18
-#define jukebox_dx_tiles_offset 37
+
 const unsigned char jukebox_dx_tiles[] = {
      37,  37,  25,  38,  39,  40,  37,  37,   2,  41,  42,  43,  37,  37,   9,  44,  45,  46,  47,  48,
      49,  50,  51,  52,  48,  53,  54,  55,  37,  37,   7,  56,  57,  58,  59,  60,  61,  62,  63,  64,
@@ -167,6 +168,8 @@ const unsigned char jukebox_dx_tiles[] = {
      37,   2, 157, 157,   2, 188, 189, 190, 191, 192, 193, 193,   4, 194, 195, 193, 193,   2, 188, 189,
     196, 157, 157,   2
 };
+#define jukebox_dx_palette_data_length 7
+#define jukebox_dx_palette_offset 0
 const unsigned char jukebox_dx_palettes[] = {
       0,   0,  42,   1,   1,   2,   0,   0,  24,   2,   0,   0,  14,   2,   1,   2,   0,   1,   1,   3,
       2,   1,   0,   0,   2,   1,   1,   2,   0,   0,   5,   1,   1,   2,   0,   0,   4,   1,   0,   1,
@@ -177,8 +180,7 @@ const unsigned char jukebox_dx_palettes[] = {
       8,   0,   0,  10,   3,   3,   6,   5,   3,   3,   3,   5,   5,   2,   0,   0,   8,   3,   3,   6,
       5,   5,   6,   0,   0,  18,   5,   0,   0,   8,   6,   0,   0,  12,   6,   0,   0,   3
 };
-#define jukebox_dx_palette_data_length 7
-#define jukebox_dx_palette_offset 0
+
 const unsigned int jukebox_dx_palette_data[] = {
     28638,   0, 9695, 6359,
       0, 6359, 19995, 28638,

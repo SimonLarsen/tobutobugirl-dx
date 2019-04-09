@@ -1,6 +1,9 @@
 #ifndef MINIGAME_SCORE_BG_MAP_H
 #define MINIGAME_SCORE_BG_MAP_H
 #define minigame_score_bg_data_length 23
+#define minigame_score_bg_tiles_width 20
+#define minigame_score_bg_tiles_height 18
+#define minigame_score_bg_tiles_offset 18
 const unsigned char minigame_score_bg_data[] = {
     255,   0, 255,  60, 255, 102, 255, 102, 255, 102, 255, 102, 255,  60, 255,   0,
     255,   0, 255,  24, 255,  56, 255,  24, 255,  24, 255,  24, 255,  60, 255,   0,
@@ -22,9 +25,7 @@ const unsigned char minigame_score_bg_data[] = {
       2,   0,   0,   4,  60,  60,   2, 102, 102,   2, 120, 120,   2,  30,  30,   2,
     102, 102,   2,  60,  60,   2,   0,   0,  16, 255, 255,   2
 };
-#define minigame_score_bg_tiles_width 20
-#define minigame_score_bg_tiles_height 18
-#define minigame_score_bg_tiles_offset 18
+
 const unsigned char minigame_score_bg_tiles[] = {
      18,  19,  20,  21,  22,  23,  24,  25,  18,  19,  20,  21,  22,  23,  24,  25,  18,  19,  20,  21,
      19,  20,  21,  22,  23,  24,  25,  18,  19,  20,  21,  22,  23,  24,  25,  18,  19,  20,  21,  22,
@@ -42,5 +43,6 @@ const unsigned char minigame_score_bg_tiles[] = {
      21,  22,  23,  24,  25,  18,  19,  20,  21,  19,  20,  21,  22,  23,  24,  25,  18,  19,  20,  21,
      22,  23,  24,  25,  18,  19,  20,  21,  22
 };
+
 
 #endif

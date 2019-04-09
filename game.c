@@ -990,7 +990,7 @@ void intoPortalAnimation() {
     }
 
     clearRemainingSprites();
-    fadeToWhite(8U);
+    fadeToWhite(4U);
 }
 
 void saveCatAnimation() {
@@ -1051,7 +1051,7 @@ void saveCatAnimation() {
     }
     STOP_MUSIC;
 
-    fadeSpritesToWhite(8U);
+    fadeSpritesToWhite(4U);
 }
 
 void deathAnimation() {

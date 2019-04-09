@@ -4,6 +4,7 @@
 #include "title.h"
 #include "fade.h"
 #include "gamestate.h"
+#include "set_data_rle.h"
 #include "sound.h"
 #include "ram.h"
 #include "mmlgb/driver/music.h"
@@ -458,7 +459,7 @@ void enterTitle() {
 	}
 
 	clearRemainingSprites();
-	fadeToWhite(8U);
+	fadeToWhite(4U);
 	wait_sound_done();
 }
 

@@ -2,6 +2,8 @@
 #include <gb/cgb.h>
 #include "defines.h"
 #include "gamestate.h"
+#include "set_data_rle.h"
+#include "set_banner.h"
 #include "background1.h"
 #include "background1_dx.h"
 #include "background2.h"
@@ -311,71 +313,8 @@ void setCloudAnimation(UBYTE skin) {
     }
 
     set_sprite_data(0U, pause_cloud1_data_length, data);
-
     SWITCH_ROM_MBC1(game_bank);
 }
-
-/*
-void set_bkg_data_rle(UBYTE first, UBYTE n, UBYTE *data) {
-    UBYTE i, j, run, tile;
-    UBYTE block[16];
-
-    run = 0U;
-    for(i = first; i != first+n; ++i) {
-        for(j = 0U; j != 16U; ++j) {
-            if(run == 0U) {
-                tile = data[0];
-                if(data[0] == data[1]) {
-                    run = data[2];
-                    data += 3U;
-                } else {
-                    run = 1U;
-                    data++;
-                }
-            }
-            block[j] = tile;
-            run--;
-        }
-        set_bkg_data(i, 1U, block);
-    }
-}
-*/
-
-/*
-void set_bkg_data_rle(UBYTE first, UBYTE n, UBYTE *data) {
-    UBYTE run, value;
-    UWORD count;
-    UBYTE *out;
-    
-    out = (UBYTE*)0x9000UL;
-    out += (UWORD)first << 4UL;
-
-    count = (UWORD)n << 4UL;
-    run = 0U;
-
-    while(count != 0UL) {
-        if(out >= (UBYTE*)0x9800UL) out -= (UBYTE*)0x1000UL;
-
-        if(run == 0U) {
-            value = *data;
-            if(value == data[1]) {
-                run = data[2];
-                data += 3U;
-            } else {
-                run = 1U;
-                data++;
-            }
-        }
-        run--;
-
-        while(STAT_REG & 2U) {}
-        *out = value;
-        ++out;
-
-        count--;
-    }
-}
-*/
 
 void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles) {
     UBYTE ix, iy, run, tile;
@@ -398,29 +337,20 @@ void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles
     }
 }
 
-/*
-void sgb_send_packet(UBYTE* data) {
-    UBYTE i, b, val;
-
-    P1_REG = SGB_P1_NEUTRAL;
-
-    P1_REG = 0U;
-    P1_REG = SGB_P1_NEUTRAL;
-
-    for(i = 0U; i != 16U; ++i) {
-        val = data[i];
-        for(b = 0U; b != 8U; ++b) {
-            if(val & 1U) {
-                P1_REG = SGB_P1_HIGH;
-            } else {
-                P1_REG = SGB_P1_LOW;
-            }
-            P1_REG = SGB_P1_NEUTRAL;
-            val = val >> 1;
-        }
-    }
-
-    P1_REG = SGB_P1_LOW;
-    P1_REG = SGB_P1_NEUTRAL;
+void selectSetBannerData(UBYTE index, UBYTE pal_buffer) {
+    SWITCH_ROM_MBC1(SELECTION_DATA_BANK);
+    _selectSetBannerData(index, pal_buffer);
+    SWITCH_ROM_MBC1(game_bank);
 }
-*/
+
+void selectSetBannerTiles(UBYTE index, UBYTE x, UBYTE y) {
+    SWITCH_ROM_MBC1(SELECTION_DATA_BANK);
+    _selectSetBannerTiles(index, x, y);
+    SWITCH_ROM_MBC1(game_bank);
+}
+
+void selectSetBannerColumn(UBYTE index, UBYTE x, UBYTE y) {
+    SWITCH_ROM_MBC1(SELECTION_DATA_BANK);
+    _selectSetBannerColumn(index, x, y);
+    SWITCH_ROM_MBC1(game_bank);
+}

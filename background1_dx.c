@@ -148,6 +148,7 @@ const unsigned char background1_dx_data[] = {
       0, 255,   1, 255,  14, 255, 224, 255,   0, 255,   0, 255,   0, 255,   0, 255,
      56, 255, 192, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0
 };
+
 const unsigned char background1_dx_tiles[] = {
      35,  35,   3,  36,  37,  38,  38,  12,  39,  35,  35,   5,  40,  38,  38,  10,  41,  35,  42,  35,
      35,   4,  43,  38,  38,  10,  44,  35,  45,  46,  47,  35,  35,   2,  48,  38,  38,   8,  49,  50,
@@ -173,6 +174,7 @@ const unsigned char background1_dx_tiles[] = {
 const unsigned char background1_dx_palettes[] = {
       0,   0, 255,   0,   0, 195,   1,   1,   7,   0,   0,  11,   1,   1, 108
 };
+
 const unsigned int background1_dx_palette_data[] = {
     29258, 29003, 32766, 24812,
     24812, 9162, 29258, 2338

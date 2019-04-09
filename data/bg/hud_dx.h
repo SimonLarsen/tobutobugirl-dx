@@ -1,6 +1,9 @@
 #ifndef HUD_DX_MAP_H
 #define HUD_DX_MAP_H
 #define hud_dx_data_length 19
+#define hud_dx_tiles_width 2
+#define hud_dx_tiles_height 18
+#define hud_dx_tiles_offset 0
 const unsigned char hud_dx_data[] = {
       0, 128,   0, 128,   0, 128,  96, 128, 112, 128, 120, 128, 120, 128, 112, 128,
      12,   0,  30,   0,  63,   0,  63,   0,  30,   0,  12,   0,   0,   0,   0,   0,
@@ -22,19 +25,18 @@ const unsigned char hud_dx_data[] = {
      96, 128,   3, 128,   7, 128,  15, 128,  15, 128,   7, 128,   3, 128,   0, 128,
       0,   0,   0,   0, 128,   0, 192,   0, 192,   0, 128,   0,   0,   0,   0,   0
 };
-#define hud_dx_tiles_width 2
-#define hud_dx_tiles_height 18
-#define hud_dx_tiles_offset 0
+
 const unsigned char hud_dx_tiles[] = {
       0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  10,  11,  12,  13,  10,  11,  12,  13,  10,  11,
      12,  13,  10,  11,  14,  13,  15,  16,   0,   1,   2,   3,   4,   5,  17,  18
 };
+#define hud_dx_palette_data_length 2
+#define hud_dx_palette_offset 5
 const unsigned char hud_dx_palettes[] = {
       5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,
       5,   5,   5,   5,   5,   5,   6,   6,   5,   5,   5,   5,   5,   5,   5,   5
 };
-#define hud_dx_palette_data_length 2
-#define hud_dx_palette_offset 5
+
 const unsigned int hud_dx_palette_data[] = {
     28638, 30300,   0, 18668,
     28638, 8937, 27849,   0

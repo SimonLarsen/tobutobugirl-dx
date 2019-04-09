@@ -3,6 +3,7 @@
 #include "jukebox.h"
 #include "fade.h"
 #include "gamestate.h"
+#include "set_data_rle.h"
 #include "cos.h"
 #include "sound.h"
 #include "mmlgb/driver/music.h"
@@ -182,7 +183,7 @@ void jukeboxUpdateTitle() {
 void enterJukebox() {
 	initJukebox();
 
-	fadeFromWhite(8U);
+	fadeFromWhite(4U);
 
 	while(1U) {
 		updateJoystate();
@@ -287,7 +288,7 @@ void enterJukebox() {
 
 	STOP_MUSIC;
 	clearRemainingSprites();
-	fadeToWhite(8U);
+	fadeToWhite(4U);
 	wait_sound_done();
 
 	remove_TIM(jukeboxUpdateMusic);

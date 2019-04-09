@@ -68,4 +68,5 @@ const unsigned char intro_sprites_data[] = {
     208, 232, 240, 200, 200, 248, 168, 184, 176, 176,   0,   0,   0,   0,   0,   0
 };
 
+
 #endif

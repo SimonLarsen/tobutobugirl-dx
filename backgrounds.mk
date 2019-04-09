@@ -18,15 +18,18 @@ title_backgrounds: data/bg/titlescreen.h data/bg/titlescreen_dx.h data/bg/titles
 data/bg/titlescreen.h: data/bg/titlescreen.png
 	$(IMGTOGB) --map --rle $< $@
 
-data/bg/titlescreen_dx.h: data/bg/titlescreen_dx.png
+data/bg/titlescreen_dx.h: data/bg/titlescreen_dx.png data/palettes/titlescreen_base.png
 	$(IMGTOGB) --map --rle -c $< $@ -I data/palettes/titlescreen_base.png
 
 data/bg/titlescreen_bg.h: data/bg/titlescreen_bg.png
 	$(IMGTOGB) --map --rle -O 117 $< $@
 
-select_backgrounds: data/bg/catface.h data/bg/select.h
+select_backgrounds: data/bg/catface.h data/bg/catface_dx.h data/bg/select.h
 
 data/bg/catface.h: data/bg/catface.png
+	$(IMGTOGB) --map -O 9 $< $@
+
+data/bg/catface_dx.h: data/bg/catface_dx.png
 	$(IMGTOGB) --map -O 9 $< $@
 
 data/bg/select.h: data/bg/select.png data/bg/select_dx.png
@@ -109,7 +112,7 @@ data/bg/highscore.h: data/bg/highscore.png
 	$(IMGTOGB) --map -O 47 --rle $< $@
 
 data/bg/highscore_dx.h: data/bg/highscore_dx.png data/palettes/highscore.png
-	$(IMGTOGB) --map -O 47 -P 1 --rle $< -c -I data/palettes/highscore.png $@
+	$(IMGTOGB) --map -O 47 --rle $< -c -I data/palettes/highscore.png $@
 
 data/sprite/empty.h: data/sprite/empty.png
 	$(IMGTOGB) $< $@
@@ -150,29 +153,42 @@ selection_backgrounds: selection1.c selection1.h \
 	selection3.c selection3.h \
 	selection4.c selection4.h \
 	selection_highscore.c selection_highscore.h \
+	selection_highscore_dx.c selection_highscore_dx3.h \
 	selection_jukebox.c selection_jukebox.h \
-	selection_locked.c selection_locked.h data/bg/catface.h
+	selection_jukebox_dx.c selection_jukebox_dx.h \
+	selection_locked.c selection_locked.h \
+	selection_locked_dx.c selection_locked_dx.h \
+	data/bg/catface.h
 
-selection1.c selection1.h: data/bg/selection1.png
-	$(IMGTOGB) --map -O 90 -P 3 --rle_data $< -C selection1.c selection1.h
+selection1.c selection1.h: data/bg/selection1.png data/bg/selection1_dx.png
+	$(IMGTOGB) --map -O 90 -P 3 --rle_data $< --dx data/bg/selection1_dx.png -C selection1.c selection1.h
 
-selection2.c selection2.h: data/bg/selection2.png
-	$(IMGTOGB) --map -O 90 -P 3 --rle_data $< -C selection2.c selection2.h
+selection2.c selection2.h: data/bg/selection2.png data/bg/selection2_dx.png
+	$(IMGTOGB) --map -O 90 -P 3 --rle_data $< --dx data/bg/selection2_dx.png -C selection2.c selection2.h
 
-selection3.c selection3.h: data/bg/selection3.png
-	$(IMGTOGB) --map -O 90 -P 3 $< --rle_data -C selection3.c selection3.h
+selection3.c selection3.h: data/bg/selection3.png data/bg/selection3_dx.png
+	$(IMGTOGB) --map -O 90 -P 3 $< --rle_data --dx data/bg/selection3_dx.png -C selection3.c selection3.h
 
-selection4.c selection4.h: data/bg/selection4.png
-	$(IMGTOGB) --map -O 90 -P 3 $< --rle_data -C selection4.c selection4.h
+selection4.c selection4.h: data/bg/selection4.png data/bg/selection4_dx.png
+	$(IMGTOGB) --map -O 90 -P 3 $< --rle_data --dx data/bg/selection4_dx.png -C selection4.c selection4.h
 
 selection_highscore.c selection_highscore.h: data/bg/selection_highscore.png
 	$(IMGTOGB) --map -O 90 -P 3 $< --rle_data -C selection_highscore.c selection_highscore.h
 
+selection_highscore_dx.c selection_highscore_dx.h: data/bg/selection_highscore_dx.png
+	$(IMGTOGB) --map -O 90 -P 3 -c $< --rle_data -C selection_highscore_dx.c selection_highscore_dx.h
+
 selection_jukebox.c selection_jukebox.h: data/bg/selection_jukebox.png
 	$(IMGTOGB) --map -O 90 -P 3 $< --rle_data -C selection_jukebox.c selection_jukebox.h
 
+selection_jukebox_dx.c selection_jukebox_dx.h: data/bg/selection_jukebox_dx.png
+	$(IMGTOGB) --map -O 90 -P 3 -c $< --rle_data -C selection_jukebox_dx.c selection_jukebox_dx.h
+
 selection_locked.c selection_locked.h: data/bg/selection_locked.png
 	$(IMGTOGB) --map -O 90 -P 3 $< --rle_data -C selection_locked.c selection_locked.h
+
+selection_locked_dx.c selection_locked_dx.h: data/bg/selection_locked_dx.png
+	$(IMGTOGB) --map -O 90 -P 3 -c $< --rle_data -C selection_locked_dx.c selection_locked_dx.h
 
 common_backgrounds: circles.c circles.h intro_bg.c intro_bg.h intro_bg_dx.c intro_bg_dx.h \
 	zoom_circles.c zoom_circles.h characters.c characters.h

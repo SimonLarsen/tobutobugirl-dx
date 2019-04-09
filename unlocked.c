@@ -4,6 +4,7 @@
 #include "unlocked.h"
 #include "fade.h"
 #include "gamestate.h"
+#include "set_data_rle.h"
 #include "mmlgb/driver/music.h"
 
 #include "characters.h"
@@ -50,6 +51,7 @@ const UBYTE unlocked_bkg_palettes[45] = {
 };
 
 void initUnlocked() {
+    UBYTE index, msg;
 	disable_interrupts();
 	DISPLAY_OFF;
 
@@ -71,28 +73,29 @@ void initUnlocked() {
 
 	if(unlocked_bits & UNLOCKED_CLOUDS) {
 		unlocked_bits ^= UNLOCKED_CLOUDS;
-		set_bkg_data_rle(selection2_tiles_offset, selection2_data_length, selection2_data);
-		set_bkg_tiles(2U, 8U, 16U, 6U, selection2_tiles);
-		set_bkg_tiles(4U, 5U, 12U, 2U, unlocked_messages[0]);
+        index = 2U;
+        msg = 0U;
 	}
 	else if(unlocked_bits & UNLOCKED_SPACE) {
 		unlocked_bits ^= UNLOCKED_SPACE;
-		set_bkg_data_rle(selection3_tiles_offset, selection3_data_length, selection3_data);
-		set_bkg_tiles(2U, 8U, 16U, 6U, selection3_tiles);
-		set_bkg_tiles(4U, 5U, 12U, 2U, unlocked_messages[0]);
+        index = 3U;
+        msg = 0U;
 	}
 	else if(unlocked_bits & UNLOCKED_MUSIC) {
 		unlocked_bits ^= UNLOCKED_MUSIC;
-		set_bkg_data_rle(selection_jukebox_tiles_offset, selection_jukebox_data_length, selection_jukebox_data);
-		set_bkg_tiles(2U, 8U, 16U, 6U, selection_jukebox_tiles);
-		set_bkg_tiles(4U, 5U, 12U, 2U, unlocked_messages[1]);
+        index = 5U;
+        msg = 1U;
 	}
 	else if(unlocked_bits & UNLOCKED_DREAM) {
 		unlocked_bits ^= UNLOCKED_DREAM;
-		set_bkg_data_rle(selection4_tiles_offset, selection4_data_length, selection4_data);
-		set_bkg_tiles(2U, 8U, 16U, 6U, selection4_tiles);
-		set_bkg_tiles(4U, 5U, 12U, 2U, unlocked_messages[2]);
+        index = 4U;
+        msg = 2U;
 	}
+
+    selectSetBannerData(index, 1U);
+    selectSetBannerTiles(index, 2U, 8U);
+
+    set_bkg_tiles(4U, 5U, 12U, 2U, unlocked_messages[msg]);
 
 	BGP_REG = 0xE4U; // 11100100
 

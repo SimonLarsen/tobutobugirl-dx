@@ -2,7 +2,6 @@
 #define SELECT_H
 
 void initSelect();
-UBYTE *selectGetBannerData();
 void selectUpdateSprites();
 void enterSelect();
 

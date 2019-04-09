@@ -4,6 +4,7 @@
 #include "ending.h"
 #include "gamestate.h"
 #include "fade.h"
+#include "set_data_rle.h"
 #include "intro_bg.h"
 #include "intro_bg_dx.h"
 #include "data/bg/ending_thanks.h"

@@ -10,4 +10,5 @@ const unsigned char shine_data[] = {
       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0
 };
 
+
 #endif

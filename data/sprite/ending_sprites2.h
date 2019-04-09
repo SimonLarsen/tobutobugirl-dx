@@ -60,4 +60,5 @@ const unsigned char ending_sprites2_data[] = {
      60, 203,  57, 207, 254, 254,  80, 240, 200, 120, 248, 232, 240, 240,  64,  64
 };
 
+
 #endif

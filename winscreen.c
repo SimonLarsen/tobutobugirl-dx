@@ -3,6 +3,7 @@
 #include <rand.h>
 #include "defines.h"
 #include "gamestate.h"
+#include "set_data_rle.h"
 #include "fade.h"
 #include "winscreen.h"
 #include "sound.h"

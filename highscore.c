@@ -2,6 +2,7 @@
 #include <gb/cgb.h>
 #include "defines.h"
 #include "gamestate.h"
+#include "set_data_rle.h"
 #include "fade.h"
 #include "cos.h"
 #include "highscore.h"
@@ -16,18 +17,9 @@
 #include "data/bg/highscore.h"
 #include "data/bg/highscore_dx.h"
 #include "circles.h"
-#include "selection1.h"
-#include "selection2.h"
-#include "selection3.h"
-#include "selection4.h"
-#include "selection_locked.h"
 
 extern UBYTE highscore_song_data;
 extern UBYTE dream_score_song_data;
-
-const UWORD sepia_palette2[4] = {
-    32767, 15898, 5327, 0
-};
 
 const UWORD highscore_palettes[4] = {
     32767, 32767, 11516, 0,
@@ -45,7 +37,6 @@ void initHighscore() {
     if(CGB_MODE) {
 	    set_bkg_data_rle(highscore_dx_tiles_offset, highscore_dx_data_length, highscore_dx_data);
 	    set_bkg_tiles_rle(0U, 0U, highscore_dx_tiles_width, highscore_dx_tiles_height, highscore_dx_tiles);
-        set_bkg_palette_buffer(0U, 1U, sepia_palette2);
         set_bkg_palette_buffer(highscore_dx_palette_offset, highscore_dx_palette_data_length, highscore_dx_palette_data);
         set_sprite_palette(0U, 1U, highscore_palettes);
         VBK_REG = 1U;
@@ -87,9 +78,11 @@ void highscoreUpdateScreen() {
 	clearRemainingSprites();
 	fadeToWhite(4U);
 	DISPLAY_OFF;
+    disable_interrupts();
 
 	_highscoreUpdateScreen();
 
+    enable_interrupts();
 	DISPLAY_ON;
 	fadeFromWhite(4U);
 }
@@ -104,37 +97,22 @@ void _highscoreUpdateScreen() {
 		tile = 0U;
 	}
 
-	switch(tile) {
-		case 1U:
-			set_bkg_data_rle(selection1_tiles_offset, selection1_data_length, selection1_data);
-			data = selection1_tiles;
-			break;
-		case 2U:
-			set_bkg_data_rle(selection2_tiles_offset, selection2_data_length, selection2_data);
-			data = selection2_tiles;
-			break;
-		case 3U:
-			set_bkg_data_rle(selection3_tiles_offset, selection3_data_length, selection3_data);
-			data = selection3_tiles;
-			break;
-		case 4U:
-			set_bkg_data_rle(selection4_tiles_offset, selection4_data_length, selection4_data);
-			data = selection4_tiles;
-			break;
-		case 0U:
-			set_bkg_data_rle(selection_locked_tiles_offset, selection_locked_data_length, selection_locked_data);
-			data = selection_locked_tiles;
-			break;
-	}
-
-	set_bkg_tiles(2U, 4U, 16U, 6U, data);
-	set_bkg_tiles_rle(5U, 8U, 10U, 1U, highscore_tiles+55U);
-	set_bkg_tiles_rle(5U, 9U, 10U, 1U, highscore_tiles+69U);
+    selectSetBannerData(sub_selection, 1U);
+    selectSetBannerTiles(sub_selection, 2U, 4U);
 
     if(CGB_MODE) {
-        set_bkg_palette_buffer(0U, 1U, sepia_palette2);
+	    set_bkg_tiles_rle(5U, 8U, 10U, 1U, highscore_dx_tiles+55U);
+	    set_bkg_tiles_rle(5U, 9U, 10U, 1U, highscore_dx_tiles+69U);
+        VBK_REG = 1U;
+	    set_bkg_tiles_rle(5U, 8U, 10U, 1U, highscore_dx_palettes+55U);
+	    set_bkg_tiles_rle(5U, 9U, 10U, 1U, highscore_dx_palettes+69U);
+        VBK_REG = 0U;
         set_bkg_palette_buffer(highscore_dx_palette_offset, highscore_dx_palette_data_length, highscore_dx_palette_data);
+    } else {
+        set_bkg_tiles_rle(5U, 8U, 10U, 1U, highscore_tiles+55U);
+        set_bkg_tiles_rle(5U, 9U, 10U, 1U, highscore_tiles+69U);
     }
+
 
 	// Set level name
 	data = level_names[tile];
@@ -280,6 +258,6 @@ void enterHighscore() {
 
 	STOP_MUSIC;
 	clearRemainingSprites();
-	fadeToWhite(8U);
+	fadeToWhite(4U);
 	wait_sound_done();
 }

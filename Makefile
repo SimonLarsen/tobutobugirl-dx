@@ -22,9 +22,7 @@ OBJ=main.o fade.o gamestate.o set_data_rle.o cos.o circles.o zoom_circles.o char
 	getpal.o sgb_send_packet.o
 
 OBJ_BANK1=game.o pause.o minigamescore.o
-OBJ_BANK2=select.o highscore.o unlocked.o \
-		  selection1.o selection2.o selection3.o selection4.o \
-		  selection_highscore.o selection_jukebox.o selection_locked.o
+OBJ_BANK2=select.o highscore.o unlocked.o
 OBJ_BANK3=intro.o intro_bg.o intro_bg_dx.o ending.o
 OBJ_BANK4=jukebox.o
 OBJ_BANK5=winscreen.o
@@ -33,8 +31,13 @@ OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4
 OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o
 OBJ_BANK9=logos.o win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o
 OBJ_BANK10=sound_data.o sgb.o
+OBJ_BANK11=set_banner.o \
+		   selection1.o selection2.o selection3.o selection4.o \
+		   selection_highscore.o selection_highscore_dx.o \
+		   selection_jukebox.o selection_jukebox_dx.o \
+		   selection_locked.o selection_locked_dx.o
 
-OBJ_ASM=title_song.o mainmenu_song.o score_tally_song.o highscore_song.o plains_song.o \
+OBJ_SONGS=title_song.o mainmenu_song.o score_tally_song.o highscore_song.o plains_song.o \
 		clouds_song.o space_song.o dream_song.o dream_score_song.o intro_song.o \
 		ending_part1_song.o ending_part2_song.o potato_jingle_song.o tangram_shine_song.o \
 		tangram_vox_song.o level_clear_song.o unlocked_song.o time_out_song.o minigame_song.o potaka_song.o
@@ -51,6 +54,7 @@ $(OBJ_BANK7): CFLAGS+=-Wf-bo7
 $(OBJ_BANK8): CFLAGS+=-Wf-bo8
 $(OBJ_BANK9): CFLAGS+=-Wf-bo9
 $(OBJ_BANK10): CFLAGS+=-Wf-bo10
+$(OBJ_BANK11): CFLAGS+=-Wf-bo11
 
 $(RAM_BANK1): CFLAGS+=-Wf-ba0
 
@@ -81,6 +85,9 @@ pause_bg.o: pause_bg.c pause_bg.h
 catface.o: catface.c catface.h
 	${compile-source}
 
+catface_dx.o: catface_dx.c catface_dx.h
+	${compile-source}
+
 characters.o: characters.c characters.h
 	${compile-source}
 
@@ -90,7 +97,7 @@ circles.o: circles.c circles.h
 cos.o: cos.c cos.h
 	${compile-source}
 
-ending.o: ending.c defines.h ending.h gamestate.h fade.h intro_bg.h intro_bg_dx.h data/bg/ending_thanks.h data/bg/ending_thanks_dx.h data/sprite/ending_sprites1.h data/sprite/ending_sprites2.h mmlgb/driver/music.h
+ending.o: ending.c defines.h ending.h gamestate.h set_data_rle.h fade.h intro_bg.h intro_bg_dx.h data/bg/ending_thanks.h data/bg/ending_thanks_dx.h data/sprite/ending_sprites1.h data/sprite/ending_sprites2.h mmlgb/driver/music.h
 	${compile-source}
 
 fade.asm: fade.c gamestate.h sound.h fade.h
@@ -105,7 +112,7 @@ game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sou
 game.o: game.asm
 	${compile-source}
 
-gamestate.asm: gamestate.c defines.h gamestate.h background1.h background1_dx.h background2.h background3.h background4.h pause_bg.h win1.h win1_dx.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
+gamestate.asm: gamestate.c defines.h gamestate.h set_data_rle.h background1.h background1_dx.h background2.h background3.h background4.h pause_bg.h win1.h win1_dx.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
 	$(SDCCN) -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
 
 gamestate.o: gamestate.asm
@@ -114,7 +121,7 @@ gamestate.o: gamestate.asm
 set_data_rle.o: set_data_rle.asm
 	${compile-source}
 
-highscore.o: highscore.c defines.h gamestate.h fade.h cos.h highscore.h ram.h sound.h characters.h arrow.h data/sprite/empty.h data/bg/highscore.h data/bg/highscore_dx.h circles.h selection1.h selection2.h selection3.h selection4.h selection_locked.h
+highscore.o: highscore.c defines.h gamestate.h set_data_rle.h fade.h cos.h highscore.h ram.h sound.h characters.h arrow.h data/sprite/empty.h data/bg/highscore.h data/bg/highscore_dx.h circles.h selection1.h selection2.h selection3.h selection4.h selection_locked.h
 	${compile-source}
 
 intro_bg.o: intro_bg.c intro_bg.h
@@ -123,19 +130,19 @@ intro_bg.o: intro_bg.c intro_bg.h
 intro_bg_dx.o: intro_bg_dx.c intro_bg_dx.h
 	${compile-source}
 
-intro.o: intro.c defines.h fade.h gamestate.h intro.h intro_bg_dx.h data/sprite/intro_sprites.h data/sprite/intro_flash.h
+intro.o: intro.c defines.h fade.h gamestate.h set_data_rle.h intro.h intro_bg_dx.h data/sprite/intro_sprites.h data/sprite/intro_flash.h
 	${compile-source}
 
-jukebox.o: jukebox.c defines.h jukebox.h fade.h gamestate.h cos.h sound.h mmlgb/driver/music.h data/bg/jukebox.h data/bg/jukebox_dx.h data/sprite/digital.h arrow.h data/sprite/notes.h data/sprite/bobblehead.h data/sprite/bobblehead_dx.h
+jukebox.o: jukebox.c defines.h jukebox.h fade.h gamestate.h set_data_rle.h cos.h sound.h mmlgb/driver/music.h data/bg/jukebox.h data/bg/jukebox_dx.h data/sprite/digital.h arrow.h data/sprite/notes.h data/sprite/bobblehead.h data/sprite/bobblehead_dx.h
 	${compile-source}
 
-logos.o: logos.c defines.h gamestate.h logos.h fade.h sound.h mmlgb/driver/music.h data/bg/tangram.h data/bg/potato.h data/bg/potato_dx.h data/sprite/shine.h
+logos.o: logos.c defines.h gamestate.h set_data_rle.h logos.h fade.h sound.h mmlgb/driver/music.h data/bg/tangram.h data/bg/potato.h data/bg/potato_dx.h data/sprite/shine.h
 	${compile-source}
 
 main.o: main.c gamestate.h main.h ram.h sound.h mmlgb/driver/music.h logos.h intro.h title.h select.h game.h winscreen.h highscore.h unlocked.h jukebox.h ending.h wipe.h minigamescore.h
 	${compile-source}
 
-minigamescore.o: minigamescore.c defines.h fade.h gamestate.h sound.h ram.h data/bg/minigame_score_bg.h characters.h zoom_circles.h
+minigamescore.o: minigamescore.c defines.h fade.h gamestate.h set_data_rle.h sound.h ram.h data/bg/minigame_score_bg.h characters.h zoom_circles.h
 	${compile-source}
 
 pause.o: pause.c defines.h gamestate.h fade.h sound.h ram.h mmlgb/driver/music.h characters.h
@@ -144,7 +151,8 @@ pause.o: pause.c defines.h gamestate.h fade.h sound.h ram.h mmlgb/driver/music.h
 ram.o: ram.c 
 	${compile-source}
 
-select.o: select.c defines.h select.h fade.h gamestate.h cos.h ram.h sound.h mmlgb/driver/music.h characters.h arrow.h data/sprite/togglecat.h circles.h data/bg/catface.h data/bg/select.h selection1.h selection2.h selection3.h selection4.h selection_highscore.h selection_jukebox.h selection_locked.h
+
+select.o: select.c defines.h select.h fade.h gamestate.h set_data_rle.h cos.h ram.h sound.h mmlgb/driver/music.h characters.h arrow.h data/sprite/togglecat.h circles.h data/bg/catface.h data/bg/catface_dx.h data/bg/select.h selection1.h selection2.h selection3.h selection4.h selection_highscore.h selection_highscore_dx.h selection_jukebox.h selection_jukebox_dx.h selection_locked.h selection_locked_dx.h
 	${compile-source}
 
 selection1.o: selection1.c selection1.h
@@ -168,10 +176,16 @@ selection_jukebox.o: selection_jukebox.c selection_jukebox.h
 selection_locked.o: selection_locked.c selection_locked.h
 	${compile-source}
 
+set_banner.asm: set_banner.c set_banner.h selection1.h selection2.h selection3.h selection4.h selection_highscore.h selection_highscore_dx.h selection_jukebox.h selection_jukebox_dx.h selection_locked.h selection_locked_dx.h
+	$(SDCCN) -bo 11 -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
+
+set_banner.o: set_banner.asm
+	${compile-source}
+
 sgb_send_packet.o: sgb_send_packet.asm
 	${compile-source}
 
-sgb.asm: sgb.c sgb.h data/sgb/border.h
+sgb.asm: sgb.c sgb.h data/sgb/border.h sgb_send_packet.h
 	$(SDCCN) -bo 10 -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
 
 sgb.o: sgb.asm
@@ -183,10 +197,10 @@ sound.o: sound.c sound.h gamestate.h mmlgb/driver/music.h mmlgb/driver/notes.h m
 sound_data.o: sound_data.c data/sounds/sfx_bump.h data/sounds/sfx_bump_alien.h data/sounds/sfx_cat_disable.h data/sounds/sfx_cat_enable.h data/sounds/sfx_dash.h data/sounds/sfx_highscore_switch.h data/sounds/sfx_jetpack.h data/sounds/sfx_menu_cancel.h data/sounds/sfx_menu_confirm.h data/sounds/sfx_menu_locked.h data/sounds/sfx_menu_switch.h data/sounds/sfx_player_die.h data/sounds/sfx_stomp_alien.h data/sounds/sfx_stomp_bat.h data/sounds/sfx_stomp_bird.h data/sounds/sfx_stomp_ghost.h data/sounds/sfx_time_low.h data/sounds/sfx_time_out.h data/sounds/sfx_time_pickup.h data/sounds/sfx_warp_start.h data/sounds/sfx_rank_crash.h
 	${compile-source}
 
-title.o: title.c defines.h title.h fade.h gamestate.h sound.h ram.h data/bg/titlescreen.h data/bg/titlescreen_dx.h data/bg/titlescreen_bg.h characters.h data/sprite/title_cat.h
+title.o: title.c defines.h title.h fade.h gamestate.h set_data_rle.h sound.h ram.h data/bg/titlescreen.h data/bg/titlescreen_dx.h data/bg/titlescreen_bg.h characters.h data/sprite/title_cat.h
 	${compile-source}
 
-unlocked.o: unlocked.c defines.h unlocked.h fade.h gamestate.h characters.h zoom_circles.h data/bg/unlocked.h selection2.h selection3.h selection4.h selection_jukebox.h
+unlocked.o: unlocked.c defines.h unlocked.h fade.h gamestate.h set_data_rle.h characters.h zoom_circles.h data/bg/unlocked.h selection2.h selection3.h selection4.h selection_jukebox.h
 	${compile-source}
 
 win1.o: win1.c win1.h
@@ -204,10 +218,10 @@ win3.o: win3.c win3.h
 win4.o: win4.c win4.h
 	${compile-source}
 
-winscreen.o: winscreen.c defines.h gamestate.h fade.h winscreen.h sound.h characters.h data/bg/win_base.h data/bg/win_base_dx.h data/bg/rank_banner.h data/bg/rank_banner_dx.h data/sprite/ranks.h circles.h mmlgb/driver/music.h mmlgb/driver/notes.h mmlgb/driver/freq.h
+winscreen.o: winscreen.c defines.h gamestate.h set_data_rle.h fade.h winscreen.h sound.h characters.h data/bg/win_base.h data/bg/win_base_dx.h data/bg/rank_banner.h data/bg/rank_banner_dx.h data/sprite/ranks.h circles.h mmlgb/driver/music.h mmlgb/driver/notes.h mmlgb/driver/freq.h
 	${compile-source}
 
-wipe.o: wipe.c main.h wipe.h defines.h fade.h gamestate.h sound.h circles.h data/bg/wipe.h data/sprite/wipe_marker.h
+wipe.o: wipe.c main.h wipe.h defines.h fade.h gamestate.h set_data_rle.h sound.h circles.h data/bg/wipe.h data/sprite/wipe_marker.h
 	${compile-source}
 
 zoom_circles.o: zoom_circles.c zoom_circles.h
@@ -216,7 +230,7 @@ zoom_circles.o: zoom_circles.c zoom_circles.h
 %.o: data/songs/%.asm
 	$(CC) $(CFLAGS) -c $< -o $@
 
-tobudx.gb: ram.o $(OBJ) $(OBJ_ASM) \
+tobudx.gb: ram.o $(OBJ) $(OBJ_SONGS) \
 	$(OBJ_BANK1) $(OBJ_BANK2) $(OBJ_BANK3) $(OBJ_BANK4) \
 	$(OBJ_BANK5) $(OBJ_BANK6) $(OBJ_BANK7) $(OBJ_BANK8) \
 	$(OBJ_BANK9) $(OBJ_BANK10) $(OBJ_BANK11) $(OBJ_BANK12)

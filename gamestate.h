@@ -10,12 +10,13 @@ void clearRemainingSprites();
 void setIngameBackground(UBYTE level);
 void setWinscreenBackground(UBYTE level);
 void setCloudAnimation(UBYTE skin);
-void set_bkg_data_rle(UBYTE first, UBYTE n, UBYTE *data);
 void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
 void playMusic(UBYTE *data);
 void updateMusic();
 UBYTE getRank(UBYTE score, UBYTE level);
-void sgb_send_packet(UBYTE* data);
+void selectSetBannerData(UBYTE index, UBYTE pal_buffer);
+void selectSetBannerTiles(UBYTE index, UBYTE x, UBYTE y);
+void selectSetBannerColumn(UBYTE index, UBYTE x, UBYTE y);
 
 #define setGameBank(i) { game_bank = i; *((UBYTE*)0x2000) = (i); }
 #define setMusicBank(i) (music_bank = (i))
