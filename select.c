@@ -199,8 +199,6 @@ void selectFadeOut() {
 			wait_vbl_done();
 		}
 	}
-	arrow_offset1 = 0U;
-	arrow_offset2 = 0U;
 }
 
 void selectFadeIn() {
@@ -232,8 +230,8 @@ void selectFadeIn() {
 		if(i & 1U) {
 			ticks++;
 			if((ticks & 3U) == 3U) selectScrollCircles();
-			if(select_scroll_dir == LEFT) arrow_offset1 = cos32_64[10U - (i >> 1)];
-			else arrow_offset2 = cos32_64[10U - (i >> 1)];
+			if(select_scroll_dir == LEFT) arrow_offset1 = cos32_64[7U - (i >> 1)];
+			else arrow_offset2 = cos32_64[7U - (i >> 1)];
 			selectUpdateSprites();
 			clearRemainingSprites();
 			snd_update();
