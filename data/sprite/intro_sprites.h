@@ -1,6 +1,6 @@
 #ifndef INTRO_SPRITES_SPRITES_H
 #define INTRO_SPRITES_SPRITES_H
-#define intro_sprites_data_length 64
+#define intro_sprites_data_length 64U
 const unsigned char intro_sprites_data[] = {
      15,  31,  64, 127, 112, 111, 127, 100, 215, 254,  73, 127,  56,  63,  75, 124,
      79, 120,  15,  48,  30,  31,  11,  14,  31,  23,  15,  15,   3,   3,   0,   0,

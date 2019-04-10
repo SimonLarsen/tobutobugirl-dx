@@ -14,7 +14,7 @@ void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles
 void playMusic(UBYTE *data);
 void updateMusic();
 UBYTE getRank(UBYTE score, UBYTE level);
-void selectSetBannerData(UBYTE index, UBYTE pal_buffer);
+void selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer);
 void selectSetBannerTiles(UBYTE index, UBYTE x, UBYTE y);
 void selectSetBannerColumn(UBYTE index, UBYTE x, UBYTE y);
 

@@ -1,11 +1,11 @@
 #ifndef TANGRAM_MAP_H
 #define TANGRAM_MAP_H
-#define tangram_data_length 62
-#define tangram_tiles_width 20
-#define tangram_tiles_height 18
-#define tangram_tiles_offset 0
+#define tangram_data_length 62U
+#define tangram_tiles_width 20U
+#define tangram_tiles_height 18U
+#define tangram_tiles_offset 0U
 const unsigned char tangram_data[] = {
-      0,   0,  30,  14,  14,   2,  17,  31,  20,  31,  39,  63,  42,  63,  33,  63,
+	  0,   0,  30,  14,  14,   2,  17,  31,  20,  31,  39,  63,  42,  63,  33,  63,
      71, 126,  67, 120, 131, 240,   0,   0,   2, 128, 128,   6, 224, 224,   2, 248,
      24, 252,   4, 254,   2,   0,   0,   2,   1,   1,   2,   3,   2,   5,   4,   8,
       9,  14,  13,   2,   3,   2,   3, 143, 244,  15, 252,  25, 224,   5, 228,   8,
@@ -59,16 +59,15 @@ const unsigned char tangram_data[] = {
      14,   7,  14,   7,  15,  15,   2,   7,   7,   2,   3,   0,   0,   6, 224, 224,
       2, 192, 224, 224,   2, 192, 128, 192,   0, 128,   0,   0,   6
 };
-
 const unsigned char tangram_tiles[] = {
-      0,   0,  51,   1,   0,   0,  19,   2,   3,   0,   0,  17,   4,   5,   6,   7,   0,   0,  16,   8,
+	  0,   0,  51,   1,   0,   0,  19,   2,   3,   0,   0,  17,   4,   5,   6,   7,   0,   0,  16,   8,
       9,  10,  11,   0,   0,  17,  12,  13,  14,   0,   0,  10,  15,   0,   0,   5,  16,  17,  18,  19,
      20,   0,   0,   7,  21,  22,  23,  24,  25,   0,   0,   2,  26,  27,  28,  29,  30,   0,   0,   9,
      31,  32,  33,  34,  35,  36,  37,  38,  39,  40,  41,  42,  43,  44,  45,   0,   0,   6,  46,  47,
      48,  49,  50,  51,  52,  53,  54,  55,  56,  57,  58,  59,   0,   0,  11,  60,  61,   0,   0, 129
 };
-#define tangram_palette_data_length 3
-#define tangram_palette_offset 0
+#define tangram_palette_data_length 3U
+#define tangram_palette_offset 0U
 const unsigned char tangram_palettes[] = {
       0,   0,  90,   1,   0,   0,   2,   1,   0,   0,  19,   1,   0,   0,  30,   2,   0,   0,  17,   2,
       2,   4,   0,   0,  17,   2,   2,  15,   0,   0,   6,   2,   2,  14,   0,   0,  11,   2,   2,   2,

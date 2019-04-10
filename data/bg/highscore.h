@@ -1,11 +1,11 @@
 #ifndef HIGHSCORE_MAP_H
 #define HIGHSCORE_MAP_H
-#define highscore_data_length 43
-#define highscore_tiles_width 20
-#define highscore_tiles_height 18
-#define highscore_tiles_offset 47
+#define highscore_data_length 43U
+#define highscore_tiles_width 20U
+#define highscore_tiles_height 18U
+#define highscore_tiles_offset 47U
 const unsigned char highscore_data[] = {
-    255,   0, 231,   0, 195,   0, 129,   0, 129,   0, 195,   0, 231,   0, 255,   0,
+	255,   0, 231,   0, 195,   0, 129,   0, 129,   0, 195,   0, 231,   0, 255,   0,
     255, 255,   2,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0,
     255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0,
     255,   0, 230,   0, 230,   0, 230,   0, 224,   6, 230,   0, 230,   0, 230,  25,
@@ -42,9 +42,8 @@ const unsigned char highscore_data[] = {
       7,   0,  31,   0, 255, 255,   3,   1, 127,   1, 127,   1, 255,   1, 255,   1,
     255,   1, 255,   1, 255, 255,   2
 };
-
 const unsigned char highscore_tiles[] = {
-     47,  47,  20,  48,  48,  20,  49,  49,   5,  50,  51,  52,  53,  54,  55,  56,  57,  58,  54,  49,
+	 47,  47,  20,  48,  48,  20,  49,  49,   5,  50,  51,  52,  53,  54,  55,  56,  57,  58,  54,  49,
      49,   5,  59,  59,  20,  47,  47,   2,  60,  60,  16,  47,  47,   4,  60,  60,  16,  47,  47,   4,
      60,  60,  16,  47,  47,   4,  60,  60,  16,  47,  47,   4,  60,  60,   3,  61,  62,  62,   8,  63,
      60,  60,   3,  47,  47,   4,  60,  60,   3,  64,  60,  60,   8,  65,  60,  60,   3,  47,  47,   3,

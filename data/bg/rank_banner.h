@@ -1,11 +1,11 @@
 #ifndef RANK_BANNER_MAP_H
 #define RANK_BANNER_MAP_H
-#define rank_banner_data_length 27
-#define rank_banner_tiles_width 20
-#define rank_banner_tiles_height 6
-#define rank_banner_tiles_offset 64
+#define rank_banner_data_length 27U
+#define rank_banner_tiles_width 20U
+#define rank_banner_tiles_height 6U
+#define rank_banner_tiles_offset 64U
 const unsigned char rank_banner_data[] = {
-    255, 255,   2,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0,
+	255, 255,   2,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0,
     255, 255,   3,   0, 255,   0, 255,   0, 255,   0, 255,   1, 255,   3, 255,  31,
     255, 255,   3,   0, 255,   0, 255,   0, 255, 255,  11,   0, 255,   0, 255,   0,
     255,   0, 255, 128, 255, 192, 255, 248, 255,   0, 255,   0, 255,   0, 255,   0,
@@ -33,9 +33,8 @@ const unsigned char rank_banner_data[] = {
     255,   3, 248, 255, 192, 255, 128, 255,   0, 255,   0, 255,   0, 255,   0, 255,
     255,   3
 };
-
 const unsigned char rank_banner_tiles[] = {
-     64,  64,  11,  65,  66,  66,   3,  67,  64,  64,   4,  68,  68,  11,  69,  68,  68,   3,  70,  68,
+	 64,  64,  11,  65,  66,  66,   3,  67,  64,  64,   4,  68,  68,  11,  69,  68,  68,   3,  70,  68,
      68,   8,  71,  72,  73,  74,  75,  76,  68,  77,  68,  68,   3,  78,  68,  68,   8,  79,  80,  81,
      82,  83,  84,  68,  77,  68,  68,   3,  78,  68,  68,  15,  85,  68,  68,   3,  86,  68,  68,   4,
      87,  87,  11,  88,  89,  89,   3,  90,  87,  87,   4

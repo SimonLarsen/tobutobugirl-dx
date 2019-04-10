@@ -1,6 +1,6 @@
 #ifndef TOGGLECAT_SPRITES_H
 #define TOGGLECAT_SPRITES_H
-#define togglecat_data_length 40
+#define togglecat_data_length 40U
 const unsigned char togglecat_data[] = {
       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
       0,   0,   0,   0,  28,  28,  50,  46,  58,  38,  94, 102,  72, 120, 136, 248,

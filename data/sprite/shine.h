@@ -1,6 +1,6 @@
 #ifndef SHINE_SPRITES_H
 #define SHINE_SPRITES_H
-#define shine_data_length 6
+#define shine_data_length 6U
 const unsigned char shine_data[] = {
       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   0,   1,   0,
       3,   0,   3,   0,   7,   0,   7,   0,  15,   0,  15,   0,  31,   0,  31,   0,

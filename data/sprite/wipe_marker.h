@@ -1,6 +1,6 @@
 #ifndef WIPE_MARKER_SPRITES_H
 #define WIPE_MARKER_SPRITES_H
-#define wipe_marker_data_length 4
+#define wipe_marker_data_length 4U
 const unsigned char wipe_marker_data[] = {
       0,   0,   0,   0,   0,   0,   0,   0,   4,   4,   4,   7,  24,  31,   8,  15,
      18,  31,  23,  26,  13,  14,   3,   3,   0,   0,   0,   0,   0,   0,   0,   0,

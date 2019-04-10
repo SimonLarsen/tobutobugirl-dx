@@ -97,7 +97,8 @@ void _highscoreUpdateScreen() {
 		tile = 0U;
 	}
 
-    selectSetBannerData(sub_selection, 1U);
+    selectSetBannerData(sub_selection, 1U, 1U);
+    selectSetBannerData(sub_selection, 2U, 1U);
     selectSetBannerTiles(sub_selection, 2U, 4U);
 
     if(CGB_MODE) {

@@ -1,6 +1,6 @@
 #ifndef TITLE_CAT_SPRITES_H
 #define TITLE_CAT_SPRITES_H
-#define title_cat_data_length 36
+#define title_cat_data_length 36U
 const unsigned char title_cat_data[] = {
       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
       3,   3,   7,   4,  15,   8,  15,   8,  11,  12,   8,  15,   6,   5,   2,   3,

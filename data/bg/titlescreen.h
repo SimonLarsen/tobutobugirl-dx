@@ -1,11 +1,11 @@
 #ifndef TITLESCREEN_MAP_H
 #define TITLESCREEN_MAP_H
-#define titlescreen_data_length 116
-#define titlescreen_tiles_width 20
-#define titlescreen_tiles_height 18
-#define titlescreen_tiles_offset 0
+#define titlescreen_data_length 116U
+#define titlescreen_tiles_width 20U
+#define titlescreen_tiles_height 18U
+#define titlescreen_tiles_offset 0U
 const unsigned char titlescreen_data[] = {
-      0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,
+	  0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,
       0, 255,   0, 255,   0, 255,  14, 241,  63, 192, 127, 128, 127, 128, 255,   0,
       0,   2, 255,   0, 255,   0, 255,   0, 255, 128, 127, 192,  63, 192,  63, 227,
      28,   0, 255,   0, 255,   1, 254,   3, 252,   7, 248,   7, 248, 119, 136, 251,
@@ -104,9 +104,8 @@ const unsigned char titlescreen_data[] = {
       2,   0,   0,   6,  31, 159, 143, 159, 207, 207,   2, 199, 207, 195, 199,   0,
       0,   8,  24,  56, 252, 252,   4, 240, 248,   0,   0,   6
 };
-
 const unsigned char titlescreen_tiles[] = {
-      0,   0,  61,   1,   2,   3,   4,   5,   6,   7,   0,   0,   7,   8,   0,   0,   2,   9,  10,  11,
+	  0,   0,  61,   1,   2,   3,   4,   5,   6,   7,   0,   0,   7,   8,   0,   0,   2,   9,  10,  11,
      12,  13,  14,  14,   5,  15,   0,  16,  17,  18,  19,  20,  14,  21,  22,  23,  14,  24,  25,  14,
      14,   6,  26,  27,  14,  14,   6,  28,  29,  30,  14,  31,  32,  33,  34,  35,  36,  37,  38,  39,
      40,  41,  42,  43,  44,  45,  46,  47,  31,  48,  49,  31,  31,   3,  50,  51,  52,  53,  54,  55,

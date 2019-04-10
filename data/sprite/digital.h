@@ -1,6 +1,6 @@
 #ifndef DIGITAL_SPRITES_H
 #define DIGITAL_SPRITES_H
-#define digital_data_length 37
+#define digital_data_length 37U
 const unsigned char digital_data[] = {
       0, 255,   0, 129,  24, 153,   0, 153,   0, 153,   0, 129, 126, 255,   0, 255,
       0, 255,   0, 199,  32, 231,   0, 231,   0, 231,   0, 231,  24, 255,   0, 255,

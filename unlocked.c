@@ -92,7 +92,8 @@ void initUnlocked() {
         msg = 2U;
 	}
 
-    selectSetBannerData(index, 1U);
+    selectSetBannerData(index, 1U, 1U);
+    selectSetBannerData(index, 2U, 1U);
     selectSetBannerTiles(index, 2U, 8U);
 
     set_bkg_tiles(4U, 5U, 12U, 2U, unlocked_messages[msg]);

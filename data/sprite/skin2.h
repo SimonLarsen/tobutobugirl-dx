@@ -1,6 +1,6 @@
 #ifndef SKIN2_SPRITES_H
 #define SKIN2_SPRITES_H
-#define skin2_data_length 32
+#define skin2_data_length 32U
 const unsigned char skin2_data[] = {
       0,   0,   0,   0,   1,   1,  98,  99, 188, 255, 136, 247, 190, 227, 255, 162,
     119, 152,  99,  28,  67, 127, 185, 254,   0, 255,  97, 225,   0,   0,   0,   0,

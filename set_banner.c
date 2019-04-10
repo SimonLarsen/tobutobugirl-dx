@@ -15,57 +15,120 @@
 #include "selection_locked.h"
 #include "selection_locked_dx.h"
 
-void _selectSetBannerData(UBYTE index, UBYTE pal_buffer) {
+void _selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer) {
     UBYTE *data;
     UWORD *palette_data;
-    UBYTE length;
+    UBYTE length, offset;
+
+    offset = selection_locked_tiles_offset;
 
 	if(index <= 4U && index > levels_completed+1U) {
         if(CGB_MODE) {
-            length = selection_locked_dx_data_length;
-            data = selection_locked_dx_data;
+            if(part == 2) {
+                length = selection_locked_dx_data_length2;
+                data = selection_locked_dx_data2;
+                offset += selection_locked_dx_data_length;
+            } else {
+                length = selection_locked_dx_data_length;
+                data = selection_locked_dx_data;
+            }
             palette_data = selection_locked_dx_palette_data;
         } else {
-            length = selection_locked_data_length;
-            data = selection_locked_data;
+            if(part == 2) {
+                length = selection_locked_data_length2;
+                data = selection_locked_data2;
+                offset += selection_locked_data_length;
+            } else {
+                length = selection_locked_data_length;
+                data = selection_locked_data;
+            }
         }
 	} else if(index == 1U) {
-		length = selection1_data_length;
-        data = selection1_data;
+        if(part == 2) {
+            length = selection1_data_length2;
+            data = selection1_data2;
+            offset += selection1_data_length;
+        } else {
+            length = selection1_data_length;
+            data = selection1_data;
+        }
         if(CGB_MODE) palette_data = selection1_palette_data;
 	} else if(index == 2U) {
-		length = selection2_data_length;
-        data = selection2_data;
+        if(part == 2) {
+            length = selection2_data_length2;
+            data = selection2_data2;
+            offset += selection2_data_length;
+        } else {
+            length = selection2_data_length;
+            data = selection2_data;
+        }
         if(CGB_MODE) palette_data = selection2_palette_data;
 	} else if(index == 3U) {
-		length = selection3_data_length;
-        data = selection3_data;
+        if(part == 2) {
+            length = selection3_data_length2;
+            data = selection3_data2;
+            offset += selection3_data_length;
+        } else {
+            length = selection3_data_length;
+            data = selection3_data;
+        }
         if(CGB_MODE) palette_data = selection3_palette_data;
 	} else if(index == 4U) {
-		length = selection4_data_length;
-        data = selection4_data;
+        if(part == 2) {
+		    length = selection4_data_length2;
+            data = selection4_data2;
+		    offset += selection4_data_length;
+        } else {
+		    length = selection4_data_length;
+            data = selection4_data;
+        }
         if(CGB_MODE) palette_data = selection4_palette_data;
 	} else if(index == 5U) {
         if(CGB_MODE) {
-            length = selection_jukebox_dx_data_length;
-            data = selection_jukebox_dx_data;
+            if(part == 2) {
+                length = selection_jukebox_dx_data_length2;
+                data = selection_jukebox_dx_data2;
+                offset += selection_jukebox_dx_data_length;
+            } else {
+                length = selection_jukebox_dx_data_length;
+                data = selection_jukebox_dx_data;
+            }
             palette_data = selection_jukebox_dx_palette_data;
         } else {
-            length = selection_jukebox_data_length;
-            data = selection_jukebox_data;
+            if(part == 2) {
+                length = selection_jukebox_data_length2;
+                data = selection_jukebox_data2;
+                offset += selection_jukebox_data_length;
+            } else {
+                length = selection_jukebox_data_length;
+                data = selection_jukebox_data;
+            }
         }
 	} else if(index == 6U) {
         if(CGB_MODE) {
-            length = selection_highscore_dx_data_length;
-            data = selection_highscore_dx_data;
+            if(part == 2) {
+                length = selection_highscore_dx_data_length2;
+                data = selection_highscore_dx_data2;
+                offset += selection_highscore_dx_data_length;
+            } else {
+                length = selection_highscore_dx_data_length;
+                data = selection_highscore_dx_data;
+            }
             palette_data = selection_highscore_dx_palette_data;
         } else {
-            length = selection_highscore_data_length;
-            data = selection_highscore_data;
+            if(part == 2) {
+                length = selection_highscore_data_length2;
+                data = selection_highscore_data2;
+                offset += selection_highscore_data_length;
+            } else {
+                length = selection_highscore_data_length;
+                data = selection_highscore_data;
+            }
         }
 	}
 
-    set_bkg_data_rle(selection_locked_tiles_offset, length, data);
+    set_bkg_data_rle(offset, length, data);
+
     if(CGB_MODE) {
         if(pal_buffer) {
             set_bkg_palette_buffer(selection_locked_dx_palette_offset, 5U, palette_data);

@@ -1,6 +1,6 @@
 #ifndef PORTAL_SPRITES_H
 #define PORTAL_SPRITES_H
-#define portal_data_length 24
+#define portal_data_length 24U
 const unsigned char portal_data[] = {
       0,   0,   3,   3,  15,  12,  31,  16,  63,  32,  63,  32, 127,  64, 127,  64,
     127,  64, 127,  64,  63,  32,  63,  32,  31,  16,  15,  12,   3,   3,   0,   0,

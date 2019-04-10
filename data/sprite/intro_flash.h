@@ -1,6 +1,6 @@
 #ifndef INTRO_FLASH_SPRITES_H
 #define INTRO_FLASH_SPRITES_H
-#define intro_flash_data_length 36
+#define intro_flash_data_length 36U
 const unsigned char intro_flash_data[] = {
       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
       0,   0,   0,   0,   0,   0,   0,   0,   3,   3, 124, 127, 159, 224, 103, 120,

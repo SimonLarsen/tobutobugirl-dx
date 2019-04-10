@@ -1,11 +1,11 @@
 #ifndef POTATO_MAP_H
 #define POTATO_MAP_H
-#define potato_data_length 125
-#define potato_tiles_width 20
-#define potato_tiles_height 18
-#define potato_tiles_offset 0
+#define potato_data_length 125U
+#define potato_tiles_width 20U
+#define potato_tiles_height 18U
+#define potato_tiles_offset 0U
 const unsigned char potato_data[] = {
-      0,   0,  30,  30,  30,   2,   0,   0,  14,  51,  51,   2,   0,   0,  14,  62,
+	  0,   0,  30,  30,  30,   2,   0,   0,  14,  51,  51,   2,   0,   0,  14,  62,
      62,   2,  51,  51,   2,  60,  60,   2,  15,  15,   2,  51,  51,   2,  30,  30,
       2,   0,   0,   6,  51,  51,   8,  30,  30,   2,   0,   0,   6,  59,  59,   2,
      63,  63,   4,  55,  55,   2,  51,  51,   2,   0,   0,   6,  51,  51,   8,  62,
@@ -96,9 +96,8 @@ const unsigned char potato_data[] = {
     240, 240,   2,   0,   0,   9, 255, 255,   3,   3,   3,   2,   2,   3,   2,   3,
       0,   0,   6,  30, 254, 252, 252,   2,   0,   0,  12
 };
-
 const unsigned char potato_tiles[] = {
-      0,   0,  26,   1,   1,   2,   2,   2,   2,   3,   0,   3,   2,   0,   0,  12,   4,   5,   5,   2,
+	  0,   0,  26,   1,   1,   2,   2,   2,   2,   3,   0,   3,   2,   0,   0,  12,   4,   5,   5,   2,
       6,   7,   0,   8,   9,   0,   0,  12,  10,  11,  12,   0,   0,  16,  13,  14,   0,  15,  16,  17,
       0,   0,   3,  18,   0,   0,   5,  19,  20,  21,  19,  22,  23,  24,  25,  26,  27,  28,  29,   0,
      30,  31,  32,  33,  34,  35,  36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47,  41,  48,

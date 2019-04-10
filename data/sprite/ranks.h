@@ -1,6 +1,6 @@
 #ifndef RANKS_SPRITES_H
 #define RANKS_SPRITES_H
-#define ranks_data_length 64
+#define ranks_data_length 64U
 const unsigned char ranks_data[] = {
     255, 255, 255, 129, 252, 131, 252, 135, 248, 151, 248, 159, 252, 159, 254,  63,
     254, 127, 254,  31, 238,  59, 207, 113, 207, 112, 199, 124, 195,  63, 227,  60,

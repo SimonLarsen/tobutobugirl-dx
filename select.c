@@ -88,7 +88,8 @@ void initSelect() {
 	BGP_REG = 0xE4U; // 11100100
 
 	clearSprites();
-    selectSetBannerData(selection, 1U);
+    selectSetBannerData(selection, 1U, 1U);
+    selectSetBannerData(selection, 2U, 1U);
     selectSetBannerTiles(selection, 2U, 10U);
 
 	setMusicBank(SONG_BANK_MAINMENU);
@@ -205,9 +206,21 @@ void selectFadeOut() {
 void selectFadeIn() {
 	UBYTE i, x;
 
+    snd_update();
+
 	disable_interrupts();
-	selectSetBannerData(selection, 0U);
+	selectSetBannerData(selection, 1U, 0U);
 	enable_interrupts();
+
+    selectScrollCircles();
+    snd_update();
+
+	disable_interrupts();
+	selectSetBannerData(selection, 2U, 0U);
+	enable_interrupts();
+
+    selectScrollCircles();
+    snd_update();
 
 	for(i = 0U; i != 16U; ++i) {
 		if(select_scroll_dir == LEFT) x = i+2U;

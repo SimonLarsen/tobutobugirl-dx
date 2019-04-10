@@ -1,11 +1,11 @@
 #ifndef POTATO_DX_MAP_H
 #define POTATO_DX_MAP_H
-#define potato_dx_data_length 127
-#define potato_dx_tiles_width 20
-#define potato_dx_tiles_height 18
-#define potato_dx_tiles_offset 0
+#define potato_dx_data_length 127U
+#define potato_dx_tiles_width 20U
+#define potato_dx_tiles_height 18U
+#define potato_dx_tiles_offset 0U
 const unsigned char potato_dx_data[] = {
-      0,   0,  30,  30,   0,   0,  15,  51,   0,   0,  15,  62,   0,  51,   0,  60,
+	  0,   0,  30,  30,   0,   0,  15,  51,   0,   0,  15,  62,   0,  51,   0,  60,
       0,  15,   0,  51,   0,  30,   0,   0,   7,  51,   0,  51,   0,  51,   0,  51,
       0,  30,   0,   0,   7,  59,   0,  63,   0,  63,   0,  55,   0,  51,   0,   0,
       7,  51,   0,  51,   0,  51,   0,  51,   0,  62,   0,   0,   7,  51,   0,  63,
@@ -115,9 +115,8 @@ const unsigned char potato_dx_data[] = {
       0, 255,   0, 255, 192,   3,   0,   7,   0, 255,   0, 255,   0, 255,   0, 255,
       0, 255,   0, 255
 };
-
 const unsigned char potato_dx_tiles[] = {
-      0,   0,  26,   1,   1,   2,   2,   2,   2,   3,   0,   3,   2,   0,   0,  12,   4,   5,   5,   2,
+	  0,   0,  26,   1,   1,   2,   2,   2,   2,   3,   0,   3,   2,   0,   0,  12,   4,   5,   5,   2,
       6,   7,   0,   8,   9,   0,   0,  12,  10,  11,  12,   0,   0,  16,  13,  14,   0,  15,  16,  17,
       0,   0,   3,  18,   0,   0,   5,  19,  20,  21,  19,  22,  23,  24,  25,  26,  27,  28,  29,   0,
      30,  31,  32,  33,  34,  35,  36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47,  41,  48,
@@ -128,8 +127,8 @@ const unsigned char potato_dx_tiles[] = {
     110, 111, 112,   0,   0,  14, 113, 114, 115, 116, 117, 118, 119,   0,   0,  13, 120, 121, 122, 123,
     124, 125, 126,   0,   0,  41
 };
-#define potato_dx_palette_data_length 6
-#define potato_dx_palette_offset 0
+#define potato_dx_palette_data_length 6U
+#define potato_dx_palette_offset 0U
 const unsigned char potato_dx_palettes[] = {
       0,   0, 233,   1,   1,   3,   0,   2,   0,   0,  14,   1,   1,   4,   2,   2,   2,   0,   0,  15,
       3,   4,   1,   2,   2,   2,   0,   0,  14,   1,   3,   4,   1,   1,   4,   0,   0,  14,   5,   1,

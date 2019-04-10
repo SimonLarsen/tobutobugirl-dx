@@ -1,6 +1,6 @@
 #ifndef SPRITES_SPRITES_H
 #define SPRITES_SPRITES_H
-#define sprites_data_length 104
+#define sprites_data_length 104U
 const unsigned char sprites_data[] = {
      14,  14,  63,  63, 255, 255, 255, 255, 127, 127, 127, 127, 124, 124,  48,  48,
       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,

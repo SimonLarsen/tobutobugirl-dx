@@ -1,6 +1,6 @@
 #ifndef ENDING_SPRITES2_SPRITES_H
 #define ENDING_SPRITES2_SPRITES_H
-#define ending_sprites2_data_length 56
+#define ending_sprites2_data_length 56U
 const unsigned char ending_sprites2_data[] = {
       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   6,   6,   5,   7,
      13,  11,  15,   9,  14,   9,  20,  27,  28,  19,  27,  20,  63,  56,  94,  97,

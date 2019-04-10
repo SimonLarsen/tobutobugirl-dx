@@ -1,11 +1,11 @@
 #ifndef JUKEBOX_DX_MAP_H
 #define JUKEBOX_DX_MAP_H
-#define jukebox_dx_data_length 160
-#define jukebox_dx_tiles_width 20
-#define jukebox_dx_tiles_height 18
-#define jukebox_dx_tiles_offset 37
+#define jukebox_dx_data_length 160U
+#define jukebox_dx_tiles_width 20U
+#define jukebox_dx_tiles_height 18U
+#define jukebox_dx_tiles_offset 37U
 const unsigned char jukebox_dx_data[] = {
-      0,   0,  26,   1,   0,   6,   1,  24,   7,   3,   0,  12,   3,  24,   7,  48,
+	  0,   0,  26,   1,   0,   6,   1,  24,   7,   3,   0,  12,   3,  24,   7,  48,
      31,  64,  63, 128, 127,   0, 255,   0, 255, 128,   0, 128,   0, 192, 128,  64,
     128,  96, 192,  32, 192,  48, 224,  16, 224,   0,   0,  14,  63,   0,   0,  15,
     255,   0,   0,  15, 192,   0, 255, 255,   2, 252, 252,   2, 251, 251,   2, 243,
@@ -149,9 +149,8 @@ const unsigned char jukebox_dx_data[] = {
     252,   0, 248,   0, 255,   0, 255, 255,   7,   0, 128,   0, 128,   0, 128,   0,
     255,   0, 255, 255,   6
 };
-
 const unsigned char jukebox_dx_tiles[] = {
-     37,  37,  25,  38,  39,  40,  37,  37,   2,  41,  42,  43,  37,  37,   9,  44,  45,  46,  47,  48,
+	 37,  37,  25,  38,  39,  40,  37,  37,   2,  41,  42,  43,  37,  37,   9,  44,  45,  46,  47,  48,
      49,  50,  51,  52,  48,  53,  54,  55,  37,  37,   7,  56,  57,  58,  59,  60,  61,  62,  63,  64,
      65,  66,  67,  68,  69,  37,  37,   6,  70,  71,  72,  73,  74,  75,  76,  77,  78,  79,  37,  37,
       2,  80,  81,  82,  37,  37,   4,  83,  84,  37,  85,  86,  87,  88,  37,  89,  90,  91,  92,  93,
@@ -168,8 +167,8 @@ const unsigned char jukebox_dx_tiles[] = {
      37,   2, 157, 157,   2, 188, 189, 190, 191, 192, 193, 193,   4, 194, 195, 193, 193,   2, 188, 189,
     196, 157, 157,   2
 };
-#define jukebox_dx_palette_data_length 7
-#define jukebox_dx_palette_offset 0
+#define jukebox_dx_palette_data_length 7U
+#define jukebox_dx_palette_offset 0U
 const unsigned char jukebox_dx_palettes[] = {
       0,   0,  42,   1,   1,   2,   0,   0,  24,   2,   0,   0,  14,   2,   1,   2,   0,   1,   1,   3,
       2,   1,   0,   0,   2,   1,   1,   2,   0,   0,   5,   1,   1,   2,   0,   0,   4,   1,   0,   1,

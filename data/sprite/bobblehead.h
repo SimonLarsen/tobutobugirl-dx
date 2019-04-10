@@ -1,6 +1,6 @@
 #ifndef BOBBLEHEAD_SPRITES_H
 #define BOBBLEHEAD_SPRITES_H
-#define bobblehead_data_length 36
+#define bobblehead_data_length 36U
 const unsigned char bobblehead_data[] = {
       8,   8,  25,  25,  31,  30,  31,  56,  63,  48, 255, 240, 127,  96,  54,  41,
      54,  41,  86, 107,  73, 117,  69, 125,  69, 125,  43,  56,  24,  24,   8,   8,

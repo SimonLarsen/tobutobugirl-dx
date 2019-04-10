@@ -1,11 +1,11 @@
 #ifndef HIGHSCORE_DX_MAP_H
 #define HIGHSCORE_DX_MAP_H
-#define highscore_dx_data_length 43
-#define highscore_dx_tiles_width 20
-#define highscore_dx_tiles_height 18
-#define highscore_dx_tiles_offset 47
+#define highscore_dx_data_length 43U
+#define highscore_dx_tiles_width 20U
+#define highscore_dx_tiles_height 18U
+#define highscore_dx_tiles_offset 47U
 const unsigned char highscore_dx_data[] = {
-    255,   0, 231,   0, 195,   0, 129,   0, 129,   0, 195,   0, 231,   0, 255,   0,
+	255,   0, 231,   0, 195,   0, 129,   0, 129,   0, 195,   0, 231,   0, 255,   0,
     255, 255,   3,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0,
     255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0,
     230,   0, 230,   0, 230,   0, 224,   0, 230,   6, 230,   0, 230,   0, 255,  25,
@@ -42,9 +42,8 @@ const unsigned char highscore_dx_data[] = {
      31, 255, 255,   2,   1, 255,   1, 127,   1, 127,   1, 255,   1, 255,   1, 255,
       1, 255, 255,   3
 };
-
 const unsigned char highscore_dx_tiles[] = {
-     47,  47,  20,  48,  48,  20,  49,  49,   5,  50,  51,  52,  53,  54,  55,  56,  57,  58,  54,  49,
+	 47,  47,  20,  48,  48,  20,  49,  49,   5,  50,  51,  52,  53,  54,  55,  56,  57,  58,  54,  49,
      49,   5,  59,  59,  20,  47,  47,   2,  60,  60,  16,  47,  47,   4,  60,  60,  16,  47,  47,   4,
      60,  60,  16,  47,  47,   4,  60,  60,  16,  47,  47,   4,  60,  60,   3,  61,  62,  62,   8,  63,
      60,  60,   3,  47,  47,   4,  60,  60,   3,  64,  60,  60,   8,  65,  60,  60,   3,  47,  47,   3,
@@ -54,8 +53,8 @@ const unsigned char highscore_dx_tiles[] = {
      60,  60,   6,  71,  60,  60,   5,  71,  60,  79,  80,  47,  47,   2,  81,  82,  60,  60,   6,  71,
      60,  60,   5,  71,  60,  83,  84,  47,  47,   2,  85,  86,  87,  87,  14,  88,  89,  47,  47,  21
 };
-#define highscore_dx_palette_data_length 3
-#define highscore_dx_palette_offset 0
+#define highscore_dx_palette_data_length 3U
+#define highscore_dx_palette_offset 0U
 const unsigned char highscore_dx_palettes[] = {
       1,   1,  20,   2,   2,  60,   1,   1,   2,   0,   0,  16,   1,   1,   4,   0,   0,  16,   1,   1,
       4,   0,   0,  16,   1,   1,   4,   0,   0,  16,   1,   1,   4,   0,   0,   3,   2,   0,   0,   8,

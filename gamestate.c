@@ -337,9 +337,9 @@ void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles
     }
 }
 
-void selectSetBannerData(UBYTE index, UBYTE pal_buffer) {
+void selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer) {
     SWITCH_ROM_MBC1(SELECTION_DATA_BANK);
-    _selectSetBannerData(index, pal_buffer);
+    _selectSetBannerData(index, part, pal_buffer);
     SWITCH_ROM_MBC1(game_bank);
 }
 

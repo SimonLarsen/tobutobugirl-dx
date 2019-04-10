@@ -1,11 +1,11 @@
 #ifndef BACKGROUND1_MAP_H
 #define BACKGROUND1_MAP_H
-#define background1_data_length 177
-#define background1_tiles_width 18
-#define background1_tiles_height 32
-#define background1_tiles_offset 35
+#define background1_data_length 177U
+#define background1_tiles_width 18U
+#define background1_tiles_height 32U
+#define background1_tiles_offset 35U
 
-extern const unsigned char background1_data[];
 extern const unsigned char background1_tiles[];
+extern const unsigned char background1_data[];
 
 #endif

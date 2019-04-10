@@ -1,6 +1,6 @@
 #ifndef NOTES_SPRITES_H
 #define NOTES_SPRITES_H
-#define notes_data_length 8
+#define notes_data_length 8U
 const unsigned char notes_data[] = {
       0,   0,   2,   2,   6,   6,  12,  14,  60,  60, 248, 248, 240, 240,  56,  56,
       8,  12,   4,   4,   4,   6,   6,  14,  14,  14,  12,  14,   0,   0,   0,   0,

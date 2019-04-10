@@ -1,6 +1,6 @@
 #ifndef BORDER_BORDER_H
 #define BORDER_BORDER_H
-#define border_data_length 255
+#define border_data_length 255U
 const unsigned char border_data1[] = {
     255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0, 255,   0,
       0,  17, 255,   0, 255,   0, 255,   0, 255,   0, 247,  15, 223,  63, 255, 127,
@@ -465,7 +465,7 @@ const unsigned char border_palettes[] = {
      24,  24,   3,  16,  16,  16,  20,  20,   6,  24,  24,   2,  20,  20,   2,  24,  24,   6,  16,  16,  16,  20,  20,   5,  24,  24,   3,  20,  24,  24,   7,  16,
      16,  16,  24,  20,  24,  24,   5,  20,  24,  24,   8,  16,  16,  16
 };
-#define border_num_palettes 3
+#define border_num_palettes 3U
 const unsigned int border_palette_data[] = {
       0, 27338, 30641, 32767,   0, 29631, 17745, 9695, 5303, 19995, 8831, 5400, 3112, 13755, 4245, 2258,
       0,   0, 3147, 4245, 2258, 13755, 27338, 29631, 30641, 32767, 6244, 10473, 16552, 24085, 30525, 6828,
