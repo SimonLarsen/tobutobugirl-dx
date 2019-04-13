@@ -3,7 +3,7 @@
 
 #define digital_palette_data_length 1U
 const unsigned int digital_palette_data[] = {
-    32767, 22197, 5286,   0
+    32767, 22197, 7401,   0
 };
 
 #endif

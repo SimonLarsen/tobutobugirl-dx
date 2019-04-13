@@ -76,5 +76,5 @@ const unsigned char selection4_palettes[] = {
 };
 
 const unsigned int selection4_palette_data[] = {
-    27503, 19763, 18600,   0
+    27503, 19763, 18599,   0
 };

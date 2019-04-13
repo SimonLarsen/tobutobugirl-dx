@@ -101,6 +101,6 @@ const unsigned char background3_palettes[] = {
 };
 
 const unsigned int background3_palette_data[] = {
-    32767, 21064, 16586,   0,
-    18206, 21064, 16586,   0
+    32767, 20039, 16586,   0,
+    17182, 20039, 16586,   0
 };

@@ -1,9 +1,9 @@
 CC=lcc
 CFLAGS=-Wa-l -Wl-m -Wl-j
 SDCCN=/home/simon/share/sdcc-3.8.0/bin/sdcc -mgbz80 --no-std-crt0 -I "$(GBDK_DIR)/include" -I "$(GBDK_DIR)/include/asm"
-IMGTOGB=imgtogb.py
+IMGTOGB=imgtogb.py -l
 IMGTOSGB=imgtosgb.py
-GETPALETTE=imgtogbpal.py
+GETPALETTE=imgtogbpal.py -l
 MMLGB=MMLGB.jar
 
 define compile-source

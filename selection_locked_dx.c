@@ -50,5 +50,5 @@ const unsigned char selection_locked_dx_palettes[] = {
 
 const unsigned int selection_locked_dx_palette_data[] = {
       0, 12521, 27503, 32767,
-      0, 12521, 4245, 15067
+      0, 12521, 4245, 14043
 };

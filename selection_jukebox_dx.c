@@ -61,7 +61,7 @@ const unsigned char selection_jukebox_dx_palettes[] = {
 const unsigned int selection_jukebox_dx_palette_data[] = {
       0, 9380, 9852, 27614,
       0, 9380, 9695, 27614,
-      0, 5303, 9695, 27614,
-      0, 9380, 5303, 27614,
-      0, 5303, 9852, 27614
+      0, 5299, 9695, 27614,
+      0, 9380, 5299, 27614,
+      0, 5299, 9852, 27614
 };

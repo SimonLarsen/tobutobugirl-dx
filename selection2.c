@@ -70,5 +70,5 @@ const unsigned char selection2_palettes[] = {
 };
 
 const unsigned int selection2_palette_data[] = {
-    32767, 27503, 29224,   0
+    32767, 27503, 29223,   0
 };

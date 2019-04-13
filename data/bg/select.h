@@ -39,8 +39,8 @@ const unsigned char select_palettes[] = {
 };
 
 const unsigned int select_palette_data[] = {
-    23911, 14531, 11516,   0,
-    31710,   0, 11516,   0,
-    32767, 14531,   0,   0
+    22887, 13507, 10492,   0,
+    31710,   0, 10492,   0,
+    32767, 13507,   0,   0
 };
 #endif

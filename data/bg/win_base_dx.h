@@ -37,7 +37,7 @@ const unsigned char win_base_dx_palettes[] = {
 };
 
 const unsigned int win_base_dx_palette_data[] = {
-    32767, 20083, 14798,   0,
-    23911, 14531, 32767,   0
+    32767, 20083, 13773,   0,
+    22887, 13507, 32767,   0
 };
 #endif

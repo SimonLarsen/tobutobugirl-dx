@@ -38,6 +38,6 @@ const unsigned char hud_dx_palettes[] = {
 
 const unsigned int hud_dx_palette_data[] = {
     28638, 30300,   0, 18668,
-    28638, 8937, 27849,   0
+    28638, 7913, 27881,   0
 };
 #endif

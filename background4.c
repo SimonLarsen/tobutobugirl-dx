@@ -144,7 +144,7 @@ const unsigned char background4_palettes[] = {
 };
 
 const unsigned int background4_palette_data[] = {
-    32767, 18206, 16586,   0,
-    32632, 21064, 16586,   0,
-    32632, 17745, 16586,   0
+    32767, 17182, 16586,   0,
+    32632, 20039, 16586,   0,
+    32632, 16720, 16586,   0
 };

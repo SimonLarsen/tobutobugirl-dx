@@ -53,5 +53,5 @@ const unsigned char selection3_palettes[] = {
 };
 
 const unsigned int selection3_palette_data[] = {
-    22365, 21064, 16586,   0
+    22365, 20039, 16586,   0
 };

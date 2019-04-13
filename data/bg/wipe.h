@@ -62,7 +62,7 @@ const unsigned char wipe_palettes[] = {
 };
 
 const unsigned int wipe_palette_data[] = {
-    23911, 14531, 11516,   0,
-    32767, 14531, 11516,   0
+    22887, 13507, 10492,   0,
+    32767, 13507, 10492,   0
 };
 #endif

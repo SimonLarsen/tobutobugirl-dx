@@ -98,6 +98,6 @@ const unsigned char selection1_palettes[] = {
 
 const unsigned int selection1_palette_data[] = {
     32767, 29258, 24812,   0,
-      0, 9162, 24812,   0,
-      0, 9162, 2339,   0
+      0, 11082, 24812,   0,
+      0, 11082, 2339,   0
 };

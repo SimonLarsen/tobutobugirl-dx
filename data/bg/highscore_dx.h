@@ -68,8 +68,8 @@ const unsigned char highscore_dx_palettes[] = {
 };
 
 const unsigned int highscore_dx_palette_data[] = {
-    32767, 20083, 14798,   0,
-    23911, 14531, 32767,   0,
-    32767, 11516, 19995,   0
+    32767, 20083, 13773,   0,
+    22887, 13507, 32767,   0,
+    32767, 10492, 18907,   0
 };
 #endif
