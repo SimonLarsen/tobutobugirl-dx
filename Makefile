@@ -243,4 +243,4 @@ tobudx.gb: ram.o $(OBJ) $(OBJ_SONGS) \
 	$(OBJ_BANK1) $(OBJ_BANK2) $(OBJ_BANK3) $(OBJ_BANK4) \
 	$(OBJ_BANK5) $(OBJ_BANK6) $(OBJ_BANK7) $(OBJ_BANK8) \
 	$(OBJ_BANK9) $(OBJ_BANK10) $(OBJ_BANK11) $(OBJ_BANK12)
-	$(CC) $(CFLAGS) -Wl-yt19 -Wl-yo16 -Wl-ya1 -Wl-yp0x143=0x80 -Wl-yp0x146=0x03 -Wl-yp0x14A=0x01 -Wl-yp0x14B=0x33 $^ -o $@
+	$(CC) $(CFLAGS) -Wl-yt03 -Wl-yo16 -Wl-ya1 -Wl-yp0x143=0x80 -Wl-yp0x146=0x03 -Wl-yp0x14A=0x01 -Wl-yp0x14B=0x33 $^ -o $@
