@@ -1078,10 +1078,10 @@ void deathAnimation() {
         } else {
             offset = ((ticks-16U) >> 1);
             frame = 28U + ((ticks & 4U) >> 1);
-            setSprite(player_x-8U-offset, player_y-offset, frame, OBJ_PAL0);
-            setSprite(player_x-8U+offset, player_y-offset, frame, OBJ_PAL0);
-            setSprite(player_x-8U-offset, player_y+offset, frame, OBJ_PAL0);
-            setSprite(player_x-8U+offset, player_y+offset, frame, OBJ_PAL0);
+            setSprite(player_x-12U-offset, player_y-offset, frame, OBJ_PAL0);
+            setSprite(player_x-12U+offset, player_y-offset, frame, OBJ_PAL0);
+            setSprite(player_x-12U-offset, player_y+offset, frame, OBJ_PAL0);
+            setSprite(player_x-12U+offset, player_y+offset, frame, OBJ_PAL0);
         }
 
         updateEntities();
