@@ -3,7 +3,7 @@
 
 #define sprites_palette_data_length 8U
 const unsigned int sprites_palette_data[] = {
-    32767, 28638, 7452,   0,
+    32767, 28638, 7420,   0,
     32767, 28638, 9695,   0,
     32767, 28638, 13755,   0,
     32767, 28638, 18777,   0,
