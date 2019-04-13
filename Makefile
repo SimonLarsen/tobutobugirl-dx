@@ -3,10 +3,15 @@ CFLAGS=-Wa-l -Wl-m -Wl-j
 SDCCN=/home/simon/share/sdcc-3.8.0/bin/sdcc -mgbz80 --no-std-crt0 -I "$(GBDK_DIR)/include" -I "$(GBDK_DIR)/include/asm"
 IMGTOGB=imgtogb.py
 IMGTOSGB=imgtosgb.py
+GETPALETTE=imgtogbpal.py
 MMLGB=MMLGB.jar
 
 define compile-source
 	$(CC) $(CFLAGS) -c $<
+endef
+
+define make-palette
+	$(GETPALETTE) $< $@
 endef
 
 default: tobudx.gb
@@ -15,7 +20,6 @@ include backgrounds.mk
 include sprites.mk
 include sgb.mk
 include songs.mk
-include sounds.mk
 
 OBJ=main.o fade.o gamestate.o set_data_rle.o cos.o circles.o zoom_circles.o characters.o arrow.o sound.o \
 	mmlgb/driver/music.o mmlgb/driver/freq.o mmlgb/driver/noisefreq.o mmlgb/driver/vib.o \
@@ -97,7 +101,7 @@ circles.o: circles.c circles.h
 cos.o: cos.c cos.h
 	${compile-source}
 
-ending.o: ending.c defines.h ending.h gamestate.h set_data_rle.h fade.h intro_bg.h intro_bg_dx.h data/bg/ending_thanks.h data/bg/ending_thanks_dx.h data/sprite/ending_sprites1.h data/sprite/ending_sprites2.h mmlgb/driver/music.h
+ending.o: ending.c defines.h ending.h gamestate.h set_data_rle.h fade.h intro_bg.h intro_bg_dx.h data/palettes/ending_sprites.h data/bg/ending_thanks.h data/bg/ending_thanks_dx.h data/sprite/ending_sprites1.h data/sprite/ending_sprites2.h mmlgb/driver/music.h
 	${compile-source}
 
 fade.asm: fade.c gamestate.h sound.h fade.h
@@ -106,7 +110,7 @@ fade.asm: fade.c gamestate.h sound.h fade.h
 fade.o: fade.asm
 	${compile-source}
 
-game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h data/bg/hud.h data/bg/hud_dx.h data/bg/clock.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h
+game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h data/palettes/sprites.h data/bg/hud.h data/bg/hud_dx.h data/bg/clock.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h
 	$(SDCCN) -bo 1 -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
 
 game.o: game.asm
@@ -121,7 +125,7 @@ gamestate.o: gamestate.asm
 set_data_rle.o: set_data_rle.asm
 	${compile-source}
 
-highscore.o: highscore.c defines.h gamestate.h set_data_rle.h fade.h cos.h highscore.h ram.h sound.h characters.h arrow.h data/sprite/empty.h data/bg/highscore.h data/bg/highscore_dx.h circles.h selection1.h selection2.h selection3.h selection4.h selection_locked.h
+highscore.o: highscore.c defines.h gamestate.h set_data_rle.h fade.h cos.h highscore.h ram.h sound.h characters.h arrow.h data/palettes/highscore_sprites.h data/sprite/empty.h data/bg/highscore.h data/bg/highscore_dx.h circles.h selection1.h selection2.h selection3.h selection4.h selection_locked.h
 	${compile-source}
 
 intro_bg.o: intro_bg.c intro_bg.h
@@ -130,10 +134,10 @@ intro_bg.o: intro_bg.c intro_bg.h
 intro_bg_dx.o: intro_bg_dx.c intro_bg_dx.h
 	${compile-source}
 
-intro.o: intro.c defines.h fade.h gamestate.h set_data_rle.h intro.h intro_bg_dx.h data/sprite/intro_sprites.h data/sprite/intro_flash.h
+intro.o: intro.c defines.h fade.h gamestate.h set_data_rle.h intro.h intro_bg_dx.h data/palettes/intro_sprites.h data/sprite/intro_sprites.h data/sprite/intro_flash.h
 	${compile-source}
 
-jukebox.o: jukebox.c defines.h jukebox.h fade.h gamestate.h set_data_rle.h cos.h sound.h mmlgb/driver/music.h data/bg/jukebox.h data/bg/jukebox_dx.h data/sprite/digital.h arrow.h data/sprite/notes.h data/sprite/bobblehead.h data/sprite/bobblehead_dx.h
+jukebox.o: jukebox.c defines.h jukebox.h fade.h gamestate.h set_data_rle.h cos.h sound.h mmlgb/driver/music.h arrow.h data/palettes/digital.h data/palettes/jukebox_sprites.h data/bg/jukebox.h data/bg/jukebox_dx.h data/sprite/digital.h data/sprite/notes.h data/sprite/bobblehead.h data/sprite/bobblehead_dx.h
 	${compile-source}
 
 logos.o: logos.c defines.h gamestate.h set_data_rle.h logos.h fade.h sound.h mmlgb/driver/music.h data/bg/tangram.h data/bg/potato.h data/bg/potato_dx.h data/sprite/shine.h
@@ -142,7 +146,7 @@ logos.o: logos.c defines.h gamestate.h set_data_rle.h logos.h fade.h sound.h mml
 main.o: main.c gamestate.h main.h ram.h sound.h mmlgb/driver/music.h logos.h intro.h title.h select.h game.h winscreen.h highscore.h unlocked.h jukebox.h ending.h wipe.h minigamescore.h
 	${compile-source}
 
-minigamescore.o: minigamescore.c defines.h fade.h gamestate.h set_data_rle.h sound.h ram.h data/bg/minigame_score_bg.h characters.h zoom_circles.h
+minigamescore.o: minigamescore.c defines.h fade.h gamestate.h set_data_rle.h sound.h ram.h data/palettes/minigame_score.h data/bg/minigame_score_bg.h characters.h zoom_circles.h
 	${compile-source}
 
 pause.o: pause.c defines.h gamestate.h fade.h sound.h ram.h mmlgb/driver/music.h characters.h
@@ -151,8 +155,7 @@ pause.o: pause.c defines.h gamestate.h fade.h sound.h ram.h mmlgb/driver/music.h
 ram.o: ram.c 
 	${compile-source}
 
-
-select.o: select.c defines.h select.h fade.h gamestate.h set_data_rle.h cos.h ram.h sound.h mmlgb/driver/music.h characters.h arrow.h data/sprite/togglecat.h circles.h data/bg/catface.h data/bg/catface_dx.h data/bg/select.h selection1.h selection2.h selection3.h selection4.h selection_highscore.h selection_highscore_dx.h selection_jukebox.h selection_jukebox_dx.h selection_locked.h selection_locked_dx.h
+select.o: select.c defines.h select.h fade.h gamestate.h set_data_rle.h cos.h ram.h sound.h mmlgb/driver/music.h characters.h arrow.h circles.h data/palettes/select_sprites.h data/sprite/togglecat.h data/bg/catface.h data/bg/catface_dx.h data/bg/select.h selection1.h selection2.h selection3.h selection4.h selection_highscore.h selection_highscore_dx.h selection_jukebox.h selection_jukebox_dx.h selection_locked.h selection_locked_dx.h
 	${compile-source}
 
 selection1.o: selection1.c selection1.h
@@ -197,10 +200,10 @@ sound.o: sound.c sound.h gamestate.h mmlgb/driver/music.h mmlgb/driver/notes.h m
 sound_data.o: sound_data.c data/sounds/sfx_bump.h data/sounds/sfx_bump_alien.h data/sounds/sfx_cat_disable.h data/sounds/sfx_cat_enable.h data/sounds/sfx_dash.h data/sounds/sfx_highscore_switch.h data/sounds/sfx_jetpack.h data/sounds/sfx_menu_cancel.h data/sounds/sfx_menu_confirm.h data/sounds/sfx_menu_locked.h data/sounds/sfx_menu_switch.h data/sounds/sfx_player_die.h data/sounds/sfx_stomp_alien.h data/sounds/sfx_stomp_bat.h data/sounds/sfx_stomp_bird.h data/sounds/sfx_stomp_ghost.h data/sounds/sfx_time_low.h data/sounds/sfx_time_out.h data/sounds/sfx_time_pickup.h data/sounds/sfx_warp_start.h data/sounds/sfx_rank_crash.h
 	${compile-source}
 
-title.o: title.c defines.h title.h fade.h gamestate.h set_data_rle.h sound.h ram.h data/bg/titlescreen.h data/bg/titlescreen_dx.h data/bg/titlescreen_bg.h characters.h data/sprite/title_cat.h
+title.o: title.c defines.h title.h fade.h gamestate.h set_data_rle.h sound.h ram.h data/palettes/title_sprites.h data/palettes/minigame_fade.h data/bg/titlescreen.h data/bg/titlescreen_dx.h data/bg/titlescreen_bg.h characters.h data/sprite/title_cat.h
 	${compile-source}
 
-unlocked.o: unlocked.c defines.h unlocked.h fade.h gamestate.h set_data_rle.h characters.h zoom_circles.h data/bg/unlocked.h selection2.h selection3.h selection4.h selection_jukebox.h
+unlocked.o: unlocked.c defines.h unlocked.h fade.h gamestate.h set_data_rle.h characters.h zoom_circles.h data/palettes/unlocked.h data/bg/unlocked.h selection2.h selection3.h selection4.h selection_jukebox.h
 	${compile-source}
 
 win1.o: win1.c win1.h
@@ -218,7 +221,7 @@ win3.o: win3.c win3.h
 win4.o: win4.c win4.h
 	${compile-source}
 
-winscreen.o: winscreen.c defines.h gamestate.h set_data_rle.h fade.h winscreen.h sound.h characters.h data/bg/win_base.h data/bg/win_base_dx.h data/bg/rank_banner.h data/bg/rank_banner_dx.h data/sprite/ranks.h circles.h mmlgb/driver/music.h mmlgb/driver/notes.h mmlgb/driver/freq.h
+winscreen.o: winscreen.c defines.h gamestate.h set_data_rle.h fade.h winscreen.h sound.h characters.h data/palettes/ranks.h data/bg/win_base.h data/bg/win_base_dx.h data/bg/rank_banner.h data/bg/rank_banner_dx.h data/sprite/ranks.h circles.h mmlgb/driver/music.h mmlgb/driver/notes.h mmlgb/driver/freq.h
 	${compile-source}
 
 wipe.o: wipe.c main.h wipe.h defines.h fade.h gamestate.h set_data_rle.h sound.h circles.h data/bg/wipe.h data/sprite/wipe_marker.h
@@ -226,6 +229,12 @@ wipe.o: wipe.c main.h wipe.h defines.h fade.h gamestate.h set_data_rle.h sound.h
 
 zoom_circles.o: zoom_circles.c zoom_circles.h
 	${compile-source}
+
+data/sounds/%.h: data/sounds/%.mml
+	java -jar $(MMLGB) $< $@
+
+data/palettes/%.h: data/palettes/%.png
+	${make-palette}
 
 %.o: data/songs/%.asm
 	$(CC) $(CFLAGS) -c $< -o $@

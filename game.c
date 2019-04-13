@@ -13,6 +13,8 @@
 #include "mmlgb/driver/music.h"
 #include "pause.h"
 
+// Palettes
+#include "data/palettes/sprites.h"
 // Maps
 #include "data/bg/hud.h"
 #include "data/bg/hud_dx.h"
@@ -83,17 +85,6 @@ const UBYTE spawn_level_data[96] = {
 UBYTE spawn_level_gen[8];
 
 #define PROGRESS_POS(x) mydiv(((x) << 1U), 3U)
-
-const UWORD sprite_palettes[32] = {
-    32767, 28638, 8476, 0,
-    32767, 28638, 9695, 0,
-    32767, 28638, 13755, 0,
-    32767, 28638, 18777, 0,
-    32767, 28638, 13993, 0,
-    32767, 6940, 8476, 0,
-    32767, 31513, 11333, 0,
-    32767, 28638, 22207, 12701
-};
 
 const UWORD clock_palettes[4] = {
     32767, 18668, 18668, 0
@@ -179,7 +170,7 @@ void initGame() {
     set_sprite_data(24U, sprites_data_length, sprites_data);
     set_sprite_data(0U, 4U, skin_data);
     set_sprite_data(4U, portal_data_length, portal_data);
-    set_sprite_palette(0U, 8U, sprite_palettes);
+    set_sprite_palette(0U, sprites_palette_data_length, sprites_palette_data);
 
     setIngameBackground(level);
 
@@ -308,7 +299,7 @@ void restoreGame() {
     skin_data = getSkinData();
     set_sprite_data(0U, 24U, skin_data);
     set_sprite_data(24U, sprites_data_length, sprites_data);
-    set_sprite_palette(0U, 8U, sprite_palettes);
+    set_sprite_palette(0U, sprites_palette_data_length, sprites_palette_data);
 
     set_bkg_palette(0U, 8U, palette_buffer);
 

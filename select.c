@@ -12,9 +12,9 @@
 
 #include "characters.h"
 #include "arrow.h"
-#include "data/sprite/togglecat.h"
-
 #include "circles.h"
+#include "data/palettes/select_sprites.h"
+#include "data/sprite/togglecat.h"
 #include "data/bg/catface.h"
 #include "data/bg/catface_dx.h"
 #include "data/bg/select.h"
@@ -31,10 +31,12 @@ UBYTE cat_frame_reverse;
 extern UBYTE mainmenu_song_data;
 extern UBYTE potaka_song_data;
 
+/*
 const UWORD select_sprite_palettes[8] = {
 	32767, 32767, 11516, 0,
 	32767, 28638, 9695, 0
 };
+*/
 
 const UBYTE cat_even_tiles[6] = { 9U, 11U, 9U, 11U, 9U, 11U };
 const UBYTE cat_odd_tiles[6]  = { 10U, 12U, 10U, 12U, 10U, 12U };
@@ -63,7 +65,7 @@ void initSelect() {
 		buf[0] = 3U; buf[1] = 3U; buf[2] = 96U;
 		set_bkg_tiles_rle(2U, 10U, 16U, 6U, buf);
 		VBK_REG = 0U;
-		set_sprite_palette(0U, 2U, select_sprite_palettes);
+		set_sprite_palette(0U, select_sprites_palette_data_length, select_sprites_palette_data);
 	} else {
 	    set_bkg_data(catface_tiles_offset, catface_data_length, catface_data);
     }

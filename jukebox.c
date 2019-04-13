@@ -8,10 +8,12 @@
 #include "sound.h"
 #include "mmlgb/driver/music.h"
 
+#include "arrow.h"
+#include "data/palettes/digital.h"
+#include "data/palettes/jukebox_sprites.h"
 #include "data/bg/jukebox.h"
 #include "data/bg/jukebox_dx.h"
 #include "data/sprite/digital.h"
-#include "arrow.h"
 #include "data/sprite/notes.h"
 #include "data/sprite/bobblehead.h"
 #include "data/sprite/bobblehead_dx.h"
@@ -52,20 +54,6 @@ const UBYTE song_names[JUKEBOX_NUM_SONGS][8] = {
 
 const UBYTE jukebox_unlocked[5U] = { 4U, 7U, 8U, 10U, 11U }; 
 
-const UWORD digital_palette[4] = {
-    RGB(31, 31, 31),
-    RGB(20, 20, 20),
-    RGB(6, 5, 5),
-    RGB(0, 0, 0)
-};
-
-const UWORD jukebox_palettes[16] = {
-    32767, 8476, 4245, 0,
-    32767, 2187, 4245, 0,
-    32767, 32767, 11516, 0,
-    32767, 32767, 13755, 3114
-};
-
 void initJukebox() {
     UBYTE i, j;
 
@@ -83,11 +71,11 @@ void initJukebox() {
 
     if(CGB_MODE) {
         set_sprite_data(arrow_data_length+notes_data_length, bobblehead_dx_data_length, bobblehead_dx_data);
-        set_sprite_palette(0U, 4U, jukebox_palettes);
+        set_sprite_palette(0U, jukebox_sprites_palette_data_length, jukebox_sprites_palette_data);
         set_bkg_data_rle(jukebox_dx_tiles_offset, jukebox_dx_data_length, jukebox_dx_data);
         set_bkg_tiles_rle(0U, 0U, jukebox_dx_tiles_width, jukebox_dx_tiles_height, jukebox_dx_tiles);
         set_bkg_palette_buffer(0U, jukebox_dx_palette_data_length, jukebox_dx_palette_data);
-        set_bkg_palette_buffer(7U, 1U, digital_palette);
+        set_bkg_palette_buffer(7U, digital_palette_data_length, digital_palette_data);
         VBK_REG = 1U;
         set_bkg_tiles_rle(0U, 0U, jukebox_dx_tiles_width, jukebox_dx_tiles_height, jukebox_dx_palettes);
         j = 7U;

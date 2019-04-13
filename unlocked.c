@@ -9,6 +9,7 @@
 
 #include "characters.h"
 #include "zoom_circles.h"
+#include "data/palettes/unlocked.h"
 #include "data/bg/unlocked.h"
 #include "selection2.h"
 #include "selection3.h"
@@ -30,12 +31,6 @@ const UBYTE unlocked_messages[3][24] = {
 		10U, 10U, 10U, 14U, 28U, 15U, 11U, 23U, 10U, 10U, 10U, 10U, // "   DREAM    "
 		10U, 10U, 31U, 24U, 22U, 25U, 13U, 21U, 15U, 14U, 10U, 10U  // "  UNLOCKED  "
 	}
-};
-
-const UWORD unlocked_palettes[8] = {
-    19749, 10370, 32767, 0,
-    32767, 15898, 5327, 0
-
 };
 
 const UBYTE unlocked_bkg_palettes[45] = {
@@ -65,7 +60,7 @@ void initUnlocked() {
 	set_bkg_tiles_rle(0U, 0U, unlocked_tiles_width, unlocked_tiles_height, unlocked_tiles);
 
     if(CGB_MODE) {
-        set_bkg_palette_buffer(0U, 2U, unlocked_palettes);
+        set_bkg_palette_buffer(0U, unlocked_palette_data_length, unlocked_palette_data);
         VBK_REG = 1U;
         set_bkg_tiles_rle(0U, 0U, 20U, 18U, unlocked_bkg_palettes);
         VBK_REG = 0U;

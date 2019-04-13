@@ -8,6 +8,7 @@
 
 #include "intro_bg.h"
 #include "intro_bg_dx.h"
+#include "data/palettes/intro_sprites.h"
 #include "data/sprite/intro_sprites.h"
 #include "data/sprite/intro_flash.h"
 
@@ -18,13 +19,6 @@ extern UBYTE intro_song_data;
 #define INTRO_STATE_WALK  1U
 #define INTRO_STATE_TRIP  2U
 #define INTRO_STATE_BLINK 3U
-
-const UWORD intro_sprite_palettes[16] = {
-    32767, 28638, 8476, 0,
-    32767, 28638, 9695, 0,
-    32767, 32767, 28180, 0,
-    32767, 6940, 6940, 0
-};
 
 void initIntro() {
 	disable_interrupts();
@@ -48,7 +42,7 @@ void initIntro() {
     }
 
 	set_sprite_data(0U, intro_sprites_data_length, intro_sprites_data);
-    set_sprite_palette(0U, 4U, intro_sprite_palettes);
+    set_sprite_palette(0U, intro_sprites_palette_data_length, intro_sprites_palette_data);
 
 	clearSprites();
 

@@ -7,6 +7,7 @@
 #include "set_data_rle.h"
 #include "intro_bg.h"
 #include "intro_bg_dx.h"
+#include "data/palettes/ending_sprites.h"
 #include "data/bg/ending_thanks.h"
 #include "data/bg/ending_thanks_dx.h"
 #include "data/sprite/ending_sprites1.h"
@@ -27,14 +28,6 @@ UBYTE ending_frame;
 
 extern UBYTE ending_part1_song_data;
 extern UBYTE ending_part2_song_data;
-
-const UWORD ending_sprite_palettes[16] = {
-	32767, 28638, 8476, 0,
-	32767, 28638, 9695, 0,
-	32767, 6940, 6940, 0,
-	8476, 8476, 8476, 8476
-};
-
 
 void initEnding() {
 	disable_interrupts();
@@ -59,7 +52,7 @@ void initEnding() {
 	}
 
 	set_sprite_data(0U, ending_sprites1_data_length, ending_sprites1_data);
-	set_sprite_palette(0U, 4U, ending_sprite_palettes);
+	set_sprite_palette(0U, ending_sprites_palette_data_length, ending_sprites_palette_data);
 
 	clearSprites();
 

@@ -9,12 +9,13 @@
 #include "sound.h"
 
 #include "characters.h"
+#include "circles.h"
+#include "data/palettes/ranks.h"
 #include "data/bg/win_base.h"
 #include "data/bg/win_base_dx.h"
 #include "data/bg/rank_banner.h"
 #include "data/bg/rank_banner_dx.h"
 #include "data/sprite/ranks.h"
-#include "circles.h"
 #include "mmlgb/driver/music.h"
 #include "mmlgb/driver/notes.h"
 #include "mmlgb/driver/freq.h"
@@ -27,10 +28,6 @@ const UBYTE winscreen_clear_text[5] = {
 
 const UBYTE sharkwave_data[16] = {
 	1U, 35U, 69U, 103U, 138U, 166U, 205U, 239U, 255U, 134U, 67U, 50U, 162U, 17U, 16U, 0U
-};
-
-const UWORD ranks_palettes[4] = {
-    31775, 32767, 8476, 0
 };
 
 void initWinscreen() {
@@ -58,7 +55,7 @@ void initWinscreen() {
         VBK_REG = 1U;
 	    set_bkg_tiles_rle(0U, 0U, win_base_dx_tiles_width, win_base_dx_tiles_height, win_base_dx_palettes);
         VBK_REG = 0U;
-        set_sprite_palette(0U, 1U, ranks_palettes);
+        set_sprite_palette(0U, ranks_palette_data_length, ranks_palette_data);
     } else {
 	    set_bkg_data_rle(win_base_tiles_offset, win_base_data_length, win_base_data);
         set_bkg_data_rle(rank_banner_tiles_offset, rank_banner_data_length, rank_banner_data);

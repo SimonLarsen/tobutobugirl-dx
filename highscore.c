@@ -12,18 +12,14 @@
 
 #include "characters.h"
 #include "arrow.h"
+#include "data/palettes/highscore_sprites.h"
 #include "data/sprite/empty.h"
-
 #include "data/bg/highscore.h"
 #include "data/bg/highscore_dx.h"
 #include "circles.h"
 
 extern UBYTE highscore_song_data;
 extern UBYTE dream_score_song_data;
-
-const UWORD highscore_palettes[4] = {
-    32767, 32767, 11516, 0,
-};
 
 void initHighscore() {
     UBYTE buf[3];
@@ -38,7 +34,7 @@ void initHighscore() {
 	    set_bkg_data_rle(highscore_dx_tiles_offset, highscore_dx_data_length, highscore_dx_data);
 	    set_bkg_tiles_rle(0U, 0U, highscore_dx_tiles_width, highscore_dx_tiles_height, highscore_dx_tiles);
         set_bkg_palette_buffer(highscore_dx_palette_offset, highscore_dx_palette_data_length, highscore_dx_palette_data);
-        set_sprite_palette(0U, 1U, highscore_palettes);
+        set_sprite_palette(0U, highscore_sprites_palette_data_length, highscore_sprites_palette_data);
         VBK_REG = 1U;
 	    set_bkg_tiles_rle(0U, 0U, highscore_dx_tiles_width, highscore_dx_tiles_height, highscore_dx_palettes);
         buf[0] = 0U; buf[1] = 0U; buf[2] = 18U;

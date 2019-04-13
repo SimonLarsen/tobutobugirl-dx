@@ -17,7 +17,7 @@ extern UBYTE tangram_vox_song_data;
 extern UBYTE potato_jingle_song_data;
 
 const UWORD tangram_flash_palette[4] = {
-    32767, 32767, 32767, 32767
+    32767, 32767, 32767, 32767 // pure white
 };
 
 void initLogos() {

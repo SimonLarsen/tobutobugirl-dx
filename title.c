@@ -9,6 +9,8 @@
 #include "ram.h"
 #include "mmlgb/driver/music.h"
 
+#include "data/palettes/title_sprites.h"
+#include "data/palettes/minigame_fade.h"
 #include "data/bg/titlescreen.h"
 #include "data/bg/titlescreen_dx.h"
 #include "data/bg/titlescreen_bg.h"
@@ -24,19 +26,6 @@ const UBYTE title_message[11] = {
 
 const UBYTE minigame_bkg_palettes[6] = {
 	0U, 0U, 180U, 0U, 0U, 180U
-};
-
-const UWORD title_sprite_palette_data[12] = {
-	32767, 28638, 8476, 0,
-	32767, 28638, 9695, 0,
-	32767, 32767, 28180, 0
-};
-
-const UWORD minigame_fade_palettes[32] = {
-	27055, 27054, 27022, 27022, 25998, 25998, 25966, 24941,
-	24941, 23917, 23917, 23885, 22861, 22861, 22861, 22860,
-	21804, 21804, 21804, 20780, 20780, 20748, 19723, 19723,
-	18699, 18699, 18667, 18667, 17642, 17642, 17610, 16586
 };
 
 UBYTE next_enemy;
@@ -68,7 +57,7 @@ void initTitle() {
 
 	set_sprite_data(0U, 37U, characters_data);
 	set_sprite_data(38U, title_cat_data_length, title_cat_data);
-	set_sprite_palette(0U, 3U, title_sprite_palette_data);
+	set_sprite_palette(0U, title_sprites_palette_data_length, title_sprites_palette_data);
 
 	OBP0_REG = 0xD0U; // 11010000
 	BGP_REG = 0xE4U;  // 11100100
@@ -442,7 +431,7 @@ void enterTitle() {
 		else if(player_yspeed > 240U) player_yspeed = 240U;
 
 		if(scroll_y < 0x40U) {
-			palette_buffer[2] = minigame_fade_palettes[scroll_y >> 1];
+			palette_buffer[2] = minigame_fade_palette_data[scroll_y >> 1];
 			set_bkg_palette(0U, 1U, palette_buffer);
 		}
 

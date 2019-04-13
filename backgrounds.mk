@@ -1,7 +1,3 @@
-backgrounds: logos_backgrounds intro_backgrounds title_backgrounds select_backgrounds ingame_backgrounds pause_backgrounds winscreen_backgrounds highscore_backgrounds ending_backgrounds unlocked_backgrounds jukebox_backgrounds wipe_backgrounds minigame_score_backgrounds selection_backgrounds common_backgrounds
-
-logos_backgrounds: data/bg/tangram.h data/bg/potato.h data/bg/potato_dx.h
-
 data/bg/tangram.h: data/bg/tangram.png data/bg/tangram_dx.png
 	$(IMGTOGB) --map --rle $< --dx data/bg/tangram_dx.png $@
 
@@ -10,10 +6,6 @@ data/bg/potato.h: data/bg/potato.png
 
 data/bg/potato_dx.h: data/bg/potato_dx.png
 	$(IMGTOGB) --map --rle -c $< --dx data/bg/potato_dx.png $@
-
-intro_backgrounds:
-
-title_backgrounds: data/bg/titlescreen.h data/bg/titlescreen_dx.h data/bg/titlescreen_bg.h
 
 data/bg/titlescreen.h: data/bg/titlescreen.png
 	$(IMGTOGB) --map --rle $< $@
@@ -34,8 +26,6 @@ data/bg/catface_dx.h: data/bg/catface_dx.png
 
 data/bg/select.h: data/bg/select.png data/bg/select_dx.png
 	$(IMGTOGB) --map --rle -O 13 $< --dx data/bg/select_dx.png $@
-
-ingame_backgrounds: data/bg/hud.h data/bg/hud_dx.h data/bg/clock.h background1.h background1_dx.h background2.h background3.h background4.h pause_bg.h
 
 data/bg/hud.h: data/bg/hud.png
 	$(IMGTOGB) --map $< $@
@@ -63,12 +53,6 @@ background4.h background4.c: data/bg/background4.png data/bg/background4_dx.png
 
 pause_bg.h pause_bg.c: data/bg/pause_bg.png data/bg/pause_bg_dx.png
 	$(IMGTOGB) --map -O 35 --rle $< --dx data/bg/pause_bg_dx.png -C pause_bg.c pause_bg.h
-
-winscreen_backgrounds: data/bg/win_base.h data/bg/win_base_dx.h data/bg/rank_banner.h data/bg/rank_banner_dx.h \
-	win1.c win1.h win1_dx.c win1_dx.h \
-	win2.c win2.h win2_dx.c win2_dx.h \
-	win3.c win3.h win3_dx.c win3_dx.h \
-	win4.c win4.h win4_dx.c win4_dx.h
 
 data/bg/win_base.h: data/bg/win_base.png
 	$(IMGTOGB) --map -O 40 --rle $< $@
@@ -106,8 +90,6 @@ win4.c win4.h: data/bg/win4.png
 win4_dx.c win4_dx.h: data/bg/win4_dx.png
 	$(IMGTOGB) --map -O 91 --rle $< -P 2 -c -C win4_dx.c win4_dx.h
 
-highscore_backgrounds: data/bg/highscore.h data/bg/highscore_dx.h data/sprite/empty.h
-
 data/bg/highscore.h: data/bg/highscore.png
 	$(IMGTOGB) --map -O 47 --rle $< $@
 
@@ -116,8 +98,6 @@ data/bg/highscore_dx.h: data/bg/highscore_dx.png data/palettes/highscore.png
 
 data/sprite/empty.h: data/sprite/empty.png
 	$(IMGTOGB) $< $@
-
-ending_backgrounds: data/bg/ending_thanks.h
 
 data/bg/ending_thanks.h: data/bg/ending_thanks.png
 	$(IMGTOGB) --map -O 174 --rle $< $@
@@ -130,35 +110,17 @@ unlocked_backgrounds: data/bg/unlocked.h
 data/bg/unlocked.h: data/bg/unlocked.png
 	$(IMGTOGB) --map --rle -O 47 $< $@
 
-jukebox_backgrounds: data/bg/jukebox.h data/bg/jukebox_dx.h
-
 data/bg/jukebox.h: data/bg/jukebox.png
 	$(IMGTOGB) --map --rle -O 37 $< $@
 
 data/bg/jukebox_dx.h: data/bg/jukebox_dx.png
 	$(IMGTOGB) --map --rle -c -O 37 $< $@
 
-wipe_backgrounds: data/bg/wipe.h
-
 data/bg/wipe.h: data/bg/wipe.png data/bg/wipe_dx.png
 	$(IMGTOGB) --map --rle -O 13 $< --dx data/bg/wipe_dx.png $@
 
-minigame_score_backgrounds: data/bg/minigame_score_bg.h
-
 data/bg/minigame_score_bg.h: data/bg/minigame_score_bg.png
 	$(IMGTOGB) --map --rle -O 18 $< $@
-
-selection_backgrounds: selection1.c selection1.h \
-	selection2.c selection2.h \
-	selection3.c selection3.h \
-	selection4.c selection4.h \
-	selection_highscore.c selection_highscore.h \
-	selection_highscore_dx.c selection_highscore_dx3.h \
-	selection_jukebox.c selection_jukebox.h \
-	selection_jukebox_dx.c selection_jukebox_dx.h \
-	selection_locked.c selection_locked.h \
-	selection_locked_dx.c selection_locked_dx.h \
-	data/bg/catface.h
 
 selection1.c selection1.h: data/bg/selection1.png data/bg/selection1_dx.png
 	$(IMGTOGB) --map -O 90 -P 3 -s 2 --rle_data $< --dx data/bg/selection1_dx.png -C selection1.c selection1.h
@@ -189,9 +151,6 @@ selection_locked.c selection_locked.h: data/bg/selection_locked.png
 
 selection_locked_dx.c selection_locked_dx.h: data/bg/selection_locked_dx.png
 	$(IMGTOGB) --map -O 90 -P 3 -s 2 -c --rle_data $< -C selection_locked_dx.c selection_locked_dx.h
-
-common_backgrounds: circles.c circles.h intro_bg.c intro_bg.h intro_bg_dx.c intro_bg_dx.h \
-	zoom_circles.c zoom_circles.h characters.c characters.h
 
 circles.c circles.h: data/bg/circles.png
 	$(IMGTOGB) --map $< -C circles.c circles.h

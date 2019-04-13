@@ -7,14 +7,10 @@
 #include "ram.h"
 #include "mmlgb/driver/music.h"
 
+#include "data/palettes/minigame_score.h"
 #include "data/bg/minigame_score_bg.h"
 #include "characters.h"
 #include "zoom_circles.h"
-
-const UWORD minigame_score_palette_data[8] = {
-	19749, 10370, 32767, 0,
-	32767, 22197, 10570, 0
-};
 
 const UBYTE minigame_score_palettes[9] = {
 	0U, 0U, 120U, 1U, 1U, 120U, 0U, 0U, 120U
@@ -36,7 +32,7 @@ void initMinigamescore() {
 	set_bkg_tiles_rle(0U, 0U, minigame_score_bg_tiles_width, minigame_score_bg_tiles_height, minigame_score_bg_tiles);
 
 	if(CGB_MODE) {
-		set_bkg_palette_buffer(0U, 2U, minigame_score_palette_data);
+		set_bkg_palette_buffer(0U, minigame_score_palette_data_length, minigame_score_palette_data);
 		VBK_REG = 1U;
 		set_bkg_tiles_rle(0U, 0U, 20U, 18U, minigame_score_palettes);
 		VBK_REG = 0U;

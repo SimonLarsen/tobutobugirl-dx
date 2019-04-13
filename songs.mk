@@ -1,5 +1,3 @@
-songs: $(SONGS_BANK13) $(SONGS_BANK14) $(SONGS_BANK15)
-
 SONGS_BANK13=data/songs/dream_song.asm data/songs/dream_score_song.asm data/songs/mainmenu_song.asm
 
 SONGS_BANK14=data/songs/minigame_song.asm data/songs/clouds_song.asm data/songs/plains_song.asm data/songs/highscore_song.asm
