@@ -930,7 +930,6 @@ void introAnimation() {
 void intoPortalAnimation() {
     UBYTE frame;
 
-    clearRemainingSprites();
     disable_interrupts();
     set_sprite_data(0U, portal_data_length, portal_data);
     enable_interrupts();
@@ -988,6 +987,7 @@ void saveCatAnimation() {
     UBYTE c;
     UBYTE r, g, b;
     UWORD v;
+
     disable_interrupts();
 
     STOP_MUSIC;

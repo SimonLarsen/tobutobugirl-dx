@@ -31,13 +31,6 @@ UBYTE cat_frame_reverse;
 extern UBYTE mainmenu_song_data;
 extern UBYTE potaka_song_data;
 
-/*
-const UWORD select_sprite_palettes[8] = {
-	32767, 32767, 11516, 0,
-	32767, 28638, 9695, 0
-};
-*/
-
 const UBYTE cat_even_tiles[6] = { 9U, 11U, 9U, 11U, 9U, 11U };
 const UBYTE cat_odd_tiles[6]  = { 10U, 12U, 10U, 12U, 10U, 12U };
 const UBYTE cat_palettes[6]  = { 0U, 0U, 0U, 0U, 0U, 0U };
@@ -58,7 +51,7 @@ void initSelect() {
 	set_bkg_tiles_rle(0U, 0U, select_tiles_width, select_tiles_height, select_tiles);
 
 	if(CGB_MODE) {
-	    set_bkg_data(catface_dx_tiles_offset, catface_dx_data_length, catface_dx_data);
+		set_bkg_data(catface_dx_tiles_offset, catface_dx_data_length, catface_dx_data);
 		set_bkg_palette_buffer(0U, select_palette_data_length, select_palette_data);
 		VBK_REG = 1U;
 		set_bkg_tiles_rle(0U, 0U, select_tiles_width, select_tiles_height, select_palettes);
@@ -67,8 +60,8 @@ void initSelect() {
 		VBK_REG = 0U;
 		set_sprite_palette(0U, select_sprites_palette_data_length, select_sprites_palette_data);
 	} else {
-	    set_bkg_data(catface_tiles_offset, catface_data_length, catface_data);
-    }
+		set_bkg_data(catface_tiles_offset, catface_data_length, catface_data);
+	}
 
 	ticks = 0U;
 	timer = 0U;
@@ -90,9 +83,9 @@ void initSelect() {
 	BGP_REG = 0xE4U; // 11100100
 
 	clearSprites();
-    selectSetBannerData(selection, 1U, 1U);
-    selectSetBannerData(selection, 2U, 1U);
-    selectSetBannerTiles(selection, 2U, 10U);
+	selectSetBannerData(selection, 1U, 1U);
+	selectSetBannerData(selection, 2U, 1U);
+	selectSetBannerTiles(selection, 2U, 10U);
 
 	setMusicBank(SONG_BANK_MAINMENU);
 	playMusic(&mainmenu_song_data);
@@ -210,16 +203,16 @@ void selectFadeIn() {
 
 	disable_interrupts();
 	selectSetBannerData(selection, 1U, 0U);
+    selectScrollCircles();
 	enable_interrupts();
 
-    selectScrollCircles();
     snd_update();
 
 	disable_interrupts();
 	selectSetBannerData(selection, 2U, 0U);
+    selectScrollCircles();
 	enable_interrupts();
 
-    selectScrollCircles();
     snd_update();
 
 	for(i = 0U; i != 16U; ++i) {
