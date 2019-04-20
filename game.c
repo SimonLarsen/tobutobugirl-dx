@@ -968,6 +968,7 @@ void intoPortalAnimation() {
     wait_sound_done();
 
     if(level != 5U) {
+        STOP_MUSIC;
         disable_interrupts();
         setMusicBank(SONG_BANK_LEVEL_CLEAR);
         playMusic(&level_clear_song_data);

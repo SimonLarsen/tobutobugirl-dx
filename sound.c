@@ -147,8 +147,8 @@ void playSound(UBYTE id) {
 			data = &sfx_rank_crash_data; break;
 	}
 
-	data1 = data + ((UWORD*)data)[CHN1_OFFSET];
-	data4 = data + ((UWORD*)data)[CHN4_OFFSET];
+	data1 = data + ((UWORD*)data)[0];
+	data4 = data + ((UWORD*)data)[3];
 	prio = sfx_priority[id];
 
 	if(*data1 != T_EOF && prio >= snd_priority1) {
@@ -160,8 +160,8 @@ void playSound(UBYTE id) {
 		snd_wait1 = 0U;
 		snd_octave1 = 4U;
 		snd_length1 = 48U;
-		snd_volume1 = 0xE0U;
-		snd_env1 = 0U;
+		snd_volume1 = 0xF0U;
+		snd_env1 = 3U;
 		snd_slide1 = 0U;
 		snd_vib_speed1 = 0U;
 		snd_po1 = 128U;
@@ -176,8 +176,8 @@ void playSound(UBYTE id) {
 		snd_wait4 = 0U;
 		snd_octave4 = 4U;
 		snd_length4 = 48U;
-		snd_volume4 = 0xE0U;
-		snd_env4 = 0U;
+		snd_volume4 = 0xF0U;
+		snd_env4 = 3U;
 		snd_slide4 = 0U;
 		snd_noise_step = 0U;
 		NR51_REG |= 0x88U;
@@ -279,7 +279,7 @@ void snd_update1() {
 				NR12_REG = snd_volume1 | snd_env1;
 				break;
 			case T_WAVEDUTY:
-				NR11_REG = (*snd_data1++) << 5;
+				NR11_REG = *snd_data1++;
 				break;
 			case T_PAN:
 				break;
@@ -312,6 +312,8 @@ void snd_update1() {
 			case T_NOISE_STEP:
 				break;
 			case T_WAVE:
+				break;
+			case T_MACRO:
 				break;
 			case T_EOF:
 				stop_sound1();
@@ -416,6 +418,8 @@ void snd_update4() {
 				snd_noise_step = (*snd_data4++) << 3;
 				break;
 			case T_WAVE:
+				break;
+			case T_MACRO:
 				break;
 			case T_EOF:
 				stop_sound4();

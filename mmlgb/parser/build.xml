@@ -1,0 +1,14 @@
+<project name="mmlgb" default="jar">
+	<target name="compile">
+		<mkdir dir="build" />
+		<javac srcdir="src" destdir="build" includeantruntime="false" debug="true" />
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar destfile="MMLGB.jar" basedir="build">
+			<manifest>
+				<attribute name="Main-Class" value="dk.hisimon.mmlgb.MMLGB" />
+			</manifest>
+		</jar>
+	</target>
+</project>

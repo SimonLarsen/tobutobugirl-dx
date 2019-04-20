@@ -1,13 +1,13 @@
 CC=lcc
 CFLAGS=-Wa-l -Wl-m -Wl-j
-SDCCN=/home/simon/share/sdcc-3.8.0/bin/sdcc -mgbz80 --no-std-crt0 -I "$(GBDK_DIR)/include" -I "$(GBDK_DIR)/include/asm"
+SDCCN=/home/simon/share/sdcc-3.8.0/bin/sdcc -mgbz80 --no-std-crt0 -I "${GBDKNDIR}/include" -I "${GBDKNDIR}/include/asm"
 IMGTOGB=imgtogb.py -l
 IMGTOSGB=imgtosgb.py
 GETPALETTE=imgtogbpal.py -l
-MMLGB=MMLGB.jar
+MMLGB=mmlgb/parser/MMLGB.jar
 
 define compile-source
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $< -o $@
 endef
 
 define make-palette
@@ -194,7 +194,10 @@ sgb.asm: sgb.c sgb.h data/sgb/border.h sgb_send_packet.h
 sgb.o: sgb.asm
 	${compile-source}
 
-sound.o: sound.c sound.h gamestate.h mmlgb/driver/music.h mmlgb/driver/notes.h mmlgb/driver/freq.h mmlgb/driver/noisefreq.h mmlgb/driver/vib.h
+sound.asm: sound.c sound.h gamestate.h mmlgb/driver/music.h mmlgb/driver/notes.h mmlgb/driver/freq.h mmlgb/driver/noisefreq.h mmlgb/driver/vib.h
+	$(SDCCN) -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
+
+sound.o: sound.asm
 	${compile-source}
 
 sound_data.o: sound_data.c data/sounds/sfx_bump.h data/sounds/sfx_bump_alien.h data/sounds/sfx_cat_disable.h data/sounds/sfx_cat_enable.h data/sounds/sfx_dash.h data/sounds/sfx_highscore_switch.h data/sounds/sfx_jetpack.h data/sounds/sfx_menu_cancel.h data/sounds/sfx_menu_confirm.h data/sounds/sfx_menu_locked.h data/sounds/sfx_menu_switch.h data/sounds/sfx_player_die.h data/sounds/sfx_stomp_alien.h data/sounds/sfx_stomp_bat.h data/sounds/sfx_stomp_bird.h data/sounds/sfx_stomp_ghost.h data/sounds/sfx_time_low.h data/sounds/sfx_time_out.h data/sounds/sfx_time_pickup.h data/sounds/sfx_warp_start.h data/sounds/sfx_rank_crash.h
@@ -238,6 +241,18 @@ data/palettes/%.h: data/palettes/%.png
 
 %.o: data/songs/%.asm
 	$(CC) $(CFLAGS) -c $< -o $@
+
+mmlgb/driver/music.o: mmlgb/driver/music.asm
+	${compile-source}
+
+mmlgb/driver/freq.o: mmlgb/driver/freq.asm
+	${compile-source}
+
+mmlgb/driver/noisefreq.o: mmlgb/driver/noisefreq.asm
+	${compile-source}
+
+mmlgb/driver/vib.o: mmlgb/driver/vib.asm
+	${compile-source}
 
 tobudx.gb: ram.o $(OBJ) $(OBJ_SONGS) \
 	$(OBJ_BANK1) $(OBJ_BANK2) $(OBJ_BANK3) $(OBJ_BANK4) \
