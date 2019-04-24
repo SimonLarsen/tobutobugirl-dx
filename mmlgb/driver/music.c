@@ -67,7 +67,7 @@ void mus_init(UBYTE *song_data) {
 	mus_data2 = mus_loop2 = mus_song + ((UWORD*)mus_song)[1];
 	mus_data3 = mus_loop3 = mus_song + ((UWORD*)mus_song)[2];
 	mus_data4 = mus_loop4 = mus_song + ((UWORD*)mus_song)[3];
-    mus_wave = mus_song + ((UWORD*)mus_song)[4];
+	mus_wave = mus_song + ((UWORD*)mus_song)[4];
 
 	mus_enabled1 = mus_enabled4 = 1U;
 	mus_done1 = mus_done2 = mus_done3 = mus_done4 = 0U;
@@ -83,6 +83,7 @@ void mus_init(UBYTE *song_data) {
 	mus_noise_step = 0U;
 	mus_po1 = mus_po2 = mus_po3 = 128U;
 	mus_pan1 = mus_pan2 = mus_pan3 = mus_pan4 = 0x11U;
+	mus_macro1 = mus_macro2 = mus_macro3 = mus_macro4 = 0U;
 
 	for(i = 0U; i != MAX_REPEATS; ++i) {
 		mus_repeats1[i] = 0U;
@@ -303,24 +304,24 @@ void mus_update1() {
 				break;
 			case T_WAVE:
 				break;
-            case T_MACRO:
-                note = *mus_data1++;
-                mus_data1_bak = mus_data1;
-                mus_data1 = mus_song + ((UWORD*)mus_song)[5 + note];
-                mus_macro1 = 1U;
-                break;
+			case T_MACRO:
+				note = *mus_data1++;
+				mus_data1_bak = mus_data1;
+				mus_data1 = mus_song + ((UWORD*)mus_song)[5 + note];
+				mus_macro1 = 1U;
+				break;
 			case T_EOF:
-                if(mus_macro1) {
-                    mus_data1 = mus_data1_bak;
-                    mus_macro1 = 0U;
-                } else {
-                    mus_data1 = mus_loop1;
-                    mus_done1 = 1U;
-                    if(*mus_data1 == T_EOF) {
-                        mus_wait1 = 255U;
-                        return;
-                    }
-                }
+				if(mus_macro1) {
+					mus_data1 = mus_data1_bak;
+					mus_macro1 = 0U;
+				} else {
+					mus_data1 = mus_loop1;
+					mus_done1 = 1U;
+					if(*mus_data1 == T_EOF) {
+						mus_wait1 = 255U;
+						return;
+					}
+				}
 				break;
 		}
 	}
@@ -474,24 +475,24 @@ void mus_update2() {
 				break;
 			case T_WAVE:
 				break;
-            case T_MACRO:
-                note = *mus_data2++;
-                mus_data2_bak = mus_data2;
-                mus_data2 = mus_song + ((UWORD*)mus_song)[5 + note];
-                mus_macro2 = 1U;
-                break;
+			case T_MACRO:
+				note = *mus_data2++;
+				mus_data2_bak = mus_data2;
+				mus_data2 = mus_song + ((UWORD*)mus_song)[5 + note];
+				mus_macro2 = 1U;
+				break;
 			case T_EOF:
-                if(mus_macro2) {
-                    mus_data2 = mus_data2_bak;
-                    mus_macro2 = 0U;
-                } else {
-                    mus_data2 = mus_loop2;
-                    mus_done2 = 1U;
-                    if(*mus_data2 == T_EOF) {
-                        mus_wait2 = 255U;
-                        return;
-                    }
-                }
+				if(mus_macro2) {
+					mus_data2 = mus_data2_bak;
+					mus_macro2 = 0U;
+				} else {
+					mus_data2 = mus_loop2;
+					mus_done2 = 1U;
+					if(*mus_data2 == T_EOF) {
+						mus_wait2 = 255U;
+						return;
+					}
+				}
 				break;
 		}
 	}
@@ -593,24 +594,24 @@ void mus_update3() {
 				memcpy(0xFF30, mus_wave + (note << 4), 16U);
 				NR30_REG = 0x80U;
 				break;
-            case T_MACRO:
-                note = *mus_data3++;
-                mus_data3_bak = mus_data3;
-                mus_data3 = mus_song + ((UWORD*)mus_song)[5 + note];
-                mus_macro3 = 1U;
-                break;
+			case T_MACRO:
+				note = *mus_data3++;
+				mus_data3_bak = mus_data3;
+				mus_data3 = mus_song + ((UWORD*)mus_song)[5 + note];
+				mus_macro3 = 1U;
+				break;
 			case T_EOF:
-                if(mus_macro3) {
-                    mus_data3 = mus_data3_bak;
-                    mus_macro3 = 0U;
-                } else {
-                    mus_data3 = mus_loop3;
-                    mus_done3 = 1U;
-                    if(*mus_data3 == T_EOF) {
-                        mus_wait3 = 255U;
-                        return;
-                    }
-                }
+				if(mus_macro3) {
+					mus_data3 = mus_data3_bak;
+					mus_macro3 = 0U;
+				} else {
+					mus_data3 = mus_loop3;
+					mus_done3 = 1U;
+					if(*mus_data3 == T_EOF) {
+						mus_wait3 = 255U;
+						return;
+					}
+				}
 				break;
 		}
 	}
@@ -736,24 +737,24 @@ void mus_update4() {
 				break;
 			case T_WAVE:
 				break;
-            case T_MACRO:
-                note = *mus_data4++;
-                mus_data4_bak = mus_data4;
-                mus_data4 = mus_song + ((UWORD*)mus_song)[5 + note];
-                mus_macro4 = 1U;
-                break;
+			case T_MACRO:
+				note = *mus_data4++;
+				mus_data4_bak = mus_data4;
+				mus_data4 = mus_song + ((UWORD*)mus_song)[5 + note];
+				mus_macro4 = 1U;
+				break;
 			case T_EOF:
-                if(mus_macro4) {
-                    mus_data4 = mus_data4_bak;
-                    mus_macro4 = 0U;
-                } else {
-                    mus_data4 = mus_loop4;
-                    mus_done4 = 1U;
-                    if(*mus_data4 == T_EOF) {
-                        mus_wait4 = 255U;
-                        return;
-                    }
-                }
+				if(mus_macro4) {
+					mus_data4 = mus_data4_bak;
+					mus_macro4 = 0U;
+				} else {
+					mus_data4 = mus_loop4;
+					mus_done4 = 1U;
+					if(*mus_data4 == T_EOF) {
+						mus_wait4 = 255U;
+						return;
+					}
+				}
 				break;
 		}
 	}
