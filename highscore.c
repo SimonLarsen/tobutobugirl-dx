@@ -9,6 +9,7 @@
 #include "ram.h"
 #include "sound.h"
 #include "mmlgb/driver/music.h"
+#include "sgb_send_packet.h"
 
 #include "characters.h"
 #include "arrow.h"
@@ -20,6 +21,29 @@
 
 extern UBYTE highscore_song_data;
 extern UBYTE dream_score_song_data;
+
+const UBYTE SGB_HIGHSCORE_ATTRBLK[32] = {
+    (0x04U << 3) + 2U,
+    4U,
+    // data set 1
+    7U,
+    3U | (3U << 2) | (1U << 4),
+    0U, 1U, 19U, 3U,
+    // data set 2
+    3U,
+    0U,
+    2U, 4U, 17U, 9U,
+    // data set 3
+    3U,
+    3U | (3U << 2),
+    1U, 10U, 18U, 16U,
+    // data set 4
+    3U,
+    3U | (3U << 2),
+    5U, 8U, 14U, 10U,
+    //
+    0U, 0U, 0U, 0U, 0U, 0U
+};
 
 void initHighscore() {
     UBYTE buf[3];
@@ -60,6 +84,11 @@ void initHighscore() {
 
 	clearSprites();
 	_highscoreUpdateScreen();
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_HIGHSCORE_ATTRBLK); delay(65U);
+        sgb_send_packet(SGB_HIGHSCORE_ATTRBLK+16U);
+    }
 
 	SPRITES_8x8;
 	SHOW_SPRITES;

@@ -70,7 +70,8 @@ void main() {
 	DISPLAY_OFF;
 
 	SWITCH_ROM_MBC1(SGB_BANK);
-	if(sgb_check2()) {
+    sgb_mode = sgb_check2();
+    if(sgb_mode) {
 		sgb_init();
 	}
 

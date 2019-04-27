@@ -22,6 +22,7 @@
 #include "pause_cloud2.h"
 #include "mmlgb/driver/music.h"
 
+UBYTE sgb_mode;
 UBYTE vbl_count;
 UBYTE ticks, paused, timer;
 UBYTE gamestate, scene_state;

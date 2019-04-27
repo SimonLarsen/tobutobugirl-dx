@@ -24,7 +24,9 @@ const UBYTE SGB_BORDER_PCT_TRN[16] = { (0x14U << 3) + 1U, 0U, 0U, 0U, 0U, 0U, 0U
 const UBYTE SGB_MLT_REQ1[16] = { (0x11U << 3) + 1U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U };
 const UBYTE SGB_MLT_REQ2[16] = { (0x11U << 3) + 1U, 1U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U };
 
-const UBYTE SGB_PAL01[16] = { (0x00U << 3) + 1U, 255, 127, 60, 66, 144, 12, 0, 0, 60, 66, 144, 12, 0, 0, 0 };
+
+const UBYTE SGB_PAL01[16] = { (0x00U << 3) + 1U, 255, 127, 124, 66, 176, 12, 0, 0, 144, 114, 227, 64, 0, 0, 0 };
+const UBYTE SGB_PAL23[16] = { (0x01U << 3) + 1U, 255, 127, 28, 94, 112, 40, 0, 0, 254, 98, 62, 53, 0, 0, 0 };
 
 void sgb_copy_rle(UBYTE *data, UBYTE *dest, UWORD n, UBYTE step) {
     UBYTE run, value;
@@ -135,8 +137,8 @@ void sgb_init() {
     DISPLAY_OFF;
 
     sgb_send_packet(SGB_PAL01); delay(65U);
-
-    sgb_send_packet(SGB_UNFREEZE); delay(65U);
+    sgb_send_packet(SGB_PAL23); delay(65U);
+    sgb_send_packet(SGB_UNFREEZE); 
 
     LCDC_REG ^= 16U;
     HIDE_BKG;

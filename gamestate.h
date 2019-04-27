@@ -25,6 +25,7 @@ void selectSetBannerColumn(UBYTE index, UBYTE x, UBYTE y);
 
 #define set_bkg_palette_buffer(first_palette, nbpalettes, data) (memcpy(&palette_buffer[(first_palette) << 2], (data), (nbpalettes) << 3))
 
+extern UBYTE sgb_mode;
 extern UBYTE vbl_count;
 extern UBYTE ticks, paused, timer;
 extern UBYTE gamestate, scene_state;

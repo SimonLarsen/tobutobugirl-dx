@@ -110,7 +110,7 @@ fade.asm: fade.c gamestate.h sound.h fade.h
 fade.o: fade.asm
 	${compile-source}
 
-game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h data/palettes/sprites.h data/bg/hud.h data/bg/hud_dx.h data/bg/clock.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h
+game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h sgb_send_packet.h data/palettes/sprites.h data/bg/hud.h data/bg/hud_dx.h data/bg/clock.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h
 	$(SDCCN) -bo 1 -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
 
 game.o: game.asm
@@ -125,7 +125,7 @@ gamestate.o: gamestate.asm
 set_data_rle.o: set_data_rle.asm
 	${compile-source}
 
-highscore.o: highscore.c defines.h gamestate.h set_data_rle.h fade.h cos.h highscore.h ram.h sound.h characters.h arrow.h data/palettes/highscore_sprites.h data/sprite/empty.h data/bg/highscore.h data/bg/highscore_dx.h circles.h selection1.h selection2.h selection3.h selection4.h selection_locked.h
+highscore.o: highscore.c defines.h gamestate.h set_data_rle.h fade.h cos.h highscore.h ram.h sound.h sgb_send_packet.h characters.h arrow.h data/palettes/highscore_sprites.h data/sprite/empty.h data/bg/highscore.h data/bg/highscore_dx.h circles.h selection1.h selection2.h selection3.h selection4.h selection_locked.h
 	${compile-source}
 
 intro_bg.o: intro_bg.c intro_bg.h
@@ -155,7 +155,7 @@ pause.o: pause.c defines.h gamestate.h fade.h sound.h ram.h mmlgb/driver/music.h
 ram.o: ram.c 
 	${compile-source}
 
-select.o: select.c defines.h select.h fade.h gamestate.h set_data_rle.h cos.h ram.h sound.h mmlgb/driver/music.h characters.h arrow.h circles.h data/palettes/select_sprites.h data/sprite/togglecat.h data/bg/catface.h data/bg/catface_dx.h data/bg/select.h selection1.h selection2.h selection3.h selection4.h selection_highscore.h selection_highscore_dx.h selection_jukebox.h selection_jukebox_dx.h selection_locked.h selection_locked_dx.h
+select.o: select.c defines.h select.h fade.h gamestate.h set_data_rle.h cos.h ram.h sound.h sgb_send_packet.h mmlgb/driver/music.h characters.h arrow.h circles.h data/palettes/select_sprites.h data/sprite/togglecat.h data/bg/catface.h data/bg/catface_dx.h data/bg/select.h selection1.h selection2.h selection3.h selection4.h selection_highscore.h selection_highscore_dx.h selection_jukebox.h selection_jukebox_dx.h selection_locked.h selection_locked_dx.h
 	${compile-source}
 
 selection1.o: selection1.c selection1.h

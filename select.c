@@ -9,6 +9,7 @@
 #include "ram.h"
 #include "sound.h"
 #include "mmlgb/driver/music.h"
+#include "sgb_send_packet.h"
 
 #include "characters.h"
 #include "arrow.h"
@@ -34,6 +35,21 @@ extern UBYTE potaka_song_data;
 const UBYTE cat_even_tiles[6] = { 9U, 11U, 9U, 11U, 9U, 11U };
 const UBYTE cat_odd_tiles[6]  = { 10U, 12U, 10U, 12U, 10U, 12U };
 const UBYTE cat_palettes[6]  = { 0U, 0U, 0U, 0U, 0U, 0U };
+
+const UBYTE SGB_SELECT_ATTRBLK[16] = {
+    (0x04U << 3) + 1U,
+    2U,
+    // data set 1
+    7U,
+    3U | (3U << 2) | (1U << 4),
+    0U, 2U, 19U, 4U,
+    // data set 2
+    3U,
+    0U,
+    2U, 10U, 17U, 15U,
+    //
+    0U, 0U
+};
 
 void initSelect() {
 	UBYTE buf[3];
@@ -81,6 +97,10 @@ void initSelect() {
 	OBP0_REG = 0xD0U; // 11010000
 	OBP1_REG = 0xB4U; // 11100100
 	BGP_REG = 0xE4U; // 11100100
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_SELECT_ATTRBLK);
+    }
 
 	clearSprites();
 	selectSetBannerData(selection, 1U, 1U);

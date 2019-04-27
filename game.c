@@ -12,6 +12,7 @@
 #include "sound.h"
 #include "mmlgb/driver/music.h"
 #include "pause.h"
+#include "sgb_send_packet.h"
 
 // Palettes
 #include "data/palettes/sprites.h"
@@ -118,6 +119,19 @@ const UBYTE entity_palettes[10U] = {
     0U // clock
 };
 
+const UBYTE SGB_GAME_ATTRBLK[16] = {
+    (0x04U << 3) + 1U,
+    1U,
+    // data set 1
+    7U,
+    2U | (2U << 2) | (1U << 4),
+    18U, 0U, 19U, 17U,
+    // data set 2
+    0U, 0U, 0U, 0U, 0U, 0U,
+    //
+    0U, 0U,
+};
+
 UBYTE mydiv(UBYTE num, UBYTE denom) {
     UBYTE cnt;
     cnt = 0;
@@ -222,7 +236,7 @@ void initGame() {
 
     if (level == 5U) {
         spawn_levels = (UBYTE*)spawn_level_gen;
-        scrolled_length = 8U + (wave << 1);
+        scrolled_length = 6U + (wave << 1);
 
         allowed_spikes = (wave >> 3) + 1U;
         if(allowed_spikes >= 4U) allowed_spikes = 3U;
@@ -259,6 +273,10 @@ void initGame() {
 
     move_bkg(0U, 112U);
     move_win(151U, 0U);
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_GAME_ATTRBLK);
+    }
 
     updateHUDTime();
     initSpawns();
