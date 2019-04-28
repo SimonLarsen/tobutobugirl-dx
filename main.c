@@ -55,6 +55,8 @@ void initRAM(UBYTE force_clear) {
 	for(levels_completed = 0U; levels_completed != 4U; ++levels_completed) {
 		if(ram_data[levels_completed << 4] == 0U) break;
 	}
+    levels_unlocked = levels_completed + 1U;
+    if(levels_completed == 3U) levels_unlocked++;
 
 	show_dashcounter = ram_data[RAM_DASHCOUNTER];
 

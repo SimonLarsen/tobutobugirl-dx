@@ -118,7 +118,7 @@ void _highscoreUpdateScreen() {
 
 	// Select level images
 	tile = sub_selection;
-	if(tile > levels_completed+1U) {
+	if(tile > levels_unlocked) {
 		tile = 0U;
 	}
 
@@ -230,13 +230,13 @@ void enterHighscore() {
 
 		if(ISDOWN(J_LEFT)) {
 			sub_selection--;
-			if(sub_selection == 0U) sub_selection = 4U;
+			if(sub_selection == 0U) sub_selection = 5U;
 			playSound(SFX_HIGHSCORE_SWITCH);
 			highscoreUpdateScreen();
 		}
 		if(ISDOWN(J_RIGHT)) {
 			sub_selection++;
-			if(sub_selection == 5U) sub_selection = 1U;
+			if(sub_selection == 6U) sub_selection = 1U;
 			playSound(SFX_HIGHSCORE_SWITCH);
 			highscoreUpdateScreen();
 		}

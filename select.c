@@ -301,36 +301,33 @@ void enterSelect() {
 		}
 
 		if(ISDOWN(J_RIGHT)) {
-			selection++;
 			select_scroll_dir = RIGHT;
-			if(selection == 5U && levels_completed < 2U) selection++;
-			if(selection > 6U) selection = 1U;
+			selection++;
+			if(selection == 8U) selection = 1U;
 			playSound(SFX_MENU_SWITCH);
 			selectFadeOut();
 			selectFadeIn();
 			selectUpdateSprites();
 		}
 		if(ISDOWN(J_LEFT)) {
-			selection--;
 			select_scroll_dir = LEFT;
-			if(selection == 5U && levels_completed < 2U) selection--;
-			if(selection == 0U) selection = 6U;
+			selection--;
+			if(selection == 0U) selection = 7U;
 			playSound(SFX_MENU_SWITCH);
 			selectFadeOut();
 			selectFadeIn();
 			selectUpdateSprites();
 		}
 		if(CLICKED(J_START) || CLICKED(J_A)) {
-			if(selection == 5U) {
+			if(selection == 6U) {
 				gamestate = GAMESTATE_JUKEBOX;
 				playSound(SFX_MENU_CONFIRM);
-			} else if(selection == 6U) {
+			} else if(selection == 7U) {
 				gamestate = GAMESTATE_HIGHSCORE;
 				playSound(SFX_MENU_CONFIRM);
 			} else {
-				if(selection <= levels_completed+1U) {
+				if(selection <= levels_unlocked) {
 					level = selection;
-					if(ISDOWN(J_UP)) level = 5U;
 					gamestate = GAMESTATE_INGAME;
 					playSound(SFX_MENU_CONFIRM);
 				} else {
@@ -344,7 +341,7 @@ void enterSelect() {
 		}
 
 		// Draw level name
-		if(selection <= 4U && selection > levels_completed+1U) {
+	    if(selection <= 5U && selection > levels_unlocked || selection == 6U && levels_completed < 2U) {
 			name_index = 0U;
 		} else {
 			name_index = selection;
@@ -354,8 +351,9 @@ void enterSelect() {
 		if(level_names[name_index][5] == 10U) {
 			offset += 4U;
 		}
-		for(i = 0U; i != 6; ++i) {
-			setSprite(offset+(i << 3), 70U+cos4_16[(i+(ticks >> 1)) & 15U], level_names[name_index][i], OBJ_PAL0);
+		for(i = 0U; i != 6U; ++i) {
+			setSprite(offset, 70U+cos4_16[(i+(ticks >> 1)) & 15U], level_names[name_index][i], OBJ_PAL0);
+            offset += 8U;
 		}
 
 		selectUpdateSprites();

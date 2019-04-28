@@ -18,7 +18,7 @@
 
 extern UBYTE unlocked_song_data;
 
-const UBYTE unlocked_messages[3][24] = {
+const UBYTE unlocked_messages[4][24] = {
 	{
 		10U, 24U, 15U, 34U, 30U, 10U, 22U, 15U, 32U, 15U, 22U, 10U, // " NEXT LEVEL "
 		10U, 10U, 31U, 24U, 22U, 25U, 13U, 21U, 15U, 14U, 10U, 10U  // "  UNLOCKED  "
@@ -30,8 +30,13 @@ const UBYTE unlocked_messages[3][24] = {
 	{
 		10U, 10U, 10U, 14U, 28U, 15U, 11U, 23U, 10U, 10U, 10U, 10U, // "   DREAM    "
 		10U, 10U, 31U, 24U, 22U, 25U, 13U, 21U, 15U, 14U, 10U, 10U  // "  UNLOCKED  "
+	},
+	{
+        10U, 10U, 10U, 18U, 15U, 11U, 32U, 15U, 24U, 10U, 10U, 10U, // "   HEAVEN   "
+		10U, 10U, 31U, 24U, 22U, 25U, 13U, 21U, 15U, 14U, 10U, 10U  // "  UNLOCKED  "
 	}
 };
+
 
 const UBYTE unlocked_bkg_palettes[45] = {
     0U, 0U, 80U,
@@ -85,6 +90,11 @@ void initUnlocked() {
 		unlocked_bits ^= UNLOCKED_DREAM;
         index = 4U;
         msg = 2U;
+	}
+	else if(unlocked_bits & UNLOCKED_HEAVEN) {
+		unlocked_bits ^= UNLOCKED_HEAVEN;
+        index = 5U;
+        msg = 3U;
 	}
 
     selectSetBannerData(index, 1U, 1U);

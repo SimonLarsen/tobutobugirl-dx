@@ -26,7 +26,7 @@ UBYTE sgb_mode;
 UBYTE vbl_count;
 UBYTE ticks, paused, timer;
 UBYTE gamestate, scene_state;
-UBYTE level, levels_completed;
+UBYTE level, levels_unlocked, levels_completed;
 UBYTE selection, sub_selection;
 UBYTE joystate, oldjoystate;
 UBYTE next_sprite, sprites_used;
@@ -63,13 +63,13 @@ const UBYTE fadePals[] = {
     0x00U  // 00000000
 };
 
-const UBYTE level_names[7][6] = {
+const UBYTE level_names[8][6] = {
     {22U, 25U, 13U, 21U, 15U, 14U}, // "LOCKED"
     {26U, 22U, 11U, 19U, 24U, 29U}, // "PLAINS"
     {13U, 22U, 25U, 31U, 14U, 29U}, // "CLOUDS"
     {29U, 26U, 11U, 13U, 15U, 10U}, // "SPACE "
     {14U, 28U, 15U, 11U, 23U, 10U}, // "DREAM "
-    //{18U, 15U, 11U, 32U, 15U, 24U}, // "HEAVEN"
+    {18U, 15U, 11U, 32U, 15U, 24U}, // "HEAVEN"
     {23U, 31U, 29U, 19U, 13U, 10U}, // "MUSIC "
     {29U, 13U, 25U, 28U, 15U, 29U}  // "SCORES"
 };
@@ -318,6 +318,14 @@ void setCloudAnimation(UBYTE skin) {
 }
 
 void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles) {
+    _set_tiles_rle(x, y, width, height, tiles, 1U);
+}
+
+void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles) {
+    _set_tiles_rle(x, y, width, height, tiles, 0U);
+}
+
+void _set_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles, UBYTE is_bkg) {
     UBYTE ix, iy, run, tile;
     run = 0U;
     for(iy = y; iy != y+height; ++iy) {
@@ -332,7 +340,8 @@ void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles
                     tiles++;
                 }
             }
-            set_bkg_tiles(ix, iy, 1U, 1U, &tile);
+            if(is_bkg) set_bkg_tiles(ix, iy, 1U, 1U, &tile);
+            else set_win_tiles(ix, iy, 1U, 1U, &tile);
             run--;
         }
     }

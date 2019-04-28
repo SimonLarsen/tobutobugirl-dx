@@ -11,6 +11,8 @@ void setIngameBackground(UBYTE level);
 void setWinscreenBackground(UBYTE level);
 void setCloudAnimation(UBYTE skin);
 void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
+void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
+void _set_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles, UBYTE is_bkg);
 void playMusic(UBYTE *data);
 void updateMusic();
 UBYTE getRank(UBYTE score, UBYTE level);
@@ -29,7 +31,7 @@ extern UBYTE sgb_mode;
 extern UBYTE vbl_count;
 extern UBYTE ticks, paused, timer;
 extern UBYTE gamestate, scene_state;
-extern UBYTE level, levels_completed;
+extern UBYTE level, levels_unlocked, levels_completed;
 extern UBYTE selection, sub_selection;
 extern UBYTE joystate, oldjoystate;
 extern UBYTE next_sprite, sprites_used;
@@ -81,10 +83,11 @@ extern UBYTE entity_dir[MAX_ENTITIES];
 #define GAMESTATE_WIPE           11U
 #define GAMESTATE_MINIGAME_SCORE 12U
 
-#define UNLOCKED_CLOUDS 1U
-#define UNLOCKED_SPACE  2U
-#define UNLOCKED_MUSIC  4U
-#define UNLOCKED_DREAM  8U
+#define UNLOCKED_CLOUDS  1U
+#define UNLOCKED_SPACE   2U
+#define UNLOCKED_MUSIC   4U
+#define UNLOCKED_DREAM   8U
+#define UNLOCKED_HEAVEN 16U
 
 #define TIME_BONUS (3U*(level_max_time[level-1U] - elapsed_time))
 #define KILL_BONUS (kills)
@@ -94,7 +97,7 @@ extern UBYTE entity_dir[MAX_ENTITIES];
 #define ENDING_FLAG_FROM_DREAM      2U
 
 extern const UBYTE fadePals[4];
-extern const UBYTE level_names[7][6];
+extern const UBYTE level_names[8][6];
 extern const UBYTE level_max_time[4];
 extern const UBYTE rank_letters[4];
 

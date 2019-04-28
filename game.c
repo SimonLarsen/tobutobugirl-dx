@@ -13,13 +13,16 @@
 #include "mmlgb/driver/music.h"
 #include "pause.h"
 #include "sgb_send_packet.h"
+#include "set_data_rle.h"
 
 // Palettes
 #include "data/palettes/sprites.h"
 // Maps
+#include "characters.h"
 #include "data/bg/hud.h"
 #include "data/bg/hud_dx.h"
 #include "data/bg/clock.h"
+#include "data/bg/wavescreen.h"
 // Sprites
 #include "data/sprite/sprites.h"
 #include "data/sprite/portal.h"
@@ -86,6 +89,8 @@ const UBYTE spawn_level_data[96] = {
 UBYTE spawn_level_gen[8];
 
 #define PROGRESS_POS(x) mydiv(((x) << 1U), 3U)
+
+const UBYTE wave_text[4] = { 33U, 11U, 32U, 15U };
 
 const UWORD clock_palettes[4] = {
     32767, 18668, 18668, 0
@@ -156,8 +161,8 @@ void initGame() {
 
     disable_interrupts();
     DISPLAY_OFF;
-    SPRITES_8x16;
 
+    SPRITES_8x16;
     OBP0_REG = 0xD0U; // 11010000
     OBP1_REG = 0x40U; // 01010000
     BGP_REG = 0xE4U;  // 11100100
@@ -236,7 +241,8 @@ void initGame() {
 
     if (level == 5U) {
         spawn_levels = (UBYTE*)spawn_level_gen;
-        scrolled_length = 6U + (wave << 1);
+        scrolled_length = 8U + (wave >> 1);
+        if(scrolled_length >= 29U) scrolled_length = 28U;
 
         allowed_spikes = (wave >> 3) + 1U;
         if(allowed_spikes >= 4U) allowed_spikes = 3U;
@@ -1189,10 +1195,99 @@ void fadeSpritesToWhiteCGB(UBYTE delay) {
     }
 }
 
+void showWaveScreen() {
+    UBYTE i, j;
+    UBYTE text[3] = {10U, 10U, 10U};
+
+    disable_interrupts();
+    DISPLAY_OFF;
+
+    SPRITES_8x8;
+    OBP0_REG = 0xD0U; // 11010000
+    OBP1_REG = 0x40U; // 01010000
+    BGP_REG = 0xE4U;  // 11100100
+
+    set_bkg_data_rle(0U, wavescreen_data_length, wavescreen_data);
+    set_bkg_tiles_rle(0U, 0U, 20U, 24U, wavescreen_tiles);
+    set_sprite_data(0U, characters_data_length, characters_data);
+    set_win_tiles_rle(0U, 0U, 20U, 6U, wavescreen_tiles);
+
+    if(CGB_MODE) {
+        VBK_REG = 1U;
+        set_bkg_tiles_rle(0U, 0U, 20U, 18U, wavescreen_palettes);
+        set_win_tiles_rle(0U, 0U, 20U, 6U, wavescreen_palettes);
+        VBK_REG = 0U;
+        set_bkg_palette(0U, wavescreen_palette_data_length, wavescreen_palette_data);
+        set_sprite_palette(0U, 1U, sprites_palette_data);
+    }
+
+    SHOW_WIN;
+    SHOW_BKG;
+    SHOW_SPRITES;
+
+    ticks = 0U;
+
+    j = wave+1U;
+    i = 0U;
+    if(j >= 100U) {
+        text[i] = mydiv(j, 100U);
+        j = mymod(j, 100U);
+        ++i;
+    }
+    if(j >= 10U) {
+        text[i] = mydiv(j, 10U);
+        j = mymod(j, 10U);
+        ++i;
+    }
+    text[i] = j;
+
+    j = 64U;
+    if(wave >= 99U) j -= 8U;
+    else if(wave >= 9U) j -= 4U;
+
+    DISPLAY_ON;
+    enable_interrupts();
+
+    for(i = 48U; i != 0U; i -= 3U) {
+        move_bkg(0U, i);
+        move_win(7U, 96+i);
+        wait_vbl_done();
+    }
+    move_bkg(0U, 0U);
+    move_win(7U, 96U);
+
+    while(1U) {
+        updateJoystate();
+
+        if(CLICKED(J_A) || CLICKED(J_START)) break;
+
+        for(i = 0U; i != 4U; ++i) {
+            setSprite(j+(i << 3), 80U+cos4_16[(i+(ticks >> 1)) & 15U], wave_text[i], OBJ_PAL0);
+        }
+
+        for(i = 5U; i != 8U; ++i) {
+            if(text[i-5U] == 10U) continue;
+            setSprite(j+(i << 3), 80U+cos4_16[(i+(ticks >> 1)) & 15U], text[i-5U], OBJ_PAL0);
+        }
+
+        clearRemainingSprites();
+        ticks++;
+        wait_vbl_done();
+    }
+
+    clearSprites();
+    fadeToWhite(4U);
+}
+
 void enterGame() {
     wave = 0U;
     first_load = 1U;
+
 ingame_start:
+    if(level == 5U) {
+        showWaveScreen();
+    }
+
     initGame();
 
     fadeFromWhite(8U);
@@ -1267,7 +1362,7 @@ ingame_start:
         }
 
         if(level == 5U) {
-            gamestate = GAMESTATE_WINSCREEN;
+            gamestate = GAMESTATE_SELECT;
         }
 
         clearRemainingSprites();
@@ -1295,6 +1390,9 @@ ingame_start:
 
             if(level > levels_completed) {
                 levels_completed = level;
+                levels_unlocked = level+1U;
+                if(level == 3U) levels_unlocked += 2U;
+
                 if(level == 1U) {
                     unlocked_bits = UNLOCKED_CLOUDS;
                 }
@@ -1302,7 +1400,7 @@ ingame_start:
                     unlocked_bits = UNLOCKED_SPACE | UNLOCKED_MUSIC;
                 }
                 else if(level == 3U) {
-                    unlocked_bits = UNLOCKED_DREAM;
+                    unlocked_bits = UNLOCKED_DREAM | UNLOCKED_HEAVEN;
                 }
             }
         }

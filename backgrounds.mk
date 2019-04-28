@@ -66,6 +66,9 @@ data/bg/rank_banner.h: data/bg/rank_banner.png
 data/bg/rank_banner_dx.h: data/bg/rank_banner_dx.png
 	$(IMGTOGB) --map -O 64 --rle $< $@
 
+data/bg/wavescreen.h: data/bg/wavescreen.png data/bg/wavescreen_dx.png
+	$(IMGTOGB) --map --rle $< --dx data/bg/wavescreen_dx.png $@
+
 win1.c win1.h: data/bg/win1.png
 	$(IMGTOGB) --map -O 91 --rle $< -C win1.c win1.h
 
@@ -133,6 +136,12 @@ selection3.c selection3.h: data/bg/selection3.png data/bg/selection3_dx.png
 
 selection4.c selection4.h: data/bg/selection4.png data/bg/selection4_dx.png
 	$(IMGTOGB) --map -O 90 -P 3 -s 2 --rle_data $< --dx data/bg/selection4_dx.png -C selection4.c selection4.h
+
+selection5.c selection5.h: data/bg/selection5.png
+	$(IMGTOGB) --map -O 90 -P 3 -s 2 --rle_data $< -C selection5.c selection5.h
+
+selection5_dx.c selection5_dx.h: data/bg/selection5_dx.png
+	$(IMGTOGB) --map -O 90 -P 3 -s 2 --rle_data -c $< -C selection5_dx.c selection5_dx.h
 
 selection_highscore.c selection_highscore.h: data/bg/selection_highscore.png
 	$(IMGTOGB) --map -O 90 -P 3 -s 2 --rle_data $< -C selection_highscore.c selection_highscore.h

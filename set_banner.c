@@ -8,6 +8,8 @@
 #include "selection2.h"
 #include "selection3.h"
 #include "selection4.h"
+#include "selection5.h"
+#include "selection5_dx.h"
 #include "selection_highscore.h"
 #include "selection_highscore_dx.h"
 #include "selection_jukebox.h"
@@ -22,7 +24,7 @@ void _selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer) {
 
     offset = selection_locked_tiles_offset;
 
-	if(index <= 4U && index > levels_completed+1U) {
+	if(index <= 5U && index > levels_unlocked || index == 6U && levels_completed < 2U) {
         if(CGB_MODE) {
             if(part == 2) {
                 length = selection_locked_dx_data_length2;
@@ -86,6 +88,27 @@ void _selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer) {
 	} else if(index == 5U) {
         if(CGB_MODE) {
             if(part == 2) {
+                length = selection5_data_length2;
+                data = selection5_dx_data2;
+                offset += selection5_dx_data_length;
+            } else {
+                length = selection5_dx_data_length;
+                data = selection5_dx_data;
+            }
+            palette_data = selection5_dx_palette_data;
+        } else {
+            if(part == 2) {
+                length = selection5_data_length2;
+                data = selection5_data2;
+                offset += selection5_data_length;
+            } else {
+                length = selection5_data_length;
+                data = selection5_data;
+            }
+        }
+	} else if(index == 6U) {
+        if(CGB_MODE) {
+            if(part == 2) {
                 length = selection_jukebox_dx_data_length2;
                 data = selection_jukebox_dx_data2;
                 offset += selection_jukebox_dx_data_length;
@@ -104,7 +127,7 @@ void _selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer) {
                 data = selection_jukebox_data;
             }
         }
-	} else if(index == 6U) {
+	} else if(index == 7U) {
         if(CGB_MODE) {
             if(part == 2) {
                 length = selection_highscore_dx_data_length2;
@@ -141,7 +164,7 @@ void _selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer) {
 void _selectSetBannerTiles(UBYTE index, UBYTE x, UBYTE y) {
     UBYTE *tiles;
     UBYTE *palettes;
-	if(index <= 4U && index > levels_completed+1U) {
+	if(index <= 5U && index > levels_unlocked || index == 6U && levels_completed < 2U) {
         if(CGB_MODE) {
 		    tiles = selection_locked_dx_tiles;
             palettes = selection_locked_dx_palettes;
@@ -162,12 +185,19 @@ void _selectSetBannerTiles(UBYTE index, UBYTE x, UBYTE y) {
 		if(CGB_MODE) palettes = selection4_palettes;
 	} else if(index == 5U) {
         if(CGB_MODE) {
+            tiles = selection5_dx_tiles;
+            palettes = selection5_dx_palettes;
+        } else {
+            tiles = selection5_tiles;
+        }
+	} else if(index == 6U) {
+        if(CGB_MODE) {
 		    tiles = selection_jukebox_dx_tiles;
 		    palettes = selection_jukebox_dx_palettes;
         } else {
 		    tiles = selection_jukebox_tiles;
         }
-	} else if(index == 6U) {
+	} else if(index == 7U) {
         if(CGB_MODE) {
 		    tiles = selection_highscore_dx_tiles;
 		    palettes = selection_highscore_dx_palettes;
@@ -190,7 +220,7 @@ void _selectSetBannerColumn(UBYTE index, UBYTE x, UBYTE y) {
     UBYTE *palette_ptr;
     UBYTE tiles[6];
 
-	if(index <= 4U && index > levels_completed+1U) {
+	if(index <= 5U && index > levels_unlocked || index == 6U && levels_completed < 2U) {
         if(CGB_MODE) {
             ptr = selection_locked_dx_tiles;
             palette_ptr = selection_locked_dx_palettes;
@@ -211,12 +241,19 @@ void _selectSetBannerColumn(UBYTE index, UBYTE x, UBYTE y) {
         if(CGB_MODE) palette_ptr = selection4_palettes;
 	} else if(index == 5U) {
         if(CGB_MODE) {
+            ptr = selection5_dx_tiles;
+            palette_ptr = selection5_dx_palettes;
+        } else {
+            ptr = selection5_tiles;
+        }
+	} else if(index == 6U) {
+        if(CGB_MODE) {
             ptr = selection_jukebox_dx_tiles;
             palette_ptr = selection_jukebox_dx_palettes;
         } else {
             ptr = selection_jukebox_tiles;
         }
-	} else if(index == 6U) {
+	} else if(index == 7U) {
 		if(CGB_MODE) {
             ptr = selection_highscore_dx_tiles;
             palette_ptr = selection_highscore_dx_palettes;

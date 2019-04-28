@@ -28,6 +28,7 @@ void fadeSpritesToWhite(UBYTE delay);
 void fadeSpritesToWhiteGB(UBYTE delay);
 void fadeSpritesToWhiteCGB(UBYTE delay);
 
+void showWaveScreen();
 void enterGame();
 
 #define SCRLMGN 84U

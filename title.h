@@ -6,7 +6,6 @@ void updateTitleEnemies();
 void drawTitleSprites(UBYTE triggered);
 void saveMinigameTime();
 void enterTitle();
-void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
 
 #define TITLE_SCROLL   0U
 #define TITLE_MOVE     1U

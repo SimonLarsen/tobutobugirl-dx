@@ -26,10 +26,8 @@ _set_bkg_data_rle::
 	ldhl	sp,#4
 	ld	(hl+), a
 	ld	(hl), d
-;gamestate.c:397: run = 0U;
 	ldhl	sp,#7
 	ld	(hl), #0x00
-;gamestate.c:399: while(count != 0UL) {
 00111$:
 	ldhl	sp,#1
 	ld	a, (hl-)
@@ -45,7 +43,7 @@ _set_bkg_data_rle::
     res 4, a
     ld (hl), a
 00110$:
-; if(run == 0U)
+; if run == 0U
 	ldhl	sp,#7
 	ld	a, (hl)
 	or	a, a
@@ -64,7 +62,7 @@ _set_bkg_data_rle::
 	ld	a,(de)
 	ldhl	sp,#6
 	ld	(hl), a
-; if(value == data[1])
+; if value == data[1]
 	ldhl	sp,#(3 - 1)
 	ld	c, (hl)
 	inc	hl
@@ -100,16 +98,15 @@ _set_bkg_data_rle::
 	ld	(hl), d
 	jr	00105$
 00102$:
-;gamestate.c:406: run = 1U;
 	ldhl	sp,#7
 	ld	(hl), #0x01
-;gamestate.c:407: data++;
+; data++;
 	ldhl	sp,#12
 	ld	(hl), c
 	inc	hl
 	ld	(hl), b
 00105$:
-;gamestate.c:410: run--;
+; run--;
 	ldhl	sp,#7
 	dec	(hl)
 ; put value in DE
@@ -118,7 +115,7 @@ _set_bkg_data_rle::
 	inc	hl
 	ld	d, (hl)
 	inc	hl
-; while(STAT & 2U)
+; while STAT & 2U
 00106$:
 	ldh a,(#0xFF41)
 	bit	1, a
@@ -126,7 +123,7 @@ _set_bkg_data_rle::
 ; *out = value;
 	ld	a, (hl)
 	ld	(de), a
-;gamestate.c:414: ++out;
+; ++out;
 	dec	hl
 	dec	hl
 	inc	(hl)
@@ -134,15 +131,6 @@ _set_bkg_data_rle::
 	inc	hl
 	inc	(hl)
 00160$:
-; check out == 0x9800 ?
-;    ldhl sp,#5
-;    ld a, (hl)
-;    sub a, #0x98
-;	jr	NZ,00110$
-;    ld (hl), #0x88
-;    dec hl
-;    ld (hl), #0x00
-;00110$:
 ; count--
 	pop	de
 	push	de
