@@ -436,6 +436,7 @@ void updatePlayer() {
                 scene_state = INGAME_COMPLETED;
                 player_x = entity_x[i];
                 player_y = entity_y[i];
+                return;
             }
         }
     }
