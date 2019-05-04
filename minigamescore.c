@@ -6,6 +6,7 @@
 #include "sound.h"
 #include "ram.h"
 #include "mmlgb/driver/music.h"
+#include "sgb_send_packet.h"
 
 #include "data/palettes/minigame_score.h"
 #include "data/bg/minigame_score_bg.h"
@@ -14,6 +15,15 @@
 
 const UBYTE minigame_score_palettes[9] = {
 	0U, 0U, 120U, 1U, 1U, 120U, 0U, 0U, 120U
+};
+
+const UBYTE SGB_MINIGAME_ATTRDIV[16] = {
+    (6U << 3) + 1U,
+    1U | (1U << 2) | (1U << 4),
+    0U, 0U,
+    0U, 0U, 0U, 0U,
+    0U, 0U, 0U, 0U,
+    0U, 0U, 0U, 0U
 };
 
 void initMinigamescore() {
@@ -76,6 +86,10 @@ void initMinigamescore() {
 	ticks = 0U;
 	circle_index = 0U;
 	clearSprites();
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_MINIGAME_ATTRDIV);
+    }
 
 	HIDE_WIN;
 	HIDE_SPRITES;

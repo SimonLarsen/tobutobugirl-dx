@@ -147,7 +147,7 @@ void main() {
 				enterWipe();
 				break;
 			case GAMESTATE_MINIGAME_SCORE:
-				setGameBank(1U);
+				setGameBank(8U);
 				enterMinigamescore();
 				break;
 		}

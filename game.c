@@ -20,6 +20,7 @@
 // Maps
 #include "characters.h"
 #include "data/bg/hud.h"
+#include "data/bg/hud_sgb.h"
 #include "data/bg/hud_dx.h"
 #include "data/bg/clock.h"
 #include "data/bg/wavescreen.h"
@@ -124,17 +125,18 @@ const UBYTE entity_palettes[10U] = {
     0U // clock
 };
 
-const UBYTE SGB_GAME_ATTRBLK[16] = {
-    (0x04U << 3) + 1U,
-    1U,
-    // data set 1
-    7U,
-    2U | (2U << 2) | (1U << 4),
-    18U, 0U, 19U, 17U,
-    // data set 2
-    0U, 0U, 0U, 0U, 0U, 0U,
-    //
-    0U, 0U,
+const UBYTE SGB_GAME_STAGE_PAL01[16] = {
+    1,
+    255, 127,  92,  57, 203,  72,   0,   0, 92,  33, 233, 113,   0,   0,
+    0
+};
+
+const UBYTE SGB_GAME_ATTRDIV[16] = {
+    (6 << 3) + 1,
+    1 | (1 << 4),
+    18,
+    0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
 UBYTE mydiv(UBYTE num, UBYTE denom) {
@@ -170,7 +172,6 @@ void initGame() {
     // Load tile data
     if(CGB_MODE) {
         set_bkg_data(hud_dx_tiles_offset, hud_dx_data_length, hud_dx_data);
-        set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
         set_bkg_palette_buffer(hud_dx_palette_offset, hud_dx_palette_data_length, hud_dx_palette_data);
         set_bkg_palette_buffer(7U, 1U, clock_palettes);
         set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_tiles);
@@ -179,11 +180,14 @@ void initGame() {
         for(i = 0U; i != 4U; ++i) buf[i] = 7U;
         set_win_tiles(0U, 1U, 2U, 2U, buf);
         VBK_REG = 0U;
+    } else if(sgb_mode) {
+        set_bkg_data(hud_sgb_tiles_offset, hud_sgb_data_length, hud_sgb_data);
+        set_win_tiles(0U, 0U, hud_sgb_tiles_width, hud_sgb_tiles_height, hud_sgb_tiles);
     } else {
         set_bkg_data(hud_tiles_offset, hud_data_length, hud_data);
-        set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
         set_win_tiles(0U, 0U, hud_tiles_width, hud_tiles_height, hud_tiles);
     }
+    set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
 
     skin_data = getSkinData();
     set_sprite_data(24U, sprites_data_length, sprites_data);
@@ -281,7 +285,8 @@ void initGame() {
     move_win(151U, 0U);
 
     if(sgb_mode) {
-        sgb_send_packet(SGB_GAME_ATTRBLK);
+        sgb_send_packet(SGB_GAME_STAGE_PAL01); delay(62U);
+        sgb_send_packet(SGB_GAME_ATTRDIV);
     }
 
     updateHUDTime();
@@ -332,6 +337,11 @@ void restoreGame() {
     updateHUDTime();
 
     move_bkg(0U, 112U-progress);
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_GAME_STAGE_PAL01); delay(62U);
+        sgb_send_packet(SGB_GAME_ATTRDIV);
+    }
 
     SHOW_BKG;
     SHOW_WIN;

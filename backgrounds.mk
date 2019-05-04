@@ -10,6 +10,9 @@ data/bg/potato_dx.h: data/bg/potato_dx.png
 data/bg/titlescreen.h: data/bg/titlescreen.png
 	$(IMGTOGB) --map --rle $< $@
 
+data/bg/titlescreen_sgb.h: data/bg/titlescreen_sgb.png
+	$(IMGTOGB) --map --rle $< $@
+
 data/bg/titlescreen_dx.h: data/bg/titlescreen_dx.png data/palettes/titlescreen_base.png
 	$(IMGTOGB) --map --rle -c $< $@ -I data/palettes/titlescreen_base.png
 
@@ -28,6 +31,9 @@ data/bg/select.h: data/bg/select.png data/bg/select_dx.png
 	$(IMGTOGB) --map --rle -O 13 $< --dx data/bg/select_dx.png $@
 
 data/bg/hud.h: data/bg/hud.png
+	$(IMGTOGB) --map $< $@
+
+data/bg/hud_sgb.h: data/bg/hud_sgb.png
 	$(IMGTOGB) --map $< $@
 
 data/bg/hud_dx.h: data/bg/hud_dx.png

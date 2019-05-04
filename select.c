@@ -36,6 +36,18 @@ const UBYTE cat_even_tiles[6] = { 9U, 11U, 9U, 11U, 9U, 11U };
 const UBYTE cat_odd_tiles[6]  = { 10U, 12U, 10U, 12U, 10U, 12U };
 const UBYTE cat_palettes[6]  = { 0U, 0U, 0U, 0U, 0U, 0U };
 
+const UBYTE SGB_SELECT_PAL01[16] = {
+    (0 << 3) + 1U,
+    255, 127, 124,  66, 176,  12,   0,   0, 233, 113, 62,  53,   0,   0,
+    0
+};
+
+const UBYTE SGB_SELECT_PAL23[16] = {
+    (1 << 3) + 1U,
+    255, 127,  28,  94, 112,  40,   0,   0, 254,  98, 62,  53,   0,   0,
+    0
+};
+
 const UBYTE SGB_SELECT_ATTRBLK[16] = {
     (0x04U << 3) + 1U,
     2U,
@@ -50,6 +62,7 @@ const UBYTE SGB_SELECT_ATTRBLK[16] = {
     //
     0U, 0U
 };
+
 
 void initSelect() {
 	UBYTE buf[3];
@@ -95,10 +108,12 @@ void initSelect() {
 	}
 
 	OBP0_REG = 0xD0U; // 11010000
-	OBP1_REG = 0xB4U; // 11100100
+	OBP1_REG = 0xE0U; // 11100000
 	BGP_REG = 0xE4U; // 11100100
 
     if(sgb_mode) {
+        sgb_send_packet(SGB_SELECT_PAL01); delay(65U);
+        sgb_send_packet(SGB_SELECT_PAL23); delay(65U);
         sgb_send_packet(SGB_SELECT_ATTRBLK);
     }
 
@@ -120,17 +135,18 @@ void initSelect() {
 }
 
 void selectUpdateSprites() {
-	UBYTE frame;
+	UBYTE frame, pal;
 
-	setSprite(24U-arrow_offset1, 68U, 37U, OBJ_PAL0);
-	setSprite(32U-arrow_offset1, 68U, 39U, OBJ_PAL0);
-	setSprite(24U-arrow_offset1, 76U, 38U, OBJ_PAL0);
-	setSprite(32U-arrow_offset1, 76U, 40U, OBJ_PAL0);
+    pal = sgb_mode << 4;
+	setSprite(24U-arrow_offset1, 68U, 37U, pal);
+	setSprite(32U-arrow_offset1, 68U, 39U, pal);
+	setSprite(24U-arrow_offset1, 76U, 38U, pal);
+	setSprite(32U-arrow_offset1, 76U, 40U, pal);
 
-	setSprite(136U+arrow_offset2, 68U, 39U, OBJ_PAL0 | FLIP_X);
-	setSprite(144U+arrow_offset2, 68U, 37U, OBJ_PAL0 | FLIP_X);
-	setSprite(136U+arrow_offset2, 76U, 40U, OBJ_PAL0 | FLIP_X);
-	setSprite(144U+arrow_offset2, 76U, 38U, OBJ_PAL0 | FLIP_X);
+	setSprite(136U+arrow_offset2, 68U, 39U, pal | FLIP_X);
+	setSprite(144U+arrow_offset2, 68U, 37U, pal | FLIP_X);
+	setSprite(136U+arrow_offset2, 76U, 40U, pal | FLIP_X);
+	setSprite(144U+arrow_offset2, 76U, 38U, pal | FLIP_X);
 
 	if(levels_completed >= 3U) {
 		switch(select_cat_state) {
@@ -173,10 +189,10 @@ void selectUpdateSprites() {
 		}
 
 		frame = 41U + (cat_frame << 2);
-		setSprite(136U, 20U, frame++, OBJ_PAL0 | 1U);
-		setSprite(144U, 20U, frame++, OBJ_PAL0 | 1U);
-		setSprite(136U, 28U, frame++, OBJ_PAL0 | 1U);
-		setSprite(144U, 28U, frame, OBJ_PAL0 | 1U);
+		setSprite(136U, 20U, frame++, pal | 1U);
+		setSprite(144U, 20U, frame++, pal | 1U);
+		setSprite(136U, 28U, frame++, pal | 1U);
+		setSprite(144U, 28U,   frame, pal | 1U);
 	}
 }
 

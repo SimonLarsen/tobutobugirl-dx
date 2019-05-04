@@ -5,6 +5,7 @@
 #include "sound.h"
 #include "ram.h"
 #include "mmlgb/driver/music.h"
+#include "sgb_send_packet.h"
 
 #include "characters.h"
 
@@ -14,6 +15,17 @@ const UBYTE pause_text_off[] = { 25U, 16U, 16U };
 const UBYTE pause_marker_x1[] = { 49U, 17U, 57U };
 const UBYTE pause_marker_x2[] = { 110U, 142U, 102U };
 const UBYTE pause_marker_y[] = { 112U, 124U, 136U };
+
+const UBYTE SGB_PAUSE_PAL01[16] = {
+    1, 255, 127, 191,  38, 136,  56,   0,   0, 28,  49, 28,  49,   0,   0, 0
+};
+
+const UBYTE SGB_PAUSE_ATTRDIV[16] = {
+    (0x06U << 3) + 1U,
+    1U | (1 << 6),
+    10U,
+    0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+};
 
 UBYTE pause_selection;
 UBYTE pause_ticks;
@@ -37,6 +49,11 @@ void initPause() {
 	pauseUpdateDashCounter();
 
 	move_bkg(0U, 0U);
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_PAUSE_PAL01); delay(62U);
+        sgb_send_packet(SGB_PAUSE_ATTRDIV); delay(62U);
+    }
 
 	SHOW_BKG;
 	SHOW_SPRITES;

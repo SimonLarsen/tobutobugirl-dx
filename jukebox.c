@@ -7,6 +7,7 @@
 #include "cos.h"
 #include "sound.h"
 #include "mmlgb/driver/music.h"
+#include "sgb_send_packet.h"
 
 #include "arrow.h"
 #include "data/palettes/digital.h"
@@ -58,6 +59,23 @@ const UBYTE song_names[JUKEBOX_NUM_SONGS][8] = {
 
 const UBYTE jukebox_unlocked[5U] = { 4U, 7U, 9U, 10U, 12U }; 
 
+const UBYTE SGB_JUKEBOX_PAL01[16U] = {
+    1U,
+    255, 127, 223,  37, 185,  20,   0,   0, 223,  37, 166,  20,   0,   0,
+    0U
+};
+
+const UBYTE SGB_JUKEBOX_ATTRBLK[16] = {
+    (4 << 3) + 1U,
+    1U,
+    7U, // change all
+    1U,
+    5U, 10U,
+    14U, 14U,
+    0U,
+    0U, 0U, 0U, 0U, 0U, 0U, 0U
+};
+
 void initJukebox() {
     UBYTE i, j;
 
@@ -104,6 +122,11 @@ void initJukebox() {
 	jukeboxUpdateTitle();
 
 	clearSprites();
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_JUKEBOX_PAL01); delay(62U);
+        sgb_send_packet(SGB_JUKEBOX_ATTRBLK);
+    }
 
 	HIDE_WIN;
 	SHOW_SPRITES;

@@ -25,14 +25,14 @@ OBJ=main.o fade.o gamestate.o set_data_rle.o cos.o circles.o zoom_circles.o char
 	mmlgb/driver/music.o mmlgb/driver/freq.o mmlgb/driver/noisefreq.o mmlgb/driver/vib.o \
 	getpal.o sgb_send_packet.o
 
-OBJ_BANK1=game.o pause.o minigamescore.o
+OBJ_BANK1=game.o pause.o
 OBJ_BANK2=select.o highscore.o unlocked.o
 OBJ_BANK3=intro.o intro_bg.o intro_bg_dx.o ending.o
 OBJ_BANK4=jukebox.o
 OBJ_BANK5=winscreen.o
 OBJ_BANK6=title.o wipe.o
 OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o
-OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o
+OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o minigamescore.o
 OBJ_BANK9=logos.o win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o
 OBJ_BANK10=sound_data.o sgb.o
 OBJ_BANK11=set_banner.o \
@@ -111,7 +111,7 @@ fade.asm: fade.c gamestate.h sound.h fade.h
 fade.o: fade.asm
 	${compile-source}
 
-game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h sgb_send_packet.h data/palettes/sprites.h data/bg/hud.h data/bg/hud_dx.h data/bg/clock.h data/bg/wavescreen.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h
+game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h sgb_send_packet.h data/palettes/sprites.h data/bg/hud.h data/bg/hud_sgb.h data/bg/hud_dx.h data/bg/clock.h data/bg/wavescreen.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h
 	$(SDCCN) -bo 1 -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
 
 game.o: game.asm
@@ -138,7 +138,7 @@ intro_bg_dx.o: intro_bg_dx.c intro_bg_dx.h
 intro.o: intro.c defines.h fade.h gamestate.h set_data_rle.h intro.h intro_bg_dx.h data/palettes/intro_sprites.h data/sprite/intro_sprites.h data/sprite/intro_flash.h
 	${compile-source}
 
-jukebox.o: jukebox.c defines.h jukebox.h fade.h gamestate.h set_data_rle.h cos.h sound.h mmlgb/driver/music.h arrow.h data/palettes/digital.h data/palettes/jukebox_sprites.h data/bg/jukebox.h data/bg/jukebox_dx.h data/sprite/digital.h data/sprite/notes.h data/sprite/bobblehead.h data/sprite/bobblehead_dx.h
+jukebox.o: jukebox.c defines.h jukebox.h fade.h gamestate.h set_data_rle.h cos.h sound.h sgb_send_packet.h mmlgb/driver/music.h arrow.h data/palettes/digital.h data/palettes/jukebox_sprites.h data/bg/jukebox.h data/bg/jukebox_dx.h data/sprite/digital.h data/sprite/notes.h data/sprite/bobblehead.h data/sprite/bobblehead_dx.h
 	${compile-source}
 
 logos.o: logos.c defines.h gamestate.h set_data_rle.h logos.h fade.h sound.h mmlgb/driver/music.h data/bg/tangram.h data/bg/potato.h data/bg/potato_dx.h data/sprite/shine.h
@@ -147,10 +147,10 @@ logos.o: logos.c defines.h gamestate.h set_data_rle.h logos.h fade.h sound.h mml
 main.o: main.c gamestate.h main.h ram.h sound.h mmlgb/driver/music.h logos.h intro.h title.h select.h game.h winscreen.h highscore.h unlocked.h jukebox.h ending.h wipe.h minigamescore.h
 	${compile-source}
 
-minigamescore.o: minigamescore.c defines.h fade.h gamestate.h set_data_rle.h sound.h ram.h data/palettes/minigame_score.h data/bg/minigame_score_bg.h characters.h zoom_circles.h
+minigamescore.o: minigamescore.c defines.h fade.h gamestate.h set_data_rle.h sound.h ram.h sgb_send_packet.h data/palettes/minigame_score.h data/bg/minigame_score_bg.h characters.h zoom_circles.h
 	${compile-source}
 
-pause.o: pause.c defines.h gamestate.h fade.h sound.h ram.h mmlgb/driver/music.h characters.h
+pause.o: pause.c defines.h gamestate.h fade.h sound.h ram.h sgb_send_packet.h mmlgb/driver/music.h characters.h
 	${compile-source}
 
 ram.o: ram.c 
@@ -219,7 +219,7 @@ sound.o: sound.asm
 sound_data.o: sound_data.c data/sounds/sfx_bump.h data/sounds/sfx_bump_alien.h data/sounds/sfx_cat_disable.h data/sounds/sfx_cat_enable.h data/sounds/sfx_dash.h data/sounds/sfx_highscore_switch.h data/sounds/sfx_jetpack.h data/sounds/sfx_menu_cancel.h data/sounds/sfx_menu_confirm.h data/sounds/sfx_menu_locked.h data/sounds/sfx_menu_switch.h data/sounds/sfx_player_die.h data/sounds/sfx_stomp_alien.h data/sounds/sfx_stomp_bat.h data/sounds/sfx_stomp_bird.h data/sounds/sfx_stomp_ghost.h data/sounds/sfx_time_low.h data/sounds/sfx_time_out.h data/sounds/sfx_time_pickup.h data/sounds/sfx_warp_start.h data/sounds/sfx_rank_crash.h
 	${compile-source}
 
-title.o: title.c defines.h title.h fade.h gamestate.h set_data_rle.h sound.h ram.h data/palettes/title_sprites.h data/palettes/minigame_fade.h data/bg/titlescreen.h data/bg/titlescreen_dx.h data/bg/titlescreen_bg.h characters.h data/sprite/title_cat.h
+title.o: title.c defines.h title.h fade.h gamestate.h set_data_rle.h sound.h sgb_send_packet.h ram.h data/palettes/title_sprites.h data/palettes/minigame_fade.h data/bg/titlescreen.h data/bg/titlescreen_dx.h data/bg/titlescreen_bg.h data/bg/titlescreen_sgb.h characters.h data/sprite/title_cat.h
 	${compile-source}
 
 unlocked.o: unlocked.c defines.h unlocked.h fade.h gamestate.h set_data_rle.h characters.h zoom_circles.h data/palettes/unlocked.h data/bg/unlocked.h selection2.h selection3.h selection4.h selection_jukebox.h

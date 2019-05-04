@@ -8,10 +8,12 @@
 #include "sound.h"
 #include "ram.h"
 #include "mmlgb/driver/music.h"
+#include "sgb_send_packet.h"
 
 #include "data/palettes/title_sprites.h"
 #include "data/palettes/minigame_fade.h"
 #include "data/bg/titlescreen.h"
+#include "data/bg/titlescreen_sgb.h"
 #include "data/bg/titlescreen_dx.h"
 #include "data/bg/titlescreen_bg.h"
 #include "characters.h"
@@ -26,6 +28,20 @@ const UBYTE title_message[11] = {
 
 const UBYTE minigame_bkg_palettes[6] = {
 	0U, 0U, 180U, 0U, 0U, 180U
+};
+
+const UBYTE SGB_TITLE_PAL01[16] = {
+    1,
+    255, 127,  28,  94, 233, 113,   0,   0, 233, 113, 173,  53,   0,   0,
+    0
+};
+
+const UBYTE SGB_TITLE_ATTRDIV[16] = {
+    (6U << 3) + 1U,
+    0U, 0U, 0U,
+    0U, 0U, 0U, 0U,
+    0U, 0U, 0U, 0U,
+    0U, 0U, 0U, 0U
 };
 
 UBYTE next_enemy;
@@ -47,6 +63,9 @@ void initTitle() {
 		set_win_tiles_rle(0U, 0U, titlescreen_dx_tiles_width, titlescreen_dx_tiles_height, titlescreen_dx_palettes);
 		set_bkg_tiles_rle(0U, 0U, 20U, 20U, minigame_bkg_palettes);
 		VBK_REG = 0U;
+    } else if(sgb_mode) {
+		set_bkg_data_rle(0U, titlescreen_sgb_data_length, titlescreen_sgb_data);
+		set_win_tiles_rle(0U, 0U, titlescreen_sgb_tiles_width, titlescreen_sgb_tiles_height, titlescreen_sgb_tiles);
 	} else {
 		set_bkg_data_rle(0U, titlescreen_data_length, titlescreen_data);
 		set_win_tiles_rle(0U, 0U, titlescreen_tiles_width, titlescreen_tiles_height, titlescreen_tiles);
@@ -90,6 +109,11 @@ void initTitle() {
 	for(i = 0U; i != MAX_ENTITIES; ++i) {
 		entity_type[i] = 0U;
 	}
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_TITLE_PAL01); delay(62U);
+        sgb_send_packet(SGB_TITLE_ATTRDIV);
+    }
 
 	DISPLAY_ON;
 	enable_interrupts();
