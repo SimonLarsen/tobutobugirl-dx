@@ -7,6 +7,7 @@
 #include "fade.h"
 #include "winscreen.h"
 #include "sound.h"
+#include "sgb_send_packet.h"
 
 #include "characters.h"
 #include "circles.h"
@@ -28,6 +29,22 @@ const UBYTE winscreen_clear_text[5] = {
 
 const UBYTE sharkwave_data[16] = {
 	1U, 35U, 69U, 103U, 138U, 166U, 205U, 239U, 255U, 134U, 67U, 50U, 162U, 17U, 16U, 0U
+};
+
+const UBYTE SGB_WINSCREEN_PAL01[16] = {
+    1,
+    255, 127, 233, 113, 92,  57,   0,   0, 92,  57, 203,  72,   0,   0,
+    0
+};
+
+const UBYTE SGB_WINSCREEN_ATTRBLK[16] = {
+    (4 << 3) + 1,
+    2,
+    7,
+    1 | (1 << 2),
+    0, 3,
+    19, 16,
+    0, 0, 0, 0, 0, 0, 0, 0
 };
 
 void initWinscreen() {
@@ -89,6 +106,11 @@ void initWinscreen() {
 	SPRITES_8x16;
 
 	OBP0_REG = 0xD0U; // 11010000
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_WINSCREEN_PAL01); delay(62U);
+        sgb_send_packet(SGB_WINSCREEN_ATTRBLK);
+    }
 
 	clearSprites();
 

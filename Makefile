@@ -240,7 +240,7 @@ win3.o: win3.c win3.h
 win4.o: win4.c win4.h
 	${compile-source}
 
-winscreen.o: winscreen.c defines.h gamestate.h set_data_rle.h fade.h winscreen.h sound.h characters.h data/palettes/ranks.h data/bg/win_base.h data/bg/win_base_dx.h data/bg/rank_banner.h data/bg/rank_banner_dx.h data/sprite/ranks.h circles.h mmlgb/driver/music.h mmlgb/driver/notes.h mmlgb/driver/freq.h
+winscreen.o: winscreen.c defines.h gamestate.h set_data_rle.h fade.h winscreen.h sound.h sgb_send_packet.h characters.h data/palettes/ranks.h data/bg/win_base.h data/bg/win_base_dx.h data/bg/rank_banner.h data/bg/rank_banner_dx.h data/sprite/ranks.h circles.h mmlgb/driver/music.h mmlgb/driver/notes.h mmlgb/driver/freq.h
 	${compile-source}
 
 wipe.o: wipe.c main.h wipe.h defines.h fade.h gamestate.h set_data_rle.h sound.h circles.h data/bg/wipe.h data/sprite/wipe_marker.h
