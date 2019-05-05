@@ -42,6 +42,11 @@ void initPause() {
 	disable_interrupts();
 	DISPLAY_OFF;
 
+    if(sgb_mode) {
+        sgb_send_packet(SGB_PAUSE_PAL01); delay(62U);
+        sgb_send_packet(SGB_PAUSE_ATTRDIV); delay(62U);
+    }
+
 	set_bkg_data(0, 38U, characters_data);
 	setIngameBackground(255U);
 	setCloudAnimation(player_skin);
@@ -49,11 +54,6 @@ void initPause() {
 	pauseUpdateDashCounter();
 
 	move_bkg(0U, 0U);
-
-    if(sgb_mode) {
-        sgb_send_packet(SGB_PAUSE_PAL01); delay(62U);
-        sgb_send_packet(SGB_PAUSE_ATTRDIV); delay(62U);
-    }
 
 	SHOW_BKG;
 	SHOW_SPRITES;

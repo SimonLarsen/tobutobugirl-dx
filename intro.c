@@ -5,6 +5,7 @@
 #include "set_data_rle.h"
 #include "intro.h"
 #include "mmlgb/driver/music.h"
+#include "sgb_send_packet.h"
 
 #include "intro_bg.h"
 #include "intro_bg_dx.h"
@@ -20,9 +21,25 @@ extern UBYTE intro_song_data;
 #define INTRO_STATE_TRIP  2U
 #define INTRO_STATE_BLINK 3U
 
+const UBYTE SGB_INTRO_PAL01[16] = {
+    1,
+    255, 127, 155,  62, 207,  12,  34,   0, 0,   0, 0,   0,   0,   0,
+    0
+};
+
+const UBYTE SGB_INTRO_ATTRDIV[16] = {
+    (6 << 3) + 1,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
+
 void initIntro() {
 	disable_interrupts();
 	DISPLAY_OFF;
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_INTRO_PAL01); delay(62U);
+        sgb_send_packet(SGB_INTRO_ATTRDIV);
+    }
 
 	move_bkg(0U, 112U);
 

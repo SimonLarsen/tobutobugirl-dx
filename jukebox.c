@@ -36,6 +36,7 @@ extern UBYTE ending_part1_song_data;
 extern UBYTE ending_part2_song_data;
 extern UBYTE dream_song_data;
 extern UBYTE dream_score_song_data;
+extern UBYTE heaven_song_data;
 
 #define JUKEBOX_NUM_SONGS 12U
 
@@ -50,30 +51,47 @@ const UBYTE song_names[JUKEBOX_NUM_SONGS][8] = {
 	{10U, 13U, 22U, 25U, 31U, 14U, 29U, 10U}, // " CLOUDS "
 
 	{10U, 29U, 26U, 11U, 13U, 15U, 10U, 10U}, // " SPACE  "
-    {10U, 18U, 15U, 11U, 32U, 15U, 24U, 10U}, // " HEAVEN "
 
 	{10U, 15U, 24U, 14U, 19U, 24U, 17U, 10U}, // " ENDING "
 	{10U, 14U, 28U, 15U, 11U, 23U, 10U, 10U}, // " DREAM  "
+    {10U, 18U, 15U, 11U, 32U, 15U, 24U, 10U}, // " HEAVEN "
 	{16U, 11U, 28U, 15U, 33U, 15U, 22U, 22U}  // "FAREWELL"
 };
 
-const UBYTE jukebox_unlocked[5U] = { 4U, 7U, 9U, 10U, 12U }; 
+const UBYTE jukebox_unlocked[5U] = { 4U, 7U, 8U, 11U, 12U }; 
 
 const UBYTE SGB_JUKEBOX_PAL01[16U] = {
-    1U,
+    1,
     255, 127, 223,  37, 185,  20,   0,   0, 223,  37, 166,  20,   0,   0,
-    0U
+    0
 };
 
-const UBYTE SGB_JUKEBOX_ATTRBLK[16] = {
-    (4 << 3) + 1U,
-    1U,
-    7U, // change all
-    1U,
-    5U, 10U,
-    14U, 14U,
-    0U,
-    0U, 0U, 0U, 0U, 0U, 0U, 0U
+const UBYTE SGB_JUKEBOX_PAL23[16] = {
+    (1 << 3) + 1,
+    255, 127, 255,  28, 18,  24,   0,   0, 255,  28, 139,   8,   0,   0,
+    0
+};
+
+const UBYTE SGB_JUKEBOX_ATTRBLK[32] = {
+    (4 << 3) + 2,
+    3,
+    // data 1
+    7,
+    3 | (3 << 2),
+    16, 0,
+    19, 5,
+    // data 2
+    1,
+    2 | (2 << 2),
+    16, 0,
+    19, 3,
+    // data 3
+    3,
+    1 | (1 << 2),
+    6, 11,
+    13, 13,
+    //
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
 void initJukebox() {
@@ -84,6 +102,13 @@ void initJukebox() {
 
 	remove_TIM(updateMusic);
 	add_TIM(jukeboxUpdateMusic);
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_JUKEBOX_PAL01); delay(62U);
+        sgb_send_packet(SGB_JUKEBOX_PAL23); delay(62U);
+        sgb_send_packet(SGB_JUKEBOX_ATTRBLK); delay(62U);
+        sgb_send_packet(SGB_JUKEBOX_ATTRBLK+16);
+    }
 
 	move_bkg(0U, 0U);
 
@@ -104,13 +129,17 @@ void initJukebox() {
         for(i = 6U; i != 14U; ++i) set_bkg_tiles(i, 12U, 1U, 1U, &j);
         VBK_REG = 0U;
     } else {
-        set_sprite_data(arrow_data_length+notes_data_length, bobblehead_data_length, bobblehead_data);
+        if(sgb_mode) {
+            set_sprite_data(arrow_data_length+notes_data_length, bobblehead_dx_data_length, bobblehead_dx_data);
+        } else {
+            set_sprite_data(arrow_data_length+notes_data_length, bobblehead_data_length, bobblehead_data);
+        }
 
         set_bkg_data_rle(jukebox_tiles_offset, jukebox_data_length, jukebox_data);
         set_bkg_tiles_rle(0U, 0U, jukebox_tiles_width, jukebox_tiles_height, jukebox_tiles);
     }
 
-	OBP0_REG = 0xD0U; // 11010000
+	OBP0_REG = 0xE0U; // 11100000
 	OBP1_REG = 0xE4; // 11100100
 	BGP_REG = 0xE4U; // 11100100
 
@@ -122,11 +151,6 @@ void initJukebox() {
 	jukeboxUpdateTitle();
 
 	clearSprites();
-
-    if(sgb_mode) {
-        sgb_send_packet(SGB_JUKEBOX_PAL01); delay(62U);
-        sgb_send_packet(SGB_JUKEBOX_ATTRBLK);
-    }
 
 	HIDE_WIN;
 	SHOW_SPRITES;
@@ -149,9 +173,10 @@ void jukeboxUpdateMusic() {
 }
 
 void jukeboxUpdateSprites() {
-	UBYTE offset;
+	UBYTE offset, pal;
 	offset = cos32_64[(ticks & 63U)] >> 3;
 
+    pal = sgb_mode << 4;
 	// Left arrow
 	setSprite(36U-offset, 108U, 0U, OBJ_PAL0 | 2U);
 	setSprite(44U-offset, 108U, 2U, OBJ_PAL0 | 2U);
@@ -164,7 +189,7 @@ void jukeboxUpdateSprites() {
 		// Small notes
 		offset = jukebox_bop & 1U;
 		setSprite(11U, 94U+offset, 4U, OBJ_PAL0 | 3U);
-		setSprite(145U, 18U+offset, 4U, OBJ_PAL0 | 3U);
+		setSprite(145U, 16U+offset, 4U, OBJ_PAL0 | 3U);
 
 		// Double note
 		offset = (jukebox_bop & 1U) ^ 1U;
@@ -182,12 +207,12 @@ void jukeboxUpdateSprites() {
 		offset = 24U;
 	}
 	if(offset == 3U) offset = 0U;
-	setSprite(135U, 34U, offset, OBJ_PAL1);
-	setSprite(143U, 34U, offset+2U, OBJ_PAL1);
-	setSprite(151U, 34U, offset+4U, OBJ_PAL1);
-	setSprite(135U, 50U, offset+6U, OBJ_PAL1 | 1U);
-	setSprite(143U, 50U, offset+8U, OBJ_PAL1 | 1U);
-	setSprite(151U, 50U, offset+10U, OBJ_PAL1 | 1U);
+	setSprite(135U, 32U,     offset, OBJ_PAL1);
+	setSprite(143U, 32U,  offset+2U, OBJ_PAL1);
+	setSprite(151U, 32U,  offset+4U, OBJ_PAL1);
+	setSprite(135U, 48U,  offset+6U, OBJ_PAL1 | 1U);
+	setSprite(143U, 48U,  offset+8U, OBJ_PAL1 | 1U);
+	setSprite(151U, 48U, offset+10U, OBJ_PAL1 | 1U);
 }
 
 void jukeboxUpdateTitle() {
@@ -271,16 +296,16 @@ void enterJukebox() {
 					playMusic(&space_song_data);
 					break;
 				case 8U:
-					setMusicBank(SONG_BANK_SPACE);
-					playMusic(&space_song_data);
-					break;
-				case 9U:
 					setMusicBank(SONG_BANK_ENDING_PART1);
 					playMusic(&ending_part1_song_data);
 					break;
-				case 10U:
+				case 9U:
 					setMusicBank(SONG_BANK_DREAM);
 					playMusic(&dream_song_data);
+					break;
+				case 10U:
+					setMusicBank(SONG_BANK_HEAVEN);
+					playMusic(&heaven_song_data);
 					break;
 				case 11U:
 					setMusicBank(SONG_BANK_DREAM_SCORE);

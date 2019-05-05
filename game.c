@@ -48,6 +48,7 @@ extern UBYTE plains_song_data;
 extern UBYTE clouds_song_data;
 extern UBYTE space_song_data;
 extern UBYTE dream_song_data;
+extern UBYTE heaven_song_data;
 extern UBYTE level_clear_song_data;
 
 const UBYTE scrolled_length_data[5] = {
@@ -139,6 +140,14 @@ const UBYTE SGB_GAME_ATTRDIV[16] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
+const UBYTE SGB_WAVE_ATTRDIV[16] = {
+    (6 << 3) + 1,
+    0,
+    0,
+    0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
+
 UBYTE mydiv(UBYTE num, UBYTE denom) {
     UBYTE cnt;
     cnt = 0;
@@ -168,6 +177,11 @@ void initGame() {
     OBP0_REG = 0xD0U; // 11010000
     OBP1_REG = 0x40U; // 01010000
     BGP_REG = 0xE4U;  // 11100100
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_GAME_STAGE_PAL01); delay(62U);
+        sgb_send_packet(SGB_GAME_ATTRDIV);
+    }
 
     // Load tile data
     if(CGB_MODE) {
@@ -218,8 +232,8 @@ void initGame() {
                 playMusic(&dream_song_data);
                 break;
             case 5U:
-                setMusicBank(SONG_BANK_DREAM);
-                playMusic(&dream_song_data);
+                setMusicBank(SONG_BANK_HEAVEN);
+                playMusic(&heaven_song_data);
                 break;
         }
     }
@@ -284,11 +298,6 @@ void initGame() {
     move_bkg(0U, 112U);
     move_win(151U, 0U);
 
-    if(sgb_mode) {
-        sgb_send_packet(SGB_GAME_STAGE_PAL01); delay(62U);
-        sgb_send_packet(SGB_GAME_ATTRDIV);
-    }
-
     updateHUDTime();
     initSpawns();
 
@@ -307,6 +316,11 @@ void restoreGame() {
 
     disable_interrupts();
     DISPLAY_OFF;
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_GAME_STAGE_PAL01); delay(62U);
+        sgb_send_packet(SGB_GAME_ATTRDIV);
+    }
 
     if(CGB_MODE) {
         set_bkg_data(hud_dx_tiles_offset, hud_dx_data_length, hud_dx_data);
@@ -337,11 +351,6 @@ void restoreGame() {
     updateHUDTime();
 
     move_bkg(0U, 112U-progress);
-
-    if(sgb_mode) {
-        sgb_send_packet(SGB_GAME_STAGE_PAL01); delay(62U);
-        sgb_send_packet(SGB_GAME_ATTRDIV);
-    }
 
     SHOW_BKG;
     SHOW_WIN;
@@ -1211,6 +1220,10 @@ void showWaveScreen() {
 
     disable_interrupts();
     DISPLAY_OFF;
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_WAVE_ATTRDIV);
+    }
 
     SPRITES_8x8;
     OBP0_REG = 0xD0U; // 11010000

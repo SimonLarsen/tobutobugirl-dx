@@ -6,6 +6,7 @@
 #include "gamestate.h"
 #include "set_data_rle.h"
 #include "mmlgb/driver/music.h"
+#include "sgb_send_packet.h"
 
 #include "characters.h"
 #include "zoom_circles.h"
@@ -50,10 +51,34 @@ const UBYTE unlocked_bkg_palettes[45] = {
     0U, 0U, 82U,
 };
 
+const UBYTE SGB_UNLOCKED_PAL01[16] = {
+    1,
+    255, 127, 233, 113, 62,  53,   0,   0, 124,  66, 176,  12,   0,   0,
+    0
+};
+
+
+const UBYTE SGB_UNLOCKED_ATTRBLK[16] = {
+    (4 << 3) + 1,
+    1,
+    // data set 1
+    7,
+    1 | (1 << 2),
+    2, 8,
+    17, 13,
+    //
+    0, 0, 0, 0, 0, 0, 0, 0
+};
+
 void initUnlocked() {
     UBYTE index, msg;
 	disable_interrupts();
 	DISPLAY_OFF;
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_UNLOCKED_PAL01); delay(62U);
+        sgb_send_packet(SGB_UNLOCKED_ATTRBLK);
+    }
 
 	move_bkg(0U, 0U);
 
@@ -83,7 +108,7 @@ void initUnlocked() {
 	}
 	else if(unlocked_bits & UNLOCKED_MUSIC) {
 		unlocked_bits ^= UNLOCKED_MUSIC;
-        index = 5U;
+        index = 6U;
         msg = 1U;
 	}
 	else if(unlocked_bits & UNLOCKED_DREAM) {

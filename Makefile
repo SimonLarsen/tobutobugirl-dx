@@ -45,7 +45,8 @@ OBJ_BANK11=set_banner.o \
 OBJ_SONGS=title_song.o mainmenu_song.o score_tally_song.o highscore_song.o plains_song.o \
 		clouds_song.o space_song.o dream_song.o dream_score_song.o intro_song.o \
 		ending_part1_song.o ending_part2_song.o potato_jingle_song.o tangram_shine_song.o \
-		tangram_vox_song.o level_clear_song.o unlocked_song.o time_out_song.o minigame_song.o potaka_song.o
+		tangram_vox_song.o level_clear_song.o unlocked_song.o time_out_song.o minigame_song.o potaka_song.o \
+		heaven_song.o
 
 RAM_BANK1=ram.o
 
@@ -102,7 +103,7 @@ circles.o: circles.c circles.h
 cos.o: cos.c cos.h
 	${compile-source}
 
-ending.o: ending.c defines.h ending.h gamestate.h set_data_rle.h fade.h intro_bg.h intro_bg_dx.h data/palettes/ending_sprites.h data/bg/ending_thanks.h data/bg/ending_thanks_dx.h data/sprite/ending_sprites1.h data/sprite/ending_sprites2.h mmlgb/driver/music.h
+ending.o: ending.c defines.h ending.h gamestate.h set_data_rle.h sgb_send_packet.h fade.h intro_bg.h intro_bg_dx.h data/palettes/ending_sprites.h data/bg/ending_thanks.h data/bg/ending_thanks_dx.h data/sprite/ending_sprites1.h data/sprite/ending_sprites2.h mmlgb/driver/music.h
 	${compile-source}
 
 fade.asm: fade.c gamestate.h sound.h fade.h
@@ -135,13 +136,13 @@ intro_bg.o: intro_bg.c intro_bg.h
 intro_bg_dx.o: intro_bg_dx.c intro_bg_dx.h
 	${compile-source}
 
-intro.o: intro.c defines.h fade.h gamestate.h set_data_rle.h intro.h intro_bg_dx.h data/palettes/intro_sprites.h data/sprite/intro_sprites.h data/sprite/intro_flash.h
+intro.o: intro.c defines.h fade.h gamestate.h set_data_rle.h intro.h intro_bg_dx.h sgb_send_packet.h data/palettes/intro_sprites.h data/sprite/intro_sprites.h data/sprite/intro_flash.h
 	${compile-source}
 
 jukebox.o: jukebox.c defines.h jukebox.h fade.h gamestate.h set_data_rle.h cos.h sound.h sgb_send_packet.h mmlgb/driver/music.h arrow.h data/palettes/digital.h data/palettes/jukebox_sprites.h data/bg/jukebox.h data/bg/jukebox_dx.h data/sprite/digital.h data/sprite/notes.h data/sprite/bobblehead.h data/sprite/bobblehead_dx.h
 	${compile-source}
 
-logos.o: logos.c defines.h gamestate.h set_data_rle.h logos.h fade.h sound.h mmlgb/driver/music.h data/bg/tangram.h data/bg/potato.h data/bg/potato_dx.h data/sprite/shine.h
+logos.o: logos.c defines.h gamestate.h set_data_rle.h logos.h fade.h sound.h mmlgb/driver/music.h sgb_send_packet.h data/bg/tangram.h data/bg/potato.h data/bg/potato_dx.h data/sprite/shine.h
 	${compile-source}
 
 main.o: main.c gamestate.h main.h ram.h sound.h mmlgb/driver/music.h logos.h intro.h title.h select.h game.h winscreen.h highscore.h unlocked.h jukebox.h ending.h wipe.h minigamescore.h
@@ -222,7 +223,7 @@ sound_data.o: sound_data.c data/sounds/sfx_bump.h data/sounds/sfx_bump_alien.h d
 title.o: title.c defines.h title.h fade.h gamestate.h set_data_rle.h sound.h sgb_send_packet.h ram.h data/palettes/title_sprites.h data/palettes/minigame_fade.h data/bg/titlescreen.h data/bg/titlescreen_dx.h data/bg/titlescreen_bg.h data/bg/titlescreen_sgb.h characters.h data/sprite/title_cat.h
 	${compile-source}
 
-unlocked.o: unlocked.c defines.h unlocked.h fade.h gamestate.h set_data_rle.h characters.h zoom_circles.h data/palettes/unlocked.h data/bg/unlocked.h selection2.h selection3.h selection4.h selection_jukebox.h
+unlocked.o: unlocked.c defines.h unlocked.h fade.h gamestate.h set_data_rle.h sgb_send_packet.h characters.h zoom_circles.h data/palettes/unlocked.h data/bg/unlocked.h selection2.h selection3.h selection4.h selection_jukebox.h
 	${compile-source}
 
 win1.o: win1.c win1.h
@@ -273,5 +274,5 @@ mmlgb/driver/vib.o: mmlgb/driver/vib.asm
 tobudx.gb: ram.o $(OBJ) $(OBJ_SONGS) \
 	$(OBJ_BANK1) $(OBJ_BANK2) $(OBJ_BANK3) $(OBJ_BANK4) \
 	$(OBJ_BANK5) $(OBJ_BANK6) $(OBJ_BANK7) $(OBJ_BANK8) \
-	$(OBJ_BANK9) $(OBJ_BANK10) $(OBJ_BANK11) $(OBJ_BANK12)
+	$(OBJ_BANK9) $(OBJ_BANK10) $(OBJ_BANK11)
 	$(CC) $(CFLAGS) -Wl-yt03 -Wl-yo16 -Wl-ya1 -Wl-yp0x143=0x80 -Wl-yp0x146=0x03 -Wl-yp0x14A=0x01 -Wl-yp0x14B=0x33 $^ -o $@

@@ -70,6 +70,12 @@ void initSelect() {
 	disable_interrupts();
 	DISPLAY_OFF;
 
+    if(sgb_mode) {
+        sgb_send_packet(SGB_SELECT_PAL01); delay(65U);
+        sgb_send_packet(SGB_SELECT_PAL23); delay(65U);
+        sgb_send_packet(SGB_SELECT_ATTRBLK);
+    }
+
 	move_bkg(0U, 0U);
 	set_sprite_data(0U, 37U, characters_data);
 	set_sprite_data(37U, arrow_data_length, arrow_data);
@@ -110,12 +116,6 @@ void initSelect() {
 	OBP0_REG = 0xD0U; // 11010000
 	OBP1_REG = 0xE0U; // 11100000
 	BGP_REG = 0xE4U; // 11100100
-
-    if(sgb_mode) {
-        sgb_send_packet(SGB_SELECT_PAL01); delay(65U);
-        sgb_send_packet(SGB_SELECT_PAL23); delay(65U);
-        sgb_send_packet(SGB_SELECT_ATTRBLK);
-    }
 
 	clearSprites();
 	selectSetBannerData(selection, 1U, 1U);

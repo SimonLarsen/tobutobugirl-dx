@@ -48,7 +48,7 @@ void sgb_copy_rle(UBYTE *data, UBYTE *dest, UWORD n, UBYTE step) {
 UBYTE sgb_check2() {
     UBYTE a, b;
 
-    sgb_send_packet(SGB_MLT_REQ2); delay(65U);
+    sgb_send_packet(SGB_MLT_REQ2); delay(62U);
 
     P1_REG = SGB_P1_NEUTRAL;
 
@@ -66,7 +66,7 @@ UBYTE sgb_check2() {
     b = P1_REG;
     b = P1_REG;
 
-    sgb_send_packet(SGB_MLT_REQ1); delay(65U);
+    sgb_send_packet(SGB_MLT_REQ1);
 
     return a != b;
 }
@@ -75,22 +75,24 @@ void sgb_init() {
     UBYTE x, y, i;
     UBYTE *dout;
 
-    DISPLAY_OFF;
+    delay(62U);
+    sgb_send_packet(SGB_FREEZE);
+    delay(62U);
 
-    sgb_send_packet(SGB_FREEZE); delay(65U);
+    DISPLAY_OFF;
 
     BGP_REG = 0xE4U;
     OBP0_REG = 0xE4U;
     OBP1_REG = 0xE4U;
 
-    sgb_send_packet(SGB_INIT1); delay(65U);
-    sgb_send_packet(SGB_INIT2); delay(65U);
-    sgb_send_packet(SGB_INIT3); delay(65U);
-    sgb_send_packet(SGB_INIT4); delay(65U);
-    sgb_send_packet(SGB_INIT5); delay(65U);
-    sgb_send_packet(SGB_INIT6); delay(65U);
-    sgb_send_packet(SGB_INIT7); delay(65U);
-    sgb_send_packet(SGB_INIT8); delay(65U);
+    sgb_send_packet(SGB_INIT1); delay(62U);
+    sgb_send_packet(SGB_INIT2); delay(62U);
+    sgb_send_packet(SGB_INIT3); delay(62U);
+    sgb_send_packet(SGB_INIT4); delay(62U);
+    sgb_send_packet(SGB_INIT5); delay(62U);
+    sgb_send_packet(SGB_INIT6); delay(62U);
+    sgb_send_packet(SGB_INIT7); delay(62U);
+    sgb_send_packet(SGB_INIT8); delay(62U);
 
     HIDE_SPRITES;
     HIDE_WIN;
@@ -115,13 +117,13 @@ void sgb_init() {
     sgb_copy_rle(border_data1, (UBYTE*)0x8000UL, 0x1000UL, 1U);
 
     DISPLAY_ON;
-    sgb_send_packet(SGB_BORDER_CHR_TRN1); delay(65U);
+    sgb_send_packet(SGB_BORDER_CHR_TRN1); delay(62U);
     DISPLAY_OFF;
 
     sgb_copy_rle(border_data2, (UBYTE*)0x8000UL, 0x1000UL, 1U);
 
     DISPLAY_ON;
-    sgb_send_packet(SGB_BORDER_CHR_TRN2); delay(65U);
+    sgb_send_packet(SGB_BORDER_CHR_TRN2); delay(62U);
     DISPLAY_OFF;
 
     sgb_copy_rle(border_tiles, (UBYTE*)0x8000UL, 0x400UL, 2U);
@@ -129,7 +131,7 @@ void sgb_init() {
     memcpy((UBYTE*)0x8800UL, border_palette_data, 0x80U);
 
     DISPLAY_ON;
-    sgb_send_packet(SGB_BORDER_PCT_TRN); delay(65U);
+    sgb_send_packet(SGB_BORDER_PCT_TRN); delay(62U);
     DISPLAY_OFF;
 
     sgb_send_packet(SGB_UNFREEZE); 

@@ -62,6 +62,13 @@ void initHighscore() {
     disable_interrupts();
     DISPLAY_OFF;
 
+    if(sgb_mode) {
+        sgb_send_packet(SGB_HIGHSCORE_PAL01); delay(65U);
+        sgb_send_packet(SGB_HIGHSCORE_PAL23); delay(65U);
+        sgb_send_packet(SGB_HIGHSCORE_ATTRBLK); delay(65U);
+        sgb_send_packet(SGB_HIGHSCORE_ATTRBLK+16U);
+    }
+
     move_bkg(0U, 0U);
     set_bkg_data(0U, 38U, characters_data);
     set_bkg_data(38U, circles_data_length, circles_data);
@@ -97,13 +104,6 @@ void initHighscore() {
 
     clearSprites();
     _highscoreUpdateScreen();
-
-    if(sgb_mode) {
-        sgb_send_packet(SGB_HIGHSCORE_PAL01); delay(65U);
-        sgb_send_packet(SGB_HIGHSCORE_PAL23); delay(65U);
-        sgb_send_packet(SGB_HIGHSCORE_ATTRBLK); delay(65U);
-        sgb_send_packet(SGB_HIGHSCORE_ATTRBLK+16U);
-    }
 
     SPRITES_8x8;
     SHOW_SPRITES;

@@ -1,0 +1,453 @@
+;For Tobu Tobu Girl
+;Compile with MMLGB
+@wave0 = {0 0 1 1 2 9 9 10 11 12 13 13 14 14 14 15 13 12 11 11 10 10 10 10 10 10 11 11 12 12 12 15 }
+@wave1 = {0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 }
+
+; pulse channel 1
+A t97 @wd0 o5 y0 @ve0
+
+@@100 = {<fr>crfr>crfrcr<frcr<fr>frar>crarcr<arfr}
+@@101 = {<a+r>drfra+r>dr<a+rfrdr<a+r>drfrgr>frcr<frcr}
+
+; 4/4
+A v12 c+24^96r96 v6 c+24^96r96 v5 c+24^96r96 v12 <a24^96r96 v6 a24^96r96 v5 a24^96r96 v12 b24^96r96 v6 b24^96r96 v5 b24^96r96 v12 g24^96r96 v6 g24^96r96 v5 g24^96r96 v12 l32 >cr<a+rf16.r
+A @v8,2,=22 g8 @v0,0 @wd2 v8 ga>dg>c<gd<agr v12 @wd0 @v8,2,=22 a+2^48 r24 @v0,0
+
+A L v9 @wd1 o4 l32
+
+A @@100 @@101
+A <fr>crfra+r>cr<a+rfrcr<fr>crfr>cra+rcr<frcr
+A <fr>crfr>crarcr<frcr<fr>crfr>crgrcr<frcr
+A @@100 @@101
+A <fr>crfra+r>cr<a+rfrcr<fr>crgr>cra+rcr<grcr
+A <fr>crfr>crarcr<frcr<fr>crfr>crfrcr<frcr
+A v10 f=42 v6 f v10 a=42 v6 a v10 >d=42 v6 d v10 c=42 v6 c
+A v10 <a+=90 v6 a+ v10 a+8^32 v6 a+ v10 >d8^32 v6 d v10 e16. v6 e
+A v10 c=90 v6 c v10 <a+8^32 v6 a+ v10 a+8^32 v6 a+ v10 a+16. v6 a+
+A v10 a2.. v6 a8
+A v10 f=42 v6 f v10 a=42 v6 a v10 >d=42 v6 d v10 c=42 v6 c
+A v10 <a+=90 v6 a+ v10 a+8^32 v6 a+ v10 >c8^32 v6 c v10 d16. v6 d
+A v10 c8. v6 c16 v10 c8. v6 c16 v10 <a+4^16 v6 a+16 v10 a+16. v6 a+
+A v10 a=186 v6 a
+A @wd1 v10
+A <a+r>gr>crer<a+r>gr>crer<<<ar>crgr>cr<ar>crgr>cr
+A <<<gr>drfra+rgr>drfra+r<<fr>crergrarfr>crer
+A <<era+r>drgrergra+r>er<<drar>drfr<br>fr>dr<a+r
+A <gr>drgr @wd2 v12 f v7 f v12 g v7 g v12 a+ v7 a+ v12 >d v7 d v12 c+2 v7 c+16
+A @wd1 v10 l64 <<gr>drgra+r>drgr<gr>dr<<gr>drgr>drgrar<gr>dr<crergr>crergr>cr<cr<gr>crergr>crer<gr>cr
+A <<<fr>ergrar>crergr<frgr>crerfrar>cr<grar<f+rar>d+rar<f+rar>drar<f+ra+r>ar>cr<<f+rar>drar
+A <<<gr>a+r>crfr>crdr<<gr>a+r>crfr>crdr<<gr>a+r>crfr<<<<a+r>gr>crergr>cr<<a+r>gr>crergr>cr<<a+r>gr>crer
+A <<<<ar>ergrar>crergr<ar>ergrar>crergr<ar>er<<<g+r>frg+rbr>drfr<g+r>frg+rbr>drfr<g+r>frg+rbr
+A <<a+r>crdrgra+r>frgra+r<a+r>crdrgra+r>frgra+r<<frar>drfr>crdr<frar>drfr>crdr<frar>drgr
+A <<<<gr>drgra+r>dr<gr>drgra+r>dr<gr>drgrdr<a+rgr<ergra+r>crdrfrergra+r>crdrfrergra+r>cr
+A <<<gra+r>frgr>crer<gra+r>frgr>crer<gra+r>frg r8r96 v12 <<< @wd2 f64^96>c+6^8 v6 c+16
+A @wd1 v10 l32
+A <<f>cga>c<f>cga>c<f>cga>c<a<<<a>eg>ce<a>eg>ce<a>eg>cec
+A <<<<a+>a+>cdf<a+>a+>cdf<a+>a+>cdfd<<<c+g+a+>cfc+g>c @wd2 v8 c16. v6 c v8 <a+16. v6 a+
+A v8 a=42 v6 a v8 >c=42 v6 c v8 <b=90 v6 b<
+A @wd1 v12 a+16g16a+ v6 a+ v12 >d+16. v6 d+ v12 <a+ v6 a+ v12 >g v6 g v12 f4e8. v6 e16 r16
+
+A v10 <<<f>fa>cf<f>fa>cf<f>fa>cfc<<<d+a+>d+fa+d+a+>d+fa+d+a+>d+fa+f
+A <<<da>cfada>cfada>cfaf<<<c+>cfgc+>cfgc+>cc+fgfc+<g
+A f v6 g v10 c v6 f v10 g v6 c v10 c v6 g v10 f v6 c v10 c v6 f v10 g v6 c v10 c v6 g v10 f v6 c v10 c v6 f v10 g v6 c v10 c v6 g v10 f v6 c v10 c v6 f v10 g v6 c v10 c v6 g
+A v10 f v6 c v10 c+ v6 f v10 g v6 c+ v10 c+ v6 g v10 f v6 c+ v10 c+ v6 f v10 g v6 c+ v10 c+ v6 g v10 f v6 c+ v10 c+ v6 f v10 g v6 c+ v10 c+ v6 g v10 f v6 c+ v10 c+ v6 f v10 g v6 c+ v10 c+ v6 g
+
+@@201 = { @v0,0 @v7,1,=22 v12 }
+A @wd2 @@201 >f4 v9 f8 v10 @v0,0 << @wd2 l16 b v6 b v3 b v10 g v6 g v3 g v10 a v6 a v10 f v6 f
+
+; 7/8
+A @wd2 o5 v9
+A e8r8.erdrdr4e8
+A r8.erdrdr4e8r8.
+A erdrdr4e8r8.e
+A rdrdr4e8r<f+>de<f+>f
+A rfr<a+>d+ge8r<f+>de<f+>drd
+A r<a+>d+ge8r<f+>de<f+>frfr<a+
+A >d+ge8r<f+>de<f+>drdr<a+>d+g
+
+; 4/4
+A @wd2 o4 v9 y0
+
+@@102 = { a8r16d16g16a16<a16>g16r16g16r16<a16>g16a16d16g16 }
+@@103 = { a8r16d16g16a16<b16>g16r16g16r16<b16>g16a16d16g16 }
+A [ @@102 @@103 ]4
+
+@@104 = { y0 o5 v13 c+32r32 v7 y1 c+32r32 v4 y-1 c+32r32 v11 y0 <a32r32 v7 y-1 a32r32 v4 y1 a32r32 v11 y0 b32r32 v7 y1 b32r32 v4 y-1 b32r32 v11 y0 g32r32 v7 y-1 g32r32 v4 y1 g32r32 v11 y1 a32r32 v7 y-1 a32r32 v11 y0 f32r32 v7 y1 f32r32 }
+@@105 = { y0 v11 o4 e16..r64 e32.r64e32.r64 v6 y-1 e32.r64 v11 y0 d32.r64 v6 y1 d32.r64 v11 y0 g64r64g64r64e32.r64d32.r64e32.r64f+16..r64f+32.r64f+32.r64 }
+
+A @wd1
+A [@@104
+A @@105 v13 a+32>c32
+A @@104
+A @@105 v6 f+32.r64]2
+A @wd2 r16 l32
+A v6 o4 f+r>>erdrf+rer<brf+rer<f+r>>erdrf+rer<brf+r
+A er16.c+r<g+r>c+rg+r<g+r>d+ra+r>cr<grdr<a+r>a+rfrcr
+A <grf+r>>erdrf+rer<brf+rer<f+r>>erdrf+rer<brf+r
+A er16.c+r<g+r>c+rg+r<g+r>d+ra+r>cr<grdr<a+r>a+rfrcr
+A <grf+r>>erdrf+rer<brf+rer<f+r>>erdrf+rer<brf+r
+A er16.c+r<g+r>c+rg+r<g+r>d+ra+r>cr<grdr<a+r>a+rfrcr
+A <grf+r>>erdrf+rer<brf+rer<f+r>>erdrf+rer<brf+r
+A er16.c+r<g+r>c+rg+r<g+r>d+ra+r>cr<gr v12 <a+r>a+rfrcr<gr
+
+A v12 @wd0 l64
+A >crerar32.cr32.crerar>cr<crerar>cr<drfra+r32.dr32.drfra+r>dr<drfra+r>dr<drfra+r>dr
+A <drfra+r32.dr32.drfra+r>dr<drfra+r>dr<crerar32.cr32.crfra+r>cr<crergr>cr<<a+r>c+rgra+r
+A crdrfr32.cr32.crdrfr>cr<crdrfr>cr<<a+r>drgr32.<a+r32.a+r>drgra+r<a+r>drgra+r<a+r>drgra+r
+A <a+r>crfr32.<a+r32.a+r>crfra+r<a+r>crfra+r<a+r>crer32.<a+r32.a+r>crera+r<a+r>crfra+r<a+r>crgra+r
+A <br>drarbr<br>dr<br>drarbr<br>drarbr<a+r>c+rara+r<a+r>c+r<a+r>c+rara+r<a+r>c+rgra+r<a+r>c+rgra+r
+A <ar>d+rgrar<ar>d+r<ar>d+rgrar<ar>d+rgrar<ar>drf+rgr<ar>dr<ar>drerf+r<ar>drerf+r<ar>drerf+r
+A <a+r>drara+r>drfr<a+r>drara+r>drfr<a+r>drara+r<<crergra+r>crdrergrcrergra+r>crdrergr
+A <<crergrar>crergrar>crerfrgrargrercr<argrercr<argrercrcrergrar>crergrar
+A @wd1 v10
+A <<<a+r>gr>crer<a+r>gr>crer<a+r>gr>crdrercr<gr<a+r>ercr<gr<a+r>ercr<grcr<a+r>gr>crer<a+r>gr>crer
+A <<<ar>crgr>cr<ar>crgr>cr<ar>crfrgr>cr<grcr<ar>cr<grcr<ar>cr<grcr<ar>crergr>cr<ar>crgr>cr
+A <<<gr>c+rfra+rgr>c+rfra+rgr>c+rfrgra+rfrc+r<gra+rfrc+r<gra+rfrc+r<gra+r>c+rfra+rgr>c+rfra+r
+A <<fr>crergrarfr>crergrar>ergrargrercr<argrerfr>cr<grercr<frargrercr<frar>cr
+A <era+r>c+rgrera+r>c+rgrera+r>c+rergrc+r<a+rergrc+r<a+rergrc+r<a+rergra+r>c+rgrera+r>c+rgr
+A <<drar>crfrdrar>crfrdrar>crerfrcr<ardr<<f+r>drf+rarf+r>drf+rarf+r>drerf+rarf+rdr<f+r
+A <<gr>drgra+rgr>drgra+ @wd2 r v10 g=42 v6 g32 v10 f=42 v6 f32 v10 <a+=42 v6 a+32
+A v10 >f4..g32f32e=84 v6 e16
+A l24
+A v12 <<g12 v10 >>d<a+gd<gr>ga+r>gargd<gdgr<g>gr>g
+A v12 <c12 v10 >ec<ge>grecr>cerc<gc<g>ercgr>c
+A v12 <<<f12>>egrcer<g>cr<egrceg>cer<<f>e>c<<a
+A l64
+A @wd1 v12 <ar v12 >ar>drerf+rar v12 <ar v12 >ar v12 <<ar v12 >ar>drf+rar>dr v12 <<ar v12 >ar v12 <dr v12 ar>crd+rf+ra+r v12 dr v12 ar v12 <<dr v12 >ar>crd+rf+rar v12 <dr v12 >ar
+A v12 <<gr>a+r>crdrfr<gr>a+r>crdrfr<gr>a+r>crdrfrarfrcr<a+r<gr>frdrcr<a+r<gr>frdrcr<a+rdr<gr>gr
+A <a+r>gr>crergr>cr<<a+r>gr>crergr>cr<gr>crergr>cr<grerdrcr<grcr<a+r>>cr<grercr<gr<a+r>>cr<gr
+A <<ar>ergrar>crergr<ar>ergrar>crergr>crergrercr<ar>frercr<erargrer<ar>grercr<ar
+A <<g+r>frg+rbr>drfr<g+r>frg+rbr>drfr<g+r>frg+r>drg+r<br>frdr<brg+rfr<g+r>frdr<brg+rfr<g+r>frdr
+A @wd2
+A v10 >d4. v6 d8 v10 e8. v6 e16 v10 f8. v6 f16
+A v10 f8. v6 f16 v10 d8. v6 d16 v10 <b8. v6 b16 v10 >d8. v6 d16
+A v10 f32r32c32 v6 f32 v10 <a+32 v6 >c32 v10 f32 v6 <a+32 v10 >c32 v6 f32 v10 <a+32 v6 >c32 v10 f32 v6 <a+32 v10 >c32 v6 f32 v10 <a+32 v6 >c32 v10 f32 v6 <a+32 v10 >c32 v6 f32 v10 <a+32 v6 >c32 v10 f32 v6 <a+32 v10 a+32 v6 >f32 v10 c32 v6 <a+32 v10 a+32 v6 >c32
+A v10 e32 v6 <a+32 v10 >c32 v6 e32 v10 <a+32 v6 >c32 v10 e32 v6 <a+32 v10 >c32 v6 e32 v10 <a+32 v6 >c32 v10 g32 v6 <a+32 v10 >c32 v6 g32 v10 <a+32 v6 >c32 v10 g32 v6 <a+32 v10 a+32 v6 >g32 v10 c32 v6 <a+32 v10 >>c32 v6 <c32 v10 c32 v6 >c32 v10 <g32 v6 c32 v10 c32 v6 g32
+
+; pulse channel 2
+@@200 = { @v0,0 @v6,2,=22 v13 }
+
+B @wd0 o5 v12 y0 @ve0
+; 4/4
+B a+24^96r96 v6 a+24^96r96 v5 a+24^96r96 v12 f+24^96r96 v6 f+24^96r96 v5 f+24^96r96 v12 g+24^96r96 v6 g+24^96r96 v5 g+24^96r96 v12 e24^96r96 v6 e24^96r96 v5 e24^96r96 v12 g32r32f32r32c16.r32
+B <@v8,2,=22 a+4^16> @v0,0 c16d+16 @v8,2,=22 f2^48r24
+
+B L @wd2 o4 @v0,0
+B @@200 a=42 v6 a32 @@200 >c=42 v6 c32 @@200 a+=42 v6 a+32 @@200 a=42 v6 a32
+B @@200 d=90 v6 d32 @@200 d8^32 v6 d32 @@200 f8^32 v6 f32 @@200 g16. v6 g32
+B @@200 e=90 v6 e32 @@200 d8^32 v6 d32 @@200 e8^32 v6 e32 @@200 f16. v6 f32
+B @@200 c2.. v6 c8
+B @@200 <a=42 v6 a32 @@200 >c=42 v6 c32 @@200 a+=42 v6 a+32 @@200 a=42 v6 a32
+B @@200 d=90 v6 d32 @@200 d8^32 v6 d32 @@200 e8^32 v6 e32 @@200 f16. v6 f32
+B @@200 a8. v6 a16 @@200 g8. v6 g16 @@200 e4^16 v6 e16 @@200 f16. v6 f32
+B @@200 f=186 v6 f32
+
+B @wd1 @@200 <a=42 v6 a32 @@200 >c=42 v6 c32 @@200 a+=42 v6 a+32 @@200 a=42 v6 a32
+B @@200 d=90 v6 d32 @@200 d8^32 v6 d32 @@200 f8^32 v6 f32 @@200 g16. v6 g32
+B @@200 e=90 v6 e32 @@200 d8^32 v6 d32 @@200 e8^32 v6 e32 @@200 f16. v6 f32
+B @@200 c2.. v6 c8
+B @@200 <a=42 v6 a32 @@200 >c=42 v6 c32 @@200 a+=42 v6 a+32 @@200 a=42 v6 a32
+B @@200 d=90 v6 d32 @@200 d8^32 v6 d32 @@200 e8^32 v6 e32 @@200 f16. v6 f32
+B @@200 a8. v6 a16 @@200 g8. v6 g16 @@200 e4^16 v6 e16 @@200 f16. v6 f32
+B @@200 f=186 v6 f32 @v0,0
+
+B @wd2 v12 a8 v6 a16 v12 a32 v6 a32 v12 a32 v6 a32 v12 a+32 v6 a+32 v12 a32 v6 a32 v12 g8. v6 g16 v12 >c8 v6 c16 v12 <f16 v6 f16
+B v12 a+16.. v6 a+64 v12 >f16.. v6 f64 v12 e32 v6 e32 v12 f32 v6 f32 v12 g32 v6 g32 v12 c2 v6 c16
+B v12 <g6^192 v6 g64 v12 g24^64 v6 g192 v12 a24^96 v6 a96 v12 a+24^64 v6 a+192 v12 a32 v6 a32 v12 g32 v6 g32 v12 f8 v6 f16 v12 c32 v6 c32 v12 d32 v6 d32 v12 e32 v6 e32 v12 f32 v6 f32 v12 e8.
+B v6 e16 v12 d32 v6 d32 v12 e32 v6 e32 v12 f32 v6 f32 v12 g32 v6 g32 v12 a2 v6 a16
+
+B @wd1 r4 v12 d12^192r192e12^192r192f24^64r192a16..^96r192g16..^96r192a16..^96r192a+16..^96r192
+B >c4^64r32. v12 <a16>c16d16d+8d16..^96r192c+16..^96r192d32r32 v12 @@200 a8...^96 @v0,0
+B r192c16d32r32e32r32f32r32 @@200 g4..r8 @v0,0
+B @@200 g6^64 @v0,0 r192f32r32g16>c32r32<g32r32 @@200 f=84
+
+B @wd2 < r4 l32
+B @@201 a+12^48 v6 a+48 @@201 >c12^48 v6 c48 @@201 d12^48 v6 d48 @@201 a12^48 v6 a48 @@201 g12^48 v6 g48 @@201 f24 v6 f48 @@201 a12 v6 a24 @@201 g2.
+B v6 g8 @@201 a v6 a @@201 a+ v6 a+ @@201 >c2^16
+B r8r192 v12 <<<g+64^96>a+4^32 v6 a+16
+
+B @@200 a=42 v9 a @@200 >c=42 v9 c @@200 g=42 v9 g @@200 f=42 v9 f
+B @@200 a3^96 v9 a @@200 g v9 g @@200 a+4^32 v9 a+ @@201 a16. v8 a @@201 g16. v8 g
+B @@201 f=42 v8 f @@201 v9 >e=42 v6 e @@201 v9 f=42 v6 f @@201 c=42 v8 c
+B @@201 <a3^96 v8 a @@201 a+ v8 a+ @@201 g=84 v8 g16r16
+B @@201 <a=42 v8 a @@201 >c=42 v8 c @@201 g=42 v8 g @@201 f=42 v8 f
+B @@201 a3^96 v8 a @@201 g v8 g @@201 a+2 v8 a+16
+B @@201 a=42 v8 a @@201 c3^16. v8 c16^96 @@201 a=42 v8 a
+B @@201 a+=42 v8 a+ @@201 c+4. v8 c+8 @@201 g=42 v8 g @v0,0
+B v11 <a+r<b v8 >a+ v11 f+ v8 <b v11 >g+ v8 f+ v11 <a v8 >g+ v11 e v8 <a
+B l16 v11 >g+ v6 g+ v3 g+ v11 e v6 e v3 e v11 f+ v6 f+ v11 d v6 d
+
+; 7/8
+
+B @wd2 o5 v9
+B f+8r<f+>df+<f+>grgr<a+>d+gf+8
+B r<f+>df+<f+>grgr<a+>d+gf+8r<f+
+B >df+<f+>grgr<a+>d+gf+8r<f+>df+
+B <f+>grgr<a+>d+gf+8 r @wd1 v11 <df+ga> @@201 d4 @v0,0
+B <a>edc+d @v7,2,=22 a2^8.. @v0,0
+B r8..f+f+ga>d4c+
+B <agf+g @v7,2,=22 a2^8.. @v0,0
+B l32 r
+
+; 4/4
+@@202 = { @v0,0 @v7,2,=22 v10 }
+B @wd2 o6 y0
+B [ @@202 <f=42 v6 f @@202 c=42 v6 c @@202 f=42 v6 f @@202 >c=42 v6 c
+B @@202 <f+=42 v6 f+ @@202 d=42 v6 d @@202 a=42 v6 a @@202 >d=42 v6 d ]4
+
+B @wd1 o5 @v0,0
+
+@@206 = { v12 y0 a+32r32 v8 y1 a+32r32 v5 y-1 a+32r32 v12 y0 f+32r32 v8 y-1 f+32r32 v5 y1 f+32r32 v12 y0 g+32r32 v8 y1 g+32r32 v5 y-1 g+32r32 v12 y0 e32r32 v8 y-1 e32r32 v5 y1 e32r32 v12 f+32r32 v8 y-1 f+32r32 v12 y0 d32r32 v8 y1 d32r32 }
+@@207 = { v12 y0 c+16..r64c+32.r64c+32.r64 v6 y-1 c+32.r64 v12 y0 <b32.r64 v6 y1 b32.r64 v12 y0 >e64r64e64r64c+32.r64<b32.r64>c+32.r64d+16..r64d+32.r64d+32.r64 }
+
+B [ v12 @@206
+B @@207 v12 ga
+B @@206
+B @@207 v6 d+32.r64 ]2
+
+B @wd2 v11 <
+@@203 = { f+r>>erdrf+rer<brf+rer<f+r>>erdrf+rer<brf+rer16. }
+@@204 = { c+r<g+r>c+rg+r<g+r>d+ra+r>cr<grdr }
+@@205 = { <a+r>a+rfrcr<gr }
+B [ @@203
+B @@204 @@205 ]3
+B @@203
+B @@204
+
+@@208 = { @v0,0 @v7,1,=22 v12 }
+
+B l48
+B @@208 c12^48 v5 c @@208 f24 v5 f @@208 a+12^48 v5 a+
+B @@208 a2^6 v5 a @@208 e12^48 v5 e @@208 g24 v5 g @@208 >e12^48 v5 e
+B @@208 c4..^24 v5 c @@208 <g12^48 v5 g @@208 >c12^48 v5 c @@208 <g24 v5 g @@208 a24 v5 ar16 @@208 f3^48
+B v5 f @@208 d24 v5 d @@208 f24 v5 f @@208 >d24 v5 dr16 @@208 c24 v5 c @@208 <f3^48 v5 f
+B @@208 a12^48 v5 a @@208 a+24 v5 a+ @@208 a24 v5 ar16 @@208 f24 v5 f @@208 d24 v5 d @@208 g6^32 v5 gr32 @@208 c12^48 v5 c @@208 f24 v5 f @@208 a+12^48 v5 a+
+B @@208 a2^24 v5 a @@208 g24 v5 g @@208 f24 v5 f @@208 e12^48 v5 e @@208 g24 v5 g @@208 >e12^48 v5 e
+B @@208 c3^48 v5 c @@208 d24 v5 d @@208 d+16 v5 d+16 @@208 f32d+32d12^48 v5 d @@208 c12^48 v5 c @@208 <a12^48 v5 a
+B @@208 a+24 v5 a+ @@208 a24 v5 a @@208 f24 v5 f @@208 >d16 v5 d16 @@208 <d24 v5 d @@208 f24 v5 f @@208 a16 v5 a16 @@208 g16 v5 g16 @@208 f16 v5 f16 @@208 e16 v5 e16 @@208 f2... v5 f8
+
+B l32
+B @@208 >e=90 v5 e @@208 e8^32 v5 e @@208 d8^32 v5 d @@208 e16. v5 e
+B @@208 f=90 v5 f @@208 f8^32 v5 f @@208 g8^32 v5 g @@208 a16. v5 a
+B @@208 a+=42 v5 a+ @@208 f=42 v5 f @@208 >c=42 v5 c @@208 <a+=42 v5 a+
+B @@208 a2.. v5 a8
+B @@208 a3^96 v5 a @@208 g16a16a+8^32 v5 a+ @@208 a8^32 v5 a @@208 g16. v5 g
+B @@208 f=42 v1 f @@208 a=42 v1 a @@208 >e=42 v1 e @@208 d=42 v1 d
+B @@208 c=42 v1 c @@208 <a+=42 v1 a+ @@208 a=42 v1 a @@208 f=42 v1 f
+B @@208 a4.. @v0,0 a+a @@208 g=84 v1 g16 @v0,0
+
+B @wd1 r2 l48
+B @@201 <d6 v5 d @@201 e6 v5 e @@201 f12^48 v5 f
+B @@201 a6^16 v5 a @@201 g6^16 v5 g @@201 a6^16 v5 a @@201 a+6^16 v5 a+
+B @@201 >c2^24 v5 c12 @@201 <a12^48 v5 a @@201 >c16 v5 c @@201 d12^48 v5 d @@201 d+6^16
+B v5 d+ @@201 fd+d6^16 v5 d @@201 c+6^16 v5 c+ @@201 d6^16 v5 d
+B @@201 a2 v5 a8 @@201 d12^48 v5 d @@201 e16 v5 e @@201 f24 v5 f24r24 @@201 g2.^24
+B v5 g8r8
+B @@201 g2 v5 g8 @@201 c12^48 v5 c @@201 d16 v5 d @@201 e24 v5 e24r24 @@201 f2.^24
+B v5 f8 @wd2 r8
+B @@201 <a+4. v8 a+8 @@201 >c8. v8 c16 @@201 d8. v8 d16
+B @@201 a8. v8 a16 @@201 g8. v8 g16 @@201 f16 v8 f16 @@201 a8. v8 a16 @@201 g1^4
+B v8 g8r2.
+
+
+; wave channel
+C @wave0 o3 v3 y0
+; 4/4
+C b24^96r96>f+24^96r96>c+24^96r96<<g24^96r96>d24^96r96a24^96r96<a24^96r96>e24^96r96b24^96r96<f24^96r96>c24^96r96g24^96r96d24^96r96c24^96r96<c24^96r96g24^96r96
+C g+4...^48r96g4...^48r96
+C L o3 v3
+C f4.c16f4c32r32f16g32r32a32r32a+4.
+C f16>c16<a+8f16<a+4.
+C >c2^16f16g16>c8<c16g8
+C f2^16a+16a16c8<a+16>g8
+C f1
+C a+1
+C c1
+C f2^16f+16g16c16b16>c16<c16g16
+
+C l96
+C f24^96rf24^96r>c24^96r<f24^96r>c24^96r<c12^32rf12^32rf48rf48rg24^96rc48r24>c24^96r<c12^32ra+12^32
+C ra+24^96r>c24^96r<a+24^96r>f24^96r<f24^96r>c24^96r<a+12^32rf24^96r<a+24^96ra+24^96ra+24^96ra+24^96rb24^96r>c12^32
+C rc32r32g24^96rc24^96rg24^96rc12^48r48c48r24c48rc48rf24^96rg24^96r>c12^32r<c24^96rg24^96rf12^32
+C rf32r32g24^96rf24^96ra24^96rf24^96r>c24^96r<f12^32re24^96rf24^96r>c24^96rb24^96r>c24^96r<g24^96rc24^96r
+C <f24^96rf24^96r>c24^96r<f24^96r>c24^96r<c12^32rf12^32rf48rf48rg24^96rc48r24>c24^96r<c12^32ra+12^32
+C ra+24^96r>c24^96r<a+24^96r>f24^96r<f24^96r>c24^96r<a+12^32rf24^96r<a+24^96ra+24^96ra+24^96ra+24^96rb48r24>c12^32
+C rc32r32g24^96rc24^96rg24^96rc12^48r48c48r24c48rc48rf24^96rg24^96r>c12^32r<c24^96rg24^96rf12^32
+C rf32r32f24^96rf24^96rf24^96rf24^96rf24^96rf24^96rf24^96rc16f16g16a16c16f16a16
+C a+12^32ra+24^96ra+24^96ra+24^96ra+24^96ra+24^96ra12^32rg+24^96ra24^96r>d12^32rc24^96r<a24^96rf24^96r
+C g24^96r>g24^96r<g24^96rc12^32rg24^96ra24^96rf12^32rc24^96rf24^96rc24^96rg24^96rf24^96r>c12^32r
+C <e24^96rd+24^96re24^96r<a12^32r>e24^96ra24^96rd12^32ra24^96r>d48r<b48rg12^32rd24^96rg24^96ra+12^32
+C ra+48ra+48r>c24^96r<a+24^96r>f24^96r<a+12^32ra12^32ra48ra48r>e24^96rc+24^96r<a24^96r>d24^96re24^96ra24^96r
+C <g32.r64g64r64g64r64>g32.r64<g32.r64>d32.r64g32.r64<g32r32>c16..r64c64r64c64r64>c32.r64<c32.r64>d32.r64c16..r64<<f16..
+C r64f64r64f64r64>f32.r64<f32.r64>f32.r64<g24^96rg+24^96ra16..^96r192a64r64a64r64a+64r64a+64r64a24^96r>d24^96r<a24^96r>>d24^96r<a24^96r
+C <g32.r64g64r64g64r64>g32.r64<g32.r64>d32.r64g32.r64<g32r32a+16..r64a+64r64a+64r64>f32.r64<a+32.r64>f32.r64<a+16..r64a16..
+C r64a64r64a64r64>a32.r64<a32.r64>e32.r64a32.r64<a32r32g+12^32r>d24^96rf48r24b12^32rd48r24<b24^96r>d48r24
+C <g32.r64g64r64g64r64>c32.r64<g32.r64>d32.r64<d16..r64g16..r64g64r64g64r64a32.r64g32.r64b32.r64>c32.r64d32r32c16..
+C r64<c64r64c64r64g32.r64c32.r64a32.r64d32.r64c+32r32c16..r64c64r64c64r64d32.r64c64r64c64r64e32.r64c64r64d64r64e64r64e64r64g32.r64
+C >c16..r64<f+48rg48r>c16..r64<f+48rg48r>c16..r16r64<f+32r32g32r32>c32r32g32r32<f+6^192r64
+C f32.r64f64r64f64r64>f32.r64<f32.r64>c32.r64f16..r64<a16..r64a64r64a64r64>a32.r64<a32.r64>f32.r64a16..r64<a+16..
+C r64a+64r64a+64r64>a+32.r64<a+32.r64a+32.r64>a+16..r64c+16..r64c+64r64c+64r64a+32.r64c+32.r64<a16..r64>e16..r64
+C d32.r64d64r64d64r64a32.r64d32.r64g32.r64a32.r64d32.r64<g16..r64g64r64g64r64b32.r64>d32.r64g32.r64f16..r64<d+16..
+C r64>d+32.r64<a+32.r64>f16..r64d+32.r64<a+32.r64c16..r64>c64r64c64r64>c32.r64<<c32.r64a+32.r64>c32.r64<g32>c32g64^96r192>c64^96r192
+C <<f32.r64f64r64f64r64>f32.r64<f32.r64>c32.r64f16..r64d+16..r64d+64r64d+64r64>d+32.r64<d+32.r64g32.r64>d+16..r64<d16..
+C r64d64r64d64r64>d32.r64<d32.r64a32.r64>d16..r64<c+16..r64c+64r64c+64r64>c+32.r64<f32.r64c+16..r64<a+16..r64
+C >c24^96rc24^96r<a+24^96rc12^32rd24^96r>c24^96rc24^96r<a+24^96rg24^96rf24^96rc24^96r>f16r16<f12^32r
+C >c24^96rc24^96r<a+24^96rc+12^32rf24^96r>c24^96rc24^96r<a+24^96rg24^96rf24^96rc+24^96r>f16r16<f12^32r
+C >b6^192r64g6^192r64a6^192r64f6^192r64g16..r64d+16..r64
+
+; 7/8
+C o3 v3
+C d4.^32.r64<d+6^16r48a+6r48>d4.^32.
+C r64<d+6^16r48a+6r48>d4.^32.
+C r64<d+6^16r48a+6r48>d4.^32.
+C r64<d+6^16r48a+6r48>d4.^32.r64<d+6^16
+C r48a+6r48>d4.^32.r64<d+6^16
+C r48a+6r48>d4.^32.r64<d+6^16r48a+6
+C r48>d4.^32.r64<d+6^16r48g12^48r48a24r48
+
+; 4/4
+C @wave0 o3 v3 y0
+C a+24^96ra+24^96ra+24^96ra+24^96ra+24^96ra+24^96ra+24^96ra+24^96ra+24^96r>d24^96rf24^96ra+12^32ra24^96rf24^96r<a+24^96r
+C b24^96rb24^96rb24^96rb24^96rb24^96rb24^96rb24^96rb24^96rb24^96r>b24^96r<b24^96rb24^96r>f+24^96r<b24^96r>b24^96r<b24^96r
+C a+24^96ra+24^96ra+24^96ra+24^96ra+24^96ra+24^96ra+24^96ra+24^96ra+24^96r>d24^96rf24^96ra+12^32ra24^96rf24^96r<a+24^96r
+C b24^96rb24^96rb24^96rb24^96rb24^96rb24^96rb24^96rb24^96rb24^96r>b24^96r<b24^96rb24^96r>f+24^96r<b24^96r>b24^96r<b24^96r
+C a+24^96ra+24^96r>f24^96r<a+24^96r16ra+24^96r16ra+12^32rf24^96ra+24^96r>f12^32re24^96rc24^96r<b12^32
+C rb24^96r>f+24^96r<b24^96r16rb24^96r16rb12^32r>e24^96rf+24^96rb12^32rf+24^96r<b24^96ra+12^32
+C ra+24^96r>f24^96r<a+24^96r16ra+24^96r16ra+12^32rf24^96ra+24^96r>f12^32re24^96rc24^96r<b12^32
+C rb24^96r>f+24^96r<b24^96r16rb24^96r16rb12^32r>e24^96rf+24^96rb12^32rf+24^96re24^96r<b24^96r
+
+C @wave1 l64
+C b16a16b16g8>d32g32a32.rarara32r32a32g32d16<f16g32f32gr>d32<d+16>d+16
+C <d16..rd32.rd32.r16rc32.r16rcrfrd32.ra32.r>d32.r<d32.rererbr>er<f+32.r>f+32.r
+C <b16a16b16g8>d8a8g16d16<f16g8d+8
+C d16..rd32.rd32.r16rc32.r16r<b32>c32d32.ra32.r>d32.r<e32.r>f+32.re32.rc+32.r<g32.r
+C b16a16b16g8>d32g32a32.rarara32r32a32g32d16<f16g32f32gr>d32<d+16>d+16
+C <d16..rd32.rd32.r16rc32.r16rcrfrd32.ra32.r>d32.r<d32.rererbr>er<f+32.r>f+32.r
+C <b16a16b16g8>d8a8g16d16<f16g8d+8
+C d16..rd32.rd32.r16rc32.r16r<b32>c32d32.ra32.r>d32.r<e32.r>f+32.re32.rc+32.r
+
+@@300 = { <a16arar>e16<<arar>a16>e8<<a16>erererer>e16<<a16>a16>e16<ar<ar>er>er }
+@@301 = { <b16brbr>f+16<<brbr>b16>f+8<c16>crcrcrcr>c16<<f16>f16>c16<fr<fr>cr>cr }
+C @wave0 r16
+C @@300
+C @@301 <
+C @@300
+C @@301
+C <@@300
+C @@301
+C <@@300
+C @@301
+C <<f16.r32f32r32f16^64rfrf8^32r32f16.r32f32r32f16^64rfrf8^32r32
+
+C l96
+C c16.r32c32r32c16^64r64c64r64c8^32r32f16.r32f32r32f16e16^64r32.<a8
+C >d16.r32d32r32d16^64r64d64r64d8d+16d+16.r32d+32r32d+16d16.r32d32r32d16
+C c16.r32c32r32c16^64r64c64r64c8^32r32c16.r32c32r32c16^64r64c64r64c16f8
+C g16.r32g32r32g16^64r64g64r64g8^32r32c+16.r32c+32r32c+16^64r64c+64r64c+8^32r32
+C c16.r32c32r32c16^64r64c64r64c8^32r32d16.r32d32r32d16^64r64d64r64d8^32r32
+C <a+16.r32a+32r32a+16^64r64a+64r64a+8^32r32>c16.r32c32r32c16g16^64r32.<g8
+C >f16.r32f32r32f16^64r64f64r64f8f16f16.r32f32r32f16f16.r32f32r32f16
+C @wave1
+C a+6^96rf6^96r<a+6^96ra+6^96ra+64^96r192>f64^96r192g64^96r48r64a+64^96r48r64<a+64^96r48r64
+C >a6^96rf6^96r<a6^96ra6^96r>f64^96r192e64^96r192f64^96r48r64>c64^96r48r64<c64^96r48r64
+C g6^96rc+6^96rc6^96rc6^96rc64^96r192f64^96r192g64^96r48r64>c64^96r48r64g64^96r48r64
+C <f6^96rc6^96rc24^96rg24^96r16rf24^96r16ra8g24^96rf12^32r
+C a6^96re6^96r<a6^96ra32r32b24^96r>c+32r32e24^96ra32r32>c+32r32e32r32
+C d6^96r<a6^96rd6^96rf+6^96ra64^96r192>c64^96r192d64^96r48r64f+64^96r48r64<a64^96r48r64
+C g6^96rd6^96r<g6^96rg6^96r16rg24^96r>d24^96rg24^96r
+C >c6^96r<g6^96rc24^96r>c24^96r16r<g24^96r16rc24^96r16rd24^96re24^96rf24^96r
+C g6^96rd6^96r<g6^96rg6^96r16rg24^96ra+24^96r>c24^96r
+C >c6^96r<g6^96rc6^96rc24^96rd64^96r192d64^96r192c24^96rg24^96rc24^96r>c24^96r<g24^96r
+C >f6^96rc6^96r<f6^96rf6^96rf64^96r192g64^96r192f64^96r48r64f64^96r48r64a+64^96r48r64
+C a6^96rg+12^32ra24^96r>d6^96r<a24^96rd6^96rd24^96rf+24^96ra24^96r
+C >g6^96rd6^96r<g6^96r<g6^96rg64^96r192a+64^96r192>d64^96r48r64f64^96r48r64g64^96r48r64
+C a+6^96rf6^96r<g24^96r>>c24^96r16r<a+24^96r16rf12^32r<a+64^96r48r64a+64^96r48r64>d64^96r48r64
+C a6^96re6^96r<a6^96ra24^96rb24^96ra24^96r>e64^96r192e64^96r192d64^96r48r64a64^96r48r64>c64^96r48r64
+C <g+6^96rg24^96rg+24^96r>d24^96rf24^96rb24^96r16rf24^96rd24^96r<b24^96rf24^96rb24^96r>d24^96rf24^96 @wave0 r
+C <g8d64r64d64r64<g8>g8.r16<g32r32a+32 v2 g32 v3 g32 v2 a+32 v3 >g32 v2 <g32 v3 >d32 v2 g32 v3 a32 v2 d32 v3 d32 v2 a32
+C v3 b8g64r64g64r64<b8>b8.r16<b32r32>d32 v2 <b32 v3 b32 v2 >d32 v3 b32 v2 <b32 v3 >f32 v2 b32 v3 >d32 v2 <f32 v3 g32 v2 >d32
+C v3 c8<g64r64g64r64c8f8.r16c32r32f32 v2 c32 v3 c32 v2 f32 v3 g64r64g64r64f32r32>d32 v2 <f32 v3 g32>d32
+C c8<g64r64g64r64c8>c8.r16<c16g64r64g64r64f16>c64r64c64r64<g64r64>c64r64>c16<c16
+
+
+; noise channel (drums)
+;;kicks
+@@400 = { v15 o3 a+=5r=1 }	; x32
+@@401 = { v15 o3 a+=7r=5 }	; x16
+@@402 = { v15 o3 a+=7r=17 }	; x8
+
+;;cl hat
+@@403 = { v11 o8 b=4r=2 } ; x32
+@@404 = { v11 o8 b=4r=8 } ; x16
+@@405 = { v11 o8 b=3r=1 } ; x48
+
+;;op hat
+@@406 = { v11 o8 b32 }
+@@407 = { v11 o8 b16 }
+@@408 = { v11 o8 b8 }
+
+;;snares
+@@409 = { v15 o6 b32 }
+@@410 = { v15 o6 b16 }
+@@411 = { v15 o6 b8 }
+@@424 = { v15 o6 b48 }
+
+;;note patterns
+@@412 = { @@410 @@401 }
+@@413 = { @@401 @@403 @@403 }
+@@414 = { @@401 @@404 }
+@@415 = { @@414 @@410 @@404 @@401 @@401 @@410 @@404 @@414 @@410 @@404 @@401 @@401 @@410 @@404 }
+@@416 = { @@414 @@410 @@404 @@401 @@401 @@410 @@404 @@414 @@410 @@404 @@413 @@410 @@404 }
+@@417 = { @@414 @@410 @@404 @@401 @@401 @@410 @@404 @@414 @@410 @@401 @@409 @@409 @@409 @@409 @@410 @@409 @@409 }
+@@418 = { v12 @@400 r32 v11 @@403 v9 @@403 v12 @@409 v11 @@403 v12 @@400 v9 @@403 v12 @@400 v11 @@403 v12 @@409 v9 @@403 v12 @@403 v11 @@403 v12 @@400 v9 @@403 v12 @@400 v11 @@403 v11 @@403 v9 @@403 v12 @@409 v11 @@403 v12 @@400 v9 @@403 v12 @@403 v11 @@403 v11 @@403 v9 @@403 v12 @@409 v11 @@403 v12 @@400 v9 @@403 }
+@@419 = { v12 @@400 r32 v11 @@403 v9 @@403 v12 @@409 v11 @@403 v12 @@400 v9 @@403 v12 @@400 v11 @@403 v12 @@409 v9 @@403 v12 @@403 v11 @@403 v12 @@400 v9 @@403 v12 @@400 v11 @@403 v11 @@403 v9 @@403 v12 @@409 v11 @@403 v12 @@400 v9 @@403 v12 @@400 @@409 @@400 v9 @@403 v12 @@409 v11 @@403 v11 @@403 v9 @@403 }
+@@420 = { v12 @@401 v11 @@403 v9 @@403 }
+@@421 = { @@401 @@404 @@410 @@404 @@401 @@401 @@410 @@404 @@401 @@404 }
+@@422 = { v12 @@410 v11 @@403 v9 @@403 }
+@@423 = { @@411 @@412 @@412 @@412 }
+@@425 = { o8 @ve-4 v11 b8 v12 }
+@@426 = { o8 @ve-4 v11 a+8 v12 }
+; 4/4
+D v12 y0
+D @@425 @@400 @@400 @@426 @ve-1 @@400 @@400 @@425 @ve-1 v11 @@409 v12 @@409 v9 @@424 v8 @@424 v8 @@424 v12 @ve-1 @@412 @@410 [@@405]3 @@403 @@403 @ve-4 o8 v9 b4^16 v12 @ve-1
+
+D r4 [@@411]2 [@@410]2 [@@409]4
+D L
+D [@@414]14 @@413 [@@414]11
+D @@413 @@413 [@@414]2 @@413 [@@414]15
+D @@413 [@@414]11
+D @@413 @@413 [@@414]2 @@413 @@414
+
+D [@@415 @@416 @@415 @@417]3
+
+D [@@413 @@410 @@403 @@403 @@401 @@401 @@410 @@404 ]8
+D [@@423]4
+D >g8< @@400 @@400 >c+8< @@400 @@400 >g8 v11 < @@409 v12 @@409 v9 @@424 v8 @@424 v8 @@424 v12 @@412 @@410 [@@405]3 @@403 @@403 a+16
+D [@@423]6
+D @@411 @@412 @@410 @@400 @@409 @@410 @@401 @@409 @@409 @@409 @@409 @@412 @@400 @@409 @@401 @@410 @@409 @@409 
+D [@@413 @@410 @@403 @@403]8
+D [@@423]4
+D [ @@425 @ve-1 @@401
+D   @@426 @ve-1 @@401 ]2 @@425 @@426 @ve-1
+
+; 7/8
+D o3 v12
+D [@@413 [@@414]4 @@413 @@414]8
+
+; 4/4
+D v12 o4 y0
+D @@415
+D @@421 @@412 @@401 @@409 @@409 @@410 @@410 
+D @@415
+D @@421 @@412 @@409 @@409 @@409 @@409 @@410 @@409 @@409 
+D @@402 [@@412]7
+D @@411 [@@412]7
+D @@411 [@@412]7
+D @@411 [@@412]3 [ @@409 ]4 @@410 @@410 [ @@409 ]4 @@410 @@410 
+D [ @@400 @@403 @@403 @@403 @@409 @@403 @@400 @@400 @@403 @@403 @@409 @@403 @@403 @@403 @@400 @@403 @@403 @@403 @@400 @@403 @@409 @@403 @@400 @@403 @@400 @@403 @@400 @@403 @@409 @@403 @@400 @@409 ]8
+D [@@418 @@419]4
+D [@@420]28 v12 @@400 @@409 @@400 @@400 @@410 @@413 @@401 @@409 @@409 @@409 @@409 
+D @@401 v11 @@403 v9 @@403 @@422 @@420 @@422 @@420 @@422 @@420 @@422 
+D [@@420 @@422 ]12
+D v12 
+D [@@413 @@410 @@413 @@410 @@403 @@403 @@413 @@401 @@410 @@404 @@401 @@401 @@410 @@403 @@403 ]20

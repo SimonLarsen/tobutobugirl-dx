@@ -32,7 +32,7 @@ const UBYTE minigame_bkg_palettes[6] = {
 
 const UBYTE SGB_TITLE_PAL01[16] = {
     1,
-    255, 127,  28,  94, 233, 113,   0,   0, 233, 113, 173,  53,   0,   0,
+    255, 127,  60,  90, 168, 101,   0,   0, 233, 113, 173,  53,   0,   0,
     0
 };
 
@@ -51,6 +51,11 @@ void initTitle() {
 
 	disable_interrupts();
 	DISPLAY_OFF;
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_TITLE_PAL01); delay(62U);
+        sgb_send_packet(SGB_TITLE_ATTRDIV);
+    }
 
 	move_win(7U, 0U);
 	move_bkg(0U, 72U);
@@ -109,11 +114,6 @@ void initTitle() {
 	for(i = 0U; i != MAX_ENTITIES; ++i) {
 		entity_type[i] = 0U;
 	}
-
-    if(sgb_mode) {
-        sgb_send_packet(SGB_TITLE_PAL01); delay(62U);
-        sgb_send_packet(SGB_TITLE_ATTRDIV);
-    }
 
 	DISPLAY_ON;
 	enable_interrupts();

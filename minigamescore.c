@@ -32,6 +32,10 @@ void initMinigamescore() {
 	disable_interrupts();
 	DISPLAY_OFF;
 
+    if(sgb_mode) {
+        sgb_send_packet(SGB_MINIGAME_ATTRDIV);
+    }
+
 	move_bkg(0U, 0U);
 
 	set_bkg_data(0U, 10U, characters_data);
@@ -86,10 +90,6 @@ void initMinigamescore() {
 	ticks = 0U;
 	circle_index = 0U;
 	clearSprites();
-
-    if(sgb_mode) {
-        sgb_send_packet(SGB_MINIGAME_ATTRDIV);
-    }
 
 	HIDE_WIN;
 	HIDE_SPRITES;

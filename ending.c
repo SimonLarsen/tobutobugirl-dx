@@ -5,6 +5,8 @@
 #include "gamestate.h"
 #include "fade.h"
 #include "set_data_rle.h"
+#include "sgb_send_packet.h"
+
 #include "intro_bg.h"
 #include "intro_bg_dx.h"
 #include "data/palettes/ending_sprites.h"
@@ -29,9 +31,25 @@ UBYTE ending_frame;
 extern UBYTE ending_part1_song_data;
 extern UBYTE ending_part2_song_data;
 
+const UBYTE SGB_ENDING_PAL01[16] = {
+    1,
+    255, 127, 155,  62, 207,  12,  34,   0, 0,   0, 0,   0,   0,   0,
+    0
+};
+
+const UBYTE SGB_ENDING_ATTRDIV[16] = {
+    (6 << 3) + 1,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
+
 void initEnding() {
 	disable_interrupts();
 	DISPLAY_OFF;
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_ENDING_PAL01); delay(62U);
+        sgb_send_packet(SGB_ENDING_ATTRDIV);
+    }
 
 	OBP0_REG = 0xD0U; // 11010000
 	OBP1_REG = 0xE0U; // 11100000

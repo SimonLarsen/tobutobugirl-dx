@@ -6,6 +6,7 @@
 #include "logos.h"
 #include "sound.h"
 #include "mmlgb/driver/music.h"
+#include "sgb_send_packet.h"
 
 #include "data/bg/tangram.h"
 #include "data/bg/potato.h"
@@ -20,9 +21,25 @@ const UWORD tangram_flash_palette[4] = {
     32767, 32767, 32767, 32767 // pure white
 };
 
+const UBYTE SGB_LOGOS_PAL01[16] = {
+    1,
+    255, 127, 216,  45, 11,  29,   0,   0, 92,  54, 214,  40,   0,   0,
+    0
+};
+
+const UBYTE SGB_LOGOS_ATTRDIV1[16] = {
+    (6 << 3) + 1,
+    1 | (1 << 2) | (1 << 4),
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
+
 void initLogos() {
 	disable_interrupts();
 	DISPLAY_OFF;
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_LOGOS_PAL01);
+    }
 
 	OBP0_REG = 0xD0U; // 11010000
 	BGP_REG = 0xE4U; // 11100100
@@ -102,6 +119,11 @@ void enterLogos() {
 
 	disable_interrupts();
 	DISPLAY_OFF;
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_LOGOS_ATTRDIV1);
+    }
+
     if(CGB_MODE) {
 	    set_bkg_data_rle(0U, potato_dx_data_length, potato_dx_data);
 	    set_bkg_tiles_rle(0U, 0U, potato_dx_tiles_width, potato_dx_tiles_height, potato_dx_tiles);

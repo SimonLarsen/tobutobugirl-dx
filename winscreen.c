@@ -54,11 +54,18 @@ void initWinscreen() {
 	disable_interrupts();
 	DISPLAY_OFF;
 
+    if(sgb_mode) {
+        sgb_send_packet(SGB_WINSCREEN_PAL01); delay(62U);
+        sgb_send_packet(SGB_WINSCREEN_ATTRBLK);
+    }
+
+	BGP_REG = 0xE4U; // 11100100
+	OBP0_REG = 0xD0U; // 11010000
+
 	ticks = 0U;
 	circle_index = 0U;
 	move_bkg(0U, 0U);
 	clearSprites();
-	BGP_REG = 0xE4U; // 11100100
 
 	set_bkg_data(0U, 40U, characters_data);
 
@@ -104,13 +111,6 @@ void initWinscreen() {
 	SHOW_BKG;
 	SHOW_SPRITES;
 	SPRITES_8x16;
-
-	OBP0_REG = 0xD0U; // 11010000
-
-    if(sgb_mode) {
-        sgb_send_packet(SGB_WINSCREEN_PAL01); delay(62U);
-        sgb_send_packet(SGB_WINSCREEN_ATTRBLK);
-    }
 
 	clearSprites();
 
