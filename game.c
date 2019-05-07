@@ -165,6 +165,7 @@ void initGame() {
     UBYTE *skin_data;
 
     disable_interrupts();
+    mus_setPaused(1U);
     DISPLAY_OFF;
 
     SPRITES_8x16;
@@ -231,7 +232,10 @@ void initGame() {
                 break;
         }
     }
-    mus_setPaused(1U);
+
+    if(first_load || level != 5U) {
+        mus_setPaused(1U);
+    }
 
     clearSprites();
     clearEntities();
@@ -1209,11 +1213,12 @@ void fadeSpritesToWhiteCGB(UBYTE delay) {
     }
 }
 
-void showWaveScreen() {
+void showWaveScreen(UBYTE first_load) {
     UBYTE i, j;
     UBYTE text[3] = {10U, 10U, 10U};
 
     disable_interrupts();
+    mus_setPaused(1U);
     DISPLAY_OFF;
 
     if(sgb_mode) {
@@ -1266,6 +1271,10 @@ void showWaveScreen() {
     DISPLAY_ON;
     enable_interrupts();
 
+    if(!first_load) {
+        mus_setPaused(0U);
+    }
+
     for(i = 48U; i != 0U; i -= 3U) {
         move_bkg(0U, i);
         move_win(7U, 96+i);
@@ -1303,10 +1312,13 @@ void enterGame() {
 
 ingame_start:
     if(level == 5U) {
-        showWaveScreen();
+        showWaveScreen(first_load);
     }
 
     initGame();
+    if(level == 5U) {
+        mus_setPaused(0U);
+    }
 
     fadeFromWhite(8U);
 
@@ -1360,6 +1372,7 @@ ingame_start:
             clearSprites();
             scene_state = enterPause();
             clearSprites();
+            STOP_MUSIC;
 
             if(sgb_mode) {
                 BGP_REG = 0x00U;
@@ -1367,7 +1380,6 @@ ingame_start:
             }
 
             if(scene_state != INGAME_QUIT) {
-                mus_setPaused(1U);
                 restoreGame();
                 mus_setPaused(0U);
             }
@@ -1380,9 +1392,8 @@ ingame_start:
         vbl_count = 0U;
     }
 
-    STOP_MUSIC;
-
     if(scene_state == INGAME_DEAD) {
+        STOP_MUSIC;
         deathAnimation();
         if(PROGRESS_POS(progress) > last_progress) {
             last_progress = PROGRESS_POS(progress);
@@ -1406,6 +1417,7 @@ ingame_start:
             wave++;
             intoPortalAnimation();
         } else {
+            STOP_MUSIC;
             if(level == 3U && player_skin == 1U) {
                 saveCatAnimation();
                 gamestate = GAMESTATE_ENDING;
