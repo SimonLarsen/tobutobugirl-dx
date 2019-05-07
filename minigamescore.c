@@ -20,10 +20,7 @@ const UBYTE minigame_score_palettes[9] = {
 const UBYTE SGB_MINIGAME_ATTRDIV[16] = {
     (6U << 3) + 1U,
     1U | (1U << 2) | (1U << 4),
-    0U, 0U,
-    0U, 0U, 0U, 0U,
-    0U, 0U, 0U, 0U,
-    0U, 0U, 0U, 0U
+    0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U
 };
 
 void initMinigamescore() {

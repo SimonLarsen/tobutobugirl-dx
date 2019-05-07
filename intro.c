@@ -22,44 +22,41 @@ extern UBYTE intro_song_data;
 #define INTRO_STATE_BLINK 3U
 
 const UBYTE SGB_INTRO_PAL01[16] = {
-    1,
-    255, 127, 155,  62, 207,  12,  34,   0, 0,   0, 0,   0,   0,   0,
-    0
+	1U, 255U, 127U, 155U, 62U, 207U, 12U, 34U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U
 };
 
 const UBYTE SGB_INTRO_ATTRDIV[16] = {
-    (6 << 3) + 1,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+	(6U << 3) + 1U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U
 };
 
 void initIntro() {
 	disable_interrupts();
 	DISPLAY_OFF;
 
-    if(sgb_mode) {
-        sgb_send_packet(SGB_INTRO_PAL01); delay(62U);
-        sgb_send_packet(SGB_INTRO_ATTRDIV);
-    }
+	if(sgb_mode) {
+		sgb_send_packet(SGB_INTRO_PAL01); delay(62U);
+		sgb_send_packet(SGB_INTRO_ATTRDIV);
+	}
 
 	move_bkg(0U, 112U);
 
 	OBP0_REG = 0xD0U; // 11010000
 	BGP_REG = 0xE4U; // 11100100
 
-    if(CGB_MODE) {
-	    set_bkg_data_rle(0U, intro_bg_dx_data_length, intro_bg_dx_data);
-	    set_bkg_tiles_rle(0U, 0U, intro_bg_dx_tiles_width, intro_bg_dx_tiles_height, intro_bg_dx_tiles);
-        set_bkg_palette_buffer(0U, intro_bg_dx_palette_data_length, intro_bg_dx_palette_data);
-        VBK_REG = 1U;
-	    set_bkg_tiles_rle(0U, 0U, intro_bg_dx_tiles_width, intro_bg_dx_tiles_height, intro_bg_dx_palettes);
-        VBK_REG = 0U;
-    } else {
-	    set_bkg_data_rle(0U, intro_bg_data_length, intro_bg_data);
-	    set_bkg_tiles_rle(0U, 0U, intro_bg_tiles_width, intro_bg_tiles_height, intro_bg_tiles);
-    }
+	if(CGB_MODE) {
+		set_bkg_data_rle(0U, intro_bg_dx_data_length, intro_bg_dx_data);
+		set_bkg_tiles_rle(0U, 0U, intro_bg_dx_tiles_width, intro_bg_dx_tiles_height, intro_bg_dx_tiles);
+		set_bkg_palette_buffer(0U, intro_bg_dx_palette_data_length, intro_bg_dx_palette_data);
+		VBK_REG = 1U;
+		set_bkg_tiles_rle(0U, 0U, intro_bg_dx_tiles_width, intro_bg_dx_tiles_height, intro_bg_dx_palettes);
+		VBK_REG = 0U;
+	} else {
+		set_bkg_data_rle(0U, intro_bg_data_length, intro_bg_data);
+		set_bkg_tiles_rle(0U, 0U, intro_bg_tiles_width, intro_bg_tiles_height, intro_bg_tiles);
+	}
 
 	set_sprite_data(0U, intro_sprites_data_length, intro_sprites_data);
-    set_sprite_palette(0U, intro_sprites_palette_data_length, intro_sprites_palette_data);
+	set_sprite_palette(0U, intro_sprites_palette_data_length, intro_sprites_palette_data);
 
 	clearSprites();
 
@@ -99,7 +96,7 @@ void updateIntro() {
 			setSprite(cat_x+8U, cat_y-scroll_y-16U, 34U, OBJ_PAL0 | 1U);
 			setSprite(cat_x, cat_y-scroll_y, 36U, OBJ_PAL0 | 1U);
 			setSprite(cat_x+8U, cat_y-scroll_y, 38U, OBJ_PAL0 | 1U);
-            
+			
 			if(player_x == 77U) {
 				scene_state = INTRO_STATE_TRIP;
 				player_y = 239U;

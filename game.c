@@ -95,24 +95,24 @@ UBYTE spawn_level_gen[8];
 const UBYTE wave_text[4] = { 33U, 11U, 32U, 15U };
 
 const UWORD clock_palettes[4] = {
-    32767, 18668, 18668, 0
+    32767UL, 18668UL, 18668UL, 0UL
 };
 
 const UBYTE entity_sprites[10] = {
-    0,        // E_NONE
+    0,           // E_NONE
      // Hazards
-    9*4,    // E_SPIKES
-    19*4,     // E_FIREBALL
+    (9U << 2),   // E_SPIKES
+    (19U << 2),  // E_FIREBALL
      // Enemies
-    17*4,    // E_ALIEN
-    13*4,    // E_BAT
-    11*4,    // E_BIRD
-    15*4,    // E_GHOST
+    (17U << 2),  // E_ALIEN
+    (13U << 2),  // E_BAT
+    (11U << 2),  // E_BIRD
+    (15U << 2),  // E_GHOST
     // Powerups
-    21*4,    // E_CLOCK
+    (21U << 2),  // E_CLOCK
     // Special
-    29*4,    // E_PORTAL
-    27*4    // E_CLOUD
+    (29U << 2),  // E_PORTAL
+    (27U << 2)   // E_CLOUD
 };
 
 const UBYTE entity_palettes[10U] = {
@@ -127,25 +127,19 @@ const UBYTE entity_palettes[10U] = {
 };
 
 const UBYTE SGB_GAME_STAGE_PAL01[16] = {
-    1,
-    255, 127,  92,  57, 203,  72,   0,   0, 92,  33, 233, 113,   0,   0,
-    0
+    1U, 255U, 127U, 92U, 57U, 203U, 72U, 0U, 0U, 92U, 33U, 233U, 113U, 0U, 0U, 0U
 };
 
 const UBYTE SGB_GAME_ATTRDIV[16] = {
-    (6 << 3) + 1,
-    1 | (1 << 4),
-    18,
-    0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    (6U << 3) + 1U,
+    1U | (1U << 4),
+    18U,
+    0U,
+    0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U
 };
 
 const UBYTE SGB_WAVE_ATTRDIV[16] = {
-    (6 << 3) + 1,
-    0,
-    0,
-    0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    (6U << 3) + 1U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U
 };
 
 UBYTE mydiv(UBYTE num, UBYTE denom) {
@@ -350,11 +344,12 @@ void restoreGame() {
 
     updateHUDTime();
 
-    move_bkg(0U, 112U-progress);
-
+    BGP_REG = 0xE4U;
     SHOW_BKG;
     SHOW_WIN;
     SHOW_SPRITES;
+
+    move_bkg(0U, 112U-progress);
 
     DISPLAY_ON;
     enable_interrupts();
@@ -1361,7 +1356,16 @@ ingame_start:
 
         if(CLICKED(J_START)) {
             mus_setPaused(1U);
+
+            clearSprites();
             scene_state = enterPause();
+            clearSprites();
+
+            if(sgb_mode) {
+                BGP_REG = 0x00U;
+                delay(62U);
+            }
+
             if(scene_state != INGAME_QUIT) {
                 mus_setPaused(1U);
                 restoreGame();

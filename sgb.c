@@ -14,7 +14,7 @@ const UBYTE SGB_INIT6[16] = { 0x79U, 0x26U, 0x08U, 0x00U, 0x0BU, 0x39U, 0xCDU, 0
 const UBYTE SGB_INIT7[16] = { 0x79U, 0x1BU, 0x08U, 0x00U, 0x0BU, 0xEAU, 0xEAU, 0xEAU, 0xEAU, 0xEAU, 0xA9U, 0x01U, 0xCDU, 0x4FU, 0x0CU, 0xD0U };
 const UBYTE SGB_INIT8[16] = { 0x79U, 0x10U, 0x08U, 0x00U, 0x0BU, 0x4CU, 0x20U, 0x08U, 0xEAU, 0xEAU, 0xEAU, 0xEAU, 0xEAU, 0x60U, 0xEAU, 0xEAU };
 
-const UBYTE SGB_FREEZE[16] = { (0x17U << 3) + 1U, 1U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U };
+const UBYTE SGB_FREEZE[16] = { (0x17U << 3) + 1U, 2U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U };
 const UBYTE SGB_UNFREEZE[16] = { (0x17U << 3) + 1U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U };
 
 const UBYTE SGB_BORDER_CHR_TRN1[16] = { (0x13U << 3) + 1U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U };
@@ -75,16 +75,11 @@ void sgb_init() {
     UBYTE x, y, i;
     UBYTE *dout;
 
-    delay(62U);
-    sgb_send_packet(SGB_FREEZE);
-    delay(62U);
-
-    DISPLAY_OFF;
-
     BGP_REG = 0xE4U;
     OBP0_REG = 0xE4U;
     OBP1_REG = 0xE4U;
 
+    delay(62U);
     sgb_send_packet(SGB_INIT1); delay(62U);
     sgb_send_packet(SGB_INIT2); delay(62U);
     sgb_send_packet(SGB_INIT3); delay(62U);
@@ -94,12 +89,16 @@ void sgb_init() {
     sgb_send_packet(SGB_INIT7); delay(62U);
     sgb_send_packet(SGB_INIT8); delay(62U);
 
+    sgb_send_packet(SGB_FREEZE); delay(62U);
+
     HIDE_SPRITES;
     HIDE_WIN;
     SHOW_BKG;
 
     SCX_REG = 0U;
     SCY_REG = 0U;
+
+    delay(62U);
 
     LCDC_REG |= 16U;
 
@@ -111,18 +110,20 @@ void sgb_init() {
             ++i;
             ++dout;
         }
-        dout += 12U;
+        dout += 12UL;
     }
 
     sgb_copy_rle(border_data1, (UBYTE*)0x8000UL, 0x1000UL, 1U);
 
     DISPLAY_ON;
+    delay(62U);
     sgb_send_packet(SGB_BORDER_CHR_TRN1); delay(62U);
     DISPLAY_OFF;
 
     sgb_copy_rle(border_data2, (UBYTE*)0x8000UL, 0x1000UL, 1U);
 
     DISPLAY_ON;
+    delay(62U);
     sgb_send_packet(SGB_BORDER_CHR_TRN2); delay(62U);
     DISPLAY_OFF;
 
@@ -131,11 +132,28 @@ void sgb_init() {
     memcpy((UBYTE*)0x8800UL, border_palette_data, 0x80U);
 
     DISPLAY_ON;
+    delay(62U);
     sgb_send_packet(SGB_BORDER_PCT_TRN); delay(62U);
     DISPLAY_OFF;
 
-    sgb_send_packet(SGB_UNFREEZE); 
+    LCDC_REG &= 0xEFU; // 0b11101111
 
-    LCDC_REG ^= 16U;
-    HIDE_BKG;
+    dout = (UBYTE*)0x9000UL;
+    for(i = 0U; i != 16U; ++i) {
+        *dout = 0U;
+        ++dout;
+    }
+
+    dout = (UBYTE*)0x9800UL;
+    for(y = 0U; y != 18U; ++y) {
+        for(x = 0U; x != 20U; ++x) {
+            *dout = 0U;
+            ++dout;
+        }
+        dout += 12UL;
+    }
+
+    DISPLAY_ON;
+    delay(62U);
+    sgb_send_packet(SGB_UNFREEZE); delay(62U);
 }

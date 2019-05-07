@@ -17,12 +17,12 @@ const UBYTE pause_marker_x2[] = { 110U, 142U, 102U };
 const UBYTE pause_marker_y[] = { 112U, 124U, 136U };
 
 const UBYTE SGB_PAUSE_PAL01[16] = {
-    1, 255, 127, 191,  38, 136,  56,   0,   0, 28,  49, 28,  49,   0,   0, 0
+    1U, 255U, 127U, 191U, 38U, 136U, 56U, 0U, 0U, 28U, 49U, 28U, 49U, 0U, 0U, 0U
 };
 
 const UBYTE SGB_PAUSE_ATTRDIV[16] = {
     (0x06U << 3) + 1U,
-    1U | (1 << 6),
+    1U | (1U << 6),
     10U,
     0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
 };
@@ -39,6 +39,11 @@ void pauseUpdateDashCounter() {
 }
 
 void initPause() {
+    if(sgb_mode) {
+        BGP_REG = 0x00U;
+        delay(62U);
+    }
+
 	disable_interrupts();
 	DISPLAY_OFF;
 
@@ -53,11 +58,13 @@ void initPause() {
 
 	pauseUpdateDashCounter();
 
-	move_bkg(0U, 0U);
+    BGP_REG = 0xE4U;
 
 	SHOW_BKG;
 	SHOW_SPRITES;
 	HIDE_WIN;
+
+	move_bkg(0U, 0U);
 
 	DISPLAY_ON;
 	enable_interrupts();
@@ -66,7 +73,6 @@ void initPause() {
 UBYTE enterPause() {
 	UBYTE i, j, frame;
 
-	clearRemainingSprites();
 	initPause();
 
 	pause_selection = 0U;

@@ -52,22 +52,20 @@ const UBYTE unlocked_bkg_palettes[45] = {
 };
 
 const UBYTE SGB_UNLOCKED_PAL01[16] = {
-    1,
-    255, 127, 233, 113, 62,  53,   0,   0, 124,  66, 176,  12,   0,   0,
-    0
+    1U, 255U, 127U, 233U, 113U, 62U, 53U, 0U, 0U, 124U, 66U, 176U, 12U, 0U, 0U, 0U
 };
 
 
 const UBYTE SGB_UNLOCKED_ATTRBLK[16] = {
-    (4 << 3) + 1,
-    1,
+    (4U << 3) + 1U,
+    1U,
     // data set 1
-    7,
-    1 | (1 << 2),
-    2, 8,
-    17, 13,
+    7U,
+    1U | (1U << 2),
+    2U, 8U,
+    17U, 13U,
     //
-    0, 0, 0, 0, 0, 0, 0, 0
+    0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U
 };
 
 void initUnlocked() {

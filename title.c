@@ -31,17 +31,11 @@ const UBYTE minigame_bkg_palettes[6] = {
 };
 
 const UBYTE SGB_TITLE_PAL01[16] = {
-    1,
-    255, 127,  60,  90, 168, 101,   0,   0, 233, 113, 173,  53,   0,   0,
-    0
+	1U, 255U, 127U, 60U, 90U, 168U, 101U, 0U, 0U, 233U, 113U, 173U, 53U, 0U, 0U, 0U
 };
 
 const UBYTE SGB_TITLE_ATTRDIV[16] = {
-    (6U << 3) + 1U,
-    0U, 0U, 0U,
-    0U, 0U, 0U, 0U,
-    0U, 0U, 0U, 0U,
-    0U, 0U, 0U, 0U
+	(6U << 3) + 1U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U
 };
 
 UBYTE next_enemy;
@@ -52,10 +46,10 @@ void initTitle() {
 	disable_interrupts();
 	DISPLAY_OFF;
 
-    if(sgb_mode) {
-        sgb_send_packet(SGB_TITLE_PAL01); delay(62U);
-        sgb_send_packet(SGB_TITLE_ATTRDIV);
-    }
+	if(sgb_mode) {
+		sgb_send_packet(SGB_TITLE_PAL01); delay(62U);
+		sgb_send_packet(SGB_TITLE_ATTRDIV);
+	}
 
 	move_win(7U, 0U);
 	move_bkg(0U, 72U);
@@ -68,7 +62,7 @@ void initTitle() {
 		set_win_tiles_rle(0U, 0U, titlescreen_dx_tiles_width, titlescreen_dx_tiles_height, titlescreen_dx_palettes);
 		set_bkg_tiles_rle(0U, 0U, 20U, 20U, minigame_bkg_palettes);
 		VBK_REG = 0U;
-    } else if(sgb_mode) {
+	} else if(sgb_mode) {
 		set_bkg_data_rle(0U, titlescreen_sgb_data_length, titlescreen_sgb_data);
 		set_win_tiles_rle(0U, 0U, titlescreen_sgb_tiles_width, titlescreen_sgb_tiles_height, titlescreen_sgb_tiles);
 	} else {

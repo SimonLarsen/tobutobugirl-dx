@@ -23,15 +23,11 @@ extern UBYTE highscore_song_data;
 extern UBYTE dream_score_song_data;
 
 const UBYTE SGB_HIGHSCORE_PAL01[16] = {
-    (0 << 3) + 1U,
-    255, 127, 124,  66, 176,  12,   0,   0, 233, 113, 62,  53,   0,   0,
-    0
+    1U, 255U, 127U, 124U, 66U, 176U, 12U, 0U, 0U, 233U, 113U, 62U, 53U, 0U, 0U, 0U
 };
 
 const UBYTE SGB_HIGHSCORE_PAL23[16] = {
-    (1 << 3) + 1U,
-    255, 127,  28,  94, 112,  40,   0,   0, 254,  98, 62,  53,   0,   0,
-    0
+    (1U << 3) + 1U, 255U, 127U, 28U, 94U, 112U, 40U, 0U, 0U, 254U, 98U, 62U, 53U, 0U, 0U, 0U
 };
 
 const UBYTE SGB_HIGHSCORE_ATTRBLK[32] = {

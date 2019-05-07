@@ -68,8 +68,8 @@ void vbl_update() {
 }
 
 void main() {
-	disable_interrupts();
 	DISPLAY_OFF;
+	disable_interrupts();
 
 	SWITCH_ROM_MBC1(SGB_BANK);
     sgb_mode = sgb_check2();

@@ -61,37 +61,33 @@ const UBYTE song_names[JUKEBOX_NUM_SONGS][8] = {
 const UBYTE jukebox_unlocked[5U] = { 4U, 7U, 8U, 11U, 12U }; 
 
 const UBYTE SGB_JUKEBOX_PAL01[16U] = {
-    1,
-    255, 127, 223,  37, 185,  20,   0,   0, 223,  37, 166,  20,   0,   0,
-    0
+    1U, 255U, 127U, 223U, 37U, 185U, 20U, 0U, 0U, 223U, 37U, 166U, 20U, 0U, 0U, 0U
 };
 
 const UBYTE SGB_JUKEBOX_PAL23[16] = {
-    (1 << 3) + 1,
-    255, 127, 255,  28, 18,  24,   0,   0, 255,  28, 139,   8,   0,   0,
-    0
+    (1U << 3) + 1U, 255U, 127U, 255U, 28U, 18U, 24U, 0U, 0U, 255U, 28U, 139U, 8U, 0U, 0U, 0U
 };
 
 const UBYTE SGB_JUKEBOX_ATTRBLK[32] = {
-    (4 << 3) + 2,
-    3,
+    (4U << 3) + 2U,
+    3U,
     // data 1
-    7,
-    3 | (3 << 2),
-    16, 0,
-    19, 5,
+    7U,
+    3U | (3U << 2),
+    16U, 0U,
+    19U, 5U,
     // data 2
-    1,
-    2 | (2 << 2),
-    16, 0,
-    19, 3,
+    1U,
+    2U | (2U << 2),
+    16U, 0U,
+    19U, 3U,
     // data 3
-    3,
-    1 | (1 << 2),
-    6, 11,
-    13, 13,
+    3U,
+    1U | (1U << 2),
+    6U, 11U,
+    13U, 13U,
     //
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U
 };
 
 void initJukebox() {
