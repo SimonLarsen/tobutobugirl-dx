@@ -864,7 +864,7 @@ void updateSpawns() {
             switch(type) {
                 case E_FIREBALL:
                     if(repeat_spikes < allowed_spikes) {
-                        last_spawn_index = spawnEntity(E_FIREBALL, x, 1U, NONE);
+                        last_spawn_index = spawnEntity(E_FIREBALL, x, 1U, 2U + ((rand() & 1U) << 1));
                         repeat_spikes++;
                         dice = 8U;
                         break;
@@ -881,21 +881,21 @@ void updateSpawns() {
                     dice++;
                     break;
                 case E_GHOST:
-                    if(x < 40U) x = 40U;
-                    if(x > 136U) x = 136U;
+                    if(x <= 39U) x = 40U;
+                    if(x >= 137U) x = 136U;
                     last_spawn_index = spawnEntity(E_GHOST, x, 1U, NONE);
                     repeat_spikes = 0U;
                     dice = 8U;
                     break;
                 case E_ALIEN:
-                    if(x < 40U) x = 40U;
-                    if(x > 136U) x = 136U;
+                    if(x <= 39U) x = 40U;
+                    if(x >= 137U) x = 136U;
                     last_spawn_index = spawnEntity(E_ALIEN, x, 1U, LEFT);
                     repeat_spikes = 0U;
                     dice = 8U;
                     break;
                 case E_BIRD:
-                    if(x < last_spawn_x) {
+                    if(x <= last_spawn_x) {
                         last_spawn_index = spawnEntity(E_BIRD, x, 1U, LEFT);
                     } else {
                         last_spawn_index = spawnEntity(E_BIRD, x, 1U, RIGHT);
