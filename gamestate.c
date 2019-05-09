@@ -2,8 +2,8 @@
 #include <gb/cgb.h>
 #include "defines.h"
 #include "gamestate.h"
-#include "set_data_rle.h"
 #include "set_banner.h"
+#include "set_data_rle.h"
 #include "background1.h"
 #include "background1_dx.h"
 #include "background2.h"
@@ -317,14 +317,19 @@ void setCloudAnimation(UBYTE skin) {
     SWITCH_ROM_MBC1(game_bank);
 }
 
+/*
 void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles) {
     _set_tiles_rle(x, y, width, height, tiles, 1U);
 }
+*/
 
+/*
 void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles) {
     _set_tiles_rle(x, y, width, height, tiles, 0U);
 }
+*/
 
+/*
 void _set_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles, UBYTE is_bkg) {
     UBYTE ix, iy, run, tile;
     run = 0U;
@@ -346,6 +351,44 @@ void _set_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles, U
         }
     }
 }
+*/
+
+/*
+void _set_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles, UBYTE is_bkg) {
+    UBYTE i, j, run;
+    UBYTE *out;
+    if(is_bkg && (LCDC_REG & 8U) || !is_bkg && (LCDC_REG & 64U)) {
+        out = (UBYTE*)0x9C00UL;
+    } else {
+        out = (UBYTE*)0x9800UL;
+    }
+
+    out += (y << 5) + x;
+
+    y = 32U - width;
+    run = 0U;
+    for(j = 0U; j != height; ++j) {
+        for(i = 0U; i != width; ++i) {
+            if(!run) {
+                x = *tiles;
+                if(*tiles == tiles[1]) {
+                    run = tiles[2];
+                    tiles += 3U;
+                } else {
+                    run = 1U;
+                    ++tiles;
+                }
+            }
+            while(STAT_REG & 2U) { }
+            *out = x;
+            ++out;
+            --run;
+        }
+
+        out += y;
+    }
+}
+*/
 
 void selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer) {
     SWITCH_ROM_MBC1(SELECTION_DATA_BANK);
