@@ -827,11 +827,11 @@ void generateSpawnData() {
         spawn_levels[i] = E_FIREBALL;
     }
 
-    if(wave == 0) {
+    if(wave == 0U) {
         for(; i != 8U; ++i) {
             spawn_levels[i] = (rand() & 1U) + E_BAT;
         }
-    } else if(wave == 1) {
+    } else if(wave == 1U) {
         for(; i != 8U; ++i) {
             spawn_levels[i] = mymod(rand(), 3U) + E_BAT;
         }
