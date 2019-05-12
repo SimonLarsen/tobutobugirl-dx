@@ -38,7 +38,7 @@ UBYTE last_spawn_x, last_spawn_index;
 
 UBYTE progress, progressbar, portal_spawned, repeat_spikes;
 UBYTE wave;
-UBYTE scrolled_length, allowed_spikes;
+UBYTE scrolled_length, allowed_spikes, clock_interval;
 UBYTE blips, blip_bar;
 UBYTE dashing, dashes, dash_xdir, dash_ydir;
 UBYTE ghost_frame;
@@ -59,7 +59,7 @@ const UBYTE scrolled_length_data[5] = {
     8U  // 16 * 111 / 36 = 49
 };
 
-const UBYTE clock_interval[5] = {
+const UBYTE clock_interval_data[5] = {
     8U, //  49/8 = 6.125
     10U, //  74/12 = 7.4
     11U, //  98/11 = 8.9
@@ -241,7 +241,7 @@ void initGame() {
     clearEntities();
 
     // Init variables
-    player_x = 96U;
+    player_x = 88U;
     player_y = SCRLMGN;
     player_xdir = RIGHT;
     player_ydir = DOWN;
@@ -254,6 +254,7 @@ void initGame() {
     paused = 0U;
     scrolled = 0U;
     scroll_y = 0U;
+    clock_interval = clock_interval_data[level-1U];
 
     if (level == 5U) {
         spawn_levels = (UBYTE*)spawn_level_gen;
@@ -280,7 +281,7 @@ void initGame() {
 
     ticks = 0U;
     next_spawn = 0U;
-    next_clock = clock_interval[level-1U];
+    next_clock = clock_interval;
     progress = 0U;
     progressbar = 117U - PROGRESS_POS(progress);
     portal_spawned = 0U;
@@ -793,18 +794,24 @@ void clearEntities() {
 }
 
 void initSpawns() {
-    UBYTE i, x, y;
+    UBYTE i, x, y, type;
 
-    last_spawn_x = 64;
-    x = last_spawn_x + 32U;
+    if(wave == WAVE_SPC_SQUIDS) {
+        type = E_ALIEN;
+    } else {
+        type = E_BAT;
+    }
+
+    last_spawn_x = 72U;
+    x = last_spawn_x + 16U;
     y = 112U;
-    spawnEntity(E_BAT, x, y, NONE);
+    spawnEntity(type, x, y, NONE);
 
     for(i = 0U; i != 3U; ++i) {
         last_spawn_x = (last_spawn_x + 32U + (rand() & 63U)) & 127U;
         x = last_spawn_x + 24U;
         y -= 36U;
-        last_spawn_index = spawnEntity(E_BAT, x, y, RIGHT);
+        last_spawn_index = spawnEntity(type, x, y, RIGHT);
     }
 }
 
@@ -812,32 +819,38 @@ void generateSpawnData() {
     UBYTE i;
     UBYTE spike_count, fireball_count;
 
-    spike_count = (wave >> 2) + 1U;
-    fireball_count = wave >> 3;
-
-    if(fireball_count >= 4U) fireball_count = 3U;
-    spike_count -= fireball_count;
-    if(spike_count >= 4U) spike_count = 3U;
-
-    for(i = 0U; i != spike_count; ++i) {
-        spawn_levels[i] = E_SPIKES;
-    }
-
-    for(; i != fireball_count+spike_count; ++i) {
-        spawn_levels[i] = E_FIREBALL;
-    }
-
-    if(wave == 0U) {
-        for(; i != 8U; ++i) {
-            spawn_levels[i] = (rand() & 1U) + E_BAT;
-        }
-    } else if(wave == 1U) {
-        for(; i != 8U; ++i) {
-            spawn_levels[i] = mymod(rand(), 3U) + E_BAT;
+    if(wave == WAVE_SPC_SQUIDS) {
+        for(i = 0U; i != 8U; ++i) {
+            spawn_levels[i] = E_ALIEN;
         }
     } else {
-        for(; i != 8U; ++i) {
-            spawn_levels[i] = (rand() & 3U) + E_ALIEN;
+        spike_count = (wave >> 2) + 1U;
+        fireball_count = wave >> 3;
+
+        if(fireball_count >= 4U) fireball_count = 3U;
+        spike_count -= fireball_count;
+        if(spike_count >= 4U) spike_count = 3U;
+
+        for(i = 0U; i != spike_count; ++i) {
+            spawn_levels[i] = E_SPIKES;
+        }
+
+        for(; i != fireball_count+spike_count; ++i) {
+            spawn_levels[i] = E_FIREBALL;
+        }
+
+        if(wave == 0U) {
+            for(; i != 8U; ++i) {
+                spawn_levels[i] = (rand() & 1U) + E_BAT;
+            }
+        } else if(wave == 1U) {
+            for(; i != 8U; ++i) {
+                spawn_levels[i] = mymod(rand(), 3U) + E_BAT;
+            }
+        } else {
+            for(; i != 8U; ++i) {
+                spawn_levels[i] = (rand() & 3U) + E_ALIEN;
+            }
         }
     }
 }
@@ -915,13 +928,13 @@ void updateSpawns() {
 
         next_clock--;
         if(!next_clock) {
-            next_clock = clock_interval[level-1U];
+            next_clock = clock_interval;
             x = ((last_spawn_x + 32U + (rand() & 63U)) & 127U) + 24U;
             spawnEntity(E_CLOCK, x, 1U, NONE);
         }
     }
     else if(progress == 112U && !portal_spawned && next_spawn >= 56U) {
-        spawnEntity(E_PORTAL, 96U, 1U, NONE);
+        spawnEntity(E_PORTAL, 88U, 1U, NONE);
         next_spawn = 0U;
         portal_spawned = 1U;
     }

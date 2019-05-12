@@ -31,7 +31,7 @@ OBJ_BANK3=intro.o intro_bg.o intro_bg_dx.o ending.o
 OBJ_BANK4=jukebox.o
 OBJ_BANK5=winscreen.o
 OBJ_BANK6=title.o wipe.o
-OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o
+OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o background5.o
 OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o minigamescore.o
 OBJ_BANK9=logos.o win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o
 OBJ_BANK10=sound_data.o sgb.o
@@ -85,6 +85,9 @@ background3.o: background3.c background3.h
 background4.o: background4.c background4.h
 	${compile-source}
 
+background5.o: background5.c background5.h
+	${compile-source}
+
 pause_bg.o: pause_bg.c pause_bg.h
 	${compile-source}
 
@@ -118,7 +121,7 @@ game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sou
 game.o: game.asm
 	${compile-source}
 
-gamestate.asm: gamestate.c defines.h gamestate.h set_data_rle.h background1.h background1_dx.h background2.h background3.h background4.h pause_bg.h win1.h win1_dx.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
+gamestate.asm: gamestate.c defines.h gamestate.h set_data_rle.h background1.h background1_dx.h background2.h background3.h background4.h background5.h pause_bg.h win1.h win1_dx.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
 	$(SDCCN) -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
 
 gamestate.o: gamestate.asm

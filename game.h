@@ -57,7 +57,7 @@ void enterGame();
 #define STOMP_BONUS 32U
 
 // Entities
-#define E_NONE 		0U
+#define E_NONE     0U
 
 #define E_SPIKES   1U
 #define E_FIREBALL 2U
@@ -79,5 +79,12 @@ void enterGame();
 #define INGAME_DEAD      1U
 #define INGAME_COMPLETED 2U
 #define INGAME_QUIT      3U
+
+// Special waves
+
+#define WAVE_SPC_SQUIDS      4U
+#define WAVE_SPC_AUTOSCROLL  9U
+#define WAVE_SPC_CLOCKS     14U
+#define WAVE_SPC_SPIKEDASH  19U
 
 #endif

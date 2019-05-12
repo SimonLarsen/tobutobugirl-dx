@@ -9,6 +9,7 @@
 #include "background2.h"
 #include "background3.h"
 #include "background4.h"
+#include "background5.h"
 #include "pause_bg.h"
 #include "win1.h"
 #include "win1_dx.h"
@@ -195,13 +196,13 @@ void setIngameBackground(UBYTE level) {
             }
             break;
         case 5U:
-            tile_data = background2_data;
-            tiles = background2_tiles;
-            data_length = background2_data_length;
+            tile_data = background5_data;
+            tiles = background5_tiles;
+            data_length = background5_data_length;
             if(CGB_MODE) {
-                palette_data = background2_palette_data;
-                palettes = background2_palettes;
-                palette_data_length = background2_palette_data_length;
+                palette_data = background5_palette_data;
+                palettes = background5_palettes;
+                palette_data_length = background5_palette_data_length;
             }
             break;
         case 255U:
