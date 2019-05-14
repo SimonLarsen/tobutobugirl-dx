@@ -140,8 +140,8 @@ void clearRemainingSprites() {
     sprites_used = 0U;
 }
 
-void setIngameBackground(UBYTE level) {
-    UBYTE *tile_data, *tiles, *palette_data, *palettes;
+void setIngameBackground(UBYTE level, UBYTE first_load) {
+    const UBYTE *tile_data, *tiles, *palette_data, *palettes;
     UBYTE data_length, palette_data_length;
 
     if(level == 255U) {
@@ -217,22 +217,30 @@ void setIngameBackground(UBYTE level) {
             break;
     }
 
-    set_bkg_data_rle(background1_dx_tiles_offset, data_length, tile_data);
+    if(first_load) {
+        set_bkg_data_rle(background1_dx_tiles_offset, data_length, tile_data);
+    }
+
     if(level == 255U) {
         set_bkg_tiles_rle(0U, 0U, 20U, 18U, tiles);
     } else {
         set_bkg_tiles_rle(0U, 0U, 18U, 32U, tiles);
     }
+
     if(CGB_MODE) {
         VBK_REG = 1U;
         if(level == 255U) {
-            set_bkg_palette(0U, palette_data_length, palette_data);
             set_bkg_tiles_rle(0U, 0U, 20U, 18U, palettes);
         } else {
-            set_bkg_palette_buffer(0U, palette_data_length, palette_data);
             set_bkg_tiles_rle(0U, 0U, 18U, 32U, palettes);
         }
         VBK_REG = 0U;
+
+        if(level == 255U) {
+            set_bkg_palette(0U, palette_data_length, palette_data);
+        } else {
+            set_bkg_palette_buffer(0U, palette_data_length, palette_data);
+        }
     }
 
     SWITCH_ROM_MBC1(game_bank);
@@ -301,7 +309,7 @@ void setWinscreenBackground(UBYTE level) {
 }
 
 void setCloudAnimation(UBYTE skin) {
-    UBYTE *data;
+    const UBYTE *data;
 
     SWITCH_ROM_MBC1(CLOUD_ANIMATIONS_BANK);
 

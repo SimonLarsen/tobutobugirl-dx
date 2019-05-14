@@ -75,9 +75,6 @@ data/bg/rank_banner.h: data/bg/rank_banner.png
 data/bg/rank_banner_dx.h: data/bg/rank_banner_dx.png
 	$(IMGTOGB) --map -O 64 --rle $< $@
 
-data/bg/wavescreen.h: data/bg/wavescreen.png data/bg/wavescreen_dx.png
-	$(IMGTOGB) --map --rle $< --dx data/bg/wavescreen_dx.png $@
-
 win1.c win1.h: data/bg/win1.png
 	$(IMGTOGB) --map -O 91 --rle $< -C win1.c win1.h
 

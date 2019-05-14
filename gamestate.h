@@ -7,13 +7,13 @@ void clearSprites();
 void updateJoystate();
 void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop);
 void clearRemainingSprites();
-void setIngameBackground(UBYTE level);
+void setIngameBackground(UBYTE level, UBYTE first_load);
 void setWinscreenBackground(UBYTE level);
 void setCloudAnimation(UBYTE skin);
 //void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
 //void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
 //void _set_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles, UBYTE is_bkg);
-void playMusic(UBYTE *data);
+void playMusic(const UBYTE *data);
 void updateMusic();
 UBYTE getRank(UBYTE score, UBYTE level);
 void selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer);
@@ -101,7 +101,8 @@ extern const UBYTE level_names[8][6];
 extern const UBYTE level_max_time[4];
 extern const UBYTE rank_letters[4];
 
-void get_bkg_palette(UBYTE *buffer);
-void get_sprite_palette(UBYTE *buffer);
+void get_bkg_palette(const UBYTE *buffer);
+void get_sprite_palette(const UBYTE *buffer);
+void mymemset(const UBYTE *dest, UBYTE value, UWORD count);
 
 #endif

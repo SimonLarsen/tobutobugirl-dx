@@ -23,7 +23,7 @@ include songs.mk
 
 OBJ=main.o fade.o gamestate.o set_data_rle.o cos.o circles.o zoom_circles.o characters.o arrow.o sound.o \
 	mmlgb/driver/music.o mmlgb/driver/freq.o mmlgb/driver/noisefreq.o mmlgb/driver/vib.o \
-	getpal.o sgb_send_packet.o
+	getpal.o sgb_send_packet.o mymemset.o
 
 OBJ_BANK1=game.o pause.o
 OBJ_BANK2=select.o highscore.o unlocked.o
@@ -115,7 +115,7 @@ fade.asm: fade.c gamestate.h sound.h fade.h
 fade.o: fade.asm
 	${compile-source}
 
-game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h sgb_send_packet.h data/palettes/sprites.h data/bg/hud.h data/bg/hud_sgb.h data/bg/hud_dx.h data/bg/clock.h data/bg/wavescreen.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h
+game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h sgb_send_packet.h data/palettes/sprites.h data/bg/hud.h data/bg/hud_sgb.h data/bg/hud_dx.h data/bg/clock.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h
 	$(SDCCN) -bo 1 -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
 
 game.o: game.asm
@@ -272,6 +272,9 @@ mmlgb/driver/noisefreq.o: mmlgb/driver/noisefreq.asm
 	${compile-source}
 
 mmlgb/driver/vib.o: mmlgb/driver/vib.asm
+	${compile-source}
+
+mymemset.o: mymemset.asm
 	${compile-source}
 
 tobudx.gb: ram.o $(OBJ) $(OBJ_SONGS) \

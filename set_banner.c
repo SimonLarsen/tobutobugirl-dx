@@ -18,8 +18,8 @@
 #include "selection_locked_dx.h"
 
 void _selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer) {
-    UBYTE *data;
-    UWORD *palette_data;
+    const UBYTE *data;
+    const UWORD *palette_data;
     UBYTE length, offset;
 
     offset = selection_locked_tiles_offset;
@@ -162,8 +162,9 @@ void _selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer) {
 }
 
 void _selectSetBannerTiles(UBYTE index, UBYTE x, UBYTE y) {
-    UBYTE *tiles;
-    UBYTE *palettes;
+    const UBYTE *tiles;
+    const UBYTE *palettes;
+
 	if(index <= 5U && index > levels_unlocked || index == 6U && levels_completed < 2U) {
         if(CGB_MODE) {
 		    tiles = selection_locked_dx_tiles;
@@ -216,8 +217,8 @@ void _selectSetBannerTiles(UBYTE index, UBYTE x, UBYTE y) {
 
 void _selectSetBannerColumn(UBYTE index, UBYTE x, UBYTE y) {
     UBYTE i;
-    UBYTE *ptr;
-    UBYTE *palette_ptr;
+    const UBYTE *ptr;
+    const UBYTE *palette_ptr;
     UBYTE tiles[6];
 
 	if(index <= 5U && index > levels_unlocked || index == 6U && levels_completed < 2U) {

@@ -23,7 +23,6 @@
 #include "data/bg/hud_sgb.h"
 #include "data/bg/hud_dx.h"
 #include "data/bg/clock.h"
-#include "data/bg/wavescreen.h"
 // Sprites
 #include "data/sprite/sprites.h"
 #include "data/sprite/portal.h"
@@ -142,6 +141,10 @@ const UBYTE SGB_WAVE_ATTRDIV[16] = {
     (6U << 3) + 1U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U
 };
 
+const UWORD wavescreen_palette_data[] = {
+    32767,   0,   0,   0
+};
+
 UBYTE mydiv(UBYTE num, UBYTE denom) {
     UBYTE cnt;
     cnt = 0;
@@ -162,7 +165,7 @@ UBYTE mymod(UBYTE num, UBYTE denom) {
 void initGame() {
     UBYTE i;
     UBYTE buf[4];
-    UBYTE *skin_data;
+    UBYTE *data;
 
     disable_interrupts();
     mus_setPaused(1U);
@@ -179,10 +182,21 @@ void initGame() {
     }
 
     // Load tile data
+    if(first_load) {
+        if(CGB_MODE) {
+            set_bkg_data(hud_dx_tiles_offset, hud_dx_data_length, hud_dx_data);
+        } else if(sgb_mode) {
+            set_bkg_data(hud_sgb_tiles_offset, hud_sgb_data_length, hud_sgb_data);
+        } else {
+            set_bkg_data(hud_tiles_offset, hud_data_length, hud_data);
+        }
+        set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
+    }
+
     if(CGB_MODE) {
-        set_bkg_data(hud_dx_tiles_offset, hud_dx_data_length, hud_dx_data);
         set_bkg_palette_buffer(hud_dx_palette_offset, hud_dx_palette_data_length, hud_dx_palette_data);
         set_bkg_palette_buffer(7U, 1U, clock_palettes);
+
         set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_tiles);
         VBK_REG = 1U;
         set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_palettes);
@@ -190,21 +204,18 @@ void initGame() {
         set_win_tiles(0U, 1U, 2U, 2U, buf);
         VBK_REG = 0U;
     } else if(sgb_mode) {
-        set_bkg_data(hud_sgb_tiles_offset, hud_sgb_data_length, hud_sgb_data);
         set_win_tiles(0U, 0U, hud_sgb_tiles_width, hud_sgb_tiles_height, hud_sgb_tiles);
     } else {
-        set_bkg_data(hud_tiles_offset, hud_data_length, hud_data);
         set_win_tiles(0U, 0U, hud_tiles_width, hud_tiles_height, hud_tiles);
     }
-    set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
 
-    skin_data = getSkinData();
+    data = getSkinData();
     set_sprite_data(24U, sprites_data_length, sprites_data);
-    set_sprite_data(0U, 4U, skin_data);
+    set_sprite_data(0U, 4U, data);
     set_sprite_data(4U, portal_data_length, portal_data);
     set_sprite_palette(0U, sprites_palette_data_length, sprites_palette_data);
 
-    setIngameBackground(level);
+    setIngameBackground(level, first_load);
 
     if(first_load) {
         last_progress = 0U;
@@ -311,7 +322,7 @@ void initGame() {
 void restoreGame() {
     UBYTE i;
     UBYTE buf[4];
-    UBYTE *skin_data;
+    UBYTE *data;
 
     disable_interrupts();
     DISPLAY_OFF;
@@ -338,14 +349,14 @@ void restoreGame() {
         set_win_tiles(0U, 0U, hud_tiles_width, hud_tiles_height, hud_tiles);
     }
 
-    skin_data = getSkinData();
-    set_sprite_data(0U, 24U, skin_data);
+    data = getSkinData();
+    set_sprite_data(0U, 24U, data);
     set_sprite_data(24U, sprites_data_length, sprites_data);
     set_sprite_palette(0U, sprites_palette_data_length, sprites_palette_data);
 
     set_bkg_palette(0U, 8U, palette_buffer);
 
-    setIngameBackground(level);
+    setIngameBackground(level, 1U);
 
     updateHUDTime();
 
@@ -942,7 +953,7 @@ void updateSpawns() {
 
 void introAnimation() {
     UBYTE frame;
-    UBYTE *skin_data;
+    UBYTE *data;
 
     playSound(SFX_WARP_START);
 
@@ -977,8 +988,8 @@ void introAnimation() {
     }
 
     disable_interrupts();
-    skin_data = getSkinData();
-    set_sprite_data(0U, 24U, skin_data);
+    data = getSkinData();
+    set_sprite_data(0U, 24U, data);
     set_sprite_data(24U, 4U, sprites_data);
     enable_interrupts();
 }
@@ -1104,9 +1115,9 @@ void saveCatAnimation() {
 
 void deathAnimation() {
     UBYTE offset, frame;
-    UBYTE *skin_data;
-    skin_data = getSkinData();
-    set_sprite_data(0U, 8U, skin_data+384UL);
+    UBYTE *data;
+    data = getSkinData();
+    set_sprite_data(0U, 8U, data+384UL);
     set_sprite_data(8U, portal_data_length, portal_data);
 
     playSound(SFX_PLAYER_DIE);
@@ -1226,7 +1237,7 @@ void fadeSpritesToWhiteCGB(UBYTE delay) {
     }
 }
 
-void showWaveScreen(UBYTE first_load) {
+void showWaveScreen() {
     UBYTE i, j;
     UBYTE text[3] = {10U, 10U, 10U};
 
@@ -1243,18 +1254,22 @@ void showWaveScreen(UBYTE first_load) {
     OBP1_REG = 0x40U; // 01010000
     BGP_REG = 0xE4U;  // 11100100
 
-    set_bkg_data_rle(0U, wavescreen_data_length, wavescreen_data);
-    set_bkg_tiles_rle(0U, 0U, 20U, 24U, wavescreen_tiles);
     set_sprite_data(0U, characters_data_length, characters_data);
-    set_win_tiles_rle(0U, 0U, 20U, 6U, wavescreen_tiles);
+
+    mymemset((UBYTE*)0x8FE0UL, 255U, 16U);
+    mymemset((UBYTE*)0x8FF0UL, 0U, 16U);
+    mymemset((UBYTE*)0x9800UL, 0xFEU, 192U);
+    mymemset((UBYTE*)(0x9800UL + 192UL), 0xFFU, 576UL);
+    mymemset((UBYTE*)0x9C00UL, 0xFEU, 192U);
 
     if(CGB_MODE) {
-        VBK_REG = 1U;
-        set_bkg_tiles_rle(0U, 0U, 20U, 18U, wavescreen_palettes);
-        set_win_tiles_rle(0U, 0U, 20U, 6U, wavescreen_palettes);
-        VBK_REG = 0U;
-        set_bkg_palette(0U, wavescreen_palette_data_length, wavescreen_palette_data);
+        set_bkg_palette(0U, 2U, wavescreen_palette_data);
         set_sprite_palette(0U, 1U, sprites_palette_data);
+
+        VBK_REG = 1U;
+        mymemset((UBYTE*)0x9800UL, 0U, 768UL);
+        mymemset((UBYTE*)0x9C00UL, 0U, 192U);
+        VBK_REG = 0U;
     }
 
     SHOW_WIN;
@@ -1325,7 +1340,7 @@ void enterGame() {
 
 ingame_start:
     if(level == 5U) {
-        showWaveScreen(first_load);
+        showWaveScreen();
     }
 
     initGame();

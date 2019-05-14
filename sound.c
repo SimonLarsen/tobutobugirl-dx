@@ -33,7 +33,7 @@ UBYTE snd_active1, snd_active4;
 UBYTE snd_priority1, snd_priority4;
 
 UWORD snd_freq1; UBYTE snd_freq4;
-UBYTE *snd_data1, *snd_data4;
+const UBYTE *snd_data1, *snd_data4;
 UBYTE snd_octave1, snd_octave4;
 UBYTE snd_length1, snd_length4;
 UBYTE snd_volume1, snd_volume4;
@@ -42,7 +42,7 @@ UBYTE snd_wait1, snd_wait4;
 UWORD snd_target1, snd_target4;
 UBYTE snd_slide1, snd_slide4;
 UBYTE snd_vib_speed1;
-UBYTE *snd_vib_table1;
+const UBYTE *snd_vib_table1;
 UBYTE snd_vib_pos1;
 UBYTE snd_noise_step;
 UBYTE snd_po1;
