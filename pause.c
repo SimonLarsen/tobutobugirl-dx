@@ -17,7 +17,7 @@ const UBYTE pause_marker_x2[] = { 110U, 142U, 102U };
 const UBYTE pause_marker_y[] = { 112U, 124U, 136U };
 
 const UBYTE SGB_PAUSE_PAL01[16] = {
-    1U, 255U, 127U, 191U, 38U, 136U, 56U, 0U, 0U, 28U, 49U, 28U, 49U, 0U, 0U, 0U
+    1, 255, 127, 127, 26, 136, 56, 0, 0, 28, 49, 28, 49, 0, 0, 0
 };
 
 const UBYTE SGB_PAUSE_ATTRDIV[16] = {

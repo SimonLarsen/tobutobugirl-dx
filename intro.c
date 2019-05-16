@@ -22,7 +22,7 @@ extern UBYTE intro_song_data;
 #define INTRO_STATE_BLINK 3U
 
 const UBYTE SGB_INTRO_PAL01[16] = {
-	1U, 255U, 127U, 155U, 62U, 207U, 12U, 34U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U
+    1, 255, 127,  57,  50, 207,  12,  34,   0, 0,   0,   0, 0,   0,   0,   0
 };
 
 const UBYTE SGB_INTRO_ATTRDIV[16] = {
@@ -246,7 +246,7 @@ void enterIntro() {
 	}
 
 	clearRemainingSprites();
-	fadeToWhite(12U);
+	fadeToWhite(8U);
 
 	STOP_MUSIC;
 }

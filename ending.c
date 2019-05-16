@@ -32,7 +32,7 @@ extern UBYTE ending_part1_song_data;
 extern UBYTE ending_part2_song_data;
 
 const UBYTE SGB_ENDING_PAL01[16] = {
-    1U, 255U, 127U, 155U, 62U, 207U, 12U, 34U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U
+    1, 255, 127,  57,  50, 207,  12,  34,   0, 0,   0,   0, 0,   0,   0,   0
 };
 
 const UBYTE SGB_ENDING_ATTRDIV[16] = {

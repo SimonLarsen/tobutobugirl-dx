@@ -33,7 +33,13 @@ const UBYTE sharkwave_data[16] = {
 
 const UBYTE SGB_WINSCREEN_PAL01[16] = {
     1,
-    255, 127, 233, 113, 92,  57,   0,   0, 92,  57, 203,  72,   0,   0,
+    255, 127, 233, 113, 92,  57,   0,   0, 220,  53, 146,  12,   0,   0,
+    0
+};
+
+const UBYTE SGB_WINSCREEN_PAL23[16] = {
+    (1 << 3) + 1,
+    255, 127,  62,  53, 37,  89,   0,   0, 0,   0, 0,   0,   0,   0,
     0
 };
 
@@ -47,6 +53,18 @@ const UBYTE SGB_WINSCREEN_ATTRBLK[16] = {
     0, 0, 0, 0, 0, 0, 0, 0
 };
 
+const UBYTE SGB_WINSCREEN_ATTRBLK2[16] = {
+    (4 << 3) + 1,
+    1,
+    // data set 1
+    3, // inside and surrounding
+    2 | (2 << 2),
+    0, 6,
+    19, 11,
+    //
+    0, 0, 0, 0, 0, 0, 0, 0
+};
+
 void initWinscreen() {
 	UBYTE rank;
 	UBYTE *data;
@@ -56,6 +74,7 @@ void initWinscreen() {
 
     if(sgb_mode) {
         sgb_send_packet(SGB_WINSCREEN_PAL01); delay(62U);
+        sgb_send_packet(SGB_WINSCREEN_PAL23); delay(62U);
         sgb_send_packet(SGB_WINSCREEN_ATTRBLK);
     }
 
@@ -190,6 +209,9 @@ void winscreenShowRank() {
     UBYTE buf[3];
 
 	disable_interrupts();
+
+    sgb_send_packet(SGB_WINSCREEN_ATTRBLK2);
+
     if(CGB_MODE) {
 	    set_bkg_tiles_rle(0U, 6U, 20U, 6U, rank_banner_dx_tiles);
         VBK_REG = 1U;
