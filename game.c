@@ -421,8 +421,8 @@ void updatePlayer() {
         type = entity_type[i];
 
         if(type && type <= LAST_COLLIDABLE
-        && (player_x - entity_x[i] + 11U) <= 22U
-        && (player_y - entity_y[i] + 11U) <= 22U) {
+        && (player_y - entity_y[i] + 11U) <= 22U
+        && (player_x - entity_x[i] + 11U) <= 22U) {
             // Spikes and fireballs
             if(type <= E_FIREBALL) {
                 killPlayer();
