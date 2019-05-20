@@ -83,16 +83,25 @@ void wait_sound_done() {
 	}
 }
 
+void stop_sound() {
+    if(snd_active1) {
+        stop_sound1();
+    }
+    if(snd_active4) {
+        stop_sound4();
+    }
+}
+
 void stop_sound1() {
-	snd_active1 = 0U;
-	snd_priority1 = 0U;
-	mus_restore1();
+    snd_active1 = 0U;
+    snd_priority1 = 0U;
+    mus_restore1();
 }
 
 void stop_sound4() {
-	snd_active4 = 0U;
-	snd_priority4 = 0U;
-	mus_restore4();
+    snd_active4 = 0U;
+    snd_priority4 = 0U;
+    mus_restore4();
 }
 
 void playSound(UBYTE id) {

@@ -113,10 +113,12 @@ void clearSprites() {
     next_sprite = 0U;
 }
 
+/*
 void updateJoystate() {
     oldjoystate = joystate;
     joystate = joypad();
 }
+*/
 
 void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop) {
     UBYTE* oam = (UBYTE*)0xC000UL + (next_sprite << 2);
@@ -140,7 +142,7 @@ void clearRemainingSprites() {
     sprites_used = 0U;
 }
 
-void setIngameBackground(UBYTE level, UBYTE first_load) {
+void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer) {
     const UBYTE *tile_data, *tiles, *palette_data, *palettes;
     UBYTE data_length, palette_data_length;
 
@@ -236,10 +238,10 @@ void setIngameBackground(UBYTE level, UBYTE first_load) {
         }
         VBK_REG = 0U;
 
-        if(level == 255U) {
-            set_bkg_palette(0U, palette_data_length, palette_data);
-        } else {
+        if(pal_buffer) {
             set_bkg_palette_buffer(0U, palette_data_length, palette_data);
+        } else {
+            set_bkg_palette(0U, palette_data_length, palette_data);
         }
     }
 

@@ -14,7 +14,7 @@ const UBYTE pause_text_off[] = { 25U, 16U, 16U };
 
 const UBYTE pause_marker_x1[] = { 49U, 17U, 57U };
 const UBYTE pause_marker_x2[] = { 110U, 142U, 102U };
-const UBYTE pause_marker_y[] = { 112U, 124U, 136U };
+const UBYTE pause_marker_y[] = { 116U, 128U, 140U };
 
 const UBYTE SGB_PAUSE_PAL01[16] = {
     1, 255, 127, 127, 26, 136, 56, 0, 0, 28, 49, 28, 49, 0, 0, 0
@@ -53,7 +53,7 @@ void initPause() {
     }
 
 	set_bkg_data(0, 38U, characters_data);
-	setIngameBackground(255U, 1U);
+	setIngameBackground(255U, 1U, 0U);
 	setCloudAnimation(player_skin);
 
 	pauseUpdateDashCounter();
@@ -89,7 +89,7 @@ UBYTE enterPause() {
 		}
 
 		if(CLICKED(J_UP)) {
-			if(pause_selection != 0) {
+			if(pause_selection != 0U) {
 				pause_selection--;
 				playSound(SFX_MENU_SWITCH);
 			}

@@ -42,6 +42,7 @@ UBYTE blips, blip_bar;
 UBYTE dashing, dashes, dash_xdir, dash_ydir;
 UBYTE ghost_frame;
 UBYTE *spawn_levels;
+UBYTE spawn_level_gen[8];
 
 extern UBYTE plains_song_data;
 extern UBYTE clouds_song_data;
@@ -86,8 +87,6 @@ const UBYTE spawn_level_data[96] = {
     E_FIREBALL, E_FIREBALL, E_SPIKES, E_GHOST, E_GHOST, E_GHOST, E_BIRD, E_ALIEN,
     E_FIREBALL, E_FIREBALL, E_SPIKES, E_ALIEN, E_GHOST, E_GHOST, E_BIRD, E_BIRD
 };
-
-UBYTE spawn_level_gen[8];
 
 #define PROGRESS_POS(x) mydiv(((x) << 1U), 3U)
 
@@ -145,6 +144,54 @@ const UWORD wavescreen_palette_data[] = {
     32767,   0,   0,   0
 };
 
+const UBYTE retry_text[19] = {
+    33U, 11U, 32U, 15U, 29U, // waves
+    12U, 15U, 29U, 30U, // best
+    28U, 15U, 30U, 28U, 35U, // retry
+    35U, 15U, 29U, // yes
+    24U, 25U // no
+};
+
+#define RETRY_NUM_CHARS 27
+
+const UBYTE retry_text_data[RETRY_NUM_CHARS * 4] = {
+    // waves
+    8U, 44U, 33U, OBJ_PAL0,
+    8U, 52U, 11U, OBJ_PAL0,
+    8U, 60U, 32U, OBJ_PAL0,
+    8U, 68U, 15U, OBJ_PAL0,
+    8U, 76U, 29U, OBJ_PAL0,
+    // best
+    16U, 44U, 12U, OBJ_PAL0,
+    16U, 52U, 15U, OBJ_PAL0,
+    16U, 60U, 29U, OBJ_PAL0,
+    16U, 68U, 30U, OBJ_PAL0,
+    // retry
+    32U, 60U, 28U, OBJ_PAL0,
+    32U, 68U, 15U, OBJ_PAL0,
+    32U, 76U, 30U, OBJ_PAL0,
+    32U, 84U, 28U, OBJ_PAL0,
+    32U, 92U, 35U, OBJ_PAL0,
+    // yes
+    40U, 72U, 35U, OBJ_PAL0,
+    40U, 80U, 15U, OBJ_PAL0,
+    40U, 88U, 29U, OBJ_PAL0,
+    // no
+    48U, 72U, 24U, OBJ_PAL0,
+    48U, 80U, 25U, OBJ_PAL0,
+    // wave count
+    8U,  92U, 10U, OBJ_PAL0,
+    8U, 100U, 10U, OBJ_PAL0,
+    8U, 108U, 10U, OBJ_PAL0,
+    // best count
+    16U,  92U, 10U, OBJ_PAL0,
+    16U, 100U, 10U, OBJ_PAL0,
+    16U, 108U,  0U, OBJ_PAL0,
+    // marker
+    40U, 58U, 100U, OBJ_PAL0,
+    40U, 66U, 102U, OBJ_PAL0
+};
+
 UBYTE mydiv(UBYTE num, UBYTE denom) {
     UBYTE cnt;
     cnt = 0;
@@ -163,10 +210,6 @@ UBYTE mymod(UBYTE num, UBYTE denom) {
 }
 
 void initGame() {
-    UBYTE i;
-    UBYTE buf[4];
-    UBYTE *data;
-
     disable_interrupts();
     mus_setPaused(1U);
     DISPLAY_OFF;
@@ -176,46 +219,8 @@ void initGame() {
     OBP1_REG = 0x40U; // 01010000
     BGP_REG = 0xE4U;  // 11100100
 
-    if(sgb_mode) {
-        sgb_send_packet(SGB_GAME_STAGE_PAL01); delay(62U);
-        sgb_send_packet(SGB_GAME_ATTRDIV);
-    }
-
-    // Load tile data
-    if(first_load) {
-        if(CGB_MODE) {
-            set_bkg_data(hud_dx_tiles_offset, hud_dx_data_length, hud_dx_data);
-        } else if(sgb_mode) {
-            set_bkg_data(hud_sgb_tiles_offset, hud_sgb_data_length, hud_sgb_data);
-        } else {
-            set_bkg_data(hud_tiles_offset, hud_data_length, hud_data);
-        }
-        set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
-    }
-
-    if(CGB_MODE) {
-        set_bkg_palette_buffer(hud_dx_palette_offset, hud_dx_palette_data_length, hud_dx_palette_data);
-        set_bkg_palette_buffer(7U, 1U, clock_palettes);
-
-        set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_tiles);
-        VBK_REG = 1U;
-        set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_palettes);
-        for(i = 0U; i != 4U; ++i) buf[i] = 7U;
-        set_win_tiles(0U, 1U, 2U, 2U, buf);
-        VBK_REG = 0U;
-    } else if(sgb_mode) {
-        set_win_tiles(0U, 0U, hud_sgb_tiles_width, hud_sgb_tiles_height, hud_sgb_tiles);
-    } else {
-        set_win_tiles(0U, 0U, hud_tiles_width, hud_tiles_height, hud_tiles);
-    }
-
-    data = getSkinData();
-    set_sprite_data(24U, sprites_data_length, sprites_data);
-    set_sprite_data(0U, 4U, data);
+    restoreGame(first_load, 0U);
     set_sprite_data(4U, portal_data_length, portal_data);
-    set_sprite_palette(0U, sprites_palette_data_length, sprites_palette_data);
-
-    setIngameBackground(level, first_load);
 
     if(first_load) {
         last_progress = 0U;
@@ -242,9 +247,6 @@ void initGame() {
                 playMusic(&heaven_song_data);
                 break;
         }
-    }
-
-    if(first_load || level != 5U) {
         mus_setPaused(1U);
     }
 
@@ -294,7 +296,7 @@ void initGame() {
     next_spawn = 0U;
     next_clock = clock_interval;
     progress = 0U;
-    progressbar = 117U - PROGRESS_POS(progress);
+    progressbar = 121U - PROGRESS_POS(progress);
     portal_spawned = 0U;
     repeat_spikes = 0U;
     ghost_frame = 0U;
@@ -303,7 +305,6 @@ void initGame() {
     timer = 0U;
     remaining_time = MAX_TIME;
     elapsed_time = 0U;
-    first_load = 0U;
 
     move_bkg(0U, 112U);
     move_win(151U, 0U);
@@ -319,7 +320,7 @@ void initGame() {
     enable_interrupts();
 }
 
-void restoreGame() {
+void restoreGame(UBYTE update, UBYTE from_pause) {
     UBYTE i;
     UBYTE buf[4];
     UBYTE *data;
@@ -332,21 +333,32 @@ void restoreGame() {
         sgb_send_packet(SGB_GAME_ATTRDIV);
     }
 
-    if(CGB_MODE) {
-        set_bkg_data(hud_dx_tiles_offset, hud_dx_data_length, hud_dx_data);
+    // Load tile data
+    if(update) {
+        if(CGB_MODE) {
+            set_bkg_data_rle(hud_dx_tiles_offset, hud_dx_data_length, hud_dx_data);
+        } else if(sgb_mode) {
+            set_bkg_data_rle(hud_sgb_tiles_offset, hud_sgb_data_length, hud_sgb_data);
+        } else {
+            set_bkg_data_rle(hud_tiles_offset, hud_data_length, hud_data);
+        }
         set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
+    }
+
+    if(CGB_MODE) {
         set_bkg_palette_buffer(hud_dx_palette_offset, hud_dx_palette_data_length, hud_dx_palette_data);
         set_bkg_palette_buffer(7U, 1U, clock_palettes);
-        set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_tiles);
+
+        set_win_tiles_rle(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_tiles);
         VBK_REG = 1U;
-        set_win_tiles(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_palettes);
+        set_win_tiles_rle(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_palettes);
         for(i = 0U; i != 4U; ++i) buf[i] = 7U;
         set_win_tiles(0U, 1U, 2U, 2U, buf);
         VBK_REG = 0U;
+    } else if(sgb_mode) {
+        set_win_tiles_rle(0U, 0U, hud_sgb_tiles_width, hud_sgb_tiles_height, hud_sgb_tiles);
     } else {
-        set_bkg_data(hud_tiles_offset, hud_data_length, hud_data);
-        set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
-        set_win_tiles(0U, 0U, hud_tiles_width, hud_tiles_height, hud_tiles);
+        set_win_tiles_rle(0U, 0U, hud_tiles_width, hud_tiles_height, hud_tiles);
     }
 
     data = getSkinData();
@@ -354,9 +366,7 @@ void restoreGame() {
     set_sprite_data(24U, sprites_data_length, sprites_data);
     set_sprite_palette(0U, sprites_palette_data_length, sprites_palette_data);
 
-    set_bkg_palette(0U, 8U, palette_buffer);
-
-    setIngameBackground(level, 1U);
+    setIngameBackground(level, update, !from_pause);
 
     updateHUDTime();
 
@@ -975,7 +985,7 @@ void introAnimation() {
         wait_vbl_done();
     }
 
-    for(ticks = 0U; ticks != 18U; ++ticks) {
+    for(ticks = 0U; ticks != 16U; ++ticks) {
         setSprite(player_x-8U, player_y, 0U, FLIP_X | OBJ_PAL0);
         setSprite(player_x-16U, player_y, 2U, FLIP_X | OBJ_PAL0);
 
@@ -1024,6 +1034,7 @@ void intoPortalAnimation() {
         }
 
         updateHUD();
+
         clearRemainingSprites();
         snd_update();
         wait_vbl_done();
@@ -1121,6 +1132,15 @@ void deathAnimation() {
     set_sprite_data(8U, portal_data_length, portal_data);
 
     playSound(SFX_PLAYER_DIE);
+
+    if(level == 5U) {
+        for(offset = 0U; offset != MAX_ENTITIES; ++offset) {
+            if(entity_type[offset]) {
+                entity_type[offset] = E_CLOUD;
+                entity_dir[offset] = 0U;
+            }
+        }
+    }
 
     scroll_y = 0U;
     for(ticks = 0U; ticks != 48U; ++ticks) {
@@ -1242,17 +1262,17 @@ void showWaveScreen() {
     UBYTE text[3] = {10U, 10U, 10U};
 
     disable_interrupts();
-    mus_setPaused(1U);
+    //mus_setPaused(1U);
     DISPLAY_OFF;
-
-    if(sgb_mode) {
-        sgb_send_packet(SGB_WAVE_ATTRDIV);
-    }
 
     SPRITES_8x8;
     OBP0_REG = 0xD0U; // 11010000
     OBP1_REG = 0x40U; // 01010000
     BGP_REG = 0xE4U;  // 11100100
+
+    if(sgb_mode) {
+        sgb_send_packet(SGB_WAVE_ATTRDIV);
+    }
 
     set_sprite_data(0U, characters_data_length, characters_data);
 
@@ -1271,10 +1291,6 @@ void showWaveScreen() {
         mymemset((UBYTE*)0x9C00UL, 0U, 192U);
         VBK_REG = 0U;
     }
-
-    SHOW_WIN;
-    SHOW_BKG;
-    SHOW_SPRITES;
 
     ticks = 0U;
 
@@ -1296,6 +1312,10 @@ void showWaveScreen() {
     if(wave >= 99U) j -= 8U;
     else if(wave >= 9U) j -= 4U;
 
+    SHOW_WIN;
+    SHOW_BKG;
+    SHOW_SPRITES;
+
     DISPLAY_ON;
     enable_interrupts();
 
@@ -1303,9 +1323,10 @@ void showWaveScreen() {
         mus_setPaused(0U);
     }
 
-    for(i = 48U; i != 0U; i -= 3U) {
+    for(i = 48U; i != 0U; i -= 4U) {
         move_bkg(0U, i);
         move_win(7U, 96+i);
+        snd_update();
         wait_vbl_done();
     }
     move_bkg(0U, 0U);
@@ -1327,6 +1348,90 @@ void showWaveScreen() {
 
         clearRemainingSprites();
         ticks++;
+        snd_update();
+        wait_vbl_done();
+    }
+
+    clearSprites();
+    fadeToWhite(4U);
+}
+
+void showInfiniteRestart() {
+    UBYTE offset, i;
+    UBYTE buf[3];
+    UBYTE *data;
+
+    disable_interrupts();
+    set_sprite_data(0U, characters_data_length, characters_data);
+    enable_interrupts();
+
+    SPRITES_8x8;
+    SHOW_WIN;
+    SHOW_BKG;
+    SHOW_SPRITES;
+
+    sub_selection = 0U;
+
+    offset = (156U - progress) >> 3;
+    buf[0] = 0xFFU;
+    buf[1] = 0xFFU;
+    buf[2] = 144U;
+    disable_interrupts();
+    set_bkg_tiles_rle(0U, offset, 18U, 8U, buf);
+    enable_interrupts();
+
+    offset = 60U - mymod(116U - progress, 8U);
+
+    // add sprite offset
+    wait_vbl_done();
+    memcpy((UBYTE*)0xC000UL, retry_text_data, RETRY_NUM_CHARS * 4);
+    data = (UBYTE*)0xC000UL;
+    for(i = 0U; i != RETRY_NUM_CHARS; ++i) {
+        *data += offset;
+        data += 4U;
+    }
+
+    // set wave counts
+    data = (UBYTE*)(0xC000UL + 19 * 4 + 2);
+    i = wave;
+    if(i >= 100U) {
+        *data = mydiv(i, 100U);
+        i = mymod(i, 100U);
+    }
+    data += 4U;
+    if(i >= 10U) {
+        *data = mydiv(i, 10U);
+        i = mymod(i, 10U);
+    }
+    data += 4U;
+    *data = i;
+
+    while(1U) {
+        updateJoystate();
+
+        if(CLICKED(J_UP) && sub_selection) {
+            sub_selection = 0U;
+            playSound(SFX_MENU_SWITCH);
+        }
+        if(CLICKED(J_DOWN) && !sub_selection) {
+            sub_selection = 1U;
+            playSound(SFX_MENU_SWITCH);
+        }
+        if(CLICKED(J_A) || CLICKED(J_START)) {
+            STOP_MUSIC;
+            playSound(SFX_MENU_CONFIRM);
+            if(sub_selection == 1U) {
+                gamestate = GAMESTATE_WINSCREEN;
+            }
+            break;
+        }
+
+        data = (UBYTE*)(0xC000UL + (RETRY_NUM_CHARS-2) * 4);
+        *data = offset + 40U + (sub_selection << 3);
+        data += 4U;
+        *data = offset + 40U + (sub_selection << 3);
+
+        snd_update();
         wait_vbl_done();
     }
 
@@ -1344,9 +1449,10 @@ ingame_start:
     }
 
     initGame();
-    if(level == 5U) {
+    if(level == 5U && !first_load) {
         mus_setPaused(0U);
     }
+    first_load = 0U;
 
     fadeFromWhite(8U);
 
@@ -1389,7 +1495,7 @@ ingame_start:
             scrolled -= scrolled_length;
             if(progress < 112U) {
                 progress++;
-                progressbar = 117U - PROGRESS_POS(progress);
+                progressbar = 121U - PROGRESS_POS(progress);
                 move_bkg(0U, 112U-progress);
             }
         }
@@ -1408,7 +1514,7 @@ ingame_start:
             }
 
             if(scene_state != INGAME_QUIT) {
-                restoreGame();
+                restoreGame(1U, 1U);
                 mus_setPaused(0U);
             }
         }
@@ -1421,19 +1527,22 @@ ingame_start:
     }
 
     if(scene_state == INGAME_DEAD) {
-        STOP_MUSIC;
+        if(level != 5U) STOP_MUSIC;
         deathAnimation();
-        if(PROGRESS_POS(progress) > last_progress) {
-            last_progress = PROGRESS_POS(progress);
-        }
+        clearSprites();
 
         if(level == 5U) {
-            gamestate = GAMESTATE_SELECT;
-        }
+            stop_sound();
+            showInfiniteRestart();
+            wait_sound_done();
+        } else {
+            fadeToWhite(8U);
+            wait_sound_done();
 
-        clearRemainingSprites();
-        fadeToWhite(8U);
-        wait_sound_done();
+            if(PROGRESS_POS(progress) > last_progress) {
+                last_progress = PROGRESS_POS(progress);
+            }
+        }
     }
     else if(scene_state == INGAME_COMPLETED) {
         ending_flags = 0U;

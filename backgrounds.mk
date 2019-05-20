@@ -31,13 +31,13 @@ data/bg/select.h: data/bg/select.png data/bg/select_dx.png
 	$(IMGTOGB) --map --rle -O 13 $< --dx data/bg/select_dx.png $@
 
 data/bg/hud.h: data/bg/hud.png
-	$(IMGTOGB) --map $< $@
+	$(IMGTOGB) --map --rle $< $@
 
 data/bg/hud_sgb.h: data/bg/hud_sgb.png
-	$(IMGTOGB) --map $< $@
+	$(IMGTOGB) --map --rle $< $@
 
 data/bg/hud_dx.h: data/bg/hud_dx.png
-	$(IMGTOGB) --map -c -P 5 $< $@
+	$(IMGTOGB) --map --rle -c -P 5 $< $@
 
 data/bg/clock.h: data/bg/clock.png
 	$(IMGTOGB) --map -O 21 $< $@

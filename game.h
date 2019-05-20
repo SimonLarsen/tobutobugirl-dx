@@ -2,7 +2,7 @@
 #define GAME_H
 
 void initGame();
-void restoreGame();
+void restoreGame(UBYTE update, UBYTE from_pause);
 UBYTE *getSkinData();
 void updateInput();
 void updatePlayer();

@@ -7,7 +7,7 @@ void clearSprites();
 void updateJoystate();
 void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop);
 void clearRemainingSprites();
-void setIngameBackground(UBYTE level, UBYTE first_load);
+void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer);
 void setWinscreenBackground(UBYTE level);
 void setCloudAnimation(UBYTE skin);
 //void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles);
@@ -24,6 +24,7 @@ void selectSetBannerColumn(UBYTE index, UBYTE x, UBYTE y);
 #define setMusicBank(i) (music_bank = (i))
 
 #define STOP_MUSIC mus_setPaused(1U)
+#define updateJoystate() { oldjoystate = joystate; joystate = joypad(); }
 
 #define set_bkg_palette_buffer(first_palette, nbpalettes, data) (memcpy(&palette_buffer[(first_palette) << 2], (data), (nbpalettes) << 3))
 

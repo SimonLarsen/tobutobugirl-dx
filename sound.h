@@ -3,6 +3,9 @@
 
 void snd_init();
 void wait_sound_done();
+void stop_sound();
+void stop_sound1();
+void stop_sound4();
 void playSound(UBYTE id);
 void snd_update();
 void snd_update1();
