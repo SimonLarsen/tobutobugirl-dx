@@ -327,7 +327,6 @@ void restoreGame(UBYTE update, UBYTE from_pause) {
     UBYTE *data;
 
     disable_interrupts();
-    DISPLAY_OFF;
 
     if(sgb_mode) {
         sgb_send_packet(SGB_GAME_STAGE_PAL01); delay(62U);
@@ -378,7 +377,6 @@ void restoreGame(UBYTE update, UBYTE from_pause) {
 
     move_bkg(0U, 112U-progress);
 
-    DISPLAY_ON;
     enable_interrupts();
 }
 
@@ -1515,7 +1513,9 @@ ingame_start:
             }
 
             if(scene_state != INGAME_QUIT) {
+                DISPLAY_OFF;
                 restoreGame(1U, 1U);
+                DISPLAY_ON;
                 mus_setPaused(0U);
             }
         }
