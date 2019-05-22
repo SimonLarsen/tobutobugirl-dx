@@ -22,7 +22,7 @@ extern UBYTE intro_song_data;
 #define INTRO_STATE_BLINK 3U
 
 const UBYTE SGB_INTRO_PAL01[16] = {
-    1, 255, 127,  57,  50, 207,  12,  34,   0, 0,   0,   0, 0,   0,   0,   0
+    1, 255, 127, 27, 38, 209, 8, 34, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
 const UBYTE SGB_INTRO_ATTRDIV[16] = {

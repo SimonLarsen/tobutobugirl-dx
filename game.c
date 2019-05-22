@@ -125,8 +125,9 @@ const UBYTE entity_palettes[10U] = {
 };
 
 const UBYTE SGB_GAME_STAGE_PAL01[16] = {
-    1U, 255U, 127U, 92U, 57U, 203U, 72U, 0U, 0U, 92U, 33U, 233U, 113U, 0U, 0U, 0U
+    1U, 255, 127,  92,  57, 203,  72,   0,   0, 59,  29, 233, 113,   0,   0, 0
 };
+
 
 const UBYTE SGB_GAME_ATTRDIV[16] = {
     (6U << 3) + 1U,
