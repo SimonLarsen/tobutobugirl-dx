@@ -193,6 +193,12 @@ const UBYTE retry_text_data[RETRY_NUM_CHARS * 4] = {
     40U, 66U, 102U, OBJ_PAL0
 };
 
+const UBYTE restart_window_tiles[9] = {
+    3U, 3U, 18U,
+    0xFFU, 0xFFU, 108U,
+    5U, 5U, 18U
+};
+
 UBYTE mydiv(UBYTE num, UBYTE denom) {
     UBYTE cnt;
     cnt = 0;
@@ -1357,7 +1363,6 @@ void showWaveScreen() {
 
 void showInfiniteRestart() {
     UBYTE offset, i;
-    UBYTE buf[3];
     UBYTE *data;
 
     disable_interrupts();
@@ -1372,11 +1377,8 @@ void showInfiniteRestart() {
     sub_selection = 0U;
 
     offset = (156U - progress) >> 3;
-    buf[0] = 0xFFU;
-    buf[1] = 0xFFU;
-    buf[2] = 144U;
     disable_interrupts();
-    set_bkg_tiles_rle(0U, offset, 18U, 8U, buf);
+    set_bkg_tiles_rle(0U, offset, 18U, 8U, restart_window_tiles);
     enable_interrupts();
 
     offset = 60U - mymod(116U - progress, 8U);

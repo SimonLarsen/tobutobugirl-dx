@@ -3,7 +3,10 @@
 
 #include <string.h>
 
-void clearSprites();
+//void clearSprites();
+
+#define clearSprites() (mymemset((UBYTE*)0xC000UL, 0U, 160U))
+
 void updateJoystate();
 void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop);
 void clearRemainingSprites();

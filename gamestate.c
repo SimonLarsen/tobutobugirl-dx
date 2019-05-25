@@ -19,6 +19,8 @@
 #include "win3_dx.h"
 #include "win4.h"
 #include "win4_dx.h"
+#include "win5.h"
+#include "win5_dx.h"
 #include "pause_cloud1.h"
 #include "pause_cloud2.h"
 #include "mmlgb/driver/music.h"
@@ -105,20 +107,6 @@ void updateMusic() {
     mus_update();
     SWITCH_ROM_MBC1(game_bank);
 }
-
-void clearSprites() {
-    UBYTE i;
-    for(i = 0U; i < 40U; ++i) move_sprite(i, 0U, 0U);
-    sprites_used = 0U;
-    next_sprite = 0U;
-}
-
-/*
-void updateJoystate() {
-    oldjoystate = joystate;
-    joystate = joypad();
-}
-*/
 
 void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop) {
     UBYTE* oam = (UBYTE*)0xC000UL + (next_sprite << 2);
@@ -249,63 +237,93 @@ void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer) {
 }
 
 void setWinscreenBackground(UBYTE level) {
+    const UBYTE *tile_data, *tiles, *palettes;
+    const UWORD *palette_data;
+    UBYTE data_length, palette_data_length;
     SWITCH_ROM_MBC1(WINSCREEN_BACKGROUNDS_BANK);
 
     switch(level) {
-        case 1:
+        case 1U:
             if(CGB_MODE) {
-                set_bkg_data_rle(win1_dx_tiles_offset, win1_dx_data_length, win1_dx_data);
-                set_bkg_tiles_rle(11U, 4U, win1_dx_tiles_width, win1_dx_tiles_height, win1_dx_tiles);
-                set_bkg_palette_buffer(win1_dx_palette_offset, win1_dx_palette_data_length, win1_dx_palette_data);
-                VBK_REG = 1U;
-                set_bkg_tiles_rle(11U, 4U, win1_dx_tiles_width, win1_dx_tiles_height, win1_dx_palettes);
-                VBK_REG = 0U;
+                tile_data = win1_dx_data;
+                data_length = win1_dx_data_length;
+                tiles = win1_dx_tiles;
+                palette_data_length = win1_dx_palette_data_length;
+                palette_data = win1_dx_palette_data;
+                palettes = win1_dx_palettes;
             } else {
-                set_bkg_data_rle(win1_tiles_offset, win1_data_length, win1_data);
-                set_bkg_tiles_rle(11U, 4U, win1_tiles_width, win1_tiles_height, win1_tiles);
+                tile_data = win1_data;
+                data_length = win1_data_length;
+                tiles = win1_tiles;
             }
             break;
-        case 2:
+        case 2U:
             if(CGB_MODE) {
-                set_bkg_data_rle(win2_dx_tiles_offset, win2_dx_data_length, win2_dx_data);
-                set_bkg_tiles_rle(8U, 4U, win2_dx_tiles_width, win2_dx_tiles_height, win2_dx_tiles);
-                set_bkg_palette_buffer(win2_dx_palette_offset, win2_dx_palette_data_length, win2_dx_palette_data);
-                VBK_REG = 1U;
-                set_bkg_tiles_rle(8U, 4U, win2_dx_tiles_width, win2_dx_tiles_height, win2_dx_palettes);
-                VBK_REG = 0U;
+                tile_data = win2_dx_data;
+                data_length = win2_dx_data_length;
+                tiles = win2_dx_tiles;
+                palette_data_length = win2_dx_palette_data_length;
+                palette_data = win2_dx_palette_data;
+                palettes = win2_dx_palettes;
             } else {
-                set_bkg_data_rle(win2_tiles_offset, win2_data_length, win2_data);
-                set_bkg_tiles_rle(8U, 4U, win2_tiles_width, win2_tiles_height, win2_tiles);
+                tile_data = win2_data;
+                data_length = win2_data_length;
+                tiles = win2_tiles;
             }
             break;
-        case 3:
+        case 3U:
             if(CGB_MODE) {
-                set_bkg_data_rle(win3_dx_tiles_offset, win3_dx_data_length, win3_dx_data);
-                set_bkg_tiles_rle(8U, 4U, win3_dx_tiles_width, win3_dx_tiles_height, win3_dx_tiles);
-                set_bkg_palette_buffer(win3_dx_palette_offset, win3_dx_palette_data_length, win3_dx_palette_data);
-                VBK_REG = 1U;
-                set_bkg_tiles_rle(8U, 4U, win3_dx_tiles_width, win3_dx_tiles_height, win3_dx_palettes);
-                VBK_REG = 0U;
+                tile_data = win3_dx_data;
+                data_length = win3_dx_data_length;
+                tiles = win3_dx_tiles;
+                palette_data_length = win3_dx_palette_data_length;
+                palette_data = win3_dx_palette_data;
+                palettes = win3_dx_palettes;
             } else {
-                set_bkg_data_rle(win3_tiles_offset, win3_data_length, win3_data);
-                set_bkg_tiles_rle(8U, 4U, win3_tiles_width, win3_tiles_height, win3_tiles);
+                tile_data = win3_data;
+                data_length = win3_data_length;
+                tiles = win3_tiles;
             }
             break;
-        case 4:
+        case 4U:
             if(CGB_MODE) {
-                set_bkg_data_rle(win4_dx_tiles_offset, win4_dx_data_length, win4_dx_data);
-                set_bkg_tiles_rle(8U, 4U, win4_dx_tiles_width, win4_dx_tiles_height, win4_dx_tiles);
-                set_bkg_palette_buffer(win4_dx_palette_offset, win4_dx_palette_data_length, win4_dx_palette_data);
-                VBK_REG = 1U;
-                set_bkg_tiles_rle(8U, 4U, win4_dx_tiles_width, win4_dx_tiles_height, win4_dx_palettes);
-                VBK_REG = 0U;
+                tile_data = win4_dx_data;
+                data_length = win4_dx_data_length;
+                tiles = win4_dx_tiles;
+                palette_data_length = win4_dx_palette_data_length;
+                palette_data = win4_dx_palette_data;
+                palettes = win4_dx_palettes;
             } else {
-                set_bkg_data_rle(win4_tiles_offset, win4_data_length, win4_data);
-                set_bkg_tiles_rle(8U, 4U, win4_tiles_width, win4_tiles_height, win4_tiles);
+                tile_data = win4_data;
+                data_length = win4_data_length;
+                tiles = win4_tiles;
             }
             break;
+        case 5U:
+            if(CGB_MODE) {
+                tile_data = win5_dx_data;
+                data_length = win5_dx_data_length;
+                tiles = win5_dx_tiles;
+                palette_data_length = win5_dx_palette_data_length;
+                palette_data = win5_dx_palette_data;
+                palettes = win5_dx_palettes;
+            } else {
+                tile_data = win5_data;
+                data_length = win5_data_length;
+                tiles = win5_tiles;
+            }
     }
 
+    set_bkg_data_rle(win1_tiles_offset, data_length, tile_data);
+    set_bkg_tiles_rle(8U, 4U, 12U, 12U, tiles);
+
+    if(CGB_MODE) {
+        set_bkg_palette_buffer(win1_dx_palette_offset, palette_data_length, palette_data);
+
+        VBK_REG = 1U;
+        set_bkg_tiles_rle(8U, 4U, 12U, 12U, palettes);
+        VBK_REG = 0U;
+    }
 
     SWITCH_ROM_MBC1(game_bank);
 }
@@ -327,79 +345,6 @@ void setCloudAnimation(UBYTE skin) {
     set_sprite_data(0U, pause_cloud1_data_length, data);
     SWITCH_ROM_MBC1(game_bank);
 }
-
-/*
-void set_bkg_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles) {
-    _set_tiles_rle(x, y, width, height, tiles, 1U);
-}
-*/
-
-/*
-void set_win_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles) {
-    _set_tiles_rle(x, y, width, height, tiles, 0U);
-}
-*/
-
-/*
-void _set_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles, UBYTE is_bkg) {
-    UBYTE ix, iy, run, tile;
-    run = 0U;
-    for(iy = y; iy != y+height; ++iy) {
-        for(ix = x; ix != x+width; ++ix) {
-            if(!run) {
-                tile = tiles[0];
-                if(tile == tiles[1]) {
-                    run = tiles[2];
-                    tiles += 3U;
-                } else {
-                    run = 1U;
-                    tiles++;
-                }
-            }
-            if(is_bkg) set_bkg_tiles(ix, iy, 1U, 1U, &tile);
-            else set_win_tiles(ix, iy, 1U, 1U, &tile);
-            run--;
-        }
-    }
-}
-*/
-
-/*
-void _set_tiles_rle(UBYTE x, UBYTE y, UBYTE width, UBYTE height, UBYTE *tiles, UBYTE is_bkg) {
-    UBYTE i, j, run;
-    UBYTE *out;
-    if(is_bkg && (LCDC_REG & 8U) || !is_bkg && (LCDC_REG & 64U)) {
-        out = (UBYTE*)0x9C00UL;
-    } else {
-        out = (UBYTE*)0x9800UL;
-    }
-
-    out += (y << 5) + x;
-
-    y = 32U - width;
-    run = 0U;
-    for(j = 0U; j != height; ++j) {
-        for(i = 0U; i != width; ++i) {
-            if(!run) {
-                x = *tiles;
-                if(*tiles == tiles[1]) {
-                    run = tiles[2];
-                    tiles += 3U;
-                } else {
-                    run = 1U;
-                    ++tiles;
-                }
-            }
-            while(STAT_REG & 2U) { }
-            *out = x;
-            ++out;
-            --run;
-        }
-
-        out += y;
-    }
-}
-*/
 
 void selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer) {
     SWITCH_ROM_MBC1(SELECTION_DATA_BANK);

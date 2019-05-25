@@ -103,7 +103,7 @@ void main() {
 	while(1U) {
 		switch(gamestate) {
 			case GAMESTATE_LOGOS:
-				setGameBank(9U);
+				setGameBank(5U);
 				enterLogos();
 				break;
 			case GAMESTATE_INGAME:

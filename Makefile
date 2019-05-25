@@ -29,11 +29,11 @@ OBJ_BANK1=game.o pause.o
 OBJ_BANK2=select.o highscore.o unlocked.o
 OBJ_BANK3=intro.o intro_bg.o intro_bg_dx.o ending.o
 OBJ_BANK4=jukebox.o
-OBJ_BANK5=winscreen.o
+OBJ_BANK5=winscreen.o logos.o
 OBJ_BANK6=title.o wipe.o
 OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o background5.o
 OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o minigamescore.o
-OBJ_BANK9=logos.o win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o
+OBJ_BANK9=win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o win5.o win5_dx.o
 OBJ_BANK10=sound_data.o sgb.o
 OBJ_BANK11=set_banner.o \
 		   selection1.o selection2.o selection3.o selection4.o \
@@ -121,7 +121,7 @@ game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sou
 game.o: game.asm
 	${compile-source}
 
-gamestate.asm: gamestate.c defines.h gamestate.h set_data_rle.h background1.h background1_dx.h background2.h background3.h background4.h background5.h pause_bg.h win1.h win1_dx.h win2.h win3.h win4.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
+gamestate.asm: gamestate.c defines.h gamestate.h set_data_rle.h background1.h background1_dx.h background2.h background3.h background4.h background5.h pause_bg.h win1.h win1_dx.h win2.h win2_dx.h win3.h win3_dx.h win4.h win4_dx.h win5_dx.h win5.h win5_dx.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
 	$(SDCCN) -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
 
 gamestate.o: gamestate.asm
@@ -238,10 +238,25 @@ win1_dx.o: win1_dx.c win1_dx.h
 win2.o: win2.c win2.h
 	${compile-source}
 
+win2_dx.o: win2_dx.c win2_dx.h
+	${compile-source}
+
 win3.o: win3.c win3.h
 	${compile-source}
 
+win3_dx.o: win3_dx.c win3_dx.h
+	${compile-source}
+
 win4.o: win4.c win4.h
+	${compile-source}
+
+win4_dx.o: win4_dx.c win4_dx.h
+	${compile-source}
+
+win5.o: win5.c win5.h
+	${compile-source}
+
+win5_dx.o: win5_dx.c win5_dx.h
 	${compile-source}
 
 winscreen.o: winscreen.c defines.h gamestate.h set_data_rle.h fade.h winscreen.h sound.h sgb_send_packet.h characters.h data/palettes/ranks.h data/bg/win_base.h data/bg/win_base_dx.h data/bg/rank_banner.h data/bg/rank_banner_dx.h data/sprite/ranks.h circles.h mmlgb/driver/music.h mmlgb/driver/notes.h mmlgb/driver/freq.h

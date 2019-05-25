@@ -99,6 +99,12 @@ win4.c win4.h: data/bg/win4.png
 win4_dx.c win4_dx.h: data/bg/win4_dx.png
 	$(IMGTOGB) --map -O 91 --rle $< -P 2 -c -C win4_dx.c win4_dx.h
 
+win5.c win5.h: data/bg/win5.png
+	$(IMGTOGB) --map -O 91 --rle $< -P 2 -C win5.c win5.h
+
+win5_dx.c win5_dx.h: data/bg/win5_dx.png
+	$(IMGTOGB) --map -O 91 --rle $< -P 2 -c -C win5_dx.c win5_dx.h
+
 data/bg/highscore.h: data/bg/highscore.png
 	$(IMGTOGB) --map -O 47 --rle $< $@
 
