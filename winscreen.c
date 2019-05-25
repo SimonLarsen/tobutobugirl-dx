@@ -122,10 +122,6 @@ void initWinscreen() {
 	data = level_names[level];
 	set_bkg_tiles(4U, 1U, 6U, 1U, data);
 
-	// Set wave channel data
-	NR30_REG = 0x0U;
-	memcpy(0xFF30, sharkwave_data, 16U);
-
 	HIDE_WIN;
 	SHOW_BKG;
 	SHOW_SPRITES;
@@ -301,6 +297,10 @@ void enterWinscreen() {
 	} else {
 		setMusicBank(SONG_BANK_SCORE_TALLY);
 		playMusic(&score_tally_song_data);
+
+	    // Set wave channel data
+	    NR30_REG = 0U;
+	    memcpy(0xFF30, sharkwave_data, 16U);
 	}
 	enable_interrupts(); 
 
@@ -326,7 +326,7 @@ void enterWinscreen() {
 	winscreenWait(30U);
 
 	// Kills
-	tmp = kills;
+	tmp = (UBYTE)kills;
 	tile = tmp / 10U;
 	set_bkg_tiles(1U, 10U, 1U, 1U, &tile);
 	tile = tmp % 10U;

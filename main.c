@@ -3,9 +3,8 @@
 #include "defines.h"
 #include "gamestate.h"
 #include "main.h"
-#include "ram.h"
+#include "init.h"
 #include "sound.h"
-#include "sgb.h"
 #include "mmlgb/driver/music.h"
 
 #include "logos.h"
@@ -21,48 +20,6 @@
 #include "wipe.h"
 #include "minigamescore.h"
 
-const UBYTE RAM_SIG[8] = {'T','O','B','U','T','O','B','U'};
-
-void initRAM(UBYTE force_clear) {
-	UBYTE initialized, i;
-
-	ENABLE_RAM_MBC1;
-	SWITCH_RAM_MBC1(0);
-
-	// Check for signature
-	initialized = 1U;
-	for(i = 0U; i != 8U; ++i) {
-		if(ram_data[RAM_SIG_ADDR + i] != RAM_SIG[i]) {
-			initialized = 0U;
-			break;
-		}
-	}
-
-	// Initialize memory
-	if(initialized == 0U || force_clear) {
-		for(i = 0U; i != 64U; ++i) {
-			ram_data[i] = 0U;
-		}
-
-		for(i = 0U; i != 8U; ++i) {
-			ram_data[RAM_SIG_ADDR + i] = RAM_SIG[i];
-		}
-
-		ram_data[RAM_DASHCOUNTER] = 1U;
-	}
-
-	// Load values from ram
-	for(levels_completed = 0U; levels_completed != 4U; ++levels_completed) {
-		if(ram_data[levels_completed << 4] == 0U) break;
-	}
-    levels_unlocked = levels_completed + 1U;
-    if(levels_completed == 3U) levels_unlocked++;
-
-	show_dashcounter = ram_data[RAM_DASHCOUNTER];
-
-	DISABLE_RAM_MBC1;
-}
-
 void vbl_update() {
 	++vbl_count;
 }
@@ -71,7 +28,7 @@ void main() {
 	DISPLAY_OFF;
 	disable_interrupts();
 
-	SWITCH_ROM_MBC1(SGB_BANK);
+	SWITCH_ROM_MBC1(INIT_BANK);
     sgb_mode = sgb_check2();
     if(sgb_mode) {
 		sgb_init();

@@ -33,7 +33,8 @@ UBYTE level, levels_unlocked, levels_completed;
 UBYTE selection, sub_selection;
 UBYTE joystate, oldjoystate;
 UBYTE next_sprite, sprites_used;
-UBYTE elapsed_time, elapsed_minutes, remaining_time, kills;
+UBYTE remaining_time, elapsed_minutes, elapsed_seconds;
+UWORD elapsed_time, kills;
 UBYTE last_highscore_level, last_highscore_slot;
 UBYTE last_progress;
 UBYTE game_bank, music_bank;
@@ -109,7 +110,7 @@ void updateMusic() {
 }
 
 void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop) {
-    UBYTE* oam = (UBYTE*)0xC000UL + (next_sprite << 2);
+    UBYTE* oam = (UBYTE*)0xC000UL + (UBYTE)(next_sprite << 2);
     *oam++ = y;
     *oam++ = x;
     *oam++ = tile;

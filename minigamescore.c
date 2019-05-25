@@ -58,10 +58,10 @@ void initMinigamescore() {
 	i = elapsed_minutes % 10U;
 	set_bkg_tiles(14U, 7U, 1U, 1U, &i);
 
-	i = elapsed_time / 10U;
+	i = elapsed_seconds / 10U;
 	set_bkg_tiles(16U, 7U, 1U, 1U, &i);
 
-	i = elapsed_time % 10U;
+	i = elapsed_seconds % 10U;
 	set_bkg_tiles(17U, 7U, 1U, 1U, &i);
 
 	// draw best time

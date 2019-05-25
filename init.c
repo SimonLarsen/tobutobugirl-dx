@@ -1,6 +1,7 @@
 #include <string.h>
 #include "defines.h"
-#include "sgb.h"
+#include "init.h"
+#include "ram.h"
 #include "gamestate.h"
 #include "data/sgb/border.h"
 #include "sgb_send_packet.h"
@@ -23,6 +24,42 @@ const UBYTE SGB_BORDER_PCT_TRN[16] = { (0x14U << 3) + 1U, 0U, 0U, 0U, 0U, 0U, 0U
 
 const UBYTE SGB_MLT_REQ1[16] = { (0x11U << 3) + 1U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U };
 const UBYTE SGB_MLT_REQ2[16] = { (0x11U << 3) + 1U, 1U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U };
+
+const UBYTE RAM_SIG[8] = {'T','O','B','U','T','O','B','U'};
+
+void initRAM(UBYTE force_clear) {
+	UBYTE initialized, i;
+
+	ENABLE_RAM_MBC1;
+	SWITCH_RAM_MBC1(0);
+
+	// Check for signature
+	initialized = 1U;
+	for(i = 0U; i != 8U; ++i) {
+		if(ram_data[RAM_SIG_ADDR + i] != RAM_SIG[i]) {
+			initialized = 0U;
+			break;
+		}
+	}
+
+	// Initialize memory
+	if(initialized == 0U || force_clear) {
+        mymemset(ram_data, 0U, 128U);
+        memcpy(ram_data+RAM_SIG_ADDR, RAM_SIG, 8U);
+		ram_data[RAM_DASHCOUNTER] = 1U;
+	}
+
+	// Load values from ram
+	for(levels_completed = 0U; levels_completed != 4U; ++levels_completed) {
+		if(ram_data[levels_completed << 4] == 0U) break;
+	}
+    levels_unlocked = levels_completed + 1U;
+    if(levels_completed == 3U) levels_unlocked++;
+
+	show_dashcounter = ram_data[RAM_DASHCOUNTER];
+
+	DISABLE_RAM_MBC1;
+}
 
 void sgb_copy_rle(UBYTE *data, UBYTE *dest, UWORD n, UBYTE step) {
     UBYTE run, value;

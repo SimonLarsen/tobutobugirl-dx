@@ -34,7 +34,7 @@ OBJ_BANK6=title.o wipe.o
 OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o background5.o
 OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o minigamescore.o
 OBJ_BANK9=win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o win5.o win5_dx.o
-OBJ_BANK10=sound_data.o sgb.o
+OBJ_BANK10=sound_data.o init.o
 OBJ_BANK11=set_banner.o \
 		   selection1.o selection2.o selection3.o selection4.o \
 		   selection5.o selection5_dx.o \
@@ -148,7 +148,7 @@ jukebox.o: jukebox.c defines.h jukebox.h fade.h gamestate.h set_data_rle.h cos.h
 logos.o: logos.c defines.h gamestate.h set_data_rle.h logos.h fade.h sound.h mmlgb/driver/music.h sgb_send_packet.h data/bg/tangram.h data/bg/potato.h data/bg/potato_dx.h data/sprite/shine.h
 	${compile-source}
 
-main.o: main.c gamestate.h main.h ram.h sound.h mmlgb/driver/music.h logos.h intro.h title.h select.h game.h winscreen.h highscore.h unlocked.h jukebox.h ending.h wipe.h minigamescore.h
+main.o: main.c gamestate.h main.h init.h sound.h mmlgb/driver/music.h logos.h intro.h title.h select.h game.h winscreen.h highscore.h unlocked.h jukebox.h ending.h wipe.h minigamescore.h
 	${compile-source}
 
 minigamescore.o: minigamescore.c defines.h fade.h gamestate.h set_data_rle.h sound.h ram.h sgb_send_packet.h data/palettes/minigame_score.h data/bg/minigame_score_bg.h characters.h zoom_circles.h
@@ -208,10 +208,10 @@ set_banner.o: set_banner.asm
 sgb_send_packet.o: sgb_send_packet.asm
 	${compile-source}
 
-sgb.asm: sgb.c sgb.h data/sgb/border.h sgb_send_packet.h
+init.asm: init.c init.h data/sgb/border.h sgb_send_packet.h
 	$(SDCCN) -bo 10 -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
 
-sgb.o: sgb.asm
+init.o: init.asm
 	${compile-source}
 
 sound.asm: sound.c sound.h gamestate.h mmlgb/driver/music.h mmlgb/driver/notes.h mmlgb/driver/freq.h mmlgb/driver/noisefreq.h mmlgb/driver/vib.h
@@ -223,7 +223,10 @@ sound.o: sound.asm
 sound_data.o: sound_data.c data/sounds/sfx_bump.h data/sounds/sfx_bump_alien.h data/sounds/sfx_cat_disable.h data/sounds/sfx_cat_enable.h data/sounds/sfx_dash.h data/sounds/sfx_highscore_switch.h data/sounds/sfx_jetpack.h data/sounds/sfx_menu_cancel.h data/sounds/sfx_menu_confirm.h data/sounds/sfx_menu_locked.h data/sounds/sfx_menu_switch.h data/sounds/sfx_player_die.h data/sounds/sfx_stomp_alien.h data/sounds/sfx_stomp_bat.h data/sounds/sfx_stomp_bird.h data/sounds/sfx_stomp_ghost.h data/sounds/sfx_time_low.h data/sounds/sfx_time_out.h data/sounds/sfx_time_pickup.h data/sounds/sfx_warp_start.h data/sounds/sfx_rank_crash.h
 	${compile-source}
 
-title.o: title.c defines.h title.h fade.h gamestate.h set_data_rle.h sound.h sgb_send_packet.h ram.h data/palettes/title_sprites.h data/palettes/minigame_fade.h data/bg/titlescreen.h data/bg/titlescreen_dx.h data/bg/titlescreen_bg.h data/bg/titlescreen_sgb.h characters.h data/sprite/title_cat.h
+title.asm: title.c defines.h title.h fade.h gamestate.h set_data_rle.h sound.h sgb_send_packet.h ram.h data/palettes/title_sprites.h data/palettes/minigame_fade.h data/bg/titlescreen.h data/bg/titlescreen_dx.h data/bg/titlescreen_bg.h data/bg/titlescreen_sgb.h characters.h data/sprite/title_cat.h
+	$(SDCCN) -bo 6 -c $< ; perl -pi -e 's/\s+\.optsdcc.*//g' $@
+
+title.o: title.asm
 	${compile-source}
 
 unlocked.o: unlocked.c defines.h unlocked.h fade.h gamestate.h set_data_rle.h sgb_send_packet.h characters.h zoom_circles.h data/palettes/unlocked.h data/bg/unlocked.h selection2.h selection3.h selection4.h selection_jukebox.h

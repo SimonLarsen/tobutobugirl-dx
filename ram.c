@@ -2,6 +2,7 @@
 
 /*
 Memory:
+  - Level 1-4
 	2 bytes per record. (seconds, score)
 	10 bytes pr. level
 
@@ -10,11 +11,18 @@ Memory:
 	32-41	Level 3
 	48-57   Level 4
 
-	58U     Show dash counter
+  - Level 5
+    6 bytes (3 words) per record. (seconds, stomps, waves)
+    64-94
 
-	60U     Minigame minutes
-	61U     Minigame seconds
+  -- Mini game
+	100U Minigame minutes
+	101U Minigame seconds
 
+  - Options
+	102U Show dash counter
+
+  - Signature
 	120-127 Ram signature "TOBUTOBU"
  */
 

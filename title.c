@@ -1,5 +1,5 @@
 #include <gb/gb.h>
-#include <rand.h>
+#include <gb/rand.h>
 #include "defines.h"
 #include "title.h"
 #include "fade.h"
@@ -90,8 +90,7 @@ void initTitle() {
 	ticks = 0U;
 	timer = 0U;
 	next_spawn = 0U;
-	elapsed_time = 0U;
-	elapsed_minutes = 0U;
+	elapsed_time = 0UL;
 
 	player_x = 220U;
 	player_y = 40U;
@@ -137,13 +136,13 @@ void updateTitleEnemies() {
 
 	i = 0U;
 	while(entity_type[i]) {
-		if(entity_type[i] == 1U) {
-			if(entity_dir[i] == RIGHT) entity_x[i]++;
-			else entity_x[i]--;
-		} else {
-			if(entity_dir[i] == RIGHT) entity_y[i]++;
-			else entity_y[i]--;
-		}
+        if(entity_type[i] == 1U) {
+            if(entity_dir[i] == RIGHT) entity_x[i]++;
+            else entity_x[i]--;
+        } else {
+            if(entity_dir[i] == RIGHT) entity_y[i]++;
+            else entity_y[i]--;
+        }
 
 		if(entity_x[i] <= 240U && entity_x[i] >= 172U) {
 			if(!(i & 1U)) {
@@ -256,18 +255,25 @@ void drawTitleSprites(UBYTE triggered) {
 }
 
 void saveMinigameTime() {
-	UBYTE *data;
-
 	ENABLE_RAM_MBC1;
 	SWITCH_RAM_MBC1(0U);
 
-	data = &ram_data[RAM_MINIGAME_MIN];
+    elapsed_minutes = 0U;
+    while(elapsed_time >= 60U) {
+        elapsed_minutes++;
+        elapsed_time -= 60U;
+    }
+    elapsed_seconds = elapsed_time;
 
-	if (elapsed_minutes > data[0U]
-	|| (elapsed_minutes == data[0U] && elapsed_time > data[1U])) {
-		*data = elapsed_minutes;
-		data++;
-		*data = elapsed_time;
+    if(elapsed_minutes >= 100U) {
+        elapsed_minutes = 99U;
+        elapsed_seconds = 59U;
+    }
+
+	if (elapsed_minutes > ram_data[RAM_MINIGAME_MIN]
+	|| (elapsed_minutes == ram_data[RAM_MINIGAME_MIN] && elapsed_seconds > ram_data[RAM_MINIGAME_SEC])) {
+		ram_data[RAM_MINIGAME_MIN] = elapsed_minutes;
+		ram_data[RAM_MINIGAME_SEC] = elapsed_seconds;
 	}
 
 	DISABLE_RAM_MBC1;
@@ -312,10 +318,6 @@ void enterTitle() {
 		if(timer == 60U) {
 			timer = 0U;
 			elapsed_time++;
-		}
-		if(elapsed_time == 60U) {
-			elapsed_time = 0U;
-			elapsed_minutes++;
 		}
 
 		if(elapsed_time == 33U && scene_state <= TITLE_MOVE) {
@@ -407,7 +409,7 @@ void enterTitle() {
 				if(scroll_y >= 72U) {
 					scene_state = TITLE_MINIGAME;
 					ticks = 40U;
-					elapsed_time = 255U;
+					elapsed_time = 0UL;
 					player_yspeed = 128U;
 
 					setMusicBank(SONG_BANK_MINIGAME);
@@ -436,17 +438,17 @@ void enterTitle() {
 					playSound(SFX_CAT_ENABLE);
 				}
 
-				if(player_y < 7U) {
+				if(player_y <= 6U) {
 					player_y = 7U;
 					player_yspeed = 128U + ((128U - player_yspeed) >> 1);
 				}
 			}
 		}
 
-		if(player_xspeed < 16U) player_xspeed = 16U;
-		else if(player_xspeed > 240U) player_xspeed = 240U;
-		if(player_yspeed < 16U) player_yspeed = 16U;
-		else if(player_yspeed > 240U) player_yspeed = 240U;
+		if(player_xspeed <= 15U) player_xspeed = 16U;
+		else if(player_xspeed >= 241U) player_xspeed = 240U;
+		if(player_yspeed <= 15U) player_yspeed = 16U;
+		else if(player_yspeed >= 241U) player_yspeed = 240U;
 
 		if(scroll_y < 0x40U) {
 			palette_buffer[2] = minigame_fade_palette_data[scroll_y >> 1];

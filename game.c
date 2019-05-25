@@ -297,7 +297,7 @@ void initGame() {
         blips = MAX_BOOST; // don't reset boost when progressing in level 5
     }
     blip_bar = 0U;
-    kills = 0U;
+    kills = 0UL;
 
     ticks = 0U;
     next_spawn = 0U;
@@ -311,7 +311,7 @@ void initGame() {
 
     timer = 0U;
     remaining_time = MAX_TIME;
-    elapsed_time = 0U;
+    elapsed_time = 0UL;
 
     move_bkg(0U, 112U);
     move_win(151U, 0U);
@@ -1198,7 +1198,7 @@ void addScore() {
     data = &ram_data[(level - 1U) << 4];
     for(i = 0U; i != 5U; ++i) {
         if(score > data[(i << 1) + 1U]
-        || (score == data[(i << 1) + 1U] && elapsed_time < data[i << 1])) {
+        || (score == data[(i << 1) + 1U] && (UBYTE)elapsed_time < data[i << 1])) {
             break;
         }
     }
@@ -1208,7 +1208,7 @@ void addScore() {
             data[j << 1] = data[(j - 1U) << 1];
             data[(j << 1) + 1U] = data[((j - 1U) << 1) + 1U];
         }
-        data[i << 1] = elapsed_time;
+        data[i << 1] = (UBYTE)elapsed_time;
         data[(i << 1) + 1U] = score;
 
         last_highscore_level = level;
@@ -1565,6 +1565,7 @@ ingame_start:
                 intoPortalAnimation();
                 gamestate = GAMESTATE_WINSCREEN;
             }
+
             addScore();
 
             if(level > levels_completed) {
