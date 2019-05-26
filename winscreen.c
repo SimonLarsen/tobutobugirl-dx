@@ -1,6 +1,6 @@
 #include <gb/gb.h>
+#include <gb/rand.h>
 #include <string.h>
-#include <rand.h>
 #include "defines.h"
 #include "gamestate.h"
 #include "set_data_rle.h"
@@ -152,22 +152,19 @@ void winscreenScrollCircles() {
 void drawScore(UBYTE x, UBYTE y, UBYTE value) {
 	UBYTE tile;
 
-	if(value >= 100U) {
-		tile = value / 100U;
-		set_bkg_tiles(x, y, 1U, 1U, &tile);
-	}
-	if(value >= 10U) {
-		tile = (value / 10U) % 10U;
-		set_bkg_tiles(x+1U, y, 1U, 1U, &tile);
-	}
-	if(value) {
-		tile = value % 10U;
-		set_bkg_tiles(x+2U, y, 1U, 1U, &tile);
-		tile = 0U;
-		set_bkg_tiles(x+3U, y, 1U, 1U, &tile);
-	}
 	tile = 0U;
 	set_bkg_tiles(x+4U, y, 1U, 1U, &tile);
+
+    if(value) {
+        set_bkg_tiles(x+3U, y, 1U, 1U, &tile);
+        x += 2U;
+        while(value) {
+            tile = mymod(value, 10U);
+            value = mydiv(value, 10U);
+            set_bkg_tiles(x, y, 1U, 1U, &tile);
+            x--;
+        }
+    }
 }
 
 void winscreenPlayNote(UBYTE note, UBYTE octave) {
@@ -300,20 +297,22 @@ void enterWinscreen() {
 
 	    // Set wave channel data
 	    NR30_REG = 0U;
-	    memcpy(0xFF30, sharkwave_data, 16U);
+	    memcpy((UBYTE*)0xFF30, sharkwave_data, 16U);
 	}
 	enable_interrupts(); 
 
 	winscreenWait(15U);
 
 	// Time
-	tile = elapsed_time / 60U;
+    tmp = elapsed_time;
+	tile = mydiv(tmp, 60U);
 	set_bkg_tiles(1U, 5U, 1U, 1U, &tile);
 	tile = 37U;
 	set_bkg_tiles(2U, 5U, 1U, 1U, &tile);
-	tile = (elapsed_time % 60U) / 10U;
+    tmp = mymod(tmp, 60U);
+	tile = mydiv(tmp, 10U);
 	set_bkg_tiles(3U, 5U, 1U, 1U, &tile);
-	tile = (elapsed_time % 60U) % 10U;
+    tile = mymod(tmp, 10U);
 	set_bkg_tiles(4U, 5U, 1U, 1U, &tile);
 	winscreenTextJingle();
 
@@ -327,9 +326,9 @@ void enterWinscreen() {
 
 	// Kills
 	tmp = (UBYTE)kills;
-	tile = tmp / 10U;
+	tile = mydiv(tmp, 10U);
 	set_bkg_tiles(1U, 10U, 1U, 1U, &tile);
-	tile = tmp % 10U;
+	tile = mymod(tmp, 10U);
 	set_bkg_tiles(2U, 10U, 1U, 1U, &tile);
 	winscreenTextJingle();
 

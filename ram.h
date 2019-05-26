@@ -6,6 +6,7 @@
 #define RAM_MINIGAME_SEC 101U
 #define RAM_DASHCOUNTER  102U
 
-extern UBYTE ram_data[];
+//extern UBYTE ram_data[];
+#define ram_data ((UBYTE*)0xA000UL)
 
 #endif

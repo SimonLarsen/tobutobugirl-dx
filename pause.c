@@ -108,8 +108,8 @@ UBYTE enterPause() {
 			} else if(pause_selection == 1U) {
 				ENABLE_RAM_MBC1;
 				SWITCH_RAM_MBC1(0);
-				show_dashcounter = !show_dashcounter;
-				ram_data[RAM_DASHCOUNTER] = !ram_data[RAM_DASHCOUNTER];
+                show_dashcounter = !show_dashcounter;
+                *(ram_data + RAM_DASHCOUNTER) = show_dashcounter;
 				DISABLE_RAM_MBC1;
 
 				disable_interrupts();

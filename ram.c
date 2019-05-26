@@ -26,4 +26,3 @@ Memory:
 	120-127 Ram signature "TOBUTOBU"
  */
 
-UBYTE ram_data[128];

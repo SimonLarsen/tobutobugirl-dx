@@ -29,8 +29,6 @@
 #include "data/sprite/skin1.h"
 #include "data/sprite/skin2.h"
 
-UBYTE rand();
-
 UBYTE first_load;
 UBYTE scrolled;
 UBYTE last_spawn_x, last_spawn_index;
@@ -198,23 +196,6 @@ const UBYTE restart_window_tiles[9] = {
     0xFFU, 0xFFU, 108U,
     5U, 5U, 18U
 };
-
-UBYTE mydiv(UBYTE num, UBYTE denom) {
-    UBYTE cnt;
-    cnt = 0;
-    while(num >= denom) {
-        ++cnt;
-        num -= denom;
-    }
-    return cnt;
-}
-
-UBYTE mymod(UBYTE num, UBYTE denom) {
-    while(num >= denom) {
-        num -= denom;
-    }
-    return num;
-}
 
 void initGame() {
     disable_interrupts();
@@ -1195,7 +1176,7 @@ void addScore() {
 
     score = TOTAL_SCORE;
 
-    data = &ram_data[(level - 1U) << 4];
+    data = ram_data + ((level - 1U) << 4);
     for(i = 0U; i != 5U; ++i) {
         if(score > data[(i << 1) + 1U]
         || (score == data[(i << 1) + 1U] && (UBYTE)elapsed_time < data[i << 1])) {
@@ -1203,7 +1184,7 @@ void addScore() {
         }
     }
     
-    if(i < 5U) {
+    if(i <= 4U) {
         for(j = 4U; j != i; --j) {
             data[j << 1] = data[(j - 1U) << 1];
             data[(j << 1) + 1U] = data[((j - 1U) << 1) + 1U];

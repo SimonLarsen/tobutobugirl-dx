@@ -28,35 +28,42 @@ const UBYTE SGB_MLT_REQ2[16] = { (0x11U << 3) + 1U, 1U, 0U, 0U, 0U, 0U, 0U, 0U, 
 const UBYTE RAM_SIG[8] = {'T','O','B','U','T','O','B','U'};
 
 void initRAM(UBYTE force_clear) {
-	UBYTE initialized, i;
+    UBYTE *d1, *d2;
+	UBYTE initialized;
 
 	ENABLE_RAM_MBC1;
 	SWITCH_RAM_MBC1(0);
 
 	// Check for signature
 	initialized = 1U;
-	for(i = 0U; i != 8U; ++i) {
-		if(ram_data[RAM_SIG_ADDR + i] != RAM_SIG[i]) {
+    d1 = ram_data+RAM_SIG_ADDR;
+    d2 = RAM_SIG;
+    while(d2 != RAM_SIG+8) {
+        if(*d1 != *d2) {
 			initialized = 0U;
 			break;
 		}
+        d1++;
+        d2++;
 	}
 
 	// Initialize memory
 	if(initialized == 0U || force_clear) {
         mymemset(ram_data, 0U, 128U);
         memcpy(ram_data+RAM_SIG_ADDR, RAM_SIG, 8U);
-		ram_data[RAM_DASHCOUNTER] = 1U;
+		*(ram_data + RAM_DASHCOUNTER) = 1U;
 	}
 
 	// Load values from ram
+    d1 = ram_data;
 	for(levels_completed = 0U; levels_completed != 4U; ++levels_completed) {
-		if(ram_data[levels_completed << 4] == 0U) break;
+        if(*d1 == 0U) break;
+        d1 += 16U;
 	}
     levels_unlocked = levels_completed + 1U;
     if(levels_completed == 3U) levels_unlocked++;
 
-	show_dashcounter = ram_data[RAM_DASHCOUNTER];
+	show_dashcounter = *(ram_data + RAM_DASHCOUNTER);
 
 	DISABLE_RAM_MBC1;
 }

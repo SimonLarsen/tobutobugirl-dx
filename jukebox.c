@@ -213,7 +213,7 @@ void jukeboxUpdateSprites() {
 
 void jukeboxUpdateTitle() {
 	// 7,12
-	set_bkg_tiles(6U, 12U, 8U, 1U, &song_names[sub_selection]);
+	set_bkg_tiles(6U, 12U, 8U, 1U, (UBYTE*)(song_names + sub_selection));
 }
 
 void enterJukebox() {

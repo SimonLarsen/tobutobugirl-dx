@@ -124,7 +124,7 @@ void highscoreUpdateScreen() {
 }
 
 void _highscoreUpdateScreen() {
-    UBYTE i, j, tile;
+    UBYTE i, j, tmp, tile;
     UBYTE *data;
 
     // Select level images
@@ -159,7 +159,7 @@ void _highscoreUpdateScreen() {
     SWITCH_RAM_MBC1(0);
 
     // Set scores
-    data = &ram_data[(sub_selection-1U) << 4];
+    data = ram_data + ((sub_selection-1U) << 4);
     for(i = 0U; i != 5U; ++i) {
         tile = 10U;
         for(j = 3U; j != 8U; ++j) {
@@ -170,37 +170,36 @@ void _highscoreUpdateScreen() {
         }
         set_bkg_tiles(16U, i+11U, 1U, 1U, &tile);
 
-        if(data[0] != 0U) {
+        if(*data) {
             // Draw time
-            tile = data[0] / 60U;
+            tmp = data[0];
+            tile = mydiv(tmp, 60U);
             set_bkg_tiles(10U, i+11U, 1U, 1U, &tile);
 
             tile = 37U;
             set_bkg_tiles(11U, i+11U, 1U, 1U, &tile);
 
-            tile = (data[0] % 60U) / 10U;
+            tmp = mymod(tmp, 60U);
+            tile = mydiv(tmp, 10U);
             set_bkg_tiles(12U, i+11U, 1U, 1U, &tile);
 
-            tile = (data[0] % 60U) % 10U;
+            tile = mymod(tmp, 10U);
             set_bkg_tiles(13U, i+11U, 1U, 1U, &tile);
 
             // Draw score
-            if(data[1] >= 100U) {
-                tile = data[1] / 100U;
-                set_bkg_tiles(3U, i+11U, 1U, 1U, &tile);
-            }
-
-            if(data[1] >= 10U) {
-                tile = (data[1] / 10U) % 10U;
-                set_bkg_tiles(4U, i+11U, 1U, 1U, &tile);
-            }
-
-            tile = data[1] % 10U;
-            set_bkg_tiles(5U, i+11U, 1U, 1U, &tile);
-
+            tmp = data[1];
             tile = 0U;
-            set_bkg_tiles(6U, i+11U, 1U, 1U, &tile);
             set_bkg_tiles(7U, i+11U, 1U, 1U, &tile);
+            if(tmp) {
+                set_bkg_tiles(6U, i+11U, 1U, 1U, &tile);
+                j = 5U;
+                while(tmp) {
+                    tile = mymod(tmp, 10U);
+                    tmp = mydiv(tmp, 10U);
+                    set_bkg_tiles(j, i+11U, 1U, 1U, &tile);
+                    j--;
+                }
+            }
 
             // Draw rank
             tile = rank_letters[getRank(data[1], sub_selection)];

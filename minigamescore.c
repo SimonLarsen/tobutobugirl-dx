@@ -25,6 +25,7 @@ const UBYTE SGB_MINIGAME_ATTRDIV[16] = {
 
 void initMinigamescore() {
 	UBYTE i;
+    UBYTE *d;
 
 	disable_interrupts();
 	DISPLAY_OFF;
@@ -51,35 +52,36 @@ void initMinigamescore() {
 
 	// draw this time
 	if(elapsed_minutes >= 10U) {
-		i = elapsed_minutes / 10U;
+		i = mydiv(elapsed_minutes, 10U);
 		set_bkg_tiles(13U, 7U, 1U, 1U, &i);
 	}
 
-	i = elapsed_minutes % 10U;
+	i = mymod(elapsed_minutes, 10U);
 	set_bkg_tiles(14U, 7U, 1U, 1U, &i);
 
-	i = elapsed_seconds / 10U;
+	i = mydiv(elapsed_seconds, 10U);
 	set_bkg_tiles(16U, 7U, 1U, 1U, &i);
 
-	i = elapsed_seconds % 10U;
+	i = mymod(elapsed_seconds, 10U);
 	set_bkg_tiles(17U, 7U, 1U, 1U, &i);
 
 	// draw best time
 	ENABLE_RAM_MBC1;
 	SWITCH_RAM_MBC1(0U);
 
-	if(elapsed_minutes >= 10U) {
-		i = ram_data[RAM_MINIGAME_MIN] / 10U;
+    d = ram_data + RAM_MINIGAME_MIN;
+	if(d[0] >= 10U) {
+		i = mydiv(d[0], 10U);
 		set_bkg_tiles(13U, 10U, 1U, 1U, &i);
 	}
 
-	i = ram_data[RAM_MINIGAME_MIN] % 10U;
+	i = mymod(d[0], 10U);
 	set_bkg_tiles(14U, 10U, 1U, 1U, &i);
 
-	i = ram_data[RAM_MINIGAME_SEC] / 10U;
+	i = mydiv(d[1], 10U);
 	set_bkg_tiles(16U, 10U, 1U, 1U, &i);
 
-	i = ram_data[RAM_MINIGAME_SEC] % 10U;
+	i = mymod(d[1], 10U);
 	set_bkg_tiles(17U, 10U, 1U, 1U, &i);
 
 	DISABLE_RAM_MBC1;

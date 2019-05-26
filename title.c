@@ -255,6 +255,7 @@ void drawTitleSprites(UBYTE triggered) {
 }
 
 void saveMinigameTime() {
+    UBYTE *d;
 	ENABLE_RAM_MBC1;
 	SWITCH_RAM_MBC1(0U);
 
@@ -270,10 +271,10 @@ void saveMinigameTime() {
         elapsed_seconds = 59U;
     }
 
-	if (elapsed_minutes > ram_data[RAM_MINIGAME_MIN]
-	|| (elapsed_minutes == ram_data[RAM_MINIGAME_MIN] && elapsed_seconds > ram_data[RAM_MINIGAME_SEC])) {
-		ram_data[RAM_MINIGAME_MIN] = elapsed_minutes;
-		ram_data[RAM_MINIGAME_SEC] = elapsed_seconds;
+    d = ram_data + RAM_MINIGAME_MIN;
+	if (elapsed_minutes > d[0] || (elapsed_minutes == d[0] && elapsed_seconds > d[1])) {
+		d[0] = elapsed_minutes;
+		d[1] = elapsed_seconds;
 	}
 
 	DISABLE_RAM_MBC1;

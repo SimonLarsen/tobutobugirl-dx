@@ -7,6 +7,8 @@
 
 #define clearSprites() (mymemset((UBYTE*)0xC000UL, 0U, 160U))
 
+UBYTE mydiv(UBYTE num, UBYTE denom);
+UBYTE mymod(UBYTE num, UBYTE denom);
 void updateJoystate();
 void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop);
 void clearRemainingSprites();
@@ -26,7 +28,7 @@ void selectSetBannerColumn(UBYTE index, UBYTE x, UBYTE y);
 #define STOP_MUSIC mus_setPaused(1U)
 #define updateJoystate() { oldjoystate = joystate; joystate = joypad(); }
 
-#define set_bkg_palette_buffer(first_palette, nbpalettes, data) (memcpy(&palette_buffer[(first_palette) << 2], (data), (nbpalettes) << 3))
+#define set_bkg_palette_buffer(first_palette, nbpalettes, data) (memcpy(&palette_buffer[(UBYTE)(first_palette) << 2], (data), (UBYTE)(nbpalettes) << 3))
 
 extern UBYTE sgb_mode;
 extern UBYTE vbl_count;
@@ -91,8 +93,8 @@ extern UBYTE entity_dir[MAX_ENTITIES];
 #define UNLOCKED_DREAM   8U
 #define UNLOCKED_HEAVEN 16U
 
-#define TIME_BONUS (3U*(level_max_time[level-1U] - elapsed_time))
-#define KILL_BONUS (kills)
+#define TIME_BONUS (3U*(level_max_time[level-1U] - (UBYTE)elapsed_time))
+#define KILL_BONUS ((UBYTE)kills)
 #define TOTAL_SCORE (TIME_BONUS + KILL_BONUS)
 
 #define ENDING_FLAG_ENDING_FINISHED 1U
