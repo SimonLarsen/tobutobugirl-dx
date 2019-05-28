@@ -53,7 +53,7 @@ OBJ_BANK11=set_banner.o \
 OBJ_SONGS=title_song.o mainmenu_song.o score_tally_song.o highscore_song.o plains_song.o \
 		clouds_song.o space_song.o dream_song.o dream_score_song.o intro_song.o \
 		ending_part1_song.o ending_part2_song.o potato_jingle_song.o tangram_shine_song.o \
-		tangram_vox_song.o level_clear_song.o unlocked_song.o time_out_song.o minigame_song.o potaka_song.o \
+		tangram_vox_song.o level_clear_song.o unlocked_song.o minigame_song.o potaka_song.o \
 		heaven_song.o
 
 $(OBJ_BANK1): CFLAGS+=-bo1
