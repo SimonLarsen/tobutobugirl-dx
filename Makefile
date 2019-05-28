@@ -27,7 +27,7 @@ include songs.mk
 
 OBJ=main.o fade.o gamestate.o set_data_rle.o cos.o circles.o zoom_circles.o characters.o arrow.o sound.o \
 	mmlgb/driver/music.o mmlgb/driver/freq.o mmlgb/driver/noisefreq.o mmlgb/driver/vib.o \
-	getpal.o sgb_send_packet.o mymemset.o test.o
+	getpal.o sgb_send_packet.o mymemset.o data_ptrs.o
 
 OBJ_BANK1=game.o pause.o
 OBJ_BANK2=select.o highscore.o unlocked.o
@@ -189,7 +189,7 @@ selection_locked.asm: selection_locked.c selection_locked.h
 selection_locked_dx.asm: selection_locked_dx.c selection_locked_dx.h
 	${compile-source}
 
-set_banner.asm: set_banner.c set_banner.h selection1.h selection2.h selection3.h selection4.h selection5.h selection5_dx.h selection_highscore.h selection_highscore_dx.h selection_jukebox.h selection_jukebox_dx.h selection_locked.h selection_locked_dx.h
+set_banner.asm: set_banner.c set_banner.h set_data_rle.h gamestate.h data_ptrs.h selection1.h selection2.h selection3.h selection4.h selection5.h selection5_dx.h selection_highscore.h selection_highscore_dx.h selection_jukebox.h selection_jukebox_dx.h selection_locked.h selection_locked_dx.h
 	${compile-source}
 
 init.asm: init.c init.h data/sgb/border.h sgb_send_packet.h
