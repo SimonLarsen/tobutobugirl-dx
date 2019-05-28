@@ -7,11 +7,7 @@ GETPALETTE=imgtogbpal.py -l
 MMLGB=mmlgb/parser/MMLGB.jar
 
 define compile-source
-	$(SDCCN) $(CFLAGS) -c $< ; \
-		perl -pi -e 's/\s+\.optsdcc.*//g' $@ ; \
-		perl -pi -e 's/^;.*\n//g' $@ ; \
-		perl -pi -e 's/.*area _DABS.*\n//g' $@ ; \
-		perl -pi -e 's/.*area _CABS.*\n//g' $@
+	$(SDCCN) $(CFLAGS) -c $< && python scripts/fixcode.py $@ $@
 endef
 
 define compile-asm
