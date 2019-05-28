@@ -1,4 +1,4 @@
-; void mymemset(const UBYTE* dest, UBYTE value, UWORD count) {
+; void mymemset(void* dest, UBYTE value, UWORD count) {
 _mymemset::
     ; copy dest to de
     ldhl sp,#2
@@ -19,12 +19,12 @@ _mymemset::
     ; copy bytes
     inc c
     inc b
-    jr 00102$
-00101$:
+    jr 2$
+1$:
     ld (hl+), a
-00102$:
+2$:
     dec c
-    jr nz, 00101$
+    jr nz, 1$
     dec b
-    jr nz, 00101$
+    jr nz, 1$
     ret

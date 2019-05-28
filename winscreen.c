@@ -1,6 +1,5 @@
 #include <gb/gb.h>
 #include <gb/rand.h>
-#include <string.h>
 #include "defines.h"
 #include "gamestate.h"
 #include "set_data_rle.h"

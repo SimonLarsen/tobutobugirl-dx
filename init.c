@@ -1,4 +1,3 @@
-#include <string.h>
 #include "defines.h"
 #include "init.h"
 #include "ram.h"
