@@ -100,7 +100,7 @@ void main() {
 				enterWinscreen();
 				break;
 			case GAMESTATE_WIPE:
-				setGameBank(6U);
+				setGameBank(10U);
 				enterWipe();
 				break;
 			case GAMESTATE_MINIGAME_SCORE:

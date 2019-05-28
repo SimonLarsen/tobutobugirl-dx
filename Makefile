@@ -27,18 +27,18 @@ include songs.mk
 
 OBJ=main.o fade.o gamestate.o set_data_rle.o cos.o circles.o zoom_circles.o characters.o arrow.o sound.o \
 	mmlgb/driver/music.o mmlgb/driver/freq.o mmlgb/driver/noisefreq.o mmlgb/driver/vib.o \
-	getpal.o sgb_send_packet.o mymemset.o
+	getpal.o sgb_send_packet.o mymemset.o test.o
 
 OBJ_BANK1=game.o pause.o
 OBJ_BANK2=select.o highscore.o unlocked.o
 OBJ_BANK3=intro.o intro_bg.o intro_bg_dx.o ending.o
 OBJ_BANK4=jukebox.o
 OBJ_BANK5=winscreen.o logos.o
-OBJ_BANK6=title.o wipe.o
+OBJ_BANK6=title.o
 OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o background5.o
 OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o minigamescore.o
 OBJ_BANK9=win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o win5.o win5_dx.o
-OBJ_BANK10=sound_data.o init.o
+OBJ_BANK10=sound_data.o init.o wipe.o
 OBJ_BANK11=set_banner.o \
 		   selection1.o selection2.o selection3.o selection4.o \
 		   selection5.o selection5_dx.o \
