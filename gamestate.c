@@ -97,23 +97,6 @@ UBYTE getRank(UBYTE score, UBYTE level) {
     return i;
 }
 
-UBYTE mydiv(UBYTE num, UBYTE denom) {
-    UBYTE cnt;
-    cnt = 0;
-    while(num >= denom) {
-        ++cnt;
-        num -= denom;
-    }
-    return cnt;
-}
-
-UBYTE mymod(UBYTE num, UBYTE denom) {
-    while(num >= denom) {
-        num -= denom;
-    }
-    return num;
-}
-
 void playMusic(UBYTE *data) {
     SWITCH_ROM_MBC1(music_bank);
     mus_init(data);
