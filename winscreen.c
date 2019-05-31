@@ -1,5 +1,4 @@
 #include <gb/gb.h>
-#include <gb/rand.h>
 #include "defines.h"
 #include "gamestate.h"
 #include "set_data_rle.h"
@@ -62,6 +61,10 @@ const UBYTE SGB_WINSCREEN_ATTRBLK2[16] = {
     19, 11,
     //
     0, 0, 0, 0, 0, 0, 0, 0
+};
+
+const UBYTE winscreen_shake[6] = {
+    4U, 252U, 2U, 254U, 1U, 255U
 };
 
 void initWinscreen() {
@@ -247,7 +250,7 @@ void winscreenShowRank() {
 
 	// shake screen
 	for(i = 0; i != 6U; ++i) {
-		move_bkg(0U, ((UBYTE)rand() & 3U) - 2U);
+		move_bkg(0U, winscreen_shake[i]);
 		winscreenWait(2U);
 	}
 
