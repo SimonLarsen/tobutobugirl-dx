@@ -10,7 +10,9 @@
 UBYTE mydiv(UBYTE num, UBYTE denom);
 UBYTE mymod(UBYTE num, UBYTE denom);
 void updateJoystate();
-void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop);
+//void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop);
+#define setSprite(x, y, tile, prop) (_setSprite((y), (x), (tile), (prop)))
+void _setSprite(UBYTE y, UBYTE x, UBYTE tile, UBYTE prop);
 void clearRemainingSprites();
 void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer);
 void setWinscreenBackground(UBYTE level);

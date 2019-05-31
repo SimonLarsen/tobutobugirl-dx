@@ -126,7 +126,7 @@ void updateMusic() {
     SWITCH_ROM_MBC1(game_bank);
 }
 
-void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop) {
+void _setSprite(UBYTE y, UBYTE x, UBYTE tile, UBYTE prop) {
     UBYTE* oam = (UBYTE*)0xC000UL + (UBYTE)(next_sprite << 2);
     *oam++ = y;
     *oam++ = x;
