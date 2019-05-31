@@ -247,7 +247,7 @@ void winscreenShowRank() {
 
 	// shake screen
 	for(i = 0; i != 6U; ++i) {
-		move_bkg(0U, ((UBYTE)rand() & 4U) - 2U);
+		move_bkg(0U, ((UBYTE)rand() & 3U) - 2U);
 		winscreenWait(2U);
 	}
 
