@@ -14,15 +14,9 @@
 #include "sgb_send_packet.h"
 #include "set_data_rle.h"
 
-// Palettes
 #include "data/palettes/sprites.h"
-// Maps
 #include "characters.h"
-#include "data/bg/hud.h"
-#include "data/bg/hud_sgb.h"
-#include "data/bg/hud_dx.h"
 #include "data/bg/clock.h"
-// Sprites
 #include "data/sprite/sprites.h"
 #include "data/sprite/portal.h"
 #include "data/sprite/skin1.h"
@@ -316,36 +310,6 @@ void restoreGame(UBYTE update, UBYTE from_pause) {
         sgb_send_packet(SGB_GAME_ATTRDIV);
     }
 
-    // Load tile data
-    if(update) {
-        if(CGB_MODE) {
-            set_bkg_data_rle(hud_dx_tiles_offset, hud_dx_data_length, hud_dx_data);
-        } else if(sgb_mode) {
-            set_bkg_data_rle(hud_sgb_tiles_offset, hud_sgb_data_length, hud_sgb_data);
-        } else {
-            set_bkg_data_rle(hud_tiles_offset, hud_data_length, hud_data);
-        }
-        set_bkg_data_rle(clock_tiles_offset, clock_data_length, clock_data);
-    }
-
-    if(CGB_MODE) {
-        set_bkg_palette_buffer(hud_dx_palette_offset, hud_dx_palette_data_length, hud_dx_palette_data);
-        set_bkg_palette_buffer(7U, 1U, clock_palettes);
-
-        set_win_tiles_rle(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_tiles);
-        VBK_REG = 1U;
-        set_win_tiles_rle(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_palettes);
-        // fix clock palettes
-        *((UBYTE*)0x9C20) = 7U;
-        *((UBYTE*)0x9C21) = 7U;
-        *((UBYTE*)0x9C40) = 7U;
-        *((UBYTE*)0x9C41) = 7U;
-        VBK_REG = 0U;
-    } else if(sgb_mode) {
-        set_win_tiles_rle(0U, 0U, hud_sgb_tiles_width, hud_sgb_tiles_height, hud_sgb_tiles);
-    } else {
-        set_win_tiles_rle(0U, 0U, hud_tiles_width, hud_tiles_height, hud_tiles);
-    }
 
     data = getSkinData();
     set_sprite_data(0U, 24U, data);
@@ -353,6 +317,13 @@ void restoreGame(UBYTE update, UBYTE from_pause) {
     set_sprite_palette(0U, sprites_palette_data_length, sprites_palette_data);
 
     setIngameBackground(level, update, !from_pause);
+    setIngameHUD(update, !from_pause);
+    if(update) {
+        set_bkg_data_rle(clock_tiles_offset, clock_data_length, clock_data);
+    }
+    if(CGB_MODE) {
+        set_bkg_palette_buffer(7U, 1U, clock_palettes);
+    }
 
     updateHUDTime();
 
@@ -1187,7 +1158,6 @@ void addScoreNormal() {
 }
 
 void addScoreInfinite() {
-    /*
     UWORD i, j, score;
     UWORD *data;
 
@@ -1216,7 +1186,6 @@ void addScoreInfinite() {
     }
 
     DISABLE_RAM_MBC1;
-    */
 }
 
 void fadeSpritesToWhite(UBYTE delay) {
@@ -1426,7 +1395,9 @@ void showInfiniteRestart() {
         if(CLICKED(J_A) || CLICKED(J_START)) {
             STOP_MUSIC;
             playSound(SFX_MENU_CONFIRM);
-            if(sub_selection == 1U) {
+            if(sub_selection == 0U) {
+                wave = 0U;
+            } else {
                 gamestate = GAMESTATE_WINSCREEN;
             }
             break;
@@ -1595,5 +1566,7 @@ ingame_start:
         gamestate = GAMESTATE_SELECT;
     }
 
-    if(gamestate == GAMESTATE_INGAME) goto ingame_start;
+    if(gamestate == GAMESTATE_INGAME) {
+        goto ingame_start;
+    }
 }

@@ -35,7 +35,8 @@ OBJ_BANK3=intro.o intro_bg.o intro_bg_dx.o ending.o
 OBJ_BANK4=jukebox.o
 OBJ_BANK5=winscreen.o logos.o
 OBJ_BANK6=title.o
-OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o background5.o
+OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o background5.o \
+		  hud.o hud_dx.o hud_sgb.o
 OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o minigamescore.o
 OBJ_BANK9=win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o win5.o win5_dx.o
 OBJ_BANK10=sound_data.o init.o wipe.o
@@ -117,10 +118,10 @@ ending.asm: ending.c defines.h ending.h gamestate.h set_data_rle.h sgb_send_pack
 fade.asm: fade.c gamestate.h sound.h fade.h
 	${compile-source}
 
-game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h sgb_send_packet.h data/palettes/sprites.h data/bg/hud.h data/bg/hud_sgb.h data/bg/hud_dx.h data/bg/clock.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h
+game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h sgb_send_packet.h data/palettes/sprites.h data/bg/clock.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h
 	${compile-source}
 
-gamestate.asm: gamestate.c defines.h gamestate.h set_data_rle.h background1.h background1_dx.h background2.h background3.h background4.h background5.h pause_bg.h win1.h win1_dx.h win2.h win2_dx.h win3.h win3_dx.h win4.h win4_dx.h win5_dx.h win5.h win5_dx.h pause_cloud1.h pause_cloud2.h mmlgb/driver/music.h
+gamestate.asm: gamestate.c defines.h gamestate.h set_data_rle.h background1.h background1_dx.h background2.h background3.h background4.h background5.h pause_bg.h win1.h win1_dx.h win2.h win2_dx.h win3.h win3_dx.h win4.h win4_dx.h win5_dx.h win5.h win5_dx.h pause_cloud1.h pause_cloud2.h hud.h hud_dx.h hud_sgb.h mmlgb/driver/music.h
 	${compile-source}
 
 highscore.asm: highscore.c defines.h gamestate.h set_data_rle.h fade.h cos.h highscore.h ram.h sound.h sgb_send_packet.h characters.h arrow.h data/palettes/highscore_sprites.h data/sprite/empty.h data/bg/highscore.h data/bg/highscore_dx.h circles.h selection1.h selection2.h selection3.h selection4.h selection5.h selection_locked.h
@@ -235,6 +236,16 @@ win5.asm: win5.c win5.h
 	${compile-source}
 
 win5_dx.asm: win5_dx.c win5_dx.h
+	${compile-source}
+
+hud.asm: hud.c hud.h
+	${compile-source}
+
+hud_dx.asm: hud_dx.c hud_dx.h
+
+	${compile-source}
+
+hud_sgb.asm: hud_sgb.c hud_sgb.h
 	${compile-source}
 
 winscreen.asm: winscreen.c defines.h gamestate.h set_data_rle.h fade.h winscreen.h sound.h sgb_send_packet.h characters.h data/palettes/ranks.h data/bg/win_base.h data/bg/win_base_dx.h data/bg/rank_banner.h data/bg/rank_banner_dx.h data/sprite/ranks.h circles.h mmlgb/driver/music.h mmlgb/driver/notes.h mmlgb/driver/freq.h

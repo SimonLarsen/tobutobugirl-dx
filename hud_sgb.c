@@ -1,9 +1,4 @@
-#ifndef HUD_SGB_MAP_H
-#define HUD_SGB_MAP_H
-#define hud_sgb_data_length 19U
-#define hud_sgb_tiles_width 2U
-#define hud_sgb_tiles_height 18U
-#define hud_sgb_tiles_offset 0U
+#include "hud_sgb.h"
 const unsigned char hud_sgb_data[] = {
 	128, 128,   7, 224, 128, 240, 128, 248, 128, 248, 128, 240,   0,  12,   0,  30,
       0,  63,   0,  63,   0,  30,   0,  12,   0,   0,   4, 127, 127,   2, 128, 128,
@@ -27,5 +22,3 @@ const unsigned char hud_sgb_tiles[] = {
      12,  13,  10,  11,  14,  13,  15,  16,   0,   1,   2,   3,   4,   5,  17,  18
 };
 
-
-#endif

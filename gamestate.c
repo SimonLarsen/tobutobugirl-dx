@@ -23,6 +23,9 @@
 #include "win5_dx.h"
 #include "pause_cloud1.h"
 #include "pause_cloud2.h"
+#include "hud.h"
+#include "hud_dx.h"
+#include "hud_sgb.h"
 #include "mmlgb/driver/music.h"
 
 UBYTE sgb_mode;
@@ -309,6 +312,45 @@ void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer) {
         } else {
             set_bkg_palette(0U, palette_data_length, palette_data);
         }
+    }
+
+    SWITCH_ROM_MBC1(game_bank);
+}
+
+void setIngameHUD(UBYTE first_load, UBYTE pal_buffer) {
+    SWITCH_ROM_MBC1(GAME_BACKGROUNDS_BANK);
+
+    // Load tile data
+    if(first_load) {
+        if(CGB_MODE) {
+            set_bkg_data_rle(hud_dx_tiles_offset, hud_dx_data_length, hud_dx_data);
+        } else if(sgb_mode) {
+            set_bkg_data_rle(hud_sgb_tiles_offset, hud_sgb_data_length, hud_sgb_data);
+        } else {
+            set_bkg_data_rle(hud_tiles_offset, hud_data_length, hud_data);
+        }
+    }
+
+    if(CGB_MODE) {
+        if(pal_buffer) {
+            set_bkg_palette_buffer(hud_dx_palette_offset, hud_dx_palette_data_length, hud_dx_palette_data);
+        } else {
+            set_bkg_palette(hud_dx_palette_offset, hud_dx_palette_data_length, hud_dx_palette_data);
+        }
+        set_win_tiles_rle(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_tiles);
+
+        VBK_REG = 1U;
+        set_win_tiles_rle(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_palettes);
+        // fix clock palettes
+        *((UBYTE*)0x9C20) = 7U;
+        *((UBYTE*)0x9C21) = 7U;
+        *((UBYTE*)0x9C40) = 7U;
+        *((UBYTE*)0x9C41) = 7U;
+        VBK_REG = 0U;
+    } else if(sgb_mode) {
+        set_win_tiles_rle(0U, 0U, hud_sgb_tiles_width, hud_sgb_tiles_height, hud_sgb_tiles);
+    } else {
+        set_win_tiles_rle(0U, 0U, hud_tiles_width, hud_tiles_height, hud_tiles);
     }
 
     SWITCH_ROM_MBC1(game_bank);

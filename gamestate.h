@@ -23,6 +23,7 @@ UBYTE getRank(UBYTE score, UBYTE level);
 void playMusic(const UBYTE *data);
 void updateMusic();
 void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer);
+void setIngameHUD(UBYTE first_load, UBYTE pal_buffer);
 void setWinscreenBackground(UBYTE level);
 void setCloudAnimation(UBYTE skin);
 void selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer);
