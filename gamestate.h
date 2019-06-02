@@ -6,25 +6,30 @@
 //void clearSprites();
 
 #define clearSprites() (mymemset((UBYTE*)0xC000UL, 0U, 160U))
+#define setSprite(x, y, tile, prop) (_setSprite((y), (x), (tile), (prop)))
 
+void _setSprite(UBYTE y, UBYTE x, UBYTE tile, UBYTE prop);
+//void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop);
+void clearRemainingSprites();
 UBYTE mydiv(UBYTE num, UBYTE denom);
 UBYTE mymod(UBYTE num, UBYTE denom);
-void updateJoystate();
-//void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop);
-#define setSprite(x, y, tile, prop) (_setSprite((y), (x), (tile), (prop)))
-void _setSprite(UBYTE y, UBYTE x, UBYTE tile, UBYTE prop);
-void clearRemainingSprites();
+UWORD mydiv16(UWORD num, UWORD denom);
+UWORD mymod16(UWORD num, WORD denom);
+void drawNumber8(UBYTE x, UBYTE y, UBYTE value);
+void drawNumber16(UBYTE x, UBYTE y, UWORD value);
+void drawScore8(UBYTE x, UBYTE y, UBYTE value);
+void drawTime8(UBYTE x, UBYTE y, UBYTE secs);
+UBYTE getRank(UBYTE score, UBYTE level);
+void playMusic(const UBYTE *data);
+void updateMusic();
 void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer);
 void setWinscreenBackground(UBYTE level);
 void setCloudAnimation(UBYTE skin);
-void playMusic(const UBYTE *data);
-void updateMusic();
-UBYTE getRank(UBYTE score, UBYTE level);
 void selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer);
 void selectSetBannerTiles(UBYTE index, UBYTE x, UBYTE y);
 void selectSetBannerColumn(UBYTE index, UBYTE x, UBYTE y);
 
-#define setGameBank(i) { game_bank = i; *((UBYTE*)0x2000) = (i); }
+#define setGameBank(i) (*((UBYTE*)0x2000) = game_bank = (i))
 #define setMusicBank(i) (music_bank = (i))
 
 #define STOP_MUSIC mus_setPaused(1U)
@@ -41,7 +46,7 @@ extern UBYTE selection, sub_selection;
 extern UBYTE joystate, oldjoystate;
 extern UBYTE next_sprite, sprites_used;
 extern UBYTE remaining_time, elapsed_minutes, elapsed_seconds;
-extern UWORD elapsed_time, kills;
+extern UWORD elapsed_time, kills, wave;
 extern UBYTE last_highscore_level, last_highscore_slot;
 extern UBYTE last_progress;
 extern UBYTE game_bank, music_bank;

@@ -33,7 +33,6 @@ UBYTE scrolled;
 UBYTE last_spawn_x, last_spawn_index;
 
 UBYTE progress, progressbar, portal_spawned, repeat_spikes;
-UBYTE wave;
 UBYTE scrolled_length, allowed_spikes, clock_interval;
 UBYTE blips, blip_bar;
 UBYTE dashing, dashes, dash_xdir, dash_ydir;
@@ -150,7 +149,7 @@ const UBYTE retry_text[19] = {
     24U, 25U // no
 };
 
-#define RETRY_NUM_CHARS 27
+#define RETRY_NUM_CHARS 26U
 
 const UBYTE retry_text_data[RETRY_NUM_CHARS * 4] = {
     // waves
@@ -158,7 +157,6 @@ const UBYTE retry_text_data[RETRY_NUM_CHARS * 4] = {
     8U, 52U, 11U, OBJ_PAL0,
     8U, 60U, 32U, OBJ_PAL0,
     8U, 68U, 15U, OBJ_PAL0,
-    8U, 76U, 29U, OBJ_PAL0,
     // best
     16U, 44U, 12U, OBJ_PAL0,
     16U, 52U, 15U, OBJ_PAL0,
@@ -273,11 +271,13 @@ void initGame() {
     }
 
     scene_state = INGAME_ACTIVE;
-    if(first_load || level != 5U) {
-        blips = MAX_BOOST; // don't reset boost when progressing in level 5
+    if(level != 5U || wave == 0U) {
+        // don't reset boost, time and stomps when progressing in level 5
+        blips = MAX_BOOST;
+        elapsed_time = 0UL;
+        kills = 0UL;
     }
     blip_bar = 0U;
-    kills = 0UL;
 
     ticks = 0U;
     next_spawn = 0U;
@@ -291,7 +291,6 @@ void initGame() {
 
     timer = 0U;
     remaining_time = MAX_TIME;
-    elapsed_time = 0UL;
 
     move_bkg(0U, 112U);
     move_win(151U, 0U);
@@ -308,8 +307,6 @@ void initGame() {
 }
 
 void restoreGame(UBYTE update, UBYTE from_pause) {
-    UBYTE i;
-    UBYTE buf[4];
     UBYTE *data;
 
     disable_interrupts();
@@ -328,7 +325,7 @@ void restoreGame(UBYTE update, UBYTE from_pause) {
         } else {
             set_bkg_data_rle(hud_tiles_offset, hud_data_length, hud_data);
         }
-        set_bkg_data(clock_tiles_offset, clock_data_length, clock_data);
+        set_bkg_data_rle(clock_tiles_offset, clock_data_length, clock_data);
     }
 
     if(CGB_MODE) {
@@ -338,8 +335,11 @@ void restoreGame(UBYTE update, UBYTE from_pause) {
         set_win_tiles_rle(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_tiles);
         VBK_REG = 1U;
         set_win_tiles_rle(0U, 0U, hud_dx_tiles_width, hud_dx_tiles_height, hud_dx_palettes);
-        for(i = 0U; i != 4U; ++i) buf[i] = 7U;
-        set_win_tiles(0U, 1U, 2U, 2U, buf);
+        // fix clock palettes
+        *((UBYTE*)0x9C20) = 7U;
+        *((UBYTE*)0x9C21) = 7U;
+        *((UBYTE*)0x9C40) = 7U;
+        *((UBYTE*)0x9C41) = 7U;
         VBK_REG = 0U;
     } else if(sgb_mode) {
         set_win_tiles_rle(0U, 0U, hud_sgb_tiles_width, hud_sgb_tiles_height, hud_sgb_tiles);
@@ -364,13 +364,6 @@ void restoreGame(UBYTE update, UBYTE from_pause) {
     move_bkg(0U, 112U-progress);
 
     enable_interrupts();
-}
-
-UBYTE *getSkinData() {
-    if(player_skin == 1U) return skin1_data;
-    else if(player_skin == 2U) return skin2_data;
-
-    return 0U;
 }
 
 void updateInput() {
@@ -621,16 +614,11 @@ void updateHUD() {
 void updateHUDTime() {
     UBYTE index;
 
-    index = remaining_time >> 2;
-    index = index << 2;
+    index = (remaining_time >> 2) << 2;
 
     disable_interrupts();
     set_win_tiles(0U, 1U, 2U, 2U, &clock_tiles[index]);
     enable_interrupts();
-}
-
-void killPlayer() {
-    scene_state = INGAME_DEAD;
 }
 
 void bouncePlayer(UBYTE entity, UBYTE str) {
@@ -867,7 +855,7 @@ void updateSpawns() {
 
     if(next_spawn < SPAWN_INTERVAL) return;
 
-    if(progress < 111U) {
+    if(progress <= 110U) {
         next_spawn -= SPAWN_INTERVAL;
 
         x = ((last_spawn_x + 32U + (rand() & 63U)) & 127U) + 24U;
@@ -1166,7 +1154,7 @@ void deathAnimation() {
     }
 }
 
-void addScore() {
+void addScoreNormal() {
     UBYTE i, j, score;
     UBYTE *data;
 
@@ -1196,6 +1184,39 @@ void addScore() {
     }
 
     DISABLE_RAM_MBC1;
+}
+
+void addScoreInfinite() {
+    /*
+    UWORD i, j, score;
+    UWORD *data;
+
+    ENABLE_RAM_MBC1;
+    SWITCH_RAM_MBC1(0U);
+
+    data = (UWORD*)(ram_data + 64U);
+    score = wave + 1UL;
+    for(i = 0U; i != 5U; ++i) {
+        if(score > data[i << 1]) {
+            break;
+        }
+    }
+
+    if(i <= 4U) {
+        for(j = 4U; j != i; --j) {
+            data[j << 1] = data[(j - 1U) << 1];
+            data[(j << 1) + 1U] = data[((j - 1U) << 1) + 1U];
+        }
+
+        data[i << 1] = score;
+        data[(i << 1) + 1U] = elapsed_time;
+
+        last_highscore_level = level;
+        last_highscore_slot = i;
+    }
+
+    DISABLE_RAM_MBC1;
+    */
 }
 
 void fadeSpritesToWhite(UBYTE delay) {
@@ -1244,6 +1265,7 @@ void fadeSpritesToWhiteCGB(UBYTE delay) {
 
 void showWaveScreen() {
     UBYTE i, j;
+    UWORD tmp;
     UBYTE text[3] = {10U, 10U, 10U};
 
     disable_interrupts();
@@ -1279,19 +1301,15 @@ void showWaveScreen() {
 
     ticks = 0U;
 
-    j = wave+1U;
+    tmp = wave+1U;
     i = 0U;
-    if(j >= 100U) {
-        text[i] = mydiv(j, 100U);
-        j = mymod(j, 100U);
-        ++i;
+    if(tmp >= 10U) i++;
+    if(tmp >= 100U) i++;
+    while(tmp) {
+        text[i] = mymod16(tmp, 10U);
+        tmp = mydiv16(tmp, 10U);
+        --i;
     }
-    if(j >= 10U) {
-        text[i] = mydiv(j, 10U);
-        j = mymod(j, 10U);
-        ++i;
-    }
-    text[i] = j;
 
     j = 64U;
     if(wave >= 99U) j -= 8U;
@@ -1343,6 +1361,7 @@ void showWaveScreen() {
 
 void showInfiniteRestart() {
     UBYTE offset, i;
+    UWORD tmp;
     UBYTE *data;
 
     disable_interrupts();
@@ -1372,20 +1391,26 @@ void showInfiniteRestart() {
         data += 4U;
     }
 
-    // set wave counts
-    data = (UBYTE*)(0xC000UL + 19 * 4 + 2);
-    i = wave;
-    if(i >= 100U) {
-        *data = mydiv(i, 100U);
-        i = mymod(i, 100U);
+    // set wave counter
+    data = (UBYTE*)(0xC000UL + 20 * 4 + 2);
+    tmp = wave + 1U;
+    while(tmp) {
+        *data = mymod16(tmp, 10U);
+        tmp = mydiv16(tmp, 10U);
+        data -= 4U;
     }
-    data += 4U;
-    if(i >= 10U) {
-        *data = mydiv(i, 10U);
-        i = mymod(i, 10U);
+
+    // set best counter
+    ENABLE_RAM_MBC1;
+    SWITCH_RAM_MBC1(0U);
+    tmp = *((UWORD*)(ram_data + 64U));
+    DISABLE_RAM_MBC1;
+    data = (UBYTE*)(0xC000UL + 23 * 4 + 2);
+    while(tmp) {
+        *data = mymod16(tmp, 10U);
+        tmp = mydiv16(tmp, 10U);
+        data -= 4U;
     }
-    data += 4U;
-    *data = i;
 
     while(1U) {
         updateJoystate();
@@ -1516,6 +1541,7 @@ ingame_start:
 
         if(level == 5U) {
             stop_sound();
+            addScoreInfinite();
             showInfiniteRestart();
             wait_sound_done();
         } else {
@@ -1534,7 +1560,7 @@ ingame_start:
         }
 
         if(level == 5U) {
-            wave++;
+            if(wave != 998UL) wave++;
             intoPortalAnimation();
         } else {
             STOP_MUSIC;
@@ -1546,7 +1572,7 @@ ingame_start:
                 gamestate = GAMESTATE_WINSCREEN;
             }
 
-            addScore();
+            addScoreNormal();
 
             if(level > levels_completed) {
                 levels_completed = level;

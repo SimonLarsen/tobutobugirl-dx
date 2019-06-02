@@ -124,7 +124,7 @@ void highscoreUpdateScreen() {
 }
 
 void _highscoreUpdateScreen() {
-    UBYTE i, j, tmp, tile;
+    UBYTE i, j, tile;
     UBYTE *data;
 
     // Select level images
@@ -172,34 +172,10 @@ void _highscoreUpdateScreen() {
 
         if(*data) {
             // Draw time
-            tmp = data[0];
-            tile = mydiv(tmp, 60U);
-            set_bkg_tiles(10U, i+11U, 1U, 1U, &tile);
-
-            tile = 37U;
-            set_bkg_tiles(11U, i+11U, 1U, 1U, &tile);
-
-            tmp = mymod(tmp, 60U);
-            tile = mydiv(tmp, 10U);
-            set_bkg_tiles(12U, i+11U, 1U, 1U, &tile);
-
-            tile = mymod(tmp, 10U);
-            set_bkg_tiles(13U, i+11U, 1U, 1U, &tile);
+            drawTime8(13U, i+11U, data[0]);
 
             // Draw score
-            tmp = data[1];
-            tile = 0U;
-            set_bkg_tiles(7U, i+11U, 1U, 1U, &tile);
-            if(tmp) {
-                set_bkg_tiles(6U, i+11U, 1U, 1U, &tile);
-                j = 5U;
-                while(tmp) {
-                    tile = mymod(tmp, 10U);
-                    tmp = mydiv(tmp, 10U);
-                    set_bkg_tiles(j, i+11U, 1U, 1U, &tile);
-                    j--;
-                }
-            }
+            drawScore8(7U, i+11U, data[1]);
 
             // Draw rank
             tile = rank_letters[getRank(data[1], sub_selection)];

@@ -21,9 +21,11 @@
 
 extern UBYTE score_tally_song_data;
 
-const UBYTE winscreen_clear_text[5] = {
-	13U, 22U, 15U, 11U, 28U
-};
+const UBYTE winscreen_clear_text[5] = { 13U, 22U, 15U, 11U, 28U };
+const UBYTE winscreen_time_text[4] = { 30U, 19U, 23U, 15U };
+const UBYTE winscreen_stomps_text[6] = { 29U, 30U, 25U, 23U, 26U, 29U };
+const UBYTE winscreen_total_text[5] = { 30U, 25U, 30U, 11U, 22U };
+const UBYTE winscreen_wave_text[4] = { 33U, 11U, 32U, 15U };
 
 const UBYTE sharkwave_data[16] = {
 	1U, 35U, 69U, 103U, 138U, 166U, 205U, 239U, 255U, 134U, 67U, 50U, 162U, 17U, 16U, 0U
@@ -68,7 +70,7 @@ const UBYTE winscreen_shake[6] = {
 };
 
 void initWinscreen() {
-	UBYTE rank;
+	UBYTE tile;
 	UBYTE *data;
 
 	disable_interrupts();
@@ -93,9 +95,7 @@ void initWinscreen() {
     if(CGB_MODE) {
 	    set_bkg_data_rle(win_base_dx_tiles_offset, win_base_dx_data_length, win_base_dx_data);
         set_bkg_data_rle(rank_banner_dx_tiles_offset, rank_banner_dx_data_length, rank_banner_dx_data);
-
 	    set_bkg_tiles_rle(0U, 0U, win_base_dx_tiles_width, win_base_dx_tiles_height, win_base_dx_tiles);
-	    set_bkg_tiles(11U, 1U, 5U, 1U, winscreen_clear_text);
         set_bkg_palette_buffer(0U, win_base_dx_palette_data_length, win_base_dx_palette_data);
         VBK_REG = 1U;
 	    set_bkg_tiles_rle(0U, 0U, win_base_dx_tiles_width, win_base_dx_tiles_height, win_base_dx_palettes);
@@ -104,25 +104,40 @@ void initWinscreen() {
     } else {
 	    set_bkg_data_rle(win_base_tiles_offset, win_base_data_length, win_base_data);
         set_bkg_data_rle(rank_banner_tiles_offset, rank_banner_data_length, rank_banner_data);
-
 	    set_bkg_tiles_rle(0U, 0U, win_base_tiles_width, win_base_tiles_height, win_base_tiles);
-	    set_bkg_tiles(11U, 1U, 5U, 1U, winscreen_clear_text);
     }
 
 	setWinscreenBackground(level);
 
 	// Load rank sprite
-	rank = getRank(TOTAL_SCORE, level);
-	data = ranks_data;
-	while(rank != 0U) {
-		data += 256UL;
-		--rank;
-	}
+	tile = getRank(TOTAL_SCORE, level);
+	data = ranks_data + ((UWORD)tile << 8);
 	set_sprite_data(0U, 16U, data);
 
 	// Set level name
 	data = level_names[level];
-	set_bkg_tiles(4U, 1U, 6U, 1U, data);
+    set_bkg_tiles((level == 5U ? 7U : 4U), 1U, 6U, 1U, data);
+
+    if(level != 5U) {
+        set_bkg_tiles(11U, 1U, 5U, 1U, winscreen_clear_text);
+
+        *((UBYTE*)0x98C2UL) = 39U; // (2,  6)
+        *((UBYTE*)0x9962UL) = 39U; // (2, 11)
+
+        mymemset((UBYTE*)0x9901UL, 0x30U, 7U); // (1,  8) -- (8,  8)
+        mymemset((UBYTE*)0x99A1UL, 0x30U, 7U); // (1, 12) -- (8, 12)
+
+        set_bkg_tiles(1U,  4U, 4U, 1U, winscreen_time_text);
+        set_bkg_tiles(1U,  9U, 6U, 1U, winscreen_stomps_text);
+        set_bkg_tiles(1U, 14U, 5U, 1U, winscreen_total_text);
+    } else {
+        mymemset((UBYTE*)0x9901UL, 0x30U, 7U); // (1,  8) -- (8,  8)
+        mymemset((UBYTE*)0x9981UL, 0x30U, 7U); // (1, 11) -- (8, 11)
+
+        set_bkg_tiles(1U,  5U, 4U, 1U, winscreen_wave_text);
+        set_bkg_tiles(1U,  9U, 4U, 1U, winscreen_time_text);
+        set_bkg_tiles(1U, 13U, 6U, 1U, winscreen_stomps_text);
+    }
 
 	HIDE_WIN;
 	SHOW_BKG;
@@ -149,24 +164,6 @@ void winscreenScrollCircles() {
 		circle_index = (circle_index+1U) & 7U;
 		set_bkg_data(40U, 1U, &circles_data[(circle_index << 4)]);
 	}
-}
-
-void drawScore(UBYTE x, UBYTE y, UBYTE value) {
-	UBYTE tile;
-
-	tile = 0U;
-	set_bkg_tiles(x+4U, y, 1U, 1U, &tile);
-
-    if(value) {
-        set_bkg_tiles(x+3U, y, 1U, 1U, &tile);
-        x += 2U;
-        while(value) {
-            tile = mymod(value, 10U);
-            value = mydiv(value, 10U);
-            set_bkg_tiles(x, y, 1U, 1U, &tile);
-            x--;
-        }
-    }
 }
 
 void winscreenPlayNote(UBYTE note, UBYTE octave) {
@@ -277,13 +274,121 @@ void countUpScore(UBYTE x, UBYTE y, UBYTE value) {
 		j++;
 		if(j == 3U) j = 0U;
 
-		drawScore(x, y, i);
+        disable_interrupts();
+		drawScore8(x, y, i);
+        enable_interrupts();
 		winscreenWait(2U);
 	}
 }
 
+void drawTime16(UBYTE x, UBYTE y, UWORD secs) {
+    UBYTE tile, min;
+
+    if(secs >= 35999UL) secs = 35999UL;
+
+    x -= 6U;
+
+    // hours (1 digit)
+    tile = mydiv16(secs, 3600UL);
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+    secs = mymod16(secs, 3600UL);
+
+    // colon
+    tile = 37U;
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+
+    // minutes
+    min = (UBYTE)mydiv16(secs, 60UL);
+    secs = mymod16(secs, 60U);
+    tile = mydiv(min, 10U);
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+    tile = mymod(min, 10U);
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+
+    // colon
+    tile = 37U;
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+
+    // seconds
+    tile = mydiv(secs, 10U);
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+    tile = mymod(secs, 10U);
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+}
+
+
+void showWinscreenNormal() {
+	UBYTE tmp;
+
+	// Time
+    disable_interrupts();
+    drawTime8(4U, 5U, elapsed_time);
+    enable_interrupts();
+
+	winscreenTextJingle();
+	winscreenWait(30U);
+
+	// Count up time bonus
+	countUpScore(7U, 6U, TIME_BONUS);
+
+	winscreenJingle();
+	winscreenWait(30U);
+
+	// Kills
+    tmp = 1U;
+    if((UBYTE)kills >= 10U) tmp++;
+    if((UBYTE)kills >= 100U) tmp++;
+    disable_interrupts();
+    drawNumber8(tmp, 10U, (UBYTE)kills);
+    enable_interrupts();
+
+	winscreenTextJingle();
+	winscreenWait(30U);
+
+	// Count up kill bonus
+	countUpScore(7U, 11U, KILL_BONUS);
+	winscreenJingle();
+
+	winscreenWait(30U);
+
+	// Count up total score
+	countUpScore(7U, 15U, TOTAL_SCORE);
+	winscreenJingle();
+
+	while(1U) {
+		updateJoystate();
+		if(CLICKED(J_A) || CLICKED(J_B) || CLICKED(J_START)) {
+			break;
+		}
+		winscreenWait(1U);
+	}
+
+	winscreenShowRank();
+}
+
+void showWinscreenInfinite() {
+    disable_interrupts();
+    drawNumber16(7U, 6U, wave+1UL);
+    enable_interrupts();
+
+    winscreenJingle();
+    winscreenWait(30U);
+
+    disable_interrupts();
+    drawTime16(7U, 10U, elapsed_time);
+    enable_interrupts();
+
+    winscreenJingle();
+    winscreenWait(30U);
+
+    disable_interrupts();
+    drawNumber16(7U, 14U, kills);
+    enable_interrupts();
+
+    winscreenJingle();
+}
+
 void enterWinscreen() {
-	UBYTE tile, tmp;
 	initWinscreen();
 
 	fadeFromWhite(8U);
@@ -305,56 +410,11 @@ void enterWinscreen() {
 
 	winscreenWait(15U);
 
-	// Time
-    tmp = elapsed_time;
-	tile = mydiv(tmp, 60U);
-	set_bkg_tiles(1U, 5U, 1U, 1U, &tile);
-	tile = 37U;
-	set_bkg_tiles(2U, 5U, 1U, 1U, &tile);
-    tmp = mymod(tmp, 60U);
-	tile = mydiv(tmp, 10U);
-	set_bkg_tiles(3U, 5U, 1U, 1U, &tile);
-    tile = mymod(tmp, 10U);
-	set_bkg_tiles(4U, 5U, 1U, 1U, &tile);
-	winscreenTextJingle();
-
-	winscreenWait(30U);
-
-	// Count up time bonus
-	countUpScore(3, 6, TIME_BONUS);
-	winscreenJingle();
-
-	winscreenWait(30U);
-
-	// Kills
-	tmp = (UBYTE)kills;
-	tile = mydiv(tmp, 10U);
-	set_bkg_tiles(1U, 10U, 1U, 1U, &tile);
-	tile = mymod(tmp, 10U);
-	set_bkg_tiles(2U, 10U, 1U, 1U, &tile);
-	winscreenTextJingle();
-
-	winscreenWait(30U);
-
-	// Count up kill bonus
-	countUpScore(3U, 11U, KILL_BONUS);
-	winscreenJingle();
-
-	winscreenWait(30U);
-
-	// Count up total score
-	countUpScore(3U, 15U, TOTAL_SCORE);
-	winscreenJingle();
-
-	while(1U) {
-		updateJoystate();
-		if(CLICKED(J_A) || CLICKED(J_B) || CLICKED(J_START)) {
-			break;
-		}
-		winscreenWait(1U);
-	}
-
-	winscreenShowRank();
+    if(level != 5U) {
+        showWinscreenNormal();
+    } else {
+        showWinscreenInfinite();
+    }
 
 	while(1U) {
 		updateJoystate();

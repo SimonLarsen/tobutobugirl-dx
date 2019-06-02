@@ -3,12 +3,12 @@
 
 void initGame();
 void restoreGame(UBYTE update, UBYTE from_pause);
-UBYTE *getSkinData();
+#define getSkinData() (player_skin == 1U ? skin1_data : skin2_data)
 void updateInput();
 void updatePlayer();
 void updateHUD();
 void updateHUDTime();
-void killPlayer();
+#define killPlayer() (scene_state = INGAME_DEAD)
 void bouncePlayer(UBYTE entity, UBYTE str);
 void updateEntities();
 UBYTE spawnEntity(UBYTE type, UBYTE x, UBYTE y, UBYTE dir);
@@ -22,7 +22,8 @@ void intoPortalAnimation();
 void saveCatAnimation();
 void deathAnimation();
 
-void addScore();
+void addScoreNormal();
+void addScoreInfinite();
 
 void fadeSpritesToWhite(UBYTE delay);
 void fadeSpritesToWhiteGB(UBYTE delay);

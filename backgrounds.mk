@@ -40,7 +40,7 @@ data/bg/hud_dx.h: data/bg/hud_dx.png
 	$(IMGTOGB) --map --rle -c -P 5 $< $@
 
 data/bg/clock.h: data/bg/clock.png
-	$(IMGTOGB) --map -O 21 $< $@
+	$(IMGTOGB) --map -O 21 --rle_data $< $@
 
 background1.h background1.c: data/bg/background1.png
 	$(IMGTOGB) --map -O 35 --rle $< -C background1.c background1.h

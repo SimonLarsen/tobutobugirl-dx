@@ -34,7 +34,7 @@ UBYTE selection, sub_selection;
 UBYTE joystate, oldjoystate;
 UBYTE next_sprite, sprites_used;
 UBYTE remaining_time, elapsed_minutes, elapsed_seconds;
-UWORD elapsed_time, kills;
+UWORD elapsed_time, kills, wave;
 UBYTE last_highscore_level, last_highscore_slot;
 UBYTE last_progress;
 UBYTE game_bank, music_bank;
@@ -89,26 +89,6 @@ const UBYTE level_tiers[4][4] = {
 
 const UBYTE rank_letters[4] = {29U, 11U, 12U, 13U};
 
-UBYTE getRank(UBYTE score, UBYTE level) {
-    UBYTE i;
-    for(i = 0U; i != 4U; ++i) {
-        if(score >= level_tiers[level-1U][i]) break;
-    }
-    return i;
-}
-
-void playMusic(UBYTE *data) {
-    SWITCH_ROM_MBC1(music_bank);
-    mus_init(data);
-    SWITCH_ROM_MBC1(game_bank);
-}
-
-void updateMusic() {
-    SWITCH_ROM_MBC1(music_bank);
-    mus_update();
-    SWITCH_ROM_MBC1(game_bank);
-}
-
 void _setSprite(UBYTE y, UBYTE x, UBYTE tile, UBYTE prop) {
     UBYTE* oam = (UBYTE*)0xC000UL + (UBYTE)(next_sprite << 2);
     *oam++ = y;
@@ -130,6 +110,103 @@ void clearRemainingSprites() {
     next_sprite = 0U;
     sprites_used = 0U;
 }
+
+UWORD mydiv16(UWORD num, UWORD denom) {
+    UWORD cnt = 0UL;
+    while(num >= denom) {
+        ++cnt;
+        num -= denom;
+    }
+    return cnt;
+}
+
+UWORD mymod16(UWORD num, WORD denom) {
+    while(num >= denom) {
+        num -= denom;
+    }
+    return num;
+}
+
+void drawNumber8(UBYTE x, UBYTE y, UBYTE value) {
+    UBYTE tile;
+    if(value) {
+        while(value) {
+            tile = mymod(value, 10U);
+            set_bkg_tiles(x, y, 1U, 1U, &tile);
+            value = mydiv(value, 10U);
+            --x;
+        }
+    } else {
+        tile = 0U;
+        set_bkg_tiles(x, y, 1U, 1U, &tile);
+    }
+}
+
+void drawNumber16(UBYTE x, UBYTE y, UWORD value) {
+    UBYTE tile;
+    if(value) {
+        while(value) {
+            tile = (UBYTE)mymod16(value, 10U);
+            set_bkg_tiles(x, y, 1U, 1U, &tile);
+            value = mydiv16(value, 10U);
+            --x;
+        }
+    } else {
+        tile = 0U;
+        set_bkg_tiles(x, y, 1U, 1U, &tile);
+    }
+}
+
+void drawScore8(UBYTE x, UBYTE y, UBYTE value) {
+	UBYTE tile;
+
+	tile = 0U;
+	set_bkg_tiles(x--, y, 1U, 1U, &tile);
+
+    if(value) {
+        set_bkg_tiles(x--, y, 1U, 1U, &tile);
+        drawNumber8(x, y, value);
+    }
+}
+
+void drawTime8(UBYTE x, UBYTE y, UBYTE secs) {
+    UBYTE tile;
+
+    x -= 3U;
+    // minutes
+	tile = mydiv(secs, 60U);
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+    // colon
+	tile = 37U;
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+    // seconds
+    secs = mymod(secs, 60U);
+	tile = mydiv(secs, 10U);
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+    tile = mymod(secs, 10U);
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+}
+
+UBYTE getRank(UBYTE score, UBYTE level) {
+    UBYTE i;
+    for(i = 0U; i != 4U; ++i) {
+        if(score >= level_tiers[level-1U][i]) break;
+    }
+    return i;
+}
+
+void playMusic(UBYTE *data) {
+    SWITCH_ROM_MBC1(music_bank);
+    mus_init(data);
+    SWITCH_ROM_MBC1(game_bank);
+}
+
+void updateMusic() {
+    SWITCH_ROM_MBC1(music_bank);
+    mus_update();
+    SWITCH_ROM_MBC1(game_bank);
+}
+
 
 void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer) {
     const UBYTE *tile_data, *tiles, *palette_data, *palettes;

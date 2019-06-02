@@ -12,8 +12,8 @@ Memory:
 	48-57   Level 4
 
   - Level 5
-    6 bytes (3 words) per record. (seconds, stomps, waves)
-    64-94
+    4 bytes (2 words) per record. (wave, seconds)
+    64-84
 
   -- Mini game
 	100U Minigame minutes
