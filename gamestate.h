@@ -3,8 +3,6 @@
 
 #include <string.h>
 
-//void clearSprites();
-
 #define clearSprites() (mymemset((UBYTE*)0xC000UL, 0U, 160U))
 #define setSprite(x, y, tile, prop) (_setSprite((y), (x), (tile), (prop)))
 
@@ -15,10 +13,12 @@ UBYTE mydiv(UBYTE num, UBYTE denom);
 UBYTE mymod(UBYTE num, UBYTE denom);
 UWORD mydiv16(UWORD num, UWORD denom);
 UWORD mymod16(UWORD num, WORD denom);
-void drawNumber8(UBYTE x, UBYTE y, UBYTE value);
+//void drawNumber8(UBYTE x, UBYTE y, UBYTE value);
+#define drawNumber8(x, y, value) (drawNumber16((x), (y), (value)))
 void drawNumber16(UBYTE x, UBYTE y, UWORD value);
 void drawScore8(UBYTE x, UBYTE y, UBYTE value);
 void drawTime8(UBYTE x, UBYTE y, UBYTE secs);
+void drawTime16(UBYTE x, UBYTE y, UWORD secs);
 UBYTE getRank(UBYTE score, UBYTE level);
 void playMusic(const UBYTE *data);
 void updateMusic();

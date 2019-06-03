@@ -281,42 +281,6 @@ void countUpScore(UBYTE x, UBYTE y, UBYTE value) {
 	}
 }
 
-void drawTime16(UBYTE x, UBYTE y, UWORD secs) {
-    UBYTE tile, min;
-
-    if(secs >= 35999UL) secs = 35999UL;
-
-    x -= 6U;
-
-    // hours (1 digit)
-    tile = mydiv16(secs, 3600UL);
-	set_bkg_tiles(x++, y, 1U, 1U, &tile);
-    secs = mymod16(secs, 3600UL);
-
-    // colon
-    tile = 37U;
-	set_bkg_tiles(x++, y, 1U, 1U, &tile);
-
-    // minutes
-    min = (UBYTE)mydiv16(secs, 60UL);
-    secs = mymod16(secs, 60U);
-    tile = mydiv(min, 10U);
-	set_bkg_tiles(x++, y, 1U, 1U, &tile);
-    tile = mymod(min, 10U);
-	set_bkg_tiles(x++, y, 1U, 1U, &tile);
-
-    // colon
-    tile = 37U;
-	set_bkg_tiles(x++, y, 1U, 1U, &tile);
-
-    // seconds
-    tile = mydiv(secs, 10U);
-	set_bkg_tiles(x++, y, 1U, 1U, &tile);
-    tile = mymod(secs, 10U);
-	set_bkg_tiles(x++, y, 1U, 1U, &tile);
-}
-
-
 void showWinscreenNormal() {
 	UBYTE tmp;
 

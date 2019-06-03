@@ -1,4 +1,4 @@
-.area _CODE
+.area _CODE_11
 
 _banner_data::
 	.dw #(_selection_locked_data)

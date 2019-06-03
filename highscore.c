@@ -124,15 +124,11 @@ void highscoreUpdateScreen() {
 }
 
 void _highscoreUpdateScreen() {
-    UBYTE i, j, tile;
+    UBYTE i, tile;
     UBYTE *data;
+    UWORD *data16;
 
     // Select level images
-    tile = sub_selection;
-    if(tile > levels_unlocked) {
-        tile = 0U;
-    }
-
     selectSetBannerData(sub_selection, 1U, 1U);
     selectSetBannerData(sub_selection, 2U, 1U);
     selectSetBannerTiles(sub_selection, 2U, 4U);
@@ -141,8 +137,8 @@ void _highscoreUpdateScreen() {
         set_bkg_tiles_rle(5U, 8U, 10U, 1U, highscore_dx_tiles+55U);
         set_bkg_tiles_rle(5U, 9U, 10U, 1U, highscore_dx_tiles+69U);
         VBK_REG = 1U;
-        set_bkg_tiles_rle(5U, 8U, 10U, 1U, highscore_dx_palettes+55U);
-        set_bkg_tiles_rle(5U, 9U, 10U, 1U, highscore_dx_palettes+69U);
+        mymemset((UBYTE*)0x9905UL, 2U, 10U);
+        mymemset((UBYTE*)0x9925UL, 2U, 10U);
         VBK_REG = 0U;
         set_bkg_palette_buffer(highscore_dx_palette_offset, highscore_dx_palette_data_length, highscore_dx_palette_data);
     } else {
@@ -150,38 +146,69 @@ void _highscoreUpdateScreen() {
         set_bkg_tiles_rle(5U, 9U, 10U, 1U, highscore_tiles+69U);
     }
 
-
     // Set level name
+    tile = sub_selection;
+    if(tile > levels_unlocked) {
+        tile = 0U;
+    }
+
     data = level_names[tile];
     set_bkg_tiles(7U, 9U, 6U, 1U, data);
+
+    data = (UBYTE*)0x9963UL;
+    for(i = 0U; i != 5U; ++i) {
+        mymemset(data, 10U, 14U);
+        data += 32U;
+    }
+
+    if(tile == 0U) return;
+
+    // draw column separators lines
+    if(sub_selection != 5U) {
+        data = (UBYTE*)0x9969UL;
+        for(i = 0U; i != 5U; ++i) {
+            *data = 0x40U;
+            data += 6U;
+            *data = 0x40U;
+            data += 26U;
+        }
+    } else {
+        data = (UBYTE*)0x996CUL;
+        for(i = 0U; i != 5U; ++i) {
+            *data = 0x40U;
+            data += 32U;
+        }
+    }
 
     ENABLE_RAM_MBC1;
     SWITCH_RAM_MBC1(0);
 
-    // Set scores
-    data = ram_data + ((sub_selection-1U) << 4);
-    for(i = 0U; i != 5U; ++i) {
-        tile = 10U;
-        for(j = 3U; j != 8U; ++j) {
-            set_bkg_tiles(j, i+11U, 1U, 1U, &tile);
-        }
-        for(j = 10U; j != 14U; ++j) {
-            set_bkg_tiles(j, i+11U, 1U, 1U, &tile);
-        }
-        set_bkg_tiles(16U, i+11U, 1U, 1U, &tile);
+    if(sub_selection != 5U) {
+        // Set scores
+        data = ram_data + ((sub_selection-1U) << 4);
+        for(i = 0U; i != 5U; ++i) {
+            if(*data) {
+                // Draw time
+                drawTime8(13U, 11U+i, data[0]);
 
-        if(*data) {
-            // Draw time
-            drawTime8(13U, i+11U, data[0]);
+                // Draw score
+                drawScore8(7U, 11U+i, data[1]);
 
-            // Draw score
-            drawScore8(7U, i+11U, data[1]);
-
-            // Draw rank
-            tile = rank_letters[getRank(data[1], sub_selection)];
-            set_bkg_tiles(16U, i+11U, 1U, 1U, &tile);
+                // Draw rank
+                tile = rank_letters[getRank(data[1], sub_selection)];
+                set_bkg_tiles(16U, 11U+i, 1U, 1U, &tile);
+            }
+            data += 2U;
         }
-        data += 2U;
+    } else {
+        data16 = (UWORD*)(ram_data + 64U);
+        for(i = 0U; i != 5U; ++i) {
+            if(*data16) {
+                drawNumber16(15U, 11U+i, data16[0]);
+                drawTime16(10U, 11U+i, data16[1]);
+            }
+            data16 += 2U;
+        }
     }
 
     DISABLE_RAM_MBC1;
@@ -236,29 +263,37 @@ void enterHighscore() {
         offset = cos32_64[(ticks & 63U)] >> 3;
 
         // Draw arrows
-        j = sgb_mode << 4;
-        setSprite(12U-offset, 64U, 0U, j);
-        setSprite(20U-offset, 64U, 2U, j);
-        setSprite(12U-offset, 72U, 1U, j);
-        setSprite(20U-offset, 72U, 3U, j);
+        setSprite(12U-offset, 64U, 0U, OBJ_PAL1);
+        setSprite(20U-offset, 64U, 2U, OBJ_PAL1);
+        setSprite(12U-offset, 72U, 1U, OBJ_PAL1);
+        setSprite(20U-offset, 72U, 3U, OBJ_PAL1);
 
-        setSprite(148U+offset, 64U, 2U, j | FLIP_X);
-        setSprite(156U+offset, 64U, 0U, j | FLIP_X);
-        setSprite(148U+offset, 72U, 3U, j | FLIP_X);
-        setSprite(156U+offset, 72U, 1U, j | FLIP_X);
+        setSprite(148U+offset, 64U, 2U, OBJ_PAL1 | FLIP_X);
+        setSprite(156U+offset, 64U, 0U, OBJ_PAL1 | FLIP_X);
+        setSprite(148U+offset, 72U, 3U, OBJ_PAL1 | FLIP_X);
+        setSprite(156U+offset, 72U, 1U, OBJ_PAL1 | FLIP_X);
 
         if((ticks & 63U) < 16U
         && last_highscore_level == sub_selection
-        && last_highscore_slot < 5U) {
+        && last_highscore_slot <= 4U) {
             offset = 104U + (last_highscore_slot << 3);
 
-            for(j = 4U; j != 9U; ++j) {
-                setSprite(j<<3, offset, 4U, OBJ_PAL0);
+            if(sub_selection != 5U) {
+                for(j = 4U; j != 9U; ++j) {
+                    setSprite(j<<3, offset, 4U, OBJ_PAL0);
+                }
+                for(j = 11U; j != 15U; ++j) {
+                    setSprite(j<<3, offset, 4U, OBJ_PAL0);
+                }
+                setSprite(136U, offset, 4U, OBJ_PAL0);
+            } else {
+                for(j = 5U; j != 12U; ++j) {
+                    setSprite(j<<3, offset, 4U, OBJ_PAL0);
+                }
+                for(j = 14U; j != 17U; ++j) {
+                    setSprite(j<<3, offset, 4U, OBJ_PAL0);
+                }
             }
-            for(j = 11U; j != 15U; ++j) {
-                setSprite(j<<3, offset, 4U, OBJ_PAL0);
-            }
-            setSprite(136U, offset, 4U, OBJ_PAL0);
         }
 
         clearRemainingSprites();

@@ -40,7 +40,7 @@ OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4
 OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o minigamescore.o
 OBJ_BANK9=win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o win5.o win5_dx.o
 OBJ_BANK10=sound_data.o init.o wipe.o
-OBJ_BANK11=set_banner.o \
+OBJ_BANK11=set_banner.o banner_data_ptrs.o \
 		   selection1.o selection2.o selection3.o selection4.o \
 		   selection5.o selection5_dx.o \
 		   selection_highscore.o selection_highscore_dx.o \

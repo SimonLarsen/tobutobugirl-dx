@@ -1172,6 +1172,7 @@ void addScoreInfinite() {
         }
     }
 
+    last_highscore_slot = 5U;
     if(i <= 4U) {
         for(j = 4U; j != i; --j) {
             data[j << 1] = data[(j - 1U) << 1];

@@ -10,7 +10,6 @@ void winscreenJingle();
 void winscreenTextJingle();
 void winscreenShowRank();
 void countUpScore(UBYTE x, UBYTE y, UBYTE value);
-void drawTime16(UBYTE x, UBYTE y, UWORD secs);
 void showWinscreenNormal();
 void showWinscreenInfinite();
 void enterWinscreen();

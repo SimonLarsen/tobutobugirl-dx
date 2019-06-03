@@ -132,16 +132,15 @@ void initSelect() {
 void selectUpdateSprites() {
 	UBYTE frame, pal;
 
-    pal = sgb_mode << 4;
-	setSprite(24U-arrow_offset1, 68U, 37U, pal);
-	setSprite(32U-arrow_offset1, 68U, 39U, pal);
-	setSprite(24U-arrow_offset1, 76U, 38U, pal);
-	setSprite(32U-arrow_offset1, 76U, 40U, pal);
+	setSprite(24U-arrow_offset1, 68U, 37U, OBJ_PAL1);
+	setSprite(32U-arrow_offset1, 68U, 39U, OBJ_PAL1);
+	setSprite(24U-arrow_offset1, 76U, 38U, OBJ_PAL1);
+	setSprite(32U-arrow_offset1, 76U, 40U, OBJ_PAL1);
 
-	setSprite(136U+arrow_offset2, 68U, 39U, pal | FLIP_X);
-	setSprite(144U+arrow_offset2, 68U, 37U, pal | FLIP_X);
-	setSprite(136U+arrow_offset2, 76U, 40U, pal | FLIP_X);
-	setSprite(144U+arrow_offset2, 76U, 38U, pal | FLIP_X);
+	setSprite(136U+arrow_offset2, 68U, 39U, OBJ_PAL1 | FLIP_X);
+	setSprite(144U+arrow_offset2, 68U, 37U, OBJ_PAL1 | FLIP_X);
+	setSprite(136U+arrow_offset2, 76U, 40U, OBJ_PAL1 | FLIP_X);
+	setSprite(144U+arrow_offset2, 76U, 38U, OBJ_PAL1 | FLIP_X);
 
 	if(levels_completed >= 3U) {
 		switch(select_cat_state) {
@@ -184,6 +183,7 @@ void selectUpdateSprites() {
 		}
 
 		frame = 41U + (cat_frame << 2);
+        pal = sgb_mode << 4;
 		setSprite(136U, 20U, frame++, pal | 1U);
 		setSprite(144U, 20U, frame++, pal | 1U);
 		setSprite(136U, 28U, frame++, pal | 1U);

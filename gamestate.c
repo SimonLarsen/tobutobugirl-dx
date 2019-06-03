@@ -130,6 +130,7 @@ UWORD mymod16(UWORD num, WORD denom) {
     return num;
 }
 
+/*
 void drawNumber8(UBYTE x, UBYTE y, UBYTE value) {
     UBYTE tile;
     if(value) {
@@ -144,6 +145,7 @@ void drawNumber8(UBYTE x, UBYTE y, UBYTE value) {
         set_bkg_tiles(x, y, 1U, 1U, &tile);
     }
 }
+*/
 
 void drawNumber16(UBYTE x, UBYTE y, UWORD value) {
     UBYTE tile;
@@ -190,10 +192,47 @@ void drawTime8(UBYTE x, UBYTE y, UBYTE secs) {
 	set_bkg_tiles(x++, y, 1U, 1U, &tile);
 }
 
+void drawTime16(UBYTE x, UBYTE y, UWORD secs) {
+    UBYTE tile, min;
+
+    if(secs >= 35999UL) secs = 35999UL;
+
+    x -= 6U;
+
+    // hours (1 digit)
+    tile = mydiv16(secs, 3600UL);
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+    secs = mymod16(secs, 3600UL);
+
+    // colon
+    tile = 37U;
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+
+    // minutes
+    min = (UBYTE)mydiv16(secs, 60UL);
+    secs = mymod16(secs, 60U);
+    tile = mydiv(min, 10U);
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+    tile = mymod(min, 10U);
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+
+    // colon
+    tile = 37U;
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+
+    // seconds
+    tile = mydiv(secs, 10U);
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+    tile = mymod(secs, 10U);
+	set_bkg_tiles(x++, y, 1U, 1U, &tile);
+}
+
 UBYTE getRank(UBYTE score, UBYTE level) {
     UBYTE i;
+    UBYTE *data;
+    data = level_tiers[level-1U];
     for(i = 0U; i != 4U; ++i) {
-        if(score >= level_tiers[level-1U][i]) break;
+        if(score >= *(data++)) break;
     }
     return i;
 }

@@ -207,7 +207,7 @@ void snd_update() {
 
 void snd_update1() {
 	UBYTE note;
-	UWORD vib_freq;
+	UWORD tmp_freq;
 
 	if(snd_slide1) {
 		if(snd_target1 > snd_freq1) {
@@ -228,10 +228,10 @@ void snd_update1() {
 
 	if(snd_vib_speed1) {
 		snd_vib_pos1 = (snd_vib_pos1 + snd_vib_speed1) & 63U;
-		vib_freq = snd_freq1 - *snd_vib_table1 + snd_vib_table1[snd_vib_pos1];
+		tmp_freq = snd_freq1 - *snd_vib_table1 + snd_vib_table1[snd_vib_pos1];
 
-		NR13_REG = (UBYTE)vib_freq;
-		NR14_REG = vib_freq >> 8;
+		NR13_REG = (UBYTE)tmp_freq;
+		NR14_REG = tmp_freq >> 8;
 	}
 
 	if(snd_wait1) {
@@ -255,10 +255,11 @@ void snd_update1() {
 				snd_freq1 = 0U;
 				NR12_REG = 0U;
 			} else {
+                tmp_freq = freq[(snd_octave1 << 4) + note - MUS_FIRST_NOTE] + snd_po1 - 128U;
 				if(snd_slide1) {
-					snd_target1 = freq[(snd_octave1 << 4) + note - MUS_FIRST_NOTE] + snd_po1 - 128U;
+					snd_target1 = tmp_freq;
 				} else {
-					snd_freq1 = freq[(snd_octave1 << 4) + note - MUS_FIRST_NOTE] + snd_po1 - 128U;
+					snd_freq1 = tmp_freq;
 				}
 				NR12_REG = snd_volume1 | snd_env1;
 			}
