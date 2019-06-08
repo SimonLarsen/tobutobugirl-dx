@@ -301,7 +301,8 @@ void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer) {
             }
             break;
         default:
-            i = (level - 5U) & 7U;
+            if(level == 255U) i = 8U;
+            else i = (level - 5U) & 7U;
             tile_data = background5_data;
             tiles = background5_tiles_ptrs[i];
             data_length = background5_data_length;

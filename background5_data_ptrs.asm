@@ -9,3 +9,4 @@ _background5_tiles_ptrs::
     .dw #(_background5_tiles6)
     .dw #(_background5_tiles7)
     .dw #(_background5_tiles8)
+    .dw #(_background5_tiles9)

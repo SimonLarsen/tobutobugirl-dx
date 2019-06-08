@@ -33,6 +33,7 @@ UBYTE dashing, dashes, dash_xdir, dash_ydir;
 UBYTE ghost_frame;
 UBYTE *spawn_levels;
 UBYTE spawn_level_gen[8];
+UBYTE wave_bg, is_special_wave;
 
 extern UBYTE plains_song_data;
 extern UBYTE clouds_song_data;
@@ -205,6 +206,55 @@ void initGame() {
     OBP1_REG = 0x40U; // 01010000
     BGP_REG = 0xE4U;  // 11100100
 
+    // Init variables
+    player_x = 88U;
+    player_y = SCRLMGN;
+    player_xdir = RIGHT;
+    player_ydir = DOWN;
+    player_yspeed = 0U;
+    player_bounce = 0U;
+    dashing = 0U;
+    dashes = MAX_DASHES;
+    dash_xdir = 0U;
+    dash_ydir = 0U;
+    paused = 0U;
+    scrolled = 0U;
+    scroll_y = 0U;
+    clock_interval = clock_interval_data[level-1U];
+
+    if (level == 5U) {
+        generateSpawnData();
+        is_special_wave = mymod(wave+1U, 5U) == 0U;
+        wave_bg = wave - mydiv(wave+1U, 5U);
+    } else {
+        spawn_levels = (UBYTE*)&spawn_level_data[(level-1U) * 24];
+        scrolled_length = scrolled_length_data[level-1U];
+
+        allowed_spikes = allowed_spikes_data[level-1U];
+    }
+
+    scene_state = INGAME_ACTIVE;
+    if(level != 5U || wave == 0U) {
+        // don't reset boost, time and stomps when progressing in level 5
+        blips = MAX_BOOST;
+        elapsed_time = 0UL;
+        kills = 0UL;
+    }
+    blip_bar = 0U;
+
+    ticks = 0U;
+    next_spawn = 0U;
+    next_clock = clock_interval;
+    progress = 0U;
+    progressbar = 121U - PROGRESS_POS(progress);
+    portal_spawned = 0U;
+    repeat_spikes = 0U;
+    ghost_frame = 0U;
+    next_entity = 0U;
+
+    timer = 0U;
+    remaining_time = MAX_TIME;
+
     restoreGame(first_load, 0U);
     set_sprite_data(4U, portal_data_length, portal_data);
 
@@ -239,59 +289,6 @@ void initGame() {
     clearSprites();
     clearEntities();
 
-    // Init variables
-    player_x = 88U;
-    player_y = SCRLMGN;
-    player_xdir = RIGHT;
-    player_ydir = DOWN;
-    player_yspeed = 0U;
-    player_bounce = 0U;
-    dashing = 0U;
-    dashes = MAX_DASHES;
-    dash_xdir = 0U;
-    dash_ydir = 0U;
-    paused = 0U;
-    scrolled = 0U;
-    scroll_y = 0U;
-    clock_interval = clock_interval_data[level-1U];
-
-    if (level == 5U) {
-        spawn_levels = (UBYTE*)spawn_level_gen;
-        scrolled_length = 8U + (wave >> 1);
-        if(scrolled_length >= 29U) scrolled_length = 28U;
-
-        allowed_spikes = (wave >> 3) + 1U;
-        if(allowed_spikes >= 4U) allowed_spikes = 3U;
-
-        generateSpawnData();
-    } else {
-        spawn_levels = (UBYTE*)&spawn_level_data[(level-1U) * 24];
-        scrolled_length = scrolled_length_data[level-1U];
-
-        allowed_spikes = allowed_spikes_data[level-1U];
-    }
-
-    scene_state = INGAME_ACTIVE;
-    if(level != 5U || wave == 0U) {
-        // don't reset boost, time and stomps when progressing in level 5
-        blips = MAX_BOOST;
-        elapsed_time = 0UL;
-        kills = 0UL;
-    }
-    blip_bar = 0U;
-
-    ticks = 0U;
-    next_spawn = 0U;
-    next_clock = clock_interval;
-    progress = 0U;
-    progressbar = 121U - PROGRESS_POS(progress);
-    portal_spawned = 0U;
-    repeat_spikes = 0U;
-    ghost_frame = 0U;
-    next_entity = 0U;
-
-    timer = 0U;
-    remaining_time = MAX_TIME;
 
     move_bkg(0U, 112U);
     move_win(151U, 0U);
@@ -320,7 +317,7 @@ void restoreGame(UBYTE update, UBYTE from_pause) {
     set_sprite_data(24U, sprites_data_length, sprites_data);
     set_sprite_palette(0U, sprites_palette_data_length, sprites_palette_data);
 
-    setIngameBackground(level+wave, update, !from_pause);
+    setIngameBackground(is_special_wave ? 255U : level+wave_bg, update, !from_pause);
     setIngameHUD(update, !from_pause);
     if(update) {
         set_bkg_data_rle(clock_tiles_offset, clock_data_length, clock_data);
@@ -786,6 +783,14 @@ void initSpawns() {
 
 void generateSpawnData() {
     UBYTE i;
+
+    spawn_levels = (UBYTE*)spawn_level_gen;
+    scrolled_length = 8U + (wave >> 1);
+    if(scrolled_length >= 29U) scrolled_length = 28U;
+
+    allowed_spikes = (wave >> 3) + 1U;
+    if(allowed_spikes >= 4U) allowed_spikes = 3U;
+
     switch(wave) {
         case WAVE_SPC_SQUIDS:
             spawn_levels = spawn_level_gen;
