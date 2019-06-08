@@ -78,6 +78,13 @@ const UBYTE spawn_level_data[96] = {
     E_FIREBALL, E_FIREBALL, E_SPIKES, E_ALIEN, E_GHOST, E_GHOST, E_BIRD, E_BIRD
 };
 
+const UBYTE spawn_level_heaven[32] = {
+    E_FIREBALL, E_SPIKES, E_GHOST, E_ALIEN, E_BIRD, E_BIRD, E_BAT, E_BAT,
+    E_FIREBALL, E_SPIKES, E_SPIKES, E_GHOST, E_ALIEN, E_BIRD, E_BIRD, E_BAT,
+    E_FIREBALL, E_FIREBALL, E_SPIKES, E_GHOST, E_GHOST, E_ALIEN, E_BIRD, E_BAT,
+    E_FIREBALL, E_FIREBALL, E_SPIKES, E_GHOST, E_GHOST, E_ALIEN, E_ALIEN, E_BIRD
+};
+
 #define PROGRESS_POS(x) mydiv(((x) << 1U), 3U)
 
 const UBYTE wave_text[4] = { 33U, 11U, 32U, 15U };
@@ -301,8 +308,6 @@ void initGame() {
 }
 
 void restoreGame(UBYTE update, UBYTE from_pause) {
-    UBYTE *data;
-
     disable_interrupts();
 
     if(sgb_mode) {
@@ -311,8 +316,7 @@ void restoreGame(UBYTE update, UBYTE from_pause) {
     }
 
 
-    data = getSkinData();
-    set_sprite_data(0U, 24U, data);
+    set_sprite_data(0U, 24U, getSkinData());
     set_sprite_data(24U, sprites_data_length, sprites_data);
     set_sprite_palette(0U, sprites_palette_data_length, sprites_palette_data);
 
@@ -782,41 +786,26 @@ void initSpawns() {
 
 void generateSpawnData() {
     UBYTE i;
-    UBYTE spike_count, fireball_count;
-
-    if(wave == WAVE_SPC_SQUIDS) {
-        for(i = 0U; i != 8U; ++i) {
-            spawn_levels[i] = E_ALIEN;
-        }
-    } else {
-        spike_count = (wave >> 2) + 1U;
-        fireball_count = wave >> 3;
-
-        if(fireball_count >= 4U) fireball_count = 3U;
-        spike_count -= fireball_count;
-        if(spike_count >= 4U) spike_count = 3U;
-
-        for(i = 0U; i != spike_count; ++i) {
-            spawn_levels[i] = E_SPIKES;
-        }
-
-        for(; i != fireball_count+spike_count; ++i) {
-            spawn_levels[i] = E_FIREBALL;
-        }
-
-        if(wave == 0U) {
-            for(; i != 8U; ++i) {
-                spawn_levels[i] = (rand() & 1U) + E_BAT;
-            }
-        } else if(wave == 1U) {
-            for(; i != 8U; ++i) {
-                spawn_levels[i] = mymod(rand(), 3U) + E_BAT;
-            }
-        } else {
-            for(; i != 8U; ++i) {
-                spawn_levels[i] = (rand() & 3U) + E_ALIEN;
-            }
-        }
+    switch(wave) {
+        case WAVE_SPC_SQUIDS:
+            spawn_levels = spawn_level_gen;
+            mymemset(spawn_levels, E_ALIEN, 8U);
+            break;
+        case WAVE_SPC_GHOSTS:
+            spawn_levels = spawn_level_gen;
+            mymemset(spawn_levels, E_GHOST, 8U);
+            break;
+        case 0U:
+            spawn_levels = spawn_level_data + 8U;
+            break;
+        case 1U:
+            spawn_levels = spawn_level_data + 48U;
+            break;
+        default:
+            i = (wave >> 3);
+            if(i >= 4U) i--;
+            spawn_levels = spawn_level_heaven + (i << 3);
+            break;
     }
 }
 
@@ -907,7 +896,6 @@ void updateSpawns() {
 
 void introAnimation() {
     UBYTE frame;
-    UBYTE *data;
 
     playSound(SFX_WARP_START);
 
@@ -942,8 +930,7 @@ void introAnimation() {
     }
 
     disable_interrupts();
-    data = getSkinData();
-    set_sprite_data(0U, 24U, data);
+    set_sprite_data(0U, 24U, getSkinData());
     set_sprite_data(24U, 4U, sprites_data);
     enable_interrupts();
 }
@@ -1070,9 +1057,7 @@ void saveCatAnimation() {
 
 void deathAnimation() {
     UBYTE offset, frame;
-    UBYTE *data;
-    data = getSkinData();
-    set_sprite_data(0U, 8U, data+384UL);
+    set_sprite_data(0U, 8U, getSkinData()+384UL);
     set_sprite_data(8U, portal_data_length, portal_data);
 
     playSound(SFX_PLAYER_DIE);
@@ -1239,7 +1224,6 @@ void showWaveScreen() {
     UBYTE text[3] = {10U, 10U, 10U};
 
     disable_interrupts();
-    //mus_setPaused(1U);
     DISPLAY_OFF;
 
     SPRITES_8x8;
