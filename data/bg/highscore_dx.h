@@ -51,10 +51,16 @@ const unsigned char highscore_dx_tiles[] = {
      79,  47,  47,   2,  80,  81,  60,  60,  14,  82,  83,  47,  47,   2,  84,  85,  86,  86,  14,  87,
      88,  47,  47,  21
 };
+
 #define highscore_dx_palette_data_length 3U
 #define highscore_dx_palette_offset 0U
+const unsigned int highscore_dx_palette_data[] = {
+	32767, 20083, 13773,   0,
+    22887, 13507, 32767,   0,
+    32767, 10492, 18907,   0
+};
 const unsigned char highscore_dx_palettes[] = {
-      1,   1,  20,   2,   2,  60,   1,   1,   2,   0,   0,  16,   1,   1,   4,   0,   0,  16,   1,   1,
+	  1,   1,  20,   2,   2,  60,   1,   1,   2,   0,   0,  16,   1,   1,   4,   0,   0,  16,   1,   1,
       4,   0,   0,  16,   1,   1,   4,   0,   0,  16,   1,   1,   4,   0,   0,   3,   2,   0,   0,   8,
       2,   0,   0,   3,   1,   1,   4,   0,   0,  16,   1,   1,   3,   2,   2,   2,   0,   0,  14,   2,
       2,   2,   1,   1,   2,   2,   0,   0,  16,   2,   1,   1,   2,   2,   0,   0,  16,   2,   1,   1,
@@ -63,9 +69,4 @@ const unsigned char highscore_dx_palettes[] = {
       2,   2,   1,   1,  21
 };
 
-const unsigned int highscore_dx_palette_data[] = {
-    32767, 20083, 13773,   0,
-    22887, 13507, 32767,   0,
-    32767, 10492, 18907,   0
-};
 #endif

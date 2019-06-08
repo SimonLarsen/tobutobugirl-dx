@@ -6,8 +6,8 @@
 #define selection_highscore_tiles_height 6U
 #define selection_highscore_tiles_offset 90U
 
-extern const unsigned char selection_highscore_tiles[];
 extern const unsigned char selection_highscore_data[];
 extern const unsigned char selection_highscore_data2[];
+extern const unsigned char selection_highscore_tiles[];
 
 #endif

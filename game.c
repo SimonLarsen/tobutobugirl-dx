@@ -320,7 +320,7 @@ void restoreGame(UBYTE update, UBYTE from_pause) {
     set_sprite_data(24U, sprites_data_length, sprites_data);
     set_sprite_palette(0U, sprites_palette_data_length, sprites_palette_data);
 
-    setIngameBackground(level, update, !from_pause);
+    setIngameBackground(level+wave, update, !from_pause);
     setIngameHUD(update, !from_pause);
     if(update) {
         set_bkg_data_rle(clock_tiles_offset, clock_data_length, clock_data);

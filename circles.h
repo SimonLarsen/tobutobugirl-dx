@@ -5,7 +5,7 @@
 #define circles_tiles_height 9U
 #define circles_tiles_offset 0U
 
-extern const unsigned char circles_tiles[];
 extern const unsigned char circles_data[];
+extern const unsigned char circles_tiles[];
 
 #endif

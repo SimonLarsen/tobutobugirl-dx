@@ -170,11 +170,12 @@ const unsigned char background1_dx_tiles[] = {
     204, 205,  38,  38,   7, 206, 207, 208,  38,  38,   7, 209, 210, 211,  38,  38,   3, 212, 213, 214,
      38,  38,  20
 };
-const unsigned char background1_dx_palettes[] = {
-      0,   0, 255,   0,   0, 195,   1,   1,   7,   0,   0,  11,   1,   1, 108
-};
 
 const unsigned int background1_dx_palette_data[] = {
-    29258, 29002, 32766, 24812,
+	29258, 29002, 32766, 24812,
     24812, 11082, 29258, 2338
 };
+const unsigned char background1_dx_palettes[] = {
+	  0,   0, 255,   0,   0, 195,   1,   1,   7,   0,   0,  11,   1,   1, 108
+};
+

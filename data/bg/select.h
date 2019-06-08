@@ -29,18 +29,19 @@ const unsigned char select_tiles[] = {
      13,   4,  29,  29,  16,  13,  13,   4,  29,  29,  16,  13,  13,   4,  29,  29,  16,  13,  13,   4,
      29,  29,  16,  13,  13,  42
 };
+
 #define select_palette_data_length 3U
 #define select_palette_offset 0U
+const unsigned int select_palette_data[] = {
+	22887, 13507, 10492,   0,
+    31710,   0, 10492,   0,
+    32767, 13507,   0,   0
+};
 const unsigned char select_palettes[] = {
-      0,   0,  66,   1,   1,   8,   0,   0,  51,   2,   2,  10,   0,   0,  10,   2,   2,  10,   0,   0,
+	  0,   0,  66,   1,   1,   8,   0,   0,  51,   2,   2,  10,   0,   0,  10,   2,   2,  10,   0,   0,
      10,   2,   2,  10,   0,   0,  27,   2,   2,  16,   0,   0,   4,   2,   2,  16,   0,   0,   4,   2,
       2,  16,   0,   0,   4,   2,   2,  16,   0,   0,   4,   2,   2,  16,   0,   0,   4,   2,   2,  16,
       0,   0,  42
 };
 
-const unsigned int select_palette_data[] = {
-    22887, 13507, 10492,   0,
-    31710,   0, 10492,   0,
-    32767, 13507,   0,   0
-};
 #endif

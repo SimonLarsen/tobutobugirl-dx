@@ -5,7 +5,7 @@
 #define hud_tiles_height 18U
 #define hud_tiles_offset 0U
 
-extern const unsigned char hud_tiles[];
 extern const unsigned char hud_data[];
+extern const unsigned char hud_tiles[];
 
 #endif

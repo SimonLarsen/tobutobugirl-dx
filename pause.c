@@ -53,7 +53,7 @@ void initPause() {
     }
 
 	set_bkg_data(0, 38U, characters_data);
-	setIngameBackground(255U, 1U, 0U);
+	setIngameBackground(0U, 1U, 0U);
 	setCloudAnimation(player_skin);
 
 	pauseUpdateDashCounter();

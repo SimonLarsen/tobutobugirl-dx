@@ -5,7 +5,7 @@
 #define win4_tiles_height 12U
 #define win4_tiles_offset 91U
 
-extern const unsigned char win4_tiles[];
 extern const unsigned char win4_data[];
+extern const unsigned char win4_tiles[];
 
 #endif

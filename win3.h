@@ -5,7 +5,7 @@
 #define win3_tiles_height 12U
 #define win3_tiles_offset 91U
 
-extern const unsigned char win3_tiles[];
 extern const unsigned char win3_data[];
+extern const unsigned char win3_tiles[];
 
 #endif

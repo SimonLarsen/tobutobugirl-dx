@@ -7,9 +7,9 @@
 #define selection3_tiles_offset 90U
 #define selection3_palette_data_length 1U
 #define selection3_palette_offset 3U
-extern const unsigned char selection3_tiles[];
 extern const unsigned char selection3_data[];
 extern const unsigned char selection3_data2[];
+extern const unsigned char selection3_tiles[];
 extern const unsigned char selection3_palettes[];
 extern const unsigned int selection3_palette_data[];
 

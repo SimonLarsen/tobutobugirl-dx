@@ -7,9 +7,9 @@
 #define selection_jukebox_dx_tiles_offset 90U
 #define selection_jukebox_dx_palette_data_length 5U
 #define selection_jukebox_dx_palette_offset 3U
-extern const unsigned char selection_jukebox_dx_tiles[];
 extern const unsigned char selection_jukebox_dx_data[];
 extern const unsigned char selection_jukebox_dx_data2[];
+extern const unsigned char selection_jukebox_dx_tiles[];
 extern const unsigned char selection_jukebox_dx_palettes[];
 extern const unsigned int selection_jukebox_dx_palette_data[];
 

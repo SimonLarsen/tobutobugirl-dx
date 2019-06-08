@@ -5,7 +5,7 @@
 #define hud_sgb_tiles_height 18U
 #define hud_sgb_tiles_offset 0U
 
-extern const unsigned char hud_sgb_tiles[];
 extern const unsigned char hud_sgb_data[];
+extern const unsigned char hud_sgb_tiles[];
 
 #endif

@@ -3,7 +3,6 @@
 #include "set_banner.h"
 #include "set_data_rle.h"
 #include "gamestate.h"
-#include "data_ptrs.h"
 
 #include "selection1.h"
 #include "selection2.h"
@@ -17,6 +16,16 @@
 #include "selection_jukebox_dx.h"
 #include "selection_locked.h"
 #include "selection_locked_dx.h"
+
+extern UBYTE *banner_data[];
+extern UBYTE *banner_data2[];
+extern UBYTE *banner_dx_data[];
+extern UBYTE *banner_dx_data2[];
+extern UWORD *banner_palette_data[];
+extern UBYTE *banner_tiles[];
+extern UBYTE *banner_dx_tiles[];
+extern UBYTE *banner_palettes[];
+extern UBYTE *banner_dx_palettes[];
 
 const UBYTE banner_data_length[] = {
     selection_locked_data_length,

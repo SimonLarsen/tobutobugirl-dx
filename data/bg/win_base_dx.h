@@ -16,15 +16,16 @@ const unsigned char win_base_dx_tiles[] = {
      45,  45,  12,  46,  40,  40,   3,  42,  42,   3,  47,  48,  48,  12,  49,  42,  42,   3,  45,  45,
     240,  50,  50,  20,  40,  40,  20
 };
+
 #define win_base_dx_palette_data_length 2U
 #define win_base_dx_palette_offset 0U
+const unsigned int win_base_dx_palette_data[] = {
+	32767, 20083, 13773,   0,
+    22887, 13507, 32767,   0
+};
 const unsigned char win_base_dx_palettes[] = {
-      1,   1,   4,   0,   0,  12,   1,   1,   7,   0,   0,  14,   1,   1,   6,   0,   0,  14,   1,   1,
+	  1,   1,   4,   0,   0,  12,   1,   1,   7,   0,   0,  14,   1,   1,   6,   0,   0,  14,   1,   1,
       3,   0,   0, 255,   0,   0,  25,   1,   1,  20
 };
 
-const unsigned int win_base_dx_palette_data[] = {
-    32767, 20083, 13773,   0,
-    22887, 13507, 32767,   0
-};
 #endif

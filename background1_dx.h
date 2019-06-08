@@ -6,8 +6,8 @@
 #define background1_dx_tiles_offset 35U
 #define background1_dx_palette_data_length 2U
 #define background1_dx_palette_offset 0U
-extern const unsigned char background1_dx_tiles[];
 extern const unsigned char background1_dx_data[];
+extern const unsigned char background1_dx_tiles[];
 extern const unsigned char background1_dx_palettes[];
 extern const unsigned int background1_dx_palette_data[];
 

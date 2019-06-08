@@ -92,6 +92,8 @@ const UBYTE level_tiers[4][4] = {
 
 const UBYTE rank_letters[4] = {29U, 11U, 12U, 13U};
 
+extern UBYTE *background5_tiles_ptrs[];
+
 void _setSprite(UBYTE y, UBYTE x, UBYTE tile, UBYTE prop) {
     UBYTE* oam = (UBYTE*)0xC000UL + (UBYTE)(next_sprite << 2);
     *oam++ = y;
@@ -129,23 +131,6 @@ UWORD mymod16(UWORD num, WORD denom) {
     }
     return num;
 }
-
-/*
-void drawNumber8(UBYTE x, UBYTE y, UBYTE value) {
-    UBYTE tile;
-    if(value) {
-        while(value) {
-            tile = mymod(value, 10U);
-            set_bkg_tiles(x, y, 1U, 1U, &tile);
-            value = mydiv(value, 10U);
-            --x;
-        }
-    } else {
-        tile = 0U;
-        set_bkg_tiles(x, y, 1U, 1U, &tile);
-    }
-}
-*/
 
 void drawNumber16(UBYTE x, UBYTE y, UWORD value) {
     UBYTE tile;
@@ -252,15 +237,25 @@ void updateMusic() {
 
 void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer) {
     const UBYTE *tile_data, *tiles, *palette_data, *palettes;
-    UBYTE data_length, palette_data_length;
+    UBYTE i, data_length, palette_data_length;
 
-    if(level == 255U) {
+    if(level == 0U || level >= 5U){
         SWITCH_ROM_MBC1(PAUSE_DATA_BANK);
     } else {
         SWITCH_ROM_MBC1(GAME_BACKGROUNDS_BANK);
     }
 
     switch(level) {
+        case 0U:
+            tile_data = pause_bg_data;
+            tiles = pause_bg_tiles;
+            data_length = pause_bg_data_length;
+            if(CGB_MODE) {
+                palette_data = pause_bg_palette_data;
+                palettes = pause_bg_palettes;
+                palette_data_length = pause_bg_palette_data_length;
+            }
+            break;
         case 1U:
             if(CGB_MODE) {
                 tile_data = background1_dx_data;
@@ -305,24 +300,15 @@ void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer) {
                 palette_data_length = background4_palette_data_length;
             }
             break;
-        case 5U:
+        default:
+            i = (level - 5U) & 7U;
             tile_data = background5_data;
-            tiles = background5_tiles;
+            tiles = background5_tiles_ptrs[i];
             data_length = background5_data_length;
             if(CGB_MODE) {
                 palette_data = background5_palette_data;
                 palettes = background5_palettes;
                 palette_data_length = background5_palette_data_length;
-            }
-            break;
-        case 255U:
-            tile_data = pause_bg_data;
-            tiles = pause_bg_tiles;
-            data_length = pause_bg_data_length;
-            if(CGB_MODE) {
-                palette_data = pause_bg_palette_data;
-                palettes = pause_bg_palettes;
-                palette_data_length = pause_bg_palette_data_length;
             }
             break;
     }
@@ -331,7 +317,7 @@ void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer) {
         set_bkg_data_rle(background1_dx_tiles_offset, data_length, tile_data);
     }
 
-    if(level == 255U) {
+    if(level == 0U) {
         set_bkg_tiles_rle(0U, 0U, 20U, 18U, tiles);
     } else {
         set_bkg_tiles_rle(0U, 0U, 18U, 32U, tiles);
@@ -339,7 +325,7 @@ void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer) {
 
     if(CGB_MODE) {
         VBK_REG = 1U;
-        if(level == 255U) {
+        if(level == 0U) {
             set_bkg_tiles_rle(0U, 0U, 20U, 18U, palettes);
         } else {
             set_bkg_tiles_rle(0U, 0U, 18U, 32U, palettes);
@@ -357,7 +343,7 @@ void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer) {
 }
 
 void setIngameHUD(UBYTE first_load, UBYTE pal_buffer) {
-    SWITCH_ROM_MBC1(GAME_BACKGROUNDS_BANK);
+    SWITCH_ROM_MBC1(HUD_DATA_BANK);
 
     // Load tile data
     if(first_load) {

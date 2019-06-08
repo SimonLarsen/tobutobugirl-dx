@@ -5,7 +5,7 @@
 #define intro_bg_tiles_height 32U
 #define intro_bg_tiles_offset 0U
 
-extern const unsigned char intro_bg_tiles[];
 extern const unsigned char intro_bg_data[];
+extern const unsigned char intro_bg_tiles[];
 
 #endif

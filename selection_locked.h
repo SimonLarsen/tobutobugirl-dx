@@ -6,8 +6,8 @@
 #define selection_locked_tiles_height 6U
 #define selection_locked_tiles_offset 90U
 
-extern const unsigned char selection_locked_tiles[];
 extern const unsigned char selection_locked_data[];
 extern const unsigned char selection_locked_data2[];
+extern const unsigned char selection_locked_tiles[];
 
 #endif

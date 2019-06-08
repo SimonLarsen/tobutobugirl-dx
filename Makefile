@@ -35,10 +35,10 @@ OBJ_BANK3=intro.o intro_bg.o intro_bg_dx.o ending.o
 OBJ_BANK4=jukebox.o
 OBJ_BANK5=winscreen.o logos.o
 OBJ_BANK6=title.o
-OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o background5.o \
+OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o
+OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o minigamescore.o background5.o background5_data_ptrs.o
+OBJ_BANK9=win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o win5.o win5_dx.o \
 		  hud.o hud_dx.o hud_sgb.o
-OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o minigamescore.o
-OBJ_BANK9=win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o win5.o win5_dx.o
 OBJ_BANK10=sound_data.o init.o wipe.o
 OBJ_BANK11=set_banner.o banner_data_ptrs.o \
 		   selection1.o selection2.o selection3.o selection4.o \
@@ -190,7 +190,7 @@ selection_locked.asm: selection_locked.c selection_locked.h
 selection_locked_dx.asm: selection_locked_dx.c selection_locked_dx.h
 	${compile-source}
 
-set_banner.asm: set_banner.c set_banner.h set_data_rle.h gamestate.h data_ptrs.h selection1.h selection2.h selection3.h selection4.h selection5.h selection5_dx.h selection_highscore.h selection_highscore_dx.h selection_jukebox.h selection_jukebox_dx.h selection_locked.h selection_locked_dx.h
+set_banner.asm: set_banner.c set_banner.h set_data_rle.h gamestate.h selection1.h selection2.h selection3.h selection4.h selection5.h selection5_dx.h selection_highscore.h selection_highscore_dx.h selection_jukebox.h selection_jukebox_dx.h selection_locked.h selection_locked_dx.h
 	${compile-source}
 
 init.asm: init.c init.h data/sgb/border.h sgb_send_packet.h

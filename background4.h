@@ -6,8 +6,8 @@
 #define background4_tiles_offset 35U
 #define background4_palette_data_length 3U
 #define background4_palette_offset 0U
-extern const unsigned char background4_tiles[];
 extern const unsigned char background4_data[];
+extern const unsigned char background4_tiles[];
 extern const unsigned char background4_palettes[];
 extern const unsigned int background4_palette_data[];
 

@@ -6,8 +6,8 @@
 #define selection5_tiles_height 6U
 #define selection5_tiles_offset 90U
 
-extern const unsigned char selection5_tiles[];
 extern const unsigned char selection5_data[];
 extern const unsigned char selection5_data2[];
+extern const unsigned char selection5_tiles[];
 
 #endif

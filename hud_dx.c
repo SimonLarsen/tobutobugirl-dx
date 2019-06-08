@@ -23,11 +23,12 @@ const unsigned char hud_dx_tiles[] = {
 	  0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  10,  11,  12,  13,  10,  11,  12,  13,  10,  11,
      12,  13,  10,  11,  14,  13,  15,  16,   0,   1,   2,   3,   4,   5,  17,  18
 };
-const unsigned char hud_dx_palettes[] = {
-      5,   5,  26,   6,   6,   2,   5,   5,   8
-};
 
 const unsigned int hud_dx_palette_data[] = {
-    28638, 30300,   0, 18668,
+	28638, 30300,   0, 18668,
     28638, 7913, 27881,   0
 };
+const unsigned char hud_dx_palettes[] = {
+	  5,   5,  26,   6,   6,   2,   5,   5,   8
+};
+

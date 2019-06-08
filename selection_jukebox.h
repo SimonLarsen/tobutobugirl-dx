@@ -6,8 +6,8 @@
 #define selection_jukebox_tiles_height 6U
 #define selection_jukebox_tiles_offset 90U
 
-extern const unsigned char selection_jukebox_tiles[];
 extern const unsigned char selection_jukebox_data[];
 extern const unsigned char selection_jukebox_data2[];
+extern const unsigned char selection_jukebox_tiles[];
 
 #endif

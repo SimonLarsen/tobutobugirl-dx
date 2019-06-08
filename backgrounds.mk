@@ -58,7 +58,7 @@ background4.h background4.c: data/bg/background4.png data/bg/background4_dx.png
 	$(IMGTOGB) --map -O 35 --rle $< --dx data/bg/background4_dx.png -C background4.c background4.h
 
 background5.h background5.c: data/bg/background5.png data/bg/background5_dx.png
-	$(IMGTOGB) --map -O 35 --rle $< --dx data/bg/background5_dx.png -C background5.c background5.h
+	$(IMGTOGB) --map -O 35 --rle --split_tiles 9 $< --dx data/bg/background5_dx.png -C background5.c background5.h
 
 pause_bg.h pause_bg.c: data/bg/pause_bg.png data/bg/pause_bg_dx.png
 	$(IMGTOGB) --map -O 35 --rle $< --dx data/bg/pause_bg_dx.png -C pause_bg.c pause_bg.h

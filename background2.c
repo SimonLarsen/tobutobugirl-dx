@@ -91,10 +91,11 @@ const unsigned char background2_tiles[] = {
      95,  95,   2, 105, 106, 107, 108, 109, 110, 111,  95,  95,   3, 112,  72,  72,   2, 113, 114,  95,
      95,  14, 115, 116, 117,  95,  95, 111
 };
-const unsigned char background2_palettes[] = {
-      0,   0, 255,   0,   0, 255,   0,   0,  66
-};
 
 const unsigned int background2_palette_data[] = {
-    32767, 29296, 19690, 7236
+	32767, 29296, 19690, 7236
 };
+const unsigned char background2_palettes[] = {
+	  0,   0, 255,   0,   0, 255,   0,   0,  66
+};
+
