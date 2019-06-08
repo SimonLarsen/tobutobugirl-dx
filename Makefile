@@ -36,7 +36,8 @@ OBJ_BANK4=jukebox.o
 OBJ_BANK5=winscreen.o logos.o
 OBJ_BANK6=title.o
 OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o
-OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o minigamescore.o background5.o background5_data_ptrs.o
+OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o minigamescore.o \
+		  background5.o background5_data_ptrs.o background5_palettes.o
 OBJ_BANK9=win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o win5.o win5_dx.o \
 		  hud.o hud_dx.o hud_sgb.o
 OBJ_BANK10=sound_data.o init.o wipe.o
@@ -86,6 +87,9 @@ background4.asm: background4.c background4.h
 	${compile-source}
 
 background5.asm: background5.c background5.h
+	${compile-source}
+
+background5_palettes.asm: background5_palettes.c background5_palettes.h
 	${compile-source}
 
 pause_bg.asm: pause_bg.c pause_bg.h

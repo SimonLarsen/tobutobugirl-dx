@@ -355,34 +355,4 @@ const unsigned char background5_tiles9[] = {
       3, 125, 123,  78,  79,  79,   6, 126,  77,  73,  35,  35,   3
 };
 
-const unsigned int background5_palette_data[] = {
-	32767, 26553, 22121,   0
-};
-const unsigned char background5_palettes[] = {
-	  0,   0, 255,   0,   0, 255,   0,   0,  66
-};
-const unsigned char background5_palettes2[] = {
-	  0,   0, 255,   0,   0, 255,   0,   0,  66
-};
-const unsigned char background5_palettes3[] = {
-	  0,   0, 255,   0,   0, 255,   0,   0,  66
-};
-const unsigned char background5_palettes4[] = {
-	  0,   0, 255,   0,   0, 255,   0,   0,  66
-};
-const unsigned char background5_palettes5[] = {
-	  0,   0, 255,   0,   0, 255,   0,   0,  66
-};
-const unsigned char background5_palettes6[] = {
-	  0,   0, 255,   0,   0, 255,   0,   0,  66
-};
-const unsigned char background5_palettes7[] = {
-	  0,   0, 255,   0,   0, 255,   0,   0,  66
-};
-const unsigned char background5_palettes8[] = {
-	  0,   0, 255,   0,   0, 255,   0,   0,  66
-};
-const unsigned char background5_palettes9[] = {
-	  0,   0, 255,   0,   0, 255,   0,   0,  66
-};
 

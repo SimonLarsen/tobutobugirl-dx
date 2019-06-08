@@ -504,6 +504,9 @@ void updatePlayer() {
     if(player_x <= 22U) player_x = 23U;
     else if(player_x >= 154U) player_x = 153U;
 
+    // Don't underflow in auto scroll level
+    if(player_y <= 11U) player_y = 12U;
+
     // Check bounds
     if(player_y > SCREENHEIGHT+5U) {
         player_y = SCREENHEIGHT;
@@ -546,10 +549,15 @@ void updatePlayer() {
     }
 
     // Update scroll
-    scroll_y = 0U;
-    if(player_y < SCRLMGN) {
-        scroll_y = SCRLMGN - player_y;
-        player_y = SCRLMGN;
+    if(wave == WAVE_SPC_AUTOSCROLL) {
+        scroll_y = ticks & 1U;
+        player_y += scroll_y;
+    } else {
+        scroll_y = 0U;
+        if(player_y < SCRLMGN) {
+            scroll_y = SCRLMGN - player_y;
+            player_y = SCRLMGN;
+        }
     }
 }
 
@@ -799,6 +807,11 @@ void generateSpawnData() {
         case WAVE_SPC_GHOSTS:
             spawn_levels = spawn_level_gen;
             mymemset(spawn_levels, E_GHOST, 8U);
+            break;
+        case WAVE_SPC_AUTOSCROLL:
+            scrolled_length = 10U;
+            clock_interval = 8U;
+            spawn_levels = spawn_level_data + 32U;
             break;
         case 0U:
             spawn_levels = spawn_level_data + 8U;
