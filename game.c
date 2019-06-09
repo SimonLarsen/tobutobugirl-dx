@@ -202,12 +202,25 @@ void initGame() {
     DISPLAY_OFF;
 
     // Init variables
+    timer = 0U;
+    ticks = 0U;
+    next_spawn = 0U;
+    progress = 0U;
+    progressbar = 121U;
+    portal_spawned = 0U;
+    repeat_spikes = 0U;
+    ghost_frame = 0U;
+    next_entity = 0U;
+    remaining_time = MAX_TIME;
+    scene_state = INGAME_ACTIVE;
+
     player_x = 88U;
     player_y = SCRLMGN;
     player_xdir = RIGHT;
     player_ydir = DOWN;
     player_yspeed = 0U;
     player_bounce = 0U;
+    blip_bar = 0U;
     dashing = 0U;
     dashes = MAX_DASHES;
     dash_xdir = 0U;
@@ -224,31 +237,17 @@ void initGame() {
     } else {
         spawn_levels = (UBYTE*)&spawn_level_data[(level-1U) * 24];
         scrolled_length = scrolled_length_data[level-1U];
-
         allowed_spikes = allowed_spikes_data[level-1U];
     }
 
-    scene_state = INGAME_ACTIVE;
     if(level != 5U || wave == 0U) {
         // don't reset boost, time and stomps when progressing in level 5
         blips = MAX_BOOST;
         elapsed_time = 0UL;
         kills = 0UL;
     }
-    blip_bar = 0U;
 
-    ticks = 0U;
-    next_spawn = 0U;
     next_clock = clock_interval;
-    progress = 0U;
-    progressbar = 121U - PROGRESS_POS(progress);
-    portal_spawned = 0U;
-    repeat_spikes = 0U;
-    ghost_frame = 0U;
-    next_entity = 0U;
-
-    timer = 0U;
-    remaining_time = MAX_TIME;
 
     restoreGame(first_load, 0U);
     set_sprite_data(4U, portal_data_length, portal_data);
@@ -752,13 +751,6 @@ UBYTE spawnEntity(UBYTE type, UBYTE x, UBYTE y, UBYTE dir) {
     return next_entity;
 }
 
-void clearEntities() {
-    UBYTE i;
-    for(i = 0U; i != MAX_ENTITIES; ++i) {
-        entity_type[i] = E_NONE;
-    }
-}
-
 void initSpawns() {
     UBYTE i, x, y, type;
 
@@ -772,6 +764,8 @@ void initSpawns() {
     x = last_spawn_x + 16U;
     y = 112U;
     spawnEntity(type, x, y, NONE);
+
+    if(wave == WAVE_SPC_GHOSTS) type = E_GHOST;
 
     for(i = 0U; i != 3U; ++i) {
         last_spawn_x = (last_spawn_x + 32U + (rand() & 63U)) & 127U;

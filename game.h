@@ -1,18 +1,19 @@
 #ifndef GAME_H
 #define GAME_H
 
+#define getSkinData() (player_skin == 1U ? skin1_data : skin2_data)
+#define clearEntities() (mymemset(entity_type, 0U, MAX_ENTITIES))
+#define killPlayer() (scene_state = INGAME_DEAD)
+
 void initGame();
 void restoreGame(UBYTE update, UBYTE from_pause);
-#define getSkinData() (player_skin == 1U ? skin1_data : skin2_data)
 void updateInput();
 void updatePlayer();
 void updateHUD();
 void updateHUDTime();
-#define killPlayer() (scene_state = INGAME_DEAD)
 void bouncePlayer(UBYTE entity, UBYTE str);
 void updateEntities();
 UBYTE spawnEntity(UBYTE type, UBYTE x, UBYTE y, UBYTE dir);
-void clearEntities();
 void initSpawns();
 void generateSpawnData();
 void updateSpawns();
