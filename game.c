@@ -191,9 +191,9 @@ const UBYTE retry_text_data[RETRY_NUM_CHARS * 4] = {
 };
 
 const UBYTE restart_window_tiles[9] = {
-    3U, 3U, 18U,
-    0xFFU, 0xFFU, 108U,
-    5U, 5U, 18U
+      3U,   3U,  18U,
+    255U, 255U, 108U,
+      5U,   5U,  18U
 };
 
 void initGame() {
