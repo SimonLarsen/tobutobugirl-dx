@@ -201,11 +201,6 @@ void initGame() {
     mus_setPaused(1U);
     DISPLAY_OFF;
 
-    SPRITES_8x16;
-    OBP0_REG = 0xD0U; // 11010000
-    OBP1_REG = 0x40U; // 01010000
-    BGP_REG = 0xE4U;  // 11100100
-
     // Init variables
     player_x = 88U;
     player_y = SCRLMGN;
@@ -296,17 +291,12 @@ void initGame() {
     updateHUDTime();
     initSpawns();
 
-    SHOW_BKG;
-    SHOW_WIN;
-    SHOW_SPRITES;
     DISPLAY_ON;
 
     enable_interrupts();
 }
 
 void restoreGame(UBYTE update, UBYTE from_pause) {
-    disable_interrupts();
-
     if(sgb_mode) {
         sgb_send_packet(SGB_GAME_STAGE_PAL01); delay(62U);
         sgb_send_packet(SGB_GAME_ATTRDIV);
@@ -328,14 +318,16 @@ void restoreGame(UBYTE update, UBYTE from_pause) {
 
     updateHUDTime();
 
-    BGP_REG = 0xE4U;
+    SPRITES_8x16;
     SHOW_BKG;
     SHOW_WIN;
     SHOW_SPRITES;
 
-    move_bkg(0U, 112U-progress);
+    OBP0_REG = 0xD0U; // 11010000
+    OBP1_REG = 0x40U; // 01010000
+    BGP_REG = 0xE4U;  // 11100100
 
-    enable_interrupts();
+    move_bkg(0U, 112U-progress);
 }
 
 void updateInput() {
@@ -1494,9 +1486,11 @@ ingame_start:
             }
 
             if(scene_state != INGAME_QUIT) {
+                disable_interrupts();
                 DISPLAY_OFF;
                 restoreGame(1U, 1U);
                 DISPLAY_ON;
+                enable_interrupts();
                 mus_setPaused(0U);
             }
         }
