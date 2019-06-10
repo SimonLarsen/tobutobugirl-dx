@@ -151,6 +151,10 @@ const UBYTE retry_text[19] = {
     24U, 25U // no
 };
 
+const UBYTE special_text[7] = {
+    29U, 26U, 15U, 13U, 19U, 11U, 22U
+};
+
 #define RETRY_NUM_CHARS 26U
 
 const UBYTE retry_text_data[RETRY_NUM_CHARS * 4] = {
@@ -232,7 +236,6 @@ void initGame() {
 
     if (level == 5U) {
         generateSpawnData();
-        is_special_wave = mymod(wave+1U, 5U) == 0U;
         wave_bg = wave - mydiv(wave+1U, 5U);
     } else {
         spawn_levels = (UBYTE*)&spawn_level_data[(level-1U) * 24];
@@ -1223,7 +1226,7 @@ void fadeSpritesToWhiteCGB(UBYTE delay) {
 }
 
 void showWaveScreen() {
-    UBYTE i, j;
+    UBYTE i, xoffset, yoffset;
     UWORD tmp;
     UBYTE text[3] = {10U, 10U, 10U};
 
@@ -1269,9 +1272,12 @@ void showWaveScreen() {
         --i;
     }
 
-    j = 64U;
-    if(wave >= 99U) j -= 8U;
-    else if(wave >= 9U) j -= 4U;
+    xoffset = 64U;
+    if(wave >= 99U) xoffset -= 8U;
+    else if(wave >= 9U) xoffset -= 4U;
+
+    yoffset = 80U;
+    if(is_special_wave) yoffset -= 4U;
 
     SHOW_WIN;
     SHOW_BKG;
@@ -1299,12 +1305,18 @@ void showWaveScreen() {
         if(CLICKED(J_A) || CLICKED(J_START)) break;
 
         for(i = 0U; i != 4U; ++i) {
-            setSprite(j+(i << 3), 80U+cos4_16[(i+(ticks >> 1)) & 15U], wave_text[i], OBJ_PAL0);
+            setSprite(xoffset+(i << 3), yoffset+cos4_16[(i+(ticks >> 1)) & 15U], wave_text[i], OBJ_PAL0);
         }
 
         for(i = 5U; i != 8U; ++i) {
             if(text[i-5U] == 10U) continue;
-            setSprite(j+(i << 3), 80U+cos4_16[(i+(ticks >> 1)) & 15U], text[i-5U], OBJ_PAL0);
+            setSprite(xoffset+(i << 3), yoffset+cos4_16[(i+(ticks >> 1)) & 15U], text[i-5U], OBJ_PAL0);
+        }
+
+        if(is_special_wave) {
+            for(i = 0U; i != 7U; ++i) {
+                setSprite(60U+(i << 3), 88U+cos4_16[(i+(ticks >> 1)) & 15U], special_text[i], OBJ_PAL0);
+            }
         }
 
         clearRemainingSprites();
@@ -1411,6 +1423,7 @@ void enterGame() {
 
 ingame_start:
     if(level == 5U) {
+        is_special_wave = mymod(wave+1U, 5U) == 0U;
         showWaveScreen();
     }
 
