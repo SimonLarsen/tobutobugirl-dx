@@ -1382,12 +1382,12 @@ void showInfiniteRestart() {
             playSound(SFX_MENU_SWITCH);
         }
         if(CLICKED(J_A) || CLICKED(J_START)) {
-            STOP_MUSIC;
             playSound(SFX_MENU_CONFIRM);
             if(sub_selection == 0U) {
                 wave = 0U;
             } else {
                 gamestate = GAMESTATE_WINSCREEN;
+                STOP_MUSIC;
             }
             break;
         }
