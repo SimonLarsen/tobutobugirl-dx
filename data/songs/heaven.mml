@@ -59,7 +59,7 @@ A @wd2 v8 @v0,0
 A a64^96r48r64<a+64^96r48r64>d64^96r48r64f64^96r48r64>d64^96r48r64<a+64^96r48r64>f64^96r48r64>f64^96r48r64<<c64^96r48r64g64^96r48r64>c64^96r48r64f64^96r48r64g64^96r48r64a+64^96r48r64a64^96r48r64>e64^96r48r64
 A <<<a64^96r48r64>e64^96r48r64g64^96r48r64a64^96r48r64>d64^96r48r64a64^96r48r64e64^96r48r64 v8 >c64^96r48r64 v8 <<<d64^96r48r64f+64^96r48r64>c64^96r48r64f+64^96r48r64a64^96r48r64>f64^96r48r64e64^96r48r64 v8 a64^96r48r64
 A v8 <<g64^96r48r64>d64^96r48r64f64^96r48r64a+64^96r48r64g64^96r48r64>d64^96r48r64f64^96r48r64a+64^96r48r64<<c64^96r48r64>c+64^96r48r64e64^96r48r64f64^96r48r64a+64^96r48r64c+64^96r48r64>c+64^96r48r64g64^96r48r64
-A v8 >f12r24 v4 f12r24 v8 e12r24 v4 f12r24 v8 c12r24 v4 e12r24 v8 <g12r24 v4 >c12r24
+A v8 >f12r24 v3 f12r24 v8 e12r24 v3 f12r24 v8 c12r24 v3 e12r24 v8 <g12r24 v3 >c12r24
 A v8 <<a64^96r48r64<a+64^96r48r64>d64^96r48r64f64^96r48r64>d64^96r48r64<a+64^96r48r64>f64^96r48r64>f64^96r48r64<<e64^96r48r64g64^96r48r64>c64^96r48r64f64^96r48r64g64^96r48r64e64^96r48r64a64^96r48r64a+64^96r48r64
 A <g64^96r48r64>c64^96r48r64f64^96r48r64>c64^96r48r64<g64^96r48r64>e64^96r48r64f64^96r48r64>c64^96r48r64<<<f+64^96r48r64>c64^96r48r64g64^96r48r64a64^96r48r64f+64^96r48r64>c64^96r48r64g64^96r48r64a64^96r48r64
 A <<f64^96r48r64a+64^96r48r64>d64^96r48r64f64^96r48r64a64^96r48r64>c64^96r48r64<f64^96r48r64a+64^96r48r64<c64^96r48r64g64^96r48r64>d64^96r48r64f64^96r48r64g64^96r48r64e64^96r48r64a64^96r48r64>d64^96r48r64
@@ -94,7 +94,7 @@ A l8 v8 b v5 b
 A v2 b v8 g v5 g v2 g v8 a v4 a v8 f v4 f
 
 ; 7/8
-A @wd2 o5 v7 y0
+A @wd2 o5 v5 y0
 A [e4r4.erdrdr2]4
 A @@102 [fr]2 @@103
 A @@102 [dr]2 @@103
@@ -103,21 +103,24 @@ A @@102 [dr]2 @@103
 
 ; 4/4
 A @wd2 o4 v7 y0 @ve0 l8
-A [ a4rdga<a>g
-A rgr<a>gadg
-A a4rdga<b>g
-A rgr<b>gadg ]2
 
-A @wd1 l16 >
-A v8 are v4 a v8 f v4 e v8 d v4 f v8 a v4 d v8 e v4 a v8 f v4 e v8 d v4 f
-A v8 a v4 d v8 e v4 a v8 f v4 e v8 d v4 f v8 a v4 d v8 e v4 a v8 f v4 e v8 d v4 f
-A v8 a v4 d v8 e v4 a v8 f+ v4 e v8 d v4 f+ v8 a v4 d v8 e v4 a v8 f+ v4 e v8 d v4 f+
-A v8 a v4 d v8 e v4 a v8 f+ v4 e v8 d v4 f+ v8 a v4 d v8 e v4 a v8 f+ v4 e v8 d v4 f+
-A v8 a v4 d v8 e v4 a v8 f v4 e v8 d v4 f v8 a v4 d v8 e v4 a v8 f v4 e v8 d v4 f
-A v8 a v4 d v8 e v4 a v8 f v4 e v8 d v4 f v8 a v4 d v8 e v4 a v8 f v4 e v8 d v4 f
-A v8 a v4 d v8 e v4 a v8 f+ v4 e v8 d v4 f+ v8 a v4 d v8 e v4 a v8 f+ v4 e v8 d v4 f+
+@@109 = {a4rdga<a>g rgr<a>gadg a4rdga<b>g}
+A @@109
+A rgr<b>gadg
+A @@109
+A >fc+<af>c+<afc+
 
-A l32 v10 <f+ v6 f+ v10 a v6 f+ v10 b v6 a v10 >d v6 <b v10 a v6 >d v10 <b v6 a v10 >e v6 <b v10 >f+ v6 e v10 d v6 f+ v10 e v6 d v10 a v6 e v10 b v6 a v10 e v6 b v10 f+ v6 e v10 a v6 f+ v10 >d v6 <a
+A @wd1 l16
+A v8 a v5 a v8 >d v5 <a v8 >e v5 d v8 <a v5 >e v8 c v5 <a v8 >e v5 c v8 <g v5 >e v8 c v5 <g
+A v8 f v5 >c v8 c v5 <f v8 >d v5 c v8 <c v5 >d v8 <d v5 c v8 f v5 d v8 g v5 f v8 a v5 g
+A v8 d v5 a v8 >c v5 <d v8 >d v5 c v8 <g v5 >d v8 <a v5 g v8 >d v5 <a v8 f v5 >d v8 <a v5 f
+A v8 >f v5 <a v8 >c v5 f v8 d v5 c v8 f v5 d v8 >c v5 <f v8 b v5 >c v8 <g v5 b v8 d v5 g
+A v8 <a v5 >d v8 d v5 <a v8 >e v5 d v8 <a v5 >e v8 c v5 <a v8 >e v5 c v8 <g v5 >e v8 c v5 <g
+A v8 f v5 >c v8 c v5 <f v8 >d v5 c v8 <c v5 >d v8 <d v5 c v8 f v5 d v8 g v5 f v8 a v5 g
+A v8 d v5 a v8 >c v5 <d v8 >d v5 c v8 <g v5 >d v8 <a v5 g v8 >d v5 <a v8 f v5 >d v8 <a v5 f
+A l32
+A v8 f+ v6 f+ v8 a v6 f+ v8 b v6 a v8 >d v6 <b v8 a v6 >d v8 <b v6 a v8 >e v6 <b v8 >f+ v6 e v8 d v6 f+ v8 e v6 d v8 a v6 e v8 b v6 a v8 e v6 b v8 f+ v6 e v8 a v6 f+ v8 >d v6 <a
+
 
 @@104 = {y0 c+r v6 y1 c+r v3 y-1 c+r v11 y0 <ar v6 y-1 ar v3 y1 ar v11 y0 br v6 y1 br}
 @@105 = {v3 y-1 br v11 y0 gr v6 y-1 gr v3 y0 gr v11 y1 ar v6 y-1 ar v11 y0 fr v6 y1 fr}
@@ -136,7 +139,8 @@ A @@106
 A @@108]2
 
 A @wd2 l16 v5 o4
-A r8f+r>>erdrf+rer<brf+r
+A r8
+A f+r>>erdrf+rer<brf+r
 A er<f+r>>erdrf+rer<brf+r
 A er8.c+r<g+r>c+rg+r<g+r>d+r
 A a+r>cr<grdr<a+r>a+rfrcr
@@ -151,75 +155,65 @@ A a+r>cr<grdr<a+r>a+rfrcr
 A <grf+r>>erdrf+rer<brf+r
 A er<f+r>>erdrf+rer<brf+r
 A er8.c+r<g+r>c+rg+r<g+r>d+r
-A a+r>cr<gr v8 <a+r>a+rfrcr<gr
+A a+r>cr<grdr<a+r>a+rfrcr
+A <gr v8 g v5 g v8 >d v5 <g v8 a+ v5 >d v8 a v5 <a+ v8 >d v5 a v8 <a+ v5 >d v8 d v5 <a+
+A r>d v8 <gr>c+ v5 <g v8 a+ v5 >c+ v8 g v5 <a+ v8 >c+ v5 g v8 <a+ v5 >c+ v8 c+ v5 <a+
+A r>c+ v8 <fr>c v5 <f v8 g v5 >c v8 f v5 <g v8 >c v5 f v8 <a+ v5 >c v8 c v5 <a+
+A r>c v8 <a+ra v5 a+ v8 f v5 a v8 <a v5 >f v8 <a+ v5 a v8 >c v5 <a+ v8 >f v5 c
+A rf v8 gr>d v5 <g v8 a+ v5 >d v8 a v5 <a+ v8 >d v5 a v8 <a+ v5 >d v8 d v5 <a+
+A r>d v8 <gr>c+ v5 <g v8 a+ v5 >c+ v8 g v5 <a+ v8 >c+ v5 g v8 <a+ v5 >c+ v8 c+ v5 <a+
+A r>c+ v8 <fr>c v5 <f v8 g v5 >c v8 f v5 <g v8 >c v5 f v8 <a+ v5 >c v8 c v5 <a+
+A r>c v8 <a+ra v5 a+ v8 f v5 a v8 <a v5 >f v8 <a+ v5 a v8 >c v5 <a+ v8 >f v5 c
 
-A @wd0 l32
-A v9 >crerar16.cr16.crerar>cr<crerar>cr<drfr
-A a+r16.dr16.drfra+r>dr<drfra+r>dr<drfra+r>dr
-A <drfra+r16.dr16.drfra+r>dr<drfra+r>dr<crer
-A ar16.cr16.crfra+r>cr<crergr>cr<<a+r>c+rgra+r
-A crdrfr16.cr16.crdrfr>cr<crdrfr>cr<<a+r>dr
-A gr16.<a+r16.a+r>drgra+r<a+r>drgra+r<a+r>drgra+r
-A <a+r>crfr16.<a+r16.a+r>crfra+r<a+r>crfra+r<a+r>cr
-A er16.<a+r16.a+r>crera+r<a+r>crfra+r<a+r>crgra+r
-A <br>drarbr<br>dr<br>drarbr<br>drarbr<a+r>c+r
-A ara+r<a+r>c+r<a+r>c+rara+r<a+r>c+rgra+r<a+r>c+rgra+r
-A <ar>d+rgrar<ar>d+r<ar>d+rgrar<ar>d+rgrar<ar>dr
-A f+rgr<ar>dr<ar>drerf+r<ar>drerf+r<ar>drerf+r
-A <a+r>drara+r>drfr<a+r>drara+r>drfr<a+r>drara+r
-A <<crergra+r>crdrergrcrergra+r>crdrergr
-A <<crergrar>crergrar>crerfrgrargrercr
-A <argrercr<argrercrcrergrar>crergrar
+A @wd0 v9 d @wd2 v5 f @wd0 v9 e v5 d v9 f v5 e v9 a v5 f v9 >d v5 <a v9 a v5 >d v9 f v5 <a v9 >d v5 f
+A v9 <<b v5 >>d v9 <d v5 <b v9 >g v5 d v9 b v5 g v9 >d v5 <b v9 b v5 >d v9 g v5 <b v9 >d v5 g
+A v9 <f v5 >d v9 <a+ v5 f v9 >f v5 <a+ v9 >d v5 f v9 a+ v5 d v9 f v5 a+ v9 >d v5 <f v9 f v5 >d
+A v9 <<c v5 >f v9 <f v5 c v9 g v5 f v9 f v5 g v9 c v5 f v9 g v5 c v9 a+ v5 g v9 >f v5 <a+
+A v9 >d v5 f v9 <a+ v5 >d v9 <g v5 a+ v9 a+ v5 g v9 >g v5 <a+ v9 d v5 >g v9 <g v5 d v9 d v5 g
+A v9 >d v5 <d v9 a+ v5 >d v9 <g v5 a+ v9 a+ v5 g v9 >g v5 <a+ v9 d v5 >g v9 <g v5 d v9 d v5 g
+A v9 >a+ v5 <d v9 a+ v5 >a+ v9 d v5 <a+ v9 >f v5 d v9 a+ v5 f v9 <a+ v5 >a+ v9 d v5 <a+ v9 >f v5 d
+A v9 a+ v5 f v9 <a+ v5 >a+ v9 d+ v5 <a+ v9 >f+ v5 d+ v9 >c v5 <f+ v9 <f+ v5 >>c v9 <d+ v5 <f+ v9 >g+ v5 d+
 
-A @wd1 v8
-A <<<a+r>gr>crer<a+r>gr>crer<a+r>gr>crdrercr<gr<a+r
-A >ercr<gr<a+r>ercr<grcr<a+r>gr>crer<a+r>gr>crer
-A <<<ar>crgr>cr<ar>crgr>cr<ar>crfrgr>cr<grcr<ar
-A >cr<grcr<ar>cr<grcr<ar>crergr>cr<ar>crgr>cr
-A <<<gr>c+rfra+rgr>c+rfra+rgr>c+rfrgra+rfrc+r<gr
-A a+rfrc+r<gra+rfrc+r<gra+r>c+rfra+rgr>c+rfra+r
-A <<fr>crergrarfr>crergrar>ergrargrercr
-A <argrerfr>cr<grercr<frargrercr<frar>cr
-A <era+r>c+rgrera+r>c+rgrera+r>c+rergrc+r<a+rer
-A grc+r<a+rergrc+r<a+rergra+r>c+rgrera+r>c+rgr
-A <<drar>crfrdrar>crfrdrar>crerfrcr<ardr
-A <<f+r>drf+rarf+r>drf+rarf+r>drerf+rarf+rdr<f+r
-A <<gr>drgra+rgr>drgra+r @wd2  v7 g4.. v3 g16
-A v7 f4.. v3 f16 v7 <a+4.. v3 a+16
-A v7 >f2..g16f16
-A e2.. v3 e8
-A v8 <<g6
+A @wd1 v7 > l32
+A frd+rc+rcr<brargrfrd+rc+r<brargrfrd+rc+r
 
-A v7 l12 >>d<a+gd<gr>ga+r>g
-A argd<gdgr<g>gr>g
-A v8 <c6 v7 >ec<ge>grecr>c
-A erc<gc<g>ercgr>c
-A v8 <<<f6>>egrcer<g>cr<e
-A grceg>cer<<f>e>c<<a
+A v8 <gr>drgra+r>drgr<gr>dr<<gr>drgr>drgrar<gr>dr
+A <crergr>crergr>cr<cr<gr>crergr>crer<gr>cr
+A <<<fr>ergrar>crergr<frgr>crerfrar>cr<grar
+A <f+rar>d+rar<f+rar>drar<f+ra+r>ar>cr<<f+rar>drar
+A <<<gr>a+r>crfr>crdr<<gr>a+r>crfr>crdr<<gr>a+r>crfr
+A <<<<a+r>gr>crergr>cr<<a+r>gr>crergr>cr<<a+r>gr>crer
+A <<<<ar>ergrar>crergr<ar>ergrar>crergr<ar>er
+A <<<g+r>frg+rbr>drfr<g+r>frg+rbr>drfr<g+r>frg+rbr
+A <<a+r>crdrgra+r>frgra+r<a+r>crdrgra+r>frgra+r
+A <<frar>drfr>crdr<frar>drfr>crdr<frar>drgr
+A <<<<gr>drgra+r>dr<gr>drgra+r>dr<gr>drgrdr<a+rgr
+A <ergra+r>crdrfrergra+r>crdrfrergra+r>cr
+A <<<gra+r>frgr>crer<gra+r>frgr>crer<gra+r>frg r4
+A r48 @wd2 v9 <<<f32.>c+3^4^192 v4 c+8
 
-A @wd1 v9 l32
-A <ar v8 >ar>drerf+rar v9 <ar v8 >ar v9 <<ar v8 >ar>drf+rar>dr v9 <<ar v8 >ar
-A v9 <dr v8 ar>crd+rf+ra+r v9 dr v8 ar v9 <<dr v8 >ar>crd+rf+rar v9 <dr v8 >ar
-A v9 <<gr>a+r>crdrfr<gr>a+r>crdrfr<gr>a+r>crdrfrar
-A frcr<a+r<gr>frdrcr<a+r<gr>frdrcr<a+rdr<gr>gr
-A <a+r>gr>crergr>cr<<a+r>gr>crergr>cr<gr>crergr
-A >cr<grerdrcr<grcr<a+r>>cr<grercr<gr<a+r>>cr<gr
-A <<ar>ergrar>crergr<ar>ergrar>crergr>crer
-A grercr<ar>frercr<erargrer<ar>grercr<ar
-A <<g+r>frg+rbr>drfr<g+r>frg+rbr>drfr<g+r>frg+r>dr
-A g+r<br>frdr<brg+rfr<g+r>frdr<brg+rfr<g+r>frdr
+A @wd1 v7 l16
+A <<f>cga>c<f>cga>c<f>cga>c<a
+A <<<a>eg>ce<a>eg>ce<a>eg>cec
+A <<<<a+>a+>cdf<a+>a+>cdf<a+>a+>cdfd
+A <<<c+g+a+>cfc+g>c @wd2 v6 c8. v4 c v6 <a+8. v4 a+
+A v6 a4.. v4 a v6 >c4.. v4 c
+A v6 <b2... v4 b
 
-A @wd2 l4
-A v7 >d2. v4 d
-A v7 e4. v4 e8 v7 f4. v4 f8
-A v7 f4. v4 f8 v7 d4. v4 d8
-A v7 <b4. v4 b8 v7 >d4. v4 d8
-
-A l16
-A v7 frc v3 f v7 <a+ v3 >c v7 f v3 <a+ v7 >c v3 f v7 <a+ v3 >c v7 f v3 <a+ v7 >c v3 f
-A v7 <a+ v3 >c v7 f v3 <a+ v7 >c v3 f v7 <a+ v3 >c v7 f v3 <a+ v7 a+ v3 >f v7 c v3 <a+ v7 a+ v3 >c
-A v7 e v3 <a+ v7 >c v3 e v7 <a+ v3 >c v7 e v3 <a+ v7 >c v3 e v7 <a+ v3 >c v7 g v3 <a+ v7 >c v3 g
-A v7 <a+ v3 >c v7 g v3 <a+ v7 a+ v3 >g v7 c v3 <a+ v7 >a+ v3 c v7 a v3 a+ v7 f v3 a v7 c v3 f
+A @wd1 v8 <a+8d+8a+8>d+8f8d+8<a+8>c8
+A f4.e2 v6 e8
+A v7 <<<f>fa>cf<f>fa>cf<f>fa>cfc
+A <<<d+a+>d+fa+d+a+>d+fa+d+a+>d+fa+f
+A <<<da>cfada>cfada>cfaf
+A <<<c+>cfgc+>cfgc+>cc+fgfc+<g
+A f v4 g v7 c v4 f v7 g v4 c v7 c v4 g v7 f v4 c v7 c v4 f v7 g v4 c v7 c v4 g
+A v7 f v4 c v7 c v4 f v7 g v4 c v7 c v4 g v7 f v4 c v7 c v4 f v7 g v4 c v7 c v4 g
+A v7 f v4 c v7 c+ v4 f v7 g v4 c+ v7 c+ v4 g v7 f v4 c+ v7 c+ v4 f v7 g v4 c+ v7 c+ v4 g
+A v7 f v4 c+ v7 c+ v4 f v7 g v4 c+ v7 c+ v4 g v7 f v4 c+ v7 c+ v4 f v7 g v4 c+ v7 c+ v4 g
+A v9 <fra+r>d+r<g+r>c+rf+r v7 <drgr
+A >cr<fra+r>cr @v3,1,=32 g+2.. @v0,0
+A r8 v4 g+8r8 v3 g+8r8
+A v2 g+8r8 v1 g+8 r2^8
 
 
 ; pulse channel 2
@@ -279,55 +273,67 @@ B r32<c32r32f+32r64r96g48^64r32>c16.r32<f+32r32g32r32>c16.r64r96<g16.r32>f16.r32
 ; Melody
 B @wd2 @ve0 o4
 B v9 g+32.>a+3^8... v4 a+8
-B v9 a4.. v7 a16 v9 >c4.. v7 c16
-B v9 g4.. v7 g16 v9 f4.. v7 f16
-B v9 a2^8. v7 a16 v9 g16 v7 g16 v9 a+2^16
-B v7 a+16 v8 a8. v6 a16 v8 g8. v6 g16
-B v8 f4.. v6 f16 v7 >e4.. v5 e16
-B v7 f4.. v5 f16 v8 c4.. v6 c16
-B v8 <a2^8. v6 a16 v8 a+16 v6 a+16 v8 g2..
-B v6 g8r8
-B v8 <a4.. v6 a16 v8 >c4.. v6 c16
-B v8 g4.. v6 g16 v8 f4.. v6 f16
-B v8 a2^8. v6 a16 v8 g16 v6 g16 v8 a+1
-B v6 a+8
-B v8 a4.. v6 a16 v8 c2^3^48
-B v6 c8^48 v8 a4.. v6 a16
-B v8 a+4.. v6 a+16 v8 c+2.
-B v6 c+4 v8 g4.. v6 g16
-B v8 f2 v6 f4 v8 <g+8 v5 g+8
+
+
+@@209 = {@v0,0 @v3,2,=32 v8}
+@@210 = {@v0,0 @v3,2,=32 v7}
+@@211 = {@v0,0 @v3,2,=32 v9}
+
+@@212 = {
+v9 a4.. v7 a16 v9 >c4.. v7 c16
+v9 g4.. v7 g16 v9 f4.. v7 f16
+v9 a2^8. v7 a16 v9 g16 v7 g16 v9 a+2^16
+v7 a+16 v8 a8. v6 a16 v8 g8. v6 g16
+v8 f4.. v6 f16 v7 >e4.. v5 e16
+v7 f4.. v5 f16 v8 c4.. v6 c16
+v8 <a2^8. v6 a16 v8 a+16 v6 a+16 v8 g2..
+v6 g8r8
+v8 <a4.. v6 a16 v8 >c4.. v6 c16
+v8 g4.. v6 g16 v8 f4.. v6 f16
+v8 a2^8. v6 a16 v8 g16 v6 g16 v8 a+1
+v6 a+8
+v8 a4.. v6 a16 v8 c2^3^48
+v6 c8^48 v8 a4.. v6 a16
+v8 a+4.. v6 a+16 v8 c+2.
+v6 c+4 v8 g4.. v6 g16
+v8 f2 v6 f4 v8 }
+
+B @@212
+B <g+8 v5 g+8
 B v2 g+8 v8 e8 v5 e8 v2 e8 v8 f+8 v4 f+8 v8 d8 v4 d8
 
 ; 7/8
 B @wd2 o5 v7 y0 @ve0
-B f+4r8<f+8>d8f+8<f+8>g8r8g8r8 @@103
-B f+4r8<f+8>d8f+8<f+8>g8r8g8r8 @@103
-B f+4r8<f+8>d8f+8<f+8>g8r8g8r8 @@103
-B f+4r8<f+8>d8f+8<f+8>g8r8g8r8 @@103
+
+
+B [f+4r8<f+8>d8f+8<f+8>g8r8g8r8 @@103 ]4
 B f+4 @wd1 r8 v9 <d8f+8g8a8>d2<a8>e8d8
-B c+8d8a1^4..r16r4.
-B f+8f+8g8a8>d2c+8<a8g8
-B f+8g8a1^4..r16
+B c+8d8 @v3,2,=32 a1^4.. @v0,0 r4..
+B f+16 v4 f+16 v9 f+8g8a8>d2c+8<a8g8
+B f+8g8 @v3,2,=32 a1^4.. @v0,0 r16
 
 ; 4/4
-B @wd2 o5 y0 @ve0
-B v7 f4.. v5 f16 v7 c4.. v5 c16
-B v7 f4.. v5 f16 v7 >c4.. v5 c16
-B v7 <f+4.. v5 f+16 v7 d4.. v5 d16
-B v7 a4.. v5 a16 v7 >d4.. v5 d16
-B v7 <f4.. v5 f16 v7 c4.. v5 c16
-B v7 f4.. v5 f16 v7 >c4.. v5 c16
-B v7 <f+4.. v5 f+16 v7 d4.. v5 d16
-B v7 a4.. v5 a16 v7 >d4.. v5 d16
 
-B v9 <f4.. v5 f16 v9 c4.. v5 c16
-B v9 f4.. v5 f16 v9 >c4.. v5 c16
-B v9 <f+4.. v5 f+16 v9 d4.. v5 d16
-B v9 a4.. v5 a16 v9 >d4.. v5 d16
-B v9 <f4.. v5 f16 v9 c4.. v5 c16
-B v9 f4.. v5 f16 v9 >c4.. v5 c16
-B v9 <f+4.. v5 f+16 v9 d4.. v5 d16
-B v9 a4.. v5 a16 v9 >d4.. v5 d16
+@@207 = {@v0,0 @v3,2,=32 v7}
+@@208 = { @@207 o5 f4.. v5 f16 @@207 c4.. v5 c16 @@207 f4.. v5 f16 @@207 >c4.. v5 c16 @@207 <f+4.. v5 f+16 @@207 d4.. v5 d16 @@207 a4.. v5 a16 @@207 > }
+
+B @wd2 y0 @ve0
+B @@208 d4.. v5 d16
+B @@208 e4.. v5 e16 @v0,0
+
+B l16
+B @@201 <<a2^16 v7 a @v0,0 v10 a+ v7 a+ v10 >c v7 c @@201 f2^16 @v0,0
+B v7 f v10 <a v7 a v10 a+ v7 a+ v10 >c v7 c v10 @@201 f4.. @v0,0
+B v7 f v10 d v7 d v10 f v7 f v10 g v7 g v10 f v7 f v10 a8
+B v7 a8 v10 f8 v7 f8 v10 d8 v7 d8 v10 c4 v7 c8
+B @@201 d2^16 v7 d @v0,0 v10 e v7 e v10 f v7 f @@201 a4..
+B v7 a @v0,0 v10 a+ v7 a+ v10 a v7 a v10 g v7 g v10 f v7 f @@201 g2^16
+B v7 g @@201 d4.. v7 d @v0,0
+
+B l32
+B v10 c+rd v7 c+ v10 a v7 d v10 f+ v7 a v10 g v7 f+ v10 >d v7 <g v10 >c+ v7 d v10 d v7 c+ v10 a v7 d v10 f+ v7 a v10 g v7 f+ v10 >d v7 <g v10 >c+ v7 d v10 d v7 c+ v10 e v7 d v10 a v7 e
+
+
 
 
 @@202 = {y0 a+r v6 y1 a+r v3 y-1 a+r v11 y0 f+r v6 y-1 f+r v3 y1 f+r v11 y0 g+r v6 y1 g+r}
@@ -347,81 +353,57 @@ B @@204
 B @@206 ]2
 
 B @wd2 v8 y0 o4
-B f+r>>erdrf+rer<brf+rer
+B [ f+r>>erdrf+rer<brf+rer
 B <f+r>>erdrf+rer<brf+rer8.
 B c+r<g+r>c+rg+r<g+r>d+ra+r
-B >cr<grdr<a+r>a+rfrcr<gr
-B f+r>>erdrf+rer<brf+rer
-B <f+r>>erdrf+rer<brf+rer8.
-B c+r<g+r>c+rg+r<g+r>d+ra+r
-B >cr<grdr<a+r>a+rfrcr<gr
-B f+r>>erdrf+rer<brf+rer
-B <f+r>>erdrf+rer<brf+rer8.
-B c+r<g+r>c+rg+r<g+r>d+ra+r
-B >cr<grdr<a+r>a+rfrcr<gr
-B f+r>>erdrf+rer<brf+rer
-B <f+r>>erdrf+rer<brf+rer8.
-B c+r<g+r>c+rg+r<g+r>d+ra+r
-B >cr<grdr
+B >cr<grdr<a+r>a+rfrcr<gr ]4
 
-B @wd1
-B v9 c6^24 v5 c24 v9 f12 v5 f24 v9 a+6^24 v5 a+24
-B v9 a1^3
-B v5 a24 v9 e6^24 v5 e24 v9 g12 v5 g24 v9 >e6^24 v5 e24
-B v9 c2..^12 v5 c24
-B v9 <a+6^24 v5 a+24 v9 a6^24 v5 a24 v9 g12 v5 g24 v9 >c12 v5 c24r8 v9 <f4.^3
-B v5 f24 v9 d12 v5 d24 v9 f12 v5 f24 v9 >d12 v5 d24
-B r8 v9 c12 v5 c24 v9 <f4.^3 v5 f24
-B v9 a6^24 v5 a24 v9 a+12 v5 a+24 v9 a12 v5 a24r8 v9 f12 v5 f24 v9 d12 v5 d24 v9 g3^16
-B v5 g24r16 v9 c6^24 v5 c24 v9 f12 v5 f24 v9 a+6^24 v5 a+24
-B v9 a1^12
-B v5 a24 v9 g12 v5 g24 v9 f12 v5 f24 v9 e6^24 v5 e24 v9 g12 v5 g24 v9 >e6^24 v5 e24
-B v9 c4.^3 v5 c24 v9 c12 v5 c24 v9 c8
-B v5 c8 v9 <a+8 v5 a+8 v9 a8 v5 a8 v9 a+8 v5 a+8 v9 a4
-B v5 a8 v9 d12 v5 d24 v9 d8 v5 d8 v9 c+12 v5 c+24 v9 d12 v5 d24 v9 e8
-B v5 e8 v9 a8 v5 a8 v9 g8 v5 g8 v9 f8 v5 f8 v9 f1...
-B v5 f4
 
-B @wd2 v8 >e2... v3 e16
-B v8 e4^16 v3 e16 v8 d4^16 v3 d16 v8 e8. v3 e16
-B v8 f2... v3 f16
-B v8 f4^16 v3 f16 v8 g4^16 v3 g16 v8 a8. v3 a16
-B v8 a+4.. v3 a+16 v8 f4.. v3 f16
-B v8 >c4.. v3 c16 v8 <a+4.. v3 a+16
-B v8 a1..
-B v3 a4
-B v8 a2^8. v3 a16 v8 g8a8
-B a+4^16 v3 a+16 v8 a4^16 v3 a16 v8 g8. v3 g16
-B v8 f4.. v1 f16 v8 a4.. v1 a16
-B v8 >e4.. v1 e16 v8 d4.. v1 d16
-B v8 c4.. v1 c16 v8 <a+4.. v1 a+16
-B v8 a4.. v1 a16 v8 f4.. v1 f16
-B v8 a2..a+16a16
-B g2.. v1 g8
 
-B @wd1 r1
-B v9 <d3 v5 d24 v9 e3 v5 e24 v9 f6^24 v5 f24
-B v9 a3^8 v5 a24 v9 g3^8 v5 g24
-B v9 a3^8 v5 a24 v9 a+3^8 v5 a+24
-B v9 >c1^12
-B v5 c6 v9 <a6^24 v5 a24 v9 >c8 v5 c24 v9 d6^24 v5 d24 v9 d+3^8
-B v5 d+24 v9 f24d+24d3^8 v5 d24
-B v9 c+3^8 v5 c+24 v9 d3^8 v5 d24
-B v9 a1
-B v5 a4 v9 d6^24 v5 d24 v9 e8 v5 e24 v9 f12 v5 f12r12 v9 g1.^12
-B v5 g4r4
-B v9 g1
-B v5 g4 v9 c6^24 v5 c24 v9 d8 v5 d24 v9 e12 v5 e12r12 v9 f1.^12
-B v5 f4 r4
 
-B @wd2
-B v9 <a+2. v5 a+4
-B v9 >c4. v5 c8 v9 d4. v5 d8
-B v9 a4. v5 a8 v9 g4. v5 g8
-B v9 f8 v5 f8 v9 a4. v5 a8 v9 g1^1^2
-B v5 g4r2
-B r1
+@@213 = {@v0,0 @v3,1,=32 v8}
+@@214 = {@v0,0 @v3,1,=32 v7}
 
+B @@213 >a4.. v4 a16 @@213 >c4.. v4 c16
+B @@213 a+4.. v4 a+16 @@213 a4.. v4 a16
+B @@213 c1..
+B v4 c4
+B @@213 d4.. v4 d16 @@213 e4.. v4 e16
+B @@213 f4.. v4 f16 @@214 >e4.. v4 e16
+
+B @@214 c1.^8 v4 c8 @v0,0
+
+B @wd1 @@201 <<e8. v5 e16
+B @@201 f2^8. v5 f16 @@201 e8. v5 e16
+B @@201 f2^8. v5 f16 @@201 g8. v5 g16
+B @@201 a2^8. v5 a16 @@201 a+8. v5 a+16
+B @@201 g2... v5 g16
+B @@201 a16 v5 a16 @@201 a16 v5 a16 @@201 g8 v5 g8 @@201 f16 v5 f16 @@201 g8 v5 g8 @@201 a8
+B v5 a8 @@201 a16 v5 a16 @@201 g8 v5 g8 @@201 f16 v5 f16 @@201 g4 v5 g8
+B @@201 a+16 v5 a+16 @@201 a+16 v5 a+16 @@201 g8 v5 g8 @@201 f16 v5 f16 @@201 g8 v5 g8 @@201 a+8
+B v5 a+8 @@201 a+16 v5 a+16 @@201 f+8 v5 f+8 @@201 f16 v5 f16 @@201 a+4 v5 a+8 @v0,0
+
+
+B v10 l32
+B >a+rg+rf+rfrerdrcr<a+rg+rf+rerdrcr<a+rg+rf+r
+
+B r2 v11 >d8^32 v6 d32 v11 e8^32 v6 e32 v11 f16. v6 f32
+B v11 a8.. v6 a32 v11 g8.. v6 g32 v11 a8.. v6 a32 v11 a+8.. v6 a+32
+B @@201 >c2^16 v6 c16 @v0,0 v9 <a16. v6 a32 v9 >c16. v6 c32 v9 d16. v6 d32
+B @@211 d+8.. v6 d+32 @@211 d8.. v6 d32 @@211 c+8.. v6 c+32 @v0,0 v9 d16 v6 d16 @@211 a4..
+B v6 a16 @v0,0 v9 c8d16 v6 d16 v9 e16 v6 e16 v9 f16 v6 f16 @@211 g2.. v6 g16 @v0,0 r8.
+B @@211 g4^16 v6 g16 @v0,0 v9 f16 v6 f16 v9 g8>c16 v6 c16 v9 <g16 v6 g16 @@211 f2.. v6 f16 @v0,0 r8^16
+
+B r4 < @wd2
+B v8 a+6^24 v4 a+24 v8 >c6^24 v4 c24 v8 d6^24 v4 d24
+B v8 a6^24 v4 a24 v8 g6^24 v4 g24 v8 f12 v4 f24 v8 a6 v4 a12 @@209 g1.
+B v4 g4 @v0,0 v8 >d16 v4 d16 v8 <g16 v4 g16 @@209 >c1^8
+B v4 c8 @v0,0 r8r96 v9 <<<g+32.>a+3^8... v4 a+8
+
+B @@212 @wd1 v9 <<b16r16>e16r16
+B a16r16d16r16g16r16a16r16> @v3,1,=32 d+2.. @v0,0
+B r8 v4 d+8r8 v3 d+8r8
+B v2 d+8r8 v1 d+8 r8^2
 
 ; wave channel
 ; 4/4
@@ -431,7 +413,7 @@ C b=20r<f=20r>c=20rg=20rd=20rc=20r<c=20rg=20r
 C g+2...^24r
 C g2...^24r
 
-C L o3 l48
+C L o3 l48 v3
 
 C f2.c8f4...
 C r32c16r16f8g16r16a16r16a+2^8..
@@ -504,53 +486,56 @@ C r32f3^96r32g8..r32d+8..r32
 ; 7/8
 @@301 = { >d2.^16.r32<d+3^8r24 }
 @@302 = { a+3r24 }
+@@303 = { g3r24 }
 
 C @wave0 o3 v3 y0
 C @@301 @@302
+C @@301 @@303
 C @@301 @@302
-C @@301 @@302
-C @@301 @@302
-C @@301 @@302
-C @@301 @@302
-C @@301 @@302
-C @@301 g6^24r24a12r24
+C @@301 g=40r24a12r24
+C @@301 @@303
+C @@301 a+=40r24>c12r24
+C d2.^16.r32<d+3^8r24 @@303
+C @@301 g=40r24a12r24
 
 ; 4/4
 C @wave0 o3 v3 y0 l48
 C a+=20ra+=20ra+=20ra+=20ra+=20ra+=20ra+=20ra+=20r
-C a+=20r>d=20rf=20ra+6^16ra=20rf=20r<a+=20r
-C b=20rb=20rb=20rb=20rb=20rb=20rb=20rb=20r
-C b=20r>b=20r<b=20rb=20r>f+=20r<b=20r>b=20r<b=20r
+C a+=20r>d=20rf=20ra+=44ra=20rf=20r<a+=20r
+C b=20rb=20rb=20rb=20rb=20re=20rf+=20rb=44
+C r>b=20r<b=20rb=20r>f+=20r<b=20r>b=20r<b=20r
 C a+=20ra+=20ra+=20ra+=20ra+=20ra+=20ra+=20ra+=20r
-C a+=20r>d=20rf=20ra+6^16ra=20rf=20r<a+=20r
-C b=20rb=20rb=20rb=20rb=20rb=20rb=20rb=20r
-C b=20r>b=20r<b=20rb=20r>f+=20r<b=20r>b=20r<b=20r
-C a+=20ra+=20r>f=20r<a+=20r8ra+=20r8ra+6^16
-C rf=20ra+=20r>f6^16re=20rc=20r<b6^16
-C rb=20r>f+=20r<b=20r8rb=20r8rb6^16
-C r>e=20rf+=20rb6^16rf+=20r<b=20ra+6^16
-C ra+=20r>f=20r<a+=20r8ra+=20r8ra+6^16
-C rf=20ra+=20r>f6^16re=20rc=20r<b6^16
-C rb=20r>f+=20r<b=20r8rb=20r8rb6^16
-C r>e=20rf+=20rb6^16rf+=20re=20r<b=20 @wave1 r
+C a+=20r>d=20rf=20ra+=44ra=20r<a+=20r>d=20r
+C <b=20rb=20rb=20rb=20rb=20rb=20ra=20r<b=20r
+C >>c+=20rf=20ra=20r>c+=20r<f=20ra=20r>c+=20rf=20r
+C <<a+=20ra+=20r>f=20r<a+=20r8ra+=20r8ra+=44
+C rf=20ra+=20r>f=44re=20rc=20r<b=44
+C rb=20r>g=20r<b=20r8rb=20r8rb=44
+C r>d=20re=20ra=44re=20r<a=20ra+=44
+C ra+=20r>f=20r<a+=20r8ra+=20r8ra+=44
+C rf=20ra+=20r>f=44re=20rc=20r<b=44
+C rb=20r>g=20r<b=20r8rb=20r8rb=44
+C r>e=20rf+=20ra=20r<f+=20ra=20r>c=20re=20r
 
-C l32
+C @wave1 v3 l32 <
 C b8a8b8g4>d16g16a16.rarar
 C a16r16a16g16d8<f8g16f16gr>d16<d+8>d+8
 C <d8..rd16.rd16.r8rc16.r8rcrfr
 C d16.ra16.r>d16.r<d16.rererbr>er<f+16.r>f+16.r
-C <b8a8b8g4>d4a4
-C g8d8<f8g4d+4
+C <b8a8b8g4>d8<g8a4
+C >ararar16.ararar16.gr16.dr<<a+r>d+8
 C d8..rd16.rd16.r8rc16.r8r<b16>c16
 C d16.ra16.r>d16.r<e16.r>f+16.re16.rc+16.r<g16.r
-C b8a8b8g4>d16g16a16.rarar
-C a16r16a16g16d8<f8g16f16gr>d16<d+8>d+8
-C <d8..rd16.rd16.r8rc16.r8rcrfr
-C d16.ra16.r>d16.r<d16.rererbr>er<f+16.r>f+16.r
-C <b8a8b8g4>d4a4
+C b8a8b8g4>d4a4
 C g8d8<f8g4d+4
-C d8..rd16.rd16.r8rc16.r8r<b16>c16
-C d16.ra16.r>d16.r<e16.r>f+16.re16.rc+16.r<e16. @wave0 r
+C d8..rd16.rd16.r8rc16.r8rcrfr
+C d16.ra16.r>d16.r<d16.rererbr>er<f+16.r>f+16.r
+C <b8a8b8g4>d16g16a16.rarar
+C a16r16a16g16d8<f8g16f16gr>d16<d+8>d+8
+C <d8..rd16.rd16.r8rc16.r8r<b16>c16
+C d16.ra16.r>d16.r<e16.r>f+16.re16.rc+16.r<e16.r
+
+C @wave0 v3
 C a8arar>e8<<arar>a8>e4<<a8
 C >erererer>e8<<a8>a8>e8<ar<ar>er>er
 C <b8brbr>f+8<<brbr>b8>f+4<c8
@@ -558,78 +543,74 @@ C >crcrcrcr>c8<<f8>f8>c8<fr<fr>cr>cr
 C <<a8arar>e8<<arar>a8>e4<<a8
 C >erererer>e8<<a8>a8>e8<ar<ar>er>er
 C <b8brbr>f+8<<brbr>b8>f+4<c8
-C >crcrcrcr>c8<<f8>f8>c8<fr<fr>cr>cr
+C >c8<a+r16.>crar<ar16.gr>c+rg+ra+r<erbr>er>c+r
 C <<a8arar>e8<<arar>a8>e4<<a8
 C >erererer>e8<<a8>a8>e8<ar<ar>er>er
 C <b8brbr>f+8<<brbr>b8>f+4<c8
-C >crcrcrcr>c8<<f8>f8>c8<fr<fr>cr>cr
+C >crcrcrcr>c8<<f8>f8>c8<fr<fr>fr>cr
 C <<a8arar>e8<<arar>a8>e4<<a8
 C >erererer>e8<<a8>a8>e8<ar<ar>er>er
-C <b8brbr>f+8<<brbr>b8>f+4<c8
-C >crcrcrcr>c8<<f8>f8>c8<fr<fr>cr>cr
+C <b8^32rbr>f+8<<brbr>b8>f+8<<b8>b8
+C >c8<a+r16.>crar<ar16.gr>c+rg+ra+r<erbr>er>c+r
 
-C l16
-C <<f8.rfrf8^32r32f32r32f4^16r
-C f8.rfrf8<a+6^96rr96a+6^96rr96
-C >c8.rcrc8^32r32c32r32c4^16r
-C f8.rfrf8e6^96rr96<a8..^48r96
-C >d8.rdrd8^32r32d32r32d4.
-C d+8.rd+rd+8d6^96rr96<a+6^96rr96
-C >c8.rcrc8^32r32c32r32c4^16r
-C c8.rcrc12^32r96g6^96rr96>c6^96rr96
-C <b8.rbrb8^32r32b32r32b4^16r
-C e8.rere8g6^96rr96g8.r
-C a8.rara8^32r32a32r32a4^16r
-C d8.rdrd8f+6^96rr96d6^96rr96
-C <a+8.ra+ra+8^32r32a+32r32a+4^16r
-C >c8.rcrc8g8^32r16.<g4
-C >f8.rfrf8^32r32f32r32f4f8
-C f8.rfrf8cfg8 v2 cfg8
+C <<g8<g8>drdrg8r8dr16.a16a+16>c4
+C <g8grdrc4c8>c8<grgr
+C f4>crcr<f4c8d8f4
+C frfra8f8>c8<f8grfrc8
+C g8<g8>drdrg8r8dr16.a16a+16>c4
+C <g8grdrc4c8>c8<grgr
+C f8c8r8f8r8c8f8g4
+C frfra16<a+r>crcrf8<a8>c8f8
 
-C @wave1 v3 a+=67r=5f=67r=5<a+=67
-C r=5a+=67r=5a+24^96r96>f24^96r96g24^96r16r96a+24^96r16r96<a+24^96r16r96
-C >a=67r=5f=67r=5<a=67
-C r=5a=67r=5>f24^96r96e24^96r96f24^96r16r96>c24^96r16r96<c24^96r16r96
-C g=67r=5c+=67r=5c=67
-C r=5c=67r=5c24^96r96f24^96r96g24^96r16r96>c24^96r16r96g24^96r16r96
-C <f3^48r48c3^48r48c12^48r48g12^48r8
-C r48
-C f12^48r8r48a4g12^48r48f6^16r48
-C a=67r=5e=67r=5<a=67
-C r=5a24^64r16r192b12^64r=5>c+24^64r16r192e12^64r=5a24^64r16r192>c+24^64r16r192e24^64r16r192
-C d=67r=5<a=67r=5d=67
-C r=5f+=67r=5a24^96r96>c24^96r96d24^96r16r96f+24^96r16r96<a24^96r16r96
-C g=67r=5d=67r=5<g=67
-C r=5g=67r16..r24g12^48r48>d12^48r48g12^48r48
-C >c=67r=5<g=67r=5c12^64r=5>c12^64r16..
-C r24
-C <g12^64r16..r24c12^64r16..r24d12^64r=5e12^64r=5f12^64r=5
-C g=67r=5d=67r=5<g=67
-C r=5g=67r16..r24g12^64r=5a+12^64r=5>c12^64r=5
-C >c=67r=5<g=67r=5c=67
-C r=5c12^64r=5d24^96r96d24^96r96c12^64r=5g12^64r=5c12^64r=5>c12^64r=5<g12^64r=5
-C >f=67r=5c=67r=5<f=67
-C r=5f=67r=5f24^96r96g24^96r96f24^96r16r96f24^96r16r96a+24^96r16r96
-C a3^48r48g+6^16r48a12^48r48>d3^48
-C r48<a12^48r48d3^48r48d12^48r48f+12^48r48a12^48r48
-C >g=67r=5d=67r=5<g=67
-C r=5<g=67r=5g24^96r96a+24^96r96>d24^96r16r96f24^96r16r96g24^96r16r96
-C a+=67r=5f=67r=5<g12^64r=5>>c12^64r16..
-C r24
-C <a+12^64r16..r24f8..^192r=5<a+24^96r16r96a+24^96r16r96>d24^96r16r96
-C a=67r=5e=67r=5<a=67
-C r=5a12^64r=5b12^64r=5a12^64r=5>e24^96r96e24^96r96d24^96r16r96a24^96r16r96>c24^96r16r96
-C <g+=67r=5g12^64r=5g+12^64r=5>d12^64r=5f12^64r=5b12^64r16..
-C r24
-C f12^64r=5d12^64r=5<b12^64r=5f12^64r=5b12^64r=5>d12^64r=5f12^64 @wave0 r=5
-C <g4d32r32d32r32<g4>g4.
-C r8<g16r16a+16 v2 g16 v3 g16 v2 a+16 v3 >g16 v2 <g16 v3 >d16 v2 g16 v3 a16 v2 d16 v3 d16 v2 a16
-C v3 b4g32r32g32r32<b4>b4.
-C r8<b16r16>d16 v2 <b16 v3 b16 v2 >d16 v3 b16 v2 <b16 v3 >f16 v2 b16 v3 >d16 v2 <f16 v3 g16 v2 >d16
-C v3 c4<g32r32g32r32c4f4.
-C r8c16r16f16 v2 c16 v3 c16 v2 f16 v3 g32r32g32r32f16r16>d16 v2 <f16 v3 g16>d16
-C c4<g32r32g32r32c4>c4.
-C r8<c8g32r32g32r32f8>c32r32c32r32<g32r32>c32r32>c8<c16..^96
+C @wave1 v3 l16
+C >d4d8rdard4<g4
+C br>dd<br>ggdrbrgr
+C f4f8rfa+rf4c4
+C <gr>frdrc<fg8>crgr
+
+C @wave0 v3
+C <g16..r64g16..r64g16..r64g16..r64g16..r64c16..r64d16..r64g8...
+C r64g16..r64a16..r64d16..r64g16..r64f16..r64g16..r64a+16..r64
+C >d+16..r64d+16..r64d+16..r64d+16..r64d+16..r64<a+16..r64>d+16..r64<g+8...
+C r64g+16..r64g+16..r64g+16..r64g+16..r64g+16..r64g+16..r64g+16..r64
+
+C <b16r16>a+16r16g+16r16>d+16r16c+16r16g+16r16f+16r16>c+16r16
+
+C <<g16.r32g32r32g32r32>g16.r32<g16.r32>d16.r32g16.r32<g16r16>c8..
+C r32c32r32c32r32>c16.r32<c16.r32>d16.r32c8..r32<<f8..
+C r32f32r32f32r32>f16.r32<f16.r32>f16.r32<g12^48r48g+12^48r48a8..^48
+C r96a32r32a32r32a+32r32a+32r32a12^48r48>d12^48r48<a12^48r48>>d12^48r48<a12^48r48
+C <g16.r32g32r32g32r32>g16.r32<g16.r32>d16.r32g16.r32<g16r16a+8..
+C r32a+32r32a+32r32>f16.r32<a+16.r32>f16.r32<a+8..r32a8..
+C r32a32r32a32r32>a16.r32<a16.r32>e16.r32a16.r32<a16r16g+6^16
+C r48>d12^48r48f24r12b6^16r48d24r12<b12^48r48>d24r12
+C <g16.r32g32r32g32r32>c16.r32<g16.r32>d16.r32<d8..r32g8..
+C r32g32r32g32r32a16.r32g16.r32b16.r32>c16.r32d16r16c8..
+C r32<c32r32c32r32g16.r32c16.r32a16.r32d16.r32c+16r16c8..
+C r32c32r32c32r32d16.r32c32r32c32r32e16.r32c32r32d32r32e32r32e32r32g16.r32
+C >c8..r32<f+24r48g24r48>c8..r32<f+24r48g24r48>c8..r8
+C r32
+C <f+16r16g16r16>c16r16g16r16<f+3^96r32
+C f16.r32f32r32f32r32>f16.r32<f16.r32>c16.r32f8..r32<a8..
+C r32a32r32a32r32>a16.r32<a16.r32>f16.r32a8..r32<a+8..
+C r32a+32r32a+32r32>a+16.r32<a+16.r32a+16.r32>a+8..r32c+8..
+C r32c+32r32c+32r32a+16.r32c+16.r32<a8..r32>e8..r32
+C d16.r32d32r32d32r32a16.r32d16.r32g16.r32a16.r32d16.r32<g8..
+C r32g32r32g32r32b16.r32>d16.r32g16.r32f8..r32<d+8..
+C r32d+16.r32>d+16.r32g16.r32<a+16.r32>g16.r32a+16.r32d+16.r32
+C <c16.r32>c32r32c32r32>c16.r32<<c16.r32a+16.r32>c16.r32<g16>c16g24^96r96>c24^96r96
+C <<f16.r32f32r32f32r32>f16.r32<f16.r32>c16.r32f8..r32d+8..
+C r32d+32r32d+32r32>d+16.r32<d+16.r32g16.r32>d+8..r32<d8..
+C r32d32r32d32r32>d16.r32<d16.r32a16.r32>d8..r32<c+8..
+C r32c+32r32c+32r32>c+16.r32<f16.r32c+8..r32<a+8..r32
+C >c12^48r48c12^48r48<a+12^48r48c6^16r48d12^48r48>c12^48r48c12^48r48
+C <a+12^48r48g12^48r48f12^48r48c12^48r48>f8r8<f6^16r48
+C >c12^48r48c12^48r48<a+12^48r48c+6^16r48f12^48r48>c12^48r48c12^48r48
+C <a+12^48r48g12^48r48f12^48r48c+12^48r48>f8r8<f6^16r48
+C b12^48r48>f+12^48r48>c+12^48r48<<g12^48r48>d12^48r48a12^48r48<a12^48r48>e12^48r48
+C b12^48r48<f12^48r48>c12^48r48f12^48r48<d+1^8
+C r8 v2 d+8r8
+C v1 d+8r8d+8 r2^8
 
 
 ; noise channel (drums)
@@ -693,7 +674,7 @@ D @@411 @@412 @@410 @@400 @@409 @@410 @@401 @@409 @@409 @@409 @@409 @@412 @@400 
 D [@@413 @@410 @@403 @@403]8
 D [@@423]4
 D [ @@425 @ve-1 @@401
-D   @@426 @ve-1 @@401 ]2 @@425 @@426 @ve-1
+D @@426 @ve-1 @@401 ]2 @@425 @@426 @ve-1
 
 ; 7/8
 D o3 v10
@@ -709,380 +690,44 @@ D @@402 [@@412]7
 D @@411 [@@412]7
 D @@411 [@@412]7
 D @@411 [@@412]3 [ @@409 ]4 @@410 @@410 [ @@409 ]4 @@410 @@410 
+
 D [ @@400 @@403 @@403 @@403 @@409 @@403 @@400 @@400 @@403 @@403 @@409 @@403 @@403 @@403 @@400 @@403 @@403 @@403 @@400 @@403 @@409 @@403 @@400 @@403 @@400 @@403 @@400 @@403 @@409 @@403 @@400 @@409 ]8
-D [@@418 @@419]4
-D [@@420]28 v10 @@400 @@409 @@400 @@400 @@410 @@413 @@401 @@409 @@409 @@409 @@409 
-D @@401 v9 @@403 v7 @@403 @@422 @@420 @@422 @@420 @@422 @@420 @@422 
-D [@@420 @@422 ]12
-D v10 
-D [@@413 @@410 @@413 @@410 @@403 @@403 @@413 @@401 @@410 @@404 @@401 @@401 @@410 @@403 @@403 ]20
-
-; Raw Drums
-; 4/4
-; D o4 v11 y0
-; D a4 v13 <c16c16 v11 >c+4 v13 <c16c16 v11 >a4
-; D v11 <d16 v13 d16 v10 d24 v8 d24 v8 d24 v13 d8 v13 c8 v13 d8 v11 f+24f+24f+24f+16f+16a+2^8
-; D r2
-; D v13 d4d4d8d8d16d16d16d16
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+16f+16
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+16f+16
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8 v11 f+16f+16 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v13 c8 v13 d16d16d16d16d8d16d16
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8 v11 f+16f+16 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v13 c8 v13 d16d16d16d16d8d16d16
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8d16d16 v13 d16d16 v13 d8
-; D v11 >a4 v13 <c16c16 v11 >c+4 v13 <c16c16 v11 >a4
-; D v11 <d16 v13 d16 v10 d24 v8 d24 v8 d24 v13 d8 v13 c8 v13 d8 v11 f+24f+24f+24f+16f+16a+8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c16 v13 d16d8 v13 c16r16
-; D v13 d16d16d16d16d8 v13 c8c16 v13 d16 v13 c8 v13 d8d16d16
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v11 >a4 v13 <c8 v11 >c+4 v13 <c8 v11 >a4
-; D v13 <c8 v11 >c+4 v13 <c8 v11 >a4c+4
-
-; 7/8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-
-; 4/4
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v13 c8c8 v13 d16d16d8d8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v13 c8 v13 d16d16d16d16d8d16d16
-; D v13 c4 v13 d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d4d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d4d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d4d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d16d16d16d16d8d8d16d16d16d16d8d8
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v13 d16
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v13 d16
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v13 d16
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v13 d16
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v13 d16
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v13 d16
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v13 d16
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v12 c16 v13 d16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v11 f+16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v13 d16 v12 c16 v8 f+16 v13 d16 v10 f+16 v9 f+16 v8 f+16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v11 f+16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v13 d16 v12 c16 v8 f+16 v13 d16 v10 f+16 v9 f+16 v8 f+16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v11 f+16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v13 d16 v12 c16 v8 f+16 v13 d16 v10 f+16 v9 f+16 v8 f+16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v11 f+16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v13 d16 v12 c16 v8 f+16 v13 d16 v10 f+16 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16
-; D v12 c16 v13 d16 v12 c16c16 v13 d8 v12 c8 v11 f+16f+16 v12 c8 v13 d16d16d16d16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
 
 
-;; Raw Drums
-; 4/4
-; D o4 v11 y0 a4 v13 <c16c16 v11 >c+4 v13 <c16c16 v11 >a4
-; D v11 <d16 v13 d16 v10 d24 v8 d24 v8 d24 v13 d8 v13 c8 v13 d8 v11 f+24f+24f+24f+16f+16a+2^8
-; D r2
-; D v13 d4d4d8d8d16d16d16d16
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+16f+16
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+16f+16
-; D v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8 v11 f+16f+16 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v13 c8 v13 d16d16d16d16d8d16d16
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8 v11 f+16f+16 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v13 c8 v13 d16d16d16d16d8d16d16
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8d16d16 v13 d16d16 v13 d8
-; D v11 >a4 v13 <c16c16 v11 >c+4 v13 <c16c16 v11 >a4
-; D v11 <d16 v13 d16 v10 d24 v8 d24 v8 d24 v13 d8 v13 c8 v13 d8 v11 f+24f+24f+24f+16f+16a+8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c16 v13 d16d8 v13 c16r16
-; D v13 d16d16d16d16d8 v13 c8c16 v13 d16 v13 c8 v13 d8d16d16
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16
-; D v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v13 c8 v11 f+16f+16 v13 d8 v11 f+16f+16
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8r8d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v11 >a4 v13 <c8 v11 >c+4 v13 <c8 v11 >a4
-; D v13 <c8 v11 >c+4 v13 <c8 v11 >a4c+4
+D [
+D v12 @@400 r16 v9 @@403 v8 @@403 v13 @@409 v10 @@403 v12 @@400 v8 @@403 v12 @@400 v10 @@403 v13 @@409 v8 @@403 v11 @@403 v10 @@403 v12 @@400 v8 @@403 
+D v12 @@400 v10 @@403 v9 @@403 v8 @@403 v13 @@409 v10 @@403 v12 @@400 v8 @@403 v11 @@403 v10 @@403 v9 @@403 v8 @@403 v13 @@409 v10 @@403 v12 @@400 v8 @@403 
+D v12 @@400 r16 v9 @@403 v8 @@403 v13 @@409 v10 @@403 v12 @@400 v8 @@403 v12 @@400 v10 @@403 v13 @@409 v8 @@403 v11 @@403 v10 @@403 v12 @@400 v8 @@403 
+D v12 @@400 v10 @@403 v9 @@403 v8 @@403 v13 @@409 v10 @@403 v12 @@400 v8 @@403 v12 @@400 v13 @@409 v12 @@400 v8 @@403 v13 @@409 v10 @@403 v9 @@403 v8 @@403 
+D ]4
 
-; 7/8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
-; D v13 c8 v11 f+16f+16 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+8 v13 c8 v11 f+16f+16 v13 c8 v11 f+8
 
-; 4/4
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v13 c8c8 v13 d16d16d8d8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v11 f+8 v13 c8c8 v13 d8 v11 f+8
-; D v13 c8 v11 f+8 v13 d8 v13 c8 v13 d16d16d16d16d8d16d16
-; D v13 c4 v13 d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d4d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d4d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d4d8 v13 c8 v13 d8 v13 c8 v13 d8 v13 c8
-; D v13 d16d16d16d16d8d8d16d16d16d16d8d8
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v13 d16
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v13 d16
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v13 d16
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v13 d16
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v13 d16
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v13 d16
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v13 d16
-; D v13 c16 v11 f+16f+16f+16 v13 d16 v11 f+16 v13 c16c16 v11 f+16f+16 v13 d16 v11 f+16f+16f+16 v13 c16 v11 f+16
-; D f+16f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 c16 v11 f+16 v13 d16 v11 f+16 v12 c16 v13 d16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v11 f+16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v13 d16 v12 c16 v8 f+16 v13 d16 v10 f+16 v9 f+16 v8 f+16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v11 f+16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v13 d16 v12 c16 v8 f+16 v13 d16 v10 f+16 v9 f+16 v8 f+16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v11 f+16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v13 d16 v12 c16 v8 f+16 v13 d16 v10 f+16 v9 f+16 v8 f+16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v11 f+16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16r16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v10 f+16 v13 d16 v8 f+16 v11 f+16 v10 f+16 v12 c16 v8 f+16
-; D v12 c16 v10 f+16 v9 f+16 v8 f+16 v13 d16 v10 f+16 v12 c16 v8 f+16 v12 c16 v13 d16 v12 c16 v8 f+16 v13 d16 v10 f+16 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16
-; D v12 c16 v13 d16 v12 c16c16 v13 d8 v12 c8 v11 f+16f+16 v12 c8 v13 d16d16d16d16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16 v12 c8 v9 f+16 v8 f+16 v13 d8 v9 f+16 v8 f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
-; D v12 c8 v11 f+16f+16 v13 d8 v12 c8 v11 f+16f+16 v13 d8 v11 f+16f+16 v12 c8
-; D v11 f+16f+16 v12 c8 v13 d8 v11 f+8 v12 c8c8 v13 d8 v11 f+16f+16
+@@429 = {v11 @@401 v10 @@403 @@403 v12 @@410 v10 @@403 @@403 }
+@@427 = {v11 @@401 v10 @@403 @@403 v12 @@410 @@429 v11 @@401 }
+@@428 = {v10 @@403 @@403 v11 @@401 v12 @@410 v10 @@404 v11 @@401 @@401 v12 @@410 v10 @@403 @@403 }
+
+D [@@427 @@428]4
+D v11
+D [ @@401 @@403 r16 @@403 @@403 @@401 @@410 @@403 r16 @@401 @@411 
+D @@410 @@404 @@401 @@410 @@404 @@401 @@401 ]2
+D @@401 v10 @@403 @@403 v12 @@410 v10 @@403 @@403 [@@429]5
+
+D v11 @@403 @@403 @@410 @@410 @@401 @@409 @@409 @@409 @@400 @@409 @@400 @@410 
+D r1
+D [v13 @@401 v11 @@403 @@403 v13 @@410 v11 @@403 @@403 v13 @@401 @@401 v13 @@410 v11 @@404 ]8
+D [v13 @@410 r8 @@410 v13 @@401 v13 @@410 v13 @@401 v13 @@410 v13 @@401 ]4
+
+D [@@425 @ve-1 v13 @@400 @@400 @@426 @ve-1 v13 @@400 @@400 ]2 @@425 @@426 @ve-1
+
+@@430 = { v13 @@401 v11 @@403 @@403 }
+@@431 = { v13 @@410 v11 @@403 @@403 }
+
+D [v13 @@401 v11 @@403 @@403 ]25 @@431 [@@430 @@431]2 v13 @@409 @@409 v11 @@409 @@409 v12 @@410 v13 @@410 
+D [ @@409 @@409 @@401 ]15 @@410 @@401 
+D v13
+D [ @@410 r8 @@410 @@401 @@410 @@401 @@410 @@401 ]4
+D v11 @@425 @ve-1 v13 @@400 @@400 v11 @@426 @ve-1 v13 @@400 @@400 v11 @@425 @ve-1
+D v11 @@409 v13 @@409 v10 @@424 v8 @@424 v8 @@424 v13 @@410 v13 @@401 v13 @@410 v11 [f+24]3 @@403 @@403 @ve-4 o8 v7 b8 @ve-1
+D [ @@404 r8]4
+D v13 @@411 @@411 @@410 @@410 [ @@409 ]4
+
