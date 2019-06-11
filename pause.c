@@ -12,8 +12,8 @@
 const UBYTE pause_text_on[] = { 10U, 25U, 24U };
 const UBYTE pause_text_off[] = { 25U, 16U, 16U };
 
-const UBYTE pause_marker_x1[] = { 49U, 17U, 57U };
-const UBYTE pause_marker_x2[] = { 110U, 142U, 102U };
+const UBYTE pause_marker_x1[] = { 50U, 18U, 58U };
+const UBYTE pause_marker_x2[] = { 111U, 143U, 103U };
 const UBYTE pause_marker_y[] = { 116U, 128U, 140U };
 
 const UBYTE SGB_PAUSE_PAL01[16] = {
@@ -132,10 +132,10 @@ UBYTE enterPause() {
 
 		// Draw selection markers
 		setSprite(pause_marker_x1[pause_selection], pause_marker_y[pause_selection], 100U, OBJ_PAL0);
-		setSprite(pause_marker_x1[pause_selection]+8U, pause_marker_y[pause_selection], 102U, OBJ_PAL0);
+		setSprite(pause_marker_x1[pause_selection]+7U, pause_marker_y[pause_selection], 100U, OBJ_PAL0 | FLIP_X);
 
-		setSprite(pause_marker_x2[pause_selection], pause_marker_y[pause_selection], 104U, OBJ_PAL0);
-		setSprite(pause_marker_x2[pause_selection]+8U, pause_marker_y[pause_selection], 106U, OBJ_PAL0);
+		setSprite(pause_marker_x2[pause_selection], pause_marker_y[pause_selection], 102U, OBJ_PAL0 | 1U);
+		setSprite(pause_marker_x2[pause_selection]+7U, pause_marker_y[pause_selection], 102U, OBJ_PAL0 | FLIP_X | 1U);
 
 		clearRemainingSprites();
 		snd_update();

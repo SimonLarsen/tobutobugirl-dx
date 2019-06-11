@@ -107,8 +107,8 @@ const UBYTE entity_sprites[10] = {
     // Powerups
     (21U << 2),  // E_CLOCK
     // Special
-    (29U << 2),  // E_PORTAL
-    (27U << 2)   // E_CLOUD
+    (28U << 2),  // E_PORTAL
+    (26U << 2)   // E_CLOUD
 };
 
 const UBYTE entity_palettes[10U] = {
@@ -190,8 +190,8 @@ const UBYTE retry_text_data[RETRY_NUM_CHARS * 4] = {
     16U, 100U, 10U, OBJ_PAL0,
     16U, 108U,  0U, OBJ_PAL0,
     // marker
-    40U, 58U, 100U, OBJ_PAL0,
-    40U, 66U, 102U, OBJ_PAL0
+    41U, 58U, 100U, OBJ_PAL0,
+    48U, 66U, 100U, OBJ_PAL0 | FLIP_X
 };
 
 const UBYTE restart_window_tiles[9] = {
@@ -569,9 +569,9 @@ void updateHUD() {
     setSprite(176U-(blip_bar >> 3), 136U, 98U, OBJ_PAL0 | 5U);
 
     // Progress bar
-    frame = 100U + ((player_skin-1U) << 2U);
-    setSprite(152U, progressbar, frame, OBJ_PAL0 | player_skin-1U);
-    setSprite(160U, progressbar, frame+2U, OBJ_PAL0 | player_skin-1U);
+    frame = 100U + ((player_skin-1U) << 1U);
+    setSprite(153U, progressbar, frame, OBJ_PAL0 | player_skin-1U);
+    setSprite(160U, progressbar, frame, OBJ_PAL0 | FLIP_X | player_skin-1U);
 
     // Set last progress flag
     if(last_progress) {
@@ -707,10 +707,10 @@ void updateEntities() {
 
             case E_PORTAL:
                 if(level == 3U && player_skin == 1U) {
-                    setSprite(x-16U, y-24U, 120U, OBJ_PAL0 | 1U);
-                    setSprite(x-8U,  y-24U, 122U, OBJ_PAL0 | 1U);
-                    setSprite(x-16U, y-8U, 124U, OBJ_PAL0 | 1U);
-                    setSprite(x-8U,  y-8U, 126U, OBJ_PAL0 | 1U);
+                    setSprite(x-16U, y-24U, 116U, OBJ_PAL0 | 1U);
+                    setSprite(x-8U,  y-24U, 118U, OBJ_PAL0 | 1U);
+                    setSprite(x-16U, y-8U, 120U, OBJ_PAL0 | 1U);
+                    setSprite(x-8U,  y-8U, 122U, OBJ_PAL0 | 1U);
                 } else {
                     if(entity_dir[i] & 1U) {
                         setSprite(x-16U, y, frame, OBJ_PAL0 | 6U);
@@ -1041,10 +1041,10 @@ void saveCatAnimation() {
 
         if((ticks & 15U) == 15U) player_y++;
 
-        setSprite(player_x-16U, player_y-24U, 120U, OBJ_PAL0 | 1U);
-        setSprite(player_x-8U,  player_y-24U, 122U, OBJ_PAL0 | 1U);
-        setSprite(player_x-16U, player_y-8U, 124U, OBJ_PAL0 | 1U);
-        setSprite(player_x-8U,  player_y-8U, 126U, OBJ_PAL0 | 1U);
+        setSprite(player_x-16U, player_y-24U, 116U, OBJ_PAL0 | 1U);
+        setSprite(player_x-8U,  player_y-24U, 118U, OBJ_PAL0 | 1U);
+        setSprite(player_x-16U, player_y-8U, 120U, OBJ_PAL0 | 1U);
+        setSprite(player_x-8U,  player_y-8U, 122U, OBJ_PAL0 | 1U);
 
         setSprite(player_x-16U, player_y, 4U, OBJ_PAL0);
         setSprite(player_x-8U, player_y, 6U, OBJ_PAL0);
