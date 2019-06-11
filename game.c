@@ -304,9 +304,12 @@ void restoreGame(UBYTE update, UBYTE from_pause) {
         sgb_send_packet(SGB_GAME_ATTRDIV);
     }
 
-
+    /*
     set_sprite_data(0U, 24U, getSkinData());
     set_sprite_data(24U, sprites_data_length, sprites_data);
+    */
+    memcpy((UBYTE*)0x8000UL, getSkinData(), 384U);
+    memcpy((UBYTE*)0x8180UL, sprites_data, sprites_data_length*16);
     set_sprite_palette(0U, sprites_palette_data_length, sprites_palette_data);
 
     setIngameBackground(is_special_wave ? 255U : level+wave_bg, update, !from_pause);
