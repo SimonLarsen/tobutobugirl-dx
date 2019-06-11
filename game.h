@@ -86,7 +86,7 @@ void enterGame();
 
 #define WAVE_SPC_SQUIDS      4U
 #define WAVE_SPC_AUTOSCROLL  9U
-#define WAVE_SPC_GHOSTS     14U
-#define WAVE_SPC_SPIKEDASH  19U
+#define WAVE_SPC_SPIKEDASH  14U
+#define WAVE_SPC_GHOSTS     19U
 
 #endif

@@ -358,7 +358,7 @@ void updateInput() {
 
             if(dash_xdir || dash_ydir) {
                 dashing = DASH_TIME;
-                dashes--;
+                if(wave != WAVE_SPC_SPIKEDASH) dashes--;
                 spawnEntity(E_CLOUD, player_x, player_y-6U, 0U);
                 playSound(SFX_DASH);
             }
@@ -531,7 +531,11 @@ void updatePlayer() {
 
     // Dash marker
     if(show_dashcounter) {
-        setSprite(player_x-12U, player_y-9U, 24U+(dashes << 1), palette | 5U);
+        if(wave == WAVE_SPC_SPIKEDASH) {
+            setSprite(player_x-12U, player_y-9U, 94U, 5U | ((ticks & 8U) >> 2));
+        } else {
+            setSprite(player_x-12U, player_y-9U, 24U+(dashes << 1), palette | 5U);
+        }
     }
 
     if(player_xdir == LEFT) {
@@ -768,7 +772,11 @@ void initSpawns() {
     y = 112U;
     spawnEntity(type, x, y, NONE);
 
-    if(wave == WAVE_SPC_GHOSTS) type = E_GHOST;
+    if(wave == WAVE_SPC_GHOSTS) {
+        type = E_GHOST;
+    } else if(wave == WAVE_SPC_SPIKEDASH) {
+        type = E_SPIKES;
+    }
 
     for(i = 0U; i != 3U; ++i) {
         last_spawn_x = (last_spawn_x + 32U + (rand() & 63U)) & 127U;
@@ -801,6 +809,13 @@ void generateSpawnData() {
             scrolled_length = 10U;
             clock_interval = 8U;
             spawn_levels = spawn_level_data + 32U;
+            break;
+        case WAVE_SPC_SPIKEDASH:
+            spawn_levels = spawn_level_gen;
+            allowed_spikes = 255U;
+            scrolled_length = 10U;
+            mymemset(spawn_levels, E_FIREBALL, 4U);
+            mymemset(spawn_levels+4U, E_SPIKES, 4U);
             break;
         case 0U:
             spawn_levels = spawn_level_data + 8U;
