@@ -109,7 +109,7 @@ void _selectSetBannerData(UBYTE index, UBYTE part, UBYTE pal_buffer) {
         }
     }
 
-    set_bkg_data_rle(offset, length, data);
+    set_bkg_data(offset, length, data);
 }
 
 void _selectSetBannerTiles(UBYTE index, UBYTE x, UBYTE y) {
