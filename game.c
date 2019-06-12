@@ -1437,6 +1437,7 @@ void showInfiniteRestart() {
 
 void enterGame() {
     wave = 0U;
+    wave_bg = 0U;
     first_load = 1U;
 
 ingame_start:
