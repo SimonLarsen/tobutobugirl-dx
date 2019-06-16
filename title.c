@@ -285,8 +285,8 @@ void enterTitle() {
 
 	fadeFromWhite(8U);
 
-	setMusicBank(SONG_BANK_TITLE);
 	disable_interrupts();
+	setMusicBank(SONG_BANK_TITLE);
 	playMusic(&title_song_data);
 	enable_interrupts();
 
@@ -413,8 +413,8 @@ void enterTitle() {
 					elapsed_time = 0UL;
 					player_yspeed = 128U;
 
-					setMusicBank(SONG_BANK_MINIGAME);
 					disable_interrupts();
+					setMusicBank(SONG_BANK_MINIGAME);
 					playMusic(&minigame_song_data);
 					enable_interrupts();
 				}

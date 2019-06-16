@@ -117,9 +117,6 @@ void initSelect() {
     selectSetBannerData(selection, 2U, 1U);
     selectSetBannerTiles(selection, 2U, 10U);
 
-    setMusicBank(SONG_BANK_MAINMENU);
-    playMusic(&mainmenu_song_data);
-
     HIDE_WIN;
     SHOW_SPRITES;
     SHOW_BKG;
@@ -279,6 +276,11 @@ void enterSelect() {
 
     fadeFromWhite(4U);
 
+    disable_interrupts();
+    setMusicBank(SONG_BANK_MAINMENU);
+    playMusic(&mainmenu_song_data);
+    enable_interrupts();
+
     while(gamestate == GAMESTATE_SELECT) {
         updateJoystate();
 
@@ -377,7 +379,10 @@ void enterSelect() {
         wait_vbl_done();
     }
 
+    disable_interrupts();
     STOP_MUSIC;
+    enable_interrupts();
+
     clearRemainingSprites(); // Remove all sprites
     fadeToWhite(4U);
     wait_sound_done();

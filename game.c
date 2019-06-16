@@ -202,8 +202,8 @@ const UBYTE restart_window_tiles[9] = {
 
 void initGame() {
     disable_interrupts();
-    mus_setPaused(1U);
     DISPLAY_OFF;
+    mus_setPaused(1U);
 
     // Init variables
     timer = 0U;
@@ -217,6 +217,9 @@ void initGame() {
     next_entity = 0U;
     remaining_time = MAX_TIME;
     scene_state = INGAME_ACTIVE;
+    if(first_load) {
+        last_progress = 0U;
+    }
 
     player_x = 88U;
     player_y = SCRLMGN;
@@ -255,42 +258,12 @@ void initGame() {
     restoreGame(first_load, 0U);
     set_sprite_data(4U, portal_data_length, portal_data);
 
-    if(first_load) {
-        last_progress = 0U;
-
-        switch(level) {
-            case 1U:
-                setMusicBank(SONG_BANK_PLAINS);
-                playMusic(&plains_song_data);
-                break;
-            case 2U:
-                setMusicBank(SONG_BANK_CLOUDS);
-                playMusic(&clouds_song_data);
-                break;
-            case 3U:
-                setMusicBank(SONG_BANK_SPACE);
-                playMusic(&space_song_data);
-                break;
-            case 4U:
-                setMusicBank(SONG_BANK_DREAM);
-                playMusic(&dream_song_data);
-                break;
-            case 5U:
-                setMusicBank(SONG_BANK_HEAVEN);
-                playMusic(&heaven_song_data);
-                break;
-        }
-        mus_setPaused(1U);
-    }
-
     clearSprites();
     clearEntities();
-
 
     move_bkg(0U, 112U);
     move_win(151U, 0U);
 
-    updateHUDTime();
     initSpawns();
 
     DISPLAY_ON;
@@ -1302,11 +1275,12 @@ void showWaveScreen() {
     SHOW_SPRITES;
 
     DISPLAY_ON;
-    enable_interrupts();
 
     if(!first_load) {
         mus_setPaused(0U);
     }
+
+    enable_interrupts();
 
     for(i = 48U; i != 0U; i -= 4U) {
         move_bkg(0U, i);
@@ -1447,16 +1421,45 @@ ingame_start:
     }
 
     initGame();
+    updateHUDTime();
     if(level == 5U && !first_load) {
+        disable_interrupts();
         mus_setPaused(0U);
+        enable_interrupts();
     }
-    first_load = 0U;
 
     fadeFromWhite(8U);
 
     introAnimation();
 
+    disable_interrupts();
+    if(first_load) {
+        first_load = 0U;
+        switch(level) {
+            case 1U:
+                setMusicBank(SONG_BANK_PLAINS);
+                playMusic(&plains_song_data);
+                break;
+            case 2U:
+                setMusicBank(SONG_BANK_CLOUDS);
+                playMusic(&clouds_song_data);
+                break;
+            case 3U:
+                setMusicBank(SONG_BANK_SPACE);
+                playMusic(&space_song_data);
+                break;
+            case 4U:
+                setMusicBank(SONG_BANK_DREAM);
+                playMusic(&dream_song_data);
+                break;
+            case 5U:
+                setMusicBank(SONG_BANK_HEAVEN);
+                playMusic(&heaven_song_data);
+                break;
+        }
+    }
     mus_setPaused(0U);
+    enable_interrupts();
 
     vbl_count = 0U;
     while(scene_state == INGAME_ACTIVE) {
@@ -1499,9 +1502,11 @@ ingame_start:
         }
 
         if(CLICKED(J_START)) {
+            disable_interrupts();
             mus_setPaused(1U);
-
             clearSprites();
+            enable_interrupts();
+
             scene_state = enterPause();
             clearSprites();
             STOP_MUSIC;
@@ -1515,9 +1520,9 @@ ingame_start:
                 disable_interrupts();
                 DISPLAY_OFF;
                 restoreGame(1U, 1U);
+                mus_setPaused(0U);
                 DISPLAY_ON;
                 enable_interrupts();
-                mus_setPaused(0U);
             }
         }
 
