@@ -945,6 +945,7 @@ void introAnimation() {
         snd_update();
         wait_vbl_done();
     }
+    stop_sound();
 
     disable_interrupts();
     set_sprite_data(0U, 24U, getSkinData());
