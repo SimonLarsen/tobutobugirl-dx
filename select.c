@@ -335,20 +335,18 @@ void enterSelect() {
             selectUpdateSprites();
         }
         if(CLICKED(J_START) || CLICKED(J_A)) {
-            if(selection == 6U) {
-                gamestate = GAMESTATE_JUKEBOX;
-                playSound(SFX_MENU_CONFIRM);
-            } else if(selection == 7U) {
+            if(selection == 7U) {
                 gamestate = GAMESTATE_HIGHSCORE;
                 playSound(SFX_MENU_CONFIRM);
+            } else if(selection == 6U && levels_completed >= 2U) {
+                gamestate = GAMESTATE_JUKEBOX;
+                playSound(SFX_MENU_CONFIRM);
+            } else if(selection <= levels_unlocked) {
+                level = selection;
+                gamestate = GAMESTATE_INGAME;
+                playSound(SFX_MENU_CONFIRM);
             } else {
-                if(selection <= levels_unlocked) {
-                    level = selection;
-                    gamestate = GAMESTATE_INGAME;
-                    playSound(SFX_MENU_CONFIRM);
-                } else {
-                    playSound(SFX_MENU_LOCKED);
-                }
+                playSound(SFX_MENU_LOCKED);
             }
         }
         if(CLICKED(J_B)) {
