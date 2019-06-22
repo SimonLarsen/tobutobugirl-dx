@@ -58,7 +58,6 @@ const UBYTE SGB_SELECT_ATTRBLK[16] = {
     0U, 0U
 };
 
-
 void initSelect() {
     UBYTE buf[3];
 

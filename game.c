@@ -215,7 +215,11 @@ void initGame() {
     repeat_spikes = 0U;
     ghost_frame = 0U;
     next_entity = 0U;
-    remaining_time = MAX_TIME;
+    if(wave == WAVE_SPC_LOWTIME) {
+        remaining_time = LOW_TIME;
+    } else {
+        remaining_time = MAX_TIME;
+    }
     scene_state = INGAME_ACTIVE;
     if(first_load) {
         last_progress = 0U;
@@ -393,7 +397,11 @@ void updatePlayer() {
             // Clock pickup
             } else if(type == E_CLOCK) {
                 entity_type[i] = E_NONE;
-                remaining_time += CLOCK_BONUS;
+                if(wave == WAVE_SPC_LOWTIME) {
+                    remaining_time += CLOCK_BONUS_LOWTIME;
+                } else {
+                    remaining_time += CLOCK_BONUS;
+                }
                 if(remaining_time > MAX_TIME) remaining_time = MAX_TIME;
                 updateHUDTime();
                 playSound(SFX_TIME_PICKUP);
@@ -771,6 +779,10 @@ void generateSpawnData() {
 
     allowed_spikes = (wave >> 3) + 1U;
     if(allowed_spikes >= 4U) allowed_spikes = 3U;
+
+    if(wave == WAVE_SPC_LOWTIME) {
+        clock_interval = 4U;
+    }
 
     switch(wave) {
         case WAVE_SPC_SQUIDS:

@@ -54,6 +54,7 @@ void enterGame();
 #define MAX_TIME 32U
 #define LOW_TIME 11U
 #define CLOCK_BONUS 4U
+#define CLOCK_BONUS_LOWTIME 2U
 
 #define MAX_BOOST 128U
 #define STOMP_BONUS 32U
@@ -88,5 +89,6 @@ void enterGame();
 #define WAVE_SPC_AUTOSCROLL  9U
 #define WAVE_SPC_SPIKEDASH  14U
 #define WAVE_SPC_GHOSTS     19U
+#define WAVE_SPC_LOWTIME    24U
 
 #endif

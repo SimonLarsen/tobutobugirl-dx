@@ -7,13 +7,11 @@
 #define setSprite(x, y, tile, prop) (_setSprite((y), (x), (tile), (prop)))
 
 void _setSprite(UBYTE y, UBYTE x, UBYTE tile, UBYTE prop);
-//void setSprite(UBYTE x, UBYTE y, UBYTE tile, UBYTE prop);
 void clearRemainingSprites();
 UBYTE mydiv(UBYTE num, UBYTE denom);
 UBYTE mymod(UBYTE num, UBYTE denom);
 UWORD mydiv16(UWORD num, UWORD denom);
 UWORD mymod16(UWORD num, WORD denom);
-//void drawNumber8(UBYTE x, UBYTE y, UBYTE value);
 #define drawNumber8(x, y, value) (drawNumber16((x), (y), (value)))
 void drawNumber16(UBYTE x, UBYTE y, UWORD value);
 void drawScore8(UBYTE x, UBYTE y, UBYTE value);
