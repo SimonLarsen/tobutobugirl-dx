@@ -10,7 +10,7 @@
 #include "background3.h"
 #include "background4.h"
 #include "background5.h"
-#include "background5_palettes.h"
+#include "background5_sgb.h"
 #include "pause_bg.h"
 #include "win1.h"
 #include "win1_dx.h"
@@ -304,12 +304,15 @@ void setIngameBackground(UBYTE level, UBYTE first_load, UBYTE pal_buffer) {
         default:
             if(level == 255U) i = 8U;
             else i = (level - 5U) & 7U;
-            tile_data = background5_data;
+            if(sgb_mode) {
+                tile_data = background5_sgb_data;
+            } else {
+                tile_data = background5_data;
+            }
             tiles = background5_tiles_ptrs[i];
             data_length = background5_data_length;
             if(CGB_MODE) {
                 palette_data = background5_palette_data;
-                //if(i == 8U) palette_data += 8U;
                 palettes = background5_palettes;
                 palette_data_length = background5_palette_data_length;
             }

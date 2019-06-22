@@ -127,9 +127,17 @@ const UBYTE entity_palettes[10U] = {
 };
 
 const UBYTE SGB_GAME_STAGE_PAL01[16] = {
-    1U, 255, 127,  92,  57, 203,  72,   0,   0, 59,  29, 233, 113,   0,   0, 0
+    1, 255, 127,  92,  57, 203,  72,   0,   0, 59,  29, 233, 113,   0,   0, 0
 };
 
+const UBYTE SGB_GAME_HEAVEN_PAL01[16] = {
+    1, 255, 127,  92,  57, 121, 123,   0,   0, 59,  29, 233, 113,   0,   0, 0
+
+};
+
+const UBYTE SGB_GAME_WAVE_PAL01[16] = {
+    1, 255, 127, 181,  86, 74,  41,   0,   0, 181,  86, 74,  41,   0,   0, 0
+};
 
 const UBYTE SGB_GAME_ATTRDIV[16] = {
     (6U << 3) + 1U,
@@ -139,7 +147,7 @@ const UBYTE SGB_GAME_ATTRDIV[16] = {
     0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U
 };
 
-const UBYTE SGB_WAVE_ATTRDIV[16] = {
+const UBYTE SGB_GAME_WAVE_ATTRDIV[16] = {
     (6U << 3) + 1U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U
 };
 
@@ -281,14 +289,15 @@ void initGame() {
 
 void restoreGame(UBYTE update, UBYTE from_pause) {
     if(sgb_mode) {
-        sgb_send_packet(SGB_GAME_STAGE_PAL01); delay(62U);
+        if(level == 5U) {
+            sgb_send_packet(SGB_GAME_HEAVEN_PAL01);
+        } else {
+            sgb_send_packet(SGB_GAME_STAGE_PAL01);
+        }
+        delay(62U);
         sgb_send_packet(SGB_GAME_ATTRDIV);
     }
 
-    /*
-    set_sprite_data(0U, 24U, getSkinData());
-    set_sprite_data(24U, sprites_data_length, sprites_data);
-    */
     memcpy((UBYTE*)0x8000UL, getSkinData(), 384U);
     memcpy((UBYTE*)0x8180UL, sprites_data, sprites_data_length*16);
     set_sprite_palette(0U, sprites_palette_data_length, sprites_palette_data);
@@ -1250,7 +1259,8 @@ void showWaveScreen() {
     BGP_REG = 0xE4U;  // 11100100
 
     if(sgb_mode) {
-        sgb_send_packet(SGB_WAVE_ATTRDIV);
+        sgb_send_packet(SGB_GAME_WAVE_PAL01); delay(62U);
+        sgb_send_packet(SGB_GAME_WAVE_ATTRDIV);
     }
 
     set_sprite_data(0U, characters_data_length, characters_data);
