@@ -85,10 +85,11 @@ void enterGame();
 
 // Special waves
 
-#define WAVE_SPC_SQUIDS      4U
-#define WAVE_SPC_AUTOSCROLL  9U
-#define WAVE_SPC_SPIKEDASH  14U
-#define WAVE_SPC_GHOSTS     19U
-#define WAVE_SPC_LOWTIME    24U
+#define WAVE_SPC_SQUIDS        4U
+#define WAVE_SPC_AUTOSCROLL    9U
+#define WAVE_SPC_SPIKEDASH    14U
+#define WAVE_SPC_GHOSTS       19U
+#define WAVE_SPC_LOWTIME      24U
+#define WAVE_SPC_DOUBLESPIKES 29U
 
 #endif

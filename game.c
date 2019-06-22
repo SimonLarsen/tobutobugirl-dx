@@ -32,7 +32,6 @@ UBYTE blips, blip_bar;
 UBYTE dashing, dashes, dash_xdir, dash_ydir;
 UBYTE ghost_frame;
 UBYTE *spawn_levels;
-UBYTE spawn_level_gen[8];
 UBYTE wave_bg, is_special_wave;
 
 extern UBYTE plains_song_data;
@@ -85,6 +84,11 @@ const UBYTE spawn_level_heaven[32] = {
     E_FIREBALL, E_FIREBALL, E_SPIKES, E_GHOST, E_GHOST, E_ALIEN, E_BIRD, E_BAT,
     E_FIREBALL, E_FIREBALL, E_SPIKES, E_GHOST, E_GHOST, E_ALIEN, E_ALIEN, E_BIRD
 };
+
+const UBYTE spawn_level_squids[8] = { E_ALIEN, E_ALIEN, E_ALIEN, E_ALIEN, E_ALIEN, E_ALIEN, E_ALIEN, E_ALIEN };
+const UBYTE spawn_level_ghosts[8] = { E_GHOST, E_GHOST, E_GHOST, E_GHOST, E_GHOST, E_GHOST, E_GHOST, E_GHOST };
+const UBYTE spawn_level_spikedash[8] = { E_FIREBALL, E_FIREBALL, E_FIREBALL, E_FIREBALL, E_SPIKES, E_SPIKES, E_SPIKES, E_SPIKES };
+const UBYTE spawn_level_doublespikes[8] = { E_SPIKES, E_SPIKES, E_SPIKES, E_SPIKES, E_SPIKES, E_BIRD, E_BIRD, E_BIRD };
 
 #define PROGRESS_POS(x) mydiv(((x) << 1U), 3U)
 
@@ -773,7 +777,6 @@ void initSpawns() {
 void generateSpawnData() {
     UBYTE i;
 
-    spawn_levels = (UBYTE*)spawn_level_gen;
     scrolled_length = 8U + (wave >> 1);
     if(scrolled_length >= 29U) scrolled_length = 28U;
 
@@ -786,12 +789,10 @@ void generateSpawnData() {
 
     switch(wave) {
         case WAVE_SPC_SQUIDS:
-            spawn_levels = spawn_level_gen;
-            mymemset(spawn_levels, E_ALIEN, 8U);
+            spawn_levels = spawn_level_squids;
             break;
         case WAVE_SPC_GHOSTS:
-            spawn_levels = spawn_level_gen;
-            mymemset(spawn_levels, E_GHOST, 8U);
+            spawn_levels = spawn_level_ghosts;
             break;
         case WAVE_SPC_AUTOSCROLL:
             scrolled_length = 10U;
@@ -799,11 +800,13 @@ void generateSpawnData() {
             spawn_levels = spawn_level_data + 32U;
             break;
         case WAVE_SPC_SPIKEDASH:
-            spawn_levels = spawn_level_gen;
+            spawn_levels = spawn_level_spikedash;
             allowed_spikes = 255U;
             scrolled_length = 10U;
-            mymemset(spawn_levels, E_FIREBALL, 4U);
-            mymemset(spawn_levels+4U, E_SPIKES, 4U);
+            break;
+        case WAVE_SPC_DOUBLESPIKES:
+            spawn_levels = spawn_level_doublespikes;
+            allowed_spikes = 1U;
             break;
         case 0U:
             spawn_levels = spawn_level_data + 8U;
@@ -851,6 +854,10 @@ void updateSpawns() {
                 case E_SPIKES:
                     if(repeat_spikes < allowed_spikes) {
                         last_spawn_index = spawnEntity(E_SPIKES, x, 1U, NONE);
+                        if(wave == WAVE_SPC_DOUBLESPIKES) {
+                            x = ((x + 48U + (rand() & 31U)) & 127U) + 24U;
+                            spawnEntity(E_SPIKES, x, 1U, NONE);
+                        }
                         repeat_spikes++;
                         dice = 8U;
                         break;
