@@ -608,7 +608,7 @@ void updateEntities() {
     ghost_move = 0U;
     if(!(ticks & 1U) && !scene_state) {
         ghost_frame++;
-        ghost_move = cos16_32[(ghost_frame+1U) & 31U] - cos16_32[ghost_frame & 31U];
+        ghost_move = cos16_32_diff[ghost_frame & 31U];
     }
 
     for(i = 0U; i != MAX_ENTITIES; ++i) {
