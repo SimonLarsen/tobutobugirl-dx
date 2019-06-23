@@ -1444,8 +1444,8 @@ void enterGame() {
     first_load = 1U;
 
 ingame_start:
+    is_special_wave = mymod(wave+1U, 5U) == 0U;
     if(level == 5U) {
-        is_special_wave = mymod(wave+1U, 5U) == 0U;
         showWaveScreen();
     }
 
