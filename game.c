@@ -131,8 +131,7 @@ const UBYTE SGB_GAME_STAGE_PAL01[16] = {
 };
 
 const UBYTE SGB_GAME_HEAVEN_PAL01[16] = {
-    1, 255, 127,  92,  57, 121, 123,   0,   0, 59,  29, 233, 113,   0,   0, 0
-
+    1, 255, 127,  28,  49, 20, 123,   0,   0, 59,  29, 233, 113,   0,   0, 0
 };
 
 const UBYTE SGB_GAME_WAVE_PAL01[16] = {
