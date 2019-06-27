@@ -785,10 +785,10 @@ void initSpawns() {
 void generateSpawnData() {
     UBYTE i;
 
-    scrolled_length = 8U + (wave >> 1);
+    scrolled_length = 8U + mydiv(wave, 3U);
     if(scrolled_length >= 29U) scrolled_length = 28U;
 
-    allowed_spikes = (wave >> 3) + 1U;
+    allowed_spikes = 1U + mydiv(wave, 12U);
     if(allowed_spikes >= 4U) allowed_spikes = 3U;
 
     if(special_wave == WAVE_SPC_LOWTIME) {
