@@ -32,7 +32,7 @@ UBYTE blips, blip_bar;
 UBYTE dashing, dashes, dash_xdir, dash_ydir;
 UBYTE ghost_frame;
 UBYTE *spawn_levels;
-UBYTE wave_bg, is_special_wave;
+UBYTE wave_bg, special_wave;
 
 extern UBYTE plains_song_data;
 extern UBYTE clouds_song_data;
@@ -226,7 +226,7 @@ void initGame() {
     repeat_spikes = 0U;
     ghost_frame = 0U;
     next_entity = 0U;
-    if(wave == WAVE_SPC_LOWTIME) {
+    if(special_wave == WAVE_SPC_LOWTIME) {
         remaining_time = LOW_TIME;
     } else {
         remaining_time = MAX_TIME;
@@ -301,7 +301,7 @@ void restoreGame(UBYTE update, UBYTE from_pause) {
     memcpy((UBYTE*)0x8180UL, sprites_data, sprites_data_length*16);
     set_sprite_palette(0U, sprites_palette_data_length, sprites_palette_data);
 
-    setIngameBackground(is_special_wave ? 255U : level+wave_bg, update, !from_pause);
+    setIngameBackground(special_wave ? 255U : level+wave_bg, update, !from_pause);
     setIngameHUD(update, !from_pause);
     if(update) {
         set_bkg_data_rle(clock_tiles_offset, clock_data_length, clock_data);
@@ -350,7 +350,7 @@ void updateInput() {
 
             if(dash_xdir || dash_ydir) {
                 dashing = DASH_TIME;
-                if(wave != WAVE_SPC_SPIKEDASH) dashes--;
+                if(special_wave != WAVE_SPC_SPIKEDASH) dashes--;
                 spawnEntity(E_CLOUD, player_x, player_y-6U, 0U);
                 playSound(SFX_DASH);
             }
@@ -409,7 +409,7 @@ void updatePlayer() {
             // Clock pickup
             } else if(type == E_CLOCK) {
                 entity_type[i] = E_NONE;
-                if(wave == WAVE_SPC_LOWTIME) {
+                if(special_wave == WAVE_SPC_LOWTIME) {
                     remaining_time += CLOCK_BONUS_LOWTIME;
                 } else {
                     remaining_time += CLOCK_BONUS;
@@ -527,7 +527,7 @@ void updatePlayer() {
 
     // Dash marker
     if(show_dashcounter) {
-        if(wave == WAVE_SPC_SPIKEDASH) {
+        if(special_wave == WAVE_SPC_SPIKEDASH) {
             setSprite(player_x-12U, player_y-9U, 94U, 5U | ((ticks & 8U) >> 2));
         } else {
             setSprite(player_x-12U, player_y-9U, 24U+(dashes << 1), palette | 5U);
@@ -543,7 +543,7 @@ void updatePlayer() {
     }
 
     // Update scroll
-    if(wave == WAVE_SPC_AUTOSCROLL) {
+    if(special_wave == WAVE_SPC_AUTOSCROLL) {
         scroll_y = ticks & 1U;
         player_y += scroll_y;
     } else {
@@ -757,7 +757,7 @@ UBYTE spawnEntity(UBYTE type, UBYTE x, UBYTE y, UBYTE dir) {
 void initSpawns() {
     UBYTE i, x, y, type;
 
-    if(wave == WAVE_SPC_SQUIDS) {
+    if(special_wave == WAVE_SPC_SQUIDS) {
         type = E_ALIEN;
     } else {
         type = E_BAT;
@@ -768,9 +768,9 @@ void initSpawns() {
     y = 112U;
     spawnEntity(type, x, y, NONE);
 
-    if(wave == WAVE_SPC_GHOSTS) {
+    if(special_wave == WAVE_SPC_GHOSTS) {
         type = E_GHOST;
-    } else if(wave == WAVE_SPC_SPIKEDASH) {
+    } else if(special_wave == WAVE_SPC_SPIKEDASH) {
         type = E_SPIKES;
     }
 
@@ -791,42 +791,39 @@ void generateSpawnData() {
     allowed_spikes = (wave >> 3) + 1U;
     if(allowed_spikes >= 4U) allowed_spikes = 3U;
 
-    if(wave == WAVE_SPC_LOWTIME) {
+    if(special_wave == WAVE_SPC_LOWTIME) {
         clock_interval = 4U;
     }
 
-    switch(wave) {
-        case WAVE_SPC_SQUIDS:
-            spawn_levels = spawn_level_squids;
-            break;
-        case WAVE_SPC_GHOSTS:
-            spawn_levels = spawn_level_ghosts;
-            break;
-        case WAVE_SPC_AUTOSCROLL:
-            scrolled_length = 10U;
-            clock_interval = 8U;
-            spawn_levels = spawn_level_data + 32U;
-            break;
-        case WAVE_SPC_SPIKEDASH:
-            spawn_levels = spawn_level_spikedash;
-            allowed_spikes = 255U;
-            scrolled_length = 10U;
-            break;
-        case WAVE_SPC_DOUBLESPIKES:
-            spawn_levels = spawn_level_doublespikes;
-            allowed_spikes = 1U;
-            break;
-        case 0U:
-            spawn_levels = spawn_level_data + 8U;
-            break;
-        case 1U:
-            spawn_levels = spawn_level_data + 48U;
-            break;
-        default:
-            i = (wave >> 3);
-            if(i >= 4U) i--;
-            spawn_levels = spawn_level_heaven + (i << 3);
-            break;
+    if(special_wave == WAVE_SPC_SQUIDS) {
+        spawn_levels = spawn_level_squids;
+    }
+    else if(special_wave == WAVE_SPC_GHOSTS) {
+        spawn_levels = spawn_level_ghosts;
+    }
+    else if(special_wave == WAVE_SPC_AUTOSCROLL) {
+        scrolled_length = 10U;
+        clock_interval = 8U;
+        spawn_levels = spawn_level_data + 32U;
+    }
+    else if(special_wave == WAVE_SPC_SPIKEDASH) {
+        spawn_levels = spawn_level_spikedash;
+        allowed_spikes = 255U;
+        scrolled_length = 10U;
+    }
+    else if(special_wave == WAVE_SPC_DOUBLESPIKES) {
+        spawn_levels = spawn_level_doublespikes;
+        allowed_spikes = 1U;
+    }
+    else if(wave == 0U) {
+        spawn_levels = spawn_level_data + 8U;
+    }
+    else if(wave == 1U) {
+        spawn_levels = spawn_level_data + 48U;
+    } else {
+        i = (wave >> 3);
+        if(i >= 4U) i--;
+        spawn_levels = spawn_level_heaven + (i << 3);
     }
 }
 
@@ -862,7 +859,7 @@ void updateSpawns() {
                 case E_SPIKES:
                     if(repeat_spikes < allowed_spikes) {
                         last_spawn_index = spawnEntity(E_SPIKES, x, 1U, NONE);
-                        if(wave == WAVE_SPC_DOUBLESPIKES) {
+                        if(special_wave == WAVE_SPC_DOUBLESPIKES) {
                             x = ((x + 48U + (rand() & 31U)) & 127U) + 24U;
                             spawnEntity(E_SPIKES, x, 1U, NONE);
                         }
@@ -1297,7 +1294,7 @@ void showWaveScreen() {
     else if(wave >= 9U) xoffset -= 4U;
 
     yoffset = 80U;
-    if(is_special_wave) yoffset -= 4U;
+    if(special_wave) yoffset -= 4U;
 
     SHOW_WIN;
     SHOW_BKG;
@@ -1334,7 +1331,7 @@ void showWaveScreen() {
             setSprite(xoffset+(i << 3), yoffset+cos4_16[(i+(ticks >> 1)) & 15U], text[i-5U], OBJ_PAL0);
         }
 
-        if(is_special_wave) {
+        if(special_wave) {
             for(i = 0U; i != 7U; ++i) {
                 setSprite(60U+(i << 3), 88U+cos4_16[(i+(ticks >> 1)) & 15U], special_text[i], OBJ_PAL0);
             }
@@ -1439,13 +1436,20 @@ void showInfiniteRestart() {
 }
 
 void enterGame() {
+    UWORD wave_mod;
+
     wave = 0U;
     wave_bg = 0U;
     first_load = 1U;
 
 ingame_start:
-    is_special_wave = mymod(wave+1U, 5U) == 0U;
+    special_wave = 0U;
     if(level == 5U) {
+        wave_mod = wave;
+        while(wave_mod >= WAVE_SPC_LOOP) wave_mod -= WAVE_SPC_LOOP;
+        if(mymod((UBYTE)wave_mod+1U, 5U) == 0U) {
+            special_wave = mydiv((UBYTE)wave_mod+1U, 5U);
+        }
         showWaveScreen();
     }
 
