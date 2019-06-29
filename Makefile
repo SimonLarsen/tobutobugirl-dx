@@ -36,7 +36,7 @@ OBJ_BANK4=jukebox.o
 OBJ_BANK5=winscreen.o logos.o
 OBJ_BANK6=title.o
 OBJ_BANK7=background1.o background1_dx.o background2.o background3.o background4.o
-OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o minigamescore.o \
+OBJ_BANK8=pause_bg.o pause_cloud1.o pause_cloud2.o pause_cloud3.o minigamescore.o \
 		  background5.o background5_sgb.o background5_data_ptrs.o
 OBJ_BANK9=win1.o win1_dx.o win2.o win2_dx.o win3.o win3_dx.o win4.o win4_dx.o win5.o win5_dx.o \
 		  hud.o hud_dx.o hud_sgb.o
@@ -104,6 +104,9 @@ pause_cloud1.asm: pause_cloud1.c pause_cloud1.h
 pause_cloud2.asm: pause_cloud2.c pause_cloud2.h
 	${compile-source}
 
+pause_cloud3.asm: pause_cloud3.c pause_cloud3.h
+	${compile-source}
+
 catface.asm: catface.c catface.h
 	${compile-source}
 
@@ -125,10 +128,10 @@ ending.asm: ending.c defines.h ending.h gamestate.h set_data_rle.h sgb_send_pack
 fade.asm: fade.c gamestate.h sound.h fade.h
 	${compile-source}
 
-game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h sgb_send_packet.h data/palettes/sprites.h data/bg/clock.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h
+game.asm: game.c defines.h game.h fade.h gamestate.h cos.h ram.h highscore.h sound.h mmlgb/driver/music.h pause.h sgb_send_packet.h data/palettes/sprites.h data/bg/clock.h data/sprite/sprites.h data/sprite/portal.h data/sprite/skin1.h data/sprite/skin2.h data/sprite/skin3.h
 	${compile-source}
 
-gamestate.asm: gamestate.c defines.h gamestate.h set_data_rle.h background1.h background1_dx.h background2.h background3.h background4.h background5.h background5_sgb.h background5_palettes.h pause_bg.h win1.h win1_dx.h win2.h win2_dx.h win3.h win3_dx.h win4.h win4_dx.h win5_dx.h win5.h win5_dx.h pause_cloud1.h pause_cloud2.h hud.h hud_dx.h hud_sgb.h mmlgb/driver/music.h
+gamestate.asm: gamestate.c defines.h gamestate.h set_data_rle.h background1.h background1_dx.h background2.h background3.h background4.h background5.h background5_sgb.h background5_palettes.h pause_bg.h win1.h win1_dx.h win2.h win2_dx.h win3.h win3_dx.h win4.h win4_dx.h win5_dx.h win5.h win5_dx.h pause_cloud1.h pause_cloud2.h pause_cloud3.h hud.h hud_dx.h hud_sgb.h mmlgb/driver/music.h
 	${compile-source}
 
 highscore.asm: highscore.c defines.h gamestate.h set_data_rle.h fade.h cos.h highscore.h ram.h sound.h sgb_send_packet.h characters.h arrow.h data/palettes/highscore_sprites.h data/sprite/empty.h data/bg/highscore.h data/bg/highscore_dx.h circles.h selection1.h selection2.h selection3.h selection4.h selection5.h selection_locked.h
@@ -158,7 +161,7 @@ minigamescore.asm: minigamescore.c defines.h fade.h gamestate.h set_data_rle.h s
 pause.asm: pause.c defines.h gamestate.h fade.h sound.h ram.h sgb_send_packet.h mmlgb/driver/music.h characters.h
 	${compile-source}
 
-select.asm: select.c defines.h select.h fade.h gamestate.h set_data_rle.h cos.h ram.h sound.h sgb_send_packet.h mmlgb/driver/music.h characters.h arrow.h circles.h data/palettes/select_sprites.h data/sprite/togglecat.h data/bg/catface.h data/bg/catface_dx.h data/bg/select.h selection1.h selection2.h selection3.h selection4.h selection5.h selection5_dx.h selection_highscore.h selection_highscore_dx.h selection_jukebox.h selection_jukebox_dx.h selection_locked.h selection_locked_dx.h
+select.asm: select.c defines.h select.h fade.h gamestate.h set_data_rle.h cos.h ram.h sound.h sgb_send_packet.h mmlgb/driver/music.h characters.h arrow.h circles.h data/palettes/select_sprites.h data/sprite/togglecat.h data/sprite/togglepanda.h data/bg/catface.h data/bg/catface_dx.h data/bg/select.h selection1.h selection2.h selection3.h selection4.h selection5.h selection5_dx.h selection_highscore.h selection_highscore_dx.h selection_jukebox.h selection_jukebox_dx.h selection_locked.h selection_locked_dx.h
 	${compile-source}
 
 selection1.asm: selection1.c selection1.h

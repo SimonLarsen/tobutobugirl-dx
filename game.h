@@ -1,10 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
-#define getSkinData() (player_skin == 1U ? skin1_data : skin2_data)
+//#define getSkinData() (player_skin == 1U ? skin1_data : skin2_data)
 #define clearEntities() (mymemset(entity_type, 0U, MAX_ENTITIES))
 #define killPlayer() (scene_state = INGAME_DEAD)
 
+UBYTE *getSkinData();
 void initGame();
 void restoreGame(UBYTE update, UBYTE from_pause);
 void updateInput();

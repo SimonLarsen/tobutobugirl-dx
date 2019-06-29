@@ -24,6 +24,7 @@
 #include "win5_dx.h"
 #include "pause_cloud1.h"
 #include "pause_cloud2.h"
+#include "pause_cloud3.h"
 #include "hud.h"
 #include "hud_dx.h"
 #include "hud_sgb.h"
@@ -490,6 +491,9 @@ void setCloudAnimation(UBYTE skin) {
             break;
         case 2U:
             data = pause_cloud2_data;
+            break;
+        case 3U:
+            data = pause_cloud3_data;
             break;
     }
 

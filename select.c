@@ -15,13 +15,15 @@
 #include "circles.h"
 #include "data/palettes/select_sprites.h"
 #include "data/sprite/togglecat.h"
+#include "data/sprite/togglepanda.h"
 #include "data/bg/catface.h"
 #include "data/bg/catface_dx.h"
 #include "data/bg/select.h"
 
 UBYTE select_scroll_dir;
-UBYTE select_cat_state;
-UBYTE cat_frame_reverse;
+UBYTE select_cat_state, select_panda_state;
+UBYTE cat_frame_reverse, panda_frame_reverse;
+UBYTE panda_frame;
 
 #define CAT_ANIM_OFF 0U
 #define CAT_ANIM_IN  1U
@@ -74,6 +76,7 @@ void initSelect() {
     set_sprite_data(0U, 37U, characters_data);
     set_sprite_data(37U, arrow_data_length, arrow_data);
     set_sprite_data(41U, togglecat_data_length, togglecat_data);
+    set_sprite_data(41U+togglecat_data_length, togglepanda_data_length, togglepanda_data);
 
     set_bkg_data(0U, circles_data_length, circles_data);
     set_bkg_data_rle(select_tiles_offset, select_data_length, select_data);
@@ -99,12 +102,16 @@ void initSelect() {
     arrow_offset1 = 0U;
     arrow_offset2 = 0U;
 
-    select_cat_state = CAT_ANIM_OFF;
-    cat_frame = 0U;
-    cat_frame_reverse = 0U;
+    select_cat_state = select_panda_state = CAT_ANIM_OFF;
+    cat_frame = cat_frame_reverse = 0U;
+    panda_frame = panda_frame_reverse = 0U;
     if(player_skin == 2U) {
         select_cat_state = CAT_ANIM_IN;
         cat_frame = 4U;
+    }
+    else if(player_skin == 3U) {
+        select_panda_state = CAT_ANIM_IN;
+        panda_frame = 4U;
     }
 
     OBP0_REG = 0xD0U; // 11010000
@@ -137,23 +144,50 @@ void selectUpdateSprites() {
     setSprite(144U+arrow_offset2, 68U, 37U, OBJ_PAL1 | FLIP_X);
     setSprite(136U+arrow_offset2, 76U, 40U, OBJ_PAL1 | FLIP_X);
     setSprite(144U+arrow_offset2, 76U, 38U, OBJ_PAL1 | FLIP_X);
+    
+    if(levels_completed >= 4U) {
+        switch(select_panda_state) {
+            case CAT_ANIM_OFF:
+                if((ticks & 15U) == 15U) {
+                    if(panda_frame_reverse) panda_frame--;
+                    else panda_frame++;
+                    if(panda_frame == 0U) panda_frame_reverse = 0U;
+                    else if(panda_frame == 4U) panda_frame_reverse = 1U;
+                }
+                break;
+            case CAT_ANIM_IN:
+                if((ticks & 7U) == 7U) panda_frame++;
+                if(panda_frame == 8U) select_panda_state = CAT_ANIM_ON;
+                break;
+            case CAT_ANIM_ON:
+                if((ticks & 15U) == 15U) panda_frame++;
+                if(panda_frame == 10U) panda_frame = 8U;
+                break;
+            case CAT_ANIM_OUT:
+                if((ticks & 7U) == 7U) panda_frame--;
+                if(panda_frame == 4U) {
+                    select_panda_state = CAT_ANIM_OFF;
+                    panda_frame_reverse = 1U;
+                }
+                break;
+        }
+
+        frame = 81U + (panda_frame << 2);
+        pal = sgb_mode << 4 | 2U;
+        setSprite(148U, 20U, frame++, pal);
+        setSprite(156U, 20U, frame++, pal);
+        setSprite(148U, 28U, frame++, pal);
+        setSprite(156U, 28U,   frame, pal);
+    }
 
     if(levels_completed >= 3U) {
         switch(select_cat_state) {
             case CAT_ANIM_OFF:
                 if((ticks & 15U) == 15U) {
-                    if(cat_frame_reverse) {
-                        cat_frame--;
-                    } else {
-                        cat_frame++;
-                    }
+                    if(cat_frame_reverse) cat_frame--;
+                    else cat_frame++;
                     if(cat_frame == 0U) cat_frame_reverse = 0U;
                     else if(cat_frame == 4U) cat_frame_reverse = 1U;
-                }
-                if(CLICKED(J_SELECT)) {
-                    select_cat_state = CAT_ANIM_IN;
-                    player_skin = 2U;
-                    playSound(SFX_CAT_ENABLE);
                 }
                 break;
             case CAT_ANIM_IN:
@@ -163,11 +197,6 @@ void selectUpdateSprites() {
             case CAT_ANIM_ON:
                 if((ticks & 15U) == 15U) cat_frame++;
                 if(cat_frame == 10U) cat_frame = 8U;
-                if(CLICKED(J_SELECT)) {
-                    select_cat_state = CAT_ANIM_OUT;
-                    player_skin = 1U;
-                    playSound(SFX_CAT_DISABLE);
-                }
                 break;
             case CAT_ANIM_OUT:
                 if((ticks & 7U) == 7U) cat_frame--;
@@ -179,11 +208,35 @@ void selectUpdateSprites() {
         }
 
         frame = 41U + (cat_frame << 2);
-        pal = sgb_mode << 4;
-        setSprite(136U, 20U, frame++, pal | 1U);
-        setSprite(144U, 20U, frame++, pal | 1U);
-        setSprite(136U, 28U, frame++, pal | 1U);
-        setSprite(144U, 28U,   frame, pal | 1U);
+        pal = sgb_mode << 4 | 1U;
+        setSprite(128U, 20U, frame++, pal);
+        setSprite(136U, 20U, frame++, pal);
+        setSprite(128U, 28U, frame++, pal);
+        setSprite(136U, 28U,   frame, pal);
+
+        if(CLICKED(J_SELECT)) {
+            if(player_skin == 1U && select_cat_state == CAT_ANIM_OFF && select_panda_state == CAT_ANIM_OFF) {
+                player_skin = 2U;
+                select_cat_state = CAT_ANIM_IN;
+                playSound(SFX_CAT_ENABLE);
+            }
+            else if(player_skin == 2U && select_cat_state == CAT_ANIM_ON) {
+                select_cat_state = CAT_ANIM_OUT;
+                if(levels_completed >= 4U) {
+                    player_skin = 3U;
+                    select_panda_state = CAT_ANIM_IN;
+                    playSound(SFX_CAT_ENABLE);
+                } else {
+                    player_skin = 1U;
+                    playSound(SFX_CAT_DISABLE);
+                }
+            }
+            else if(player_skin == 3U && select_panda_state == CAT_ANIM_ON) {
+                player_skin = 1U;
+                select_panda_state = CAT_ANIM_OUT;
+                playSound(SFX_CAT_DISABLE);
+            }
+        }
     }
 }
 

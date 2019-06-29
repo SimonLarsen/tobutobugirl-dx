@@ -21,6 +21,7 @@
 #include "data/sprite/portal.h"
 #include "data/sprite/skin1.h"
 #include "data/sprite/skin2.h"
+#include "data/sprite/skin3.h"
 
 UBYTE first_load;
 UBYTE scrolled;
@@ -111,8 +112,8 @@ const UBYTE entity_sprites[10] = {
     // Powerups
     (21U << 2),  // E_CLOCK
     // Special
-    (28U << 2),  // E_PORTAL
-    (26U << 2)   // E_CLOUD
+    (29U << 2),  // E_PORTAL
+    (27U << 2)   // E_CLOUD
 };
 
 const UBYTE entity_palettes[10U] = {
@@ -211,6 +212,15 @@ const UBYTE restart_window_tiles[9] = {
       5U,   5U,  18U
 };
 
+UBYTE *getSkinData() {
+    switch(player_skin) {
+        case 1: return skin1_data;
+        case 2: return skin2_data;
+        case 3: return skin3_data;
+    }
+    return (UBYTE*)0U;
+}
+
 void initGame() {
     disable_interrupts();
     DISPLAY_OFF;
@@ -221,7 +231,7 @@ void initGame() {
     ticks = 0U;
     next_spawn = 0U;
     progress = 0U;
-    progressbar = 121U;
+    progressbar = 120U;
     portal_spawned = 0U;
     repeat_spikes = 0U;
     ghost_frame = 0U;
@@ -569,9 +579,9 @@ void updateHUD() {
     setSprite(176U-(blip_bar >> 3), 136U, 98U, OBJ_PAL0 | 5U);
 
     // Progress bar
-    frame = 100U + ((player_skin-1U) << 1U);
-    setSprite(153U, progressbar, frame, OBJ_PAL0 | player_skin-1U);
-    setSprite(160U, progressbar, frame, OBJ_PAL0 | FLIP_X | player_skin-1U);
+    frame = 98U + (player_skin << 1U);
+    setSprite(153U, progressbar, frame, OBJ_PAL0);
+    setSprite(160U, progressbar, frame, OBJ_PAL0 | FLIP_X);
 
     // Set last progress flag
     if(last_progress) {
@@ -707,10 +717,10 @@ void updateEntities() {
 
             case E_PORTAL:
                 if(level == 3U && player_skin == 1U) {
-                    setSprite(x-16U, y-24U, 116U, OBJ_PAL0 | 1U);
-                    setSprite(x-8U,  y-24U, 118U, OBJ_PAL0 | 1U);
-                    setSprite(x-16U, y-8U, 120U, OBJ_PAL0 | 1U);
-                    setSprite(x-8U,  y-8U, 122U, OBJ_PAL0 | 1U);
+                    setSprite(x-16U, y-24U, 120U, OBJ_PAL0 | 1U);
+                    setSprite(x-8U,  y-24U, 122U, OBJ_PAL0 | 1U);
+                    setSprite(x-16U, y-8U, 124U, OBJ_PAL0 | 1U);
+                    setSprite(x-8U,  y-8U, 126U, OBJ_PAL0 | 1U);
                 } else {
                     if(entity_dir[i] & 1U) {
                         setSprite(x-16U, y, frame, OBJ_PAL0 | 6U);
@@ -1057,10 +1067,10 @@ void saveCatAnimation() {
 
         if((ticks & 15U) == 15U) player_y++;
 
-        setSprite(player_x-16U, player_y-24U, 116U, OBJ_PAL0 | 1U);
-        setSprite(player_x-8U,  player_y-24U, 118U, OBJ_PAL0 | 1U);
-        setSprite(player_x-16U, player_y-8U, 120U, OBJ_PAL0 | 1U);
-        setSprite(player_x-8U,  player_y-8U, 122U, OBJ_PAL0 | 1U);
+        setSprite(player_x-16U, player_y-24U, 120U, OBJ_PAL0 | 1U);
+        setSprite(player_x-8U,  player_y-24U, 122U, OBJ_PAL0 | 1U);
+        setSprite(player_x-16U, player_y-8U, 124U, OBJ_PAL0 | 1U);
+        setSprite(player_x-8U,  player_y-8U, 126U, OBJ_PAL0 | 1U);
 
         setSprite(player_x-16U, player_y, 4U, OBJ_PAL0);
         setSprite(player_x-8U, player_y, 6U, OBJ_PAL0);
@@ -1529,7 +1539,7 @@ ingame_start:
             scrolled -= scrolled_length;
             if(progress < 112U) {
                 progress++;
-                progressbar = 121U - PROGRESS_POS(progress);
+                progressbar = 120U - PROGRESS_POS(progress);
                 move_bkg(0U, 112U-progress);
             }
         }
