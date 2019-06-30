@@ -243,7 +243,7 @@ void initGame() {
     ghost_frame = 0U;
     next_entity = 0U;
     if(special_wave & WAVE_SPC_LOWTIME) {
-        remaining_time = LOW_TIME;
+        remaining_time = LOW_TIME+1U;
     } else {
         remaining_time = MAX_TIME;
     }
@@ -814,19 +814,20 @@ void generateSpawnData() {
     allowed_spikes = 1U + mydiv(tmp, 12U);
     if(allowed_spikes >= 4U) allowed_spikes = 3U;
 
+    if(special_wave & WAVE_SPC_LOWTIME) {
+        clock_interval = 5U;
+    }
+
     if((special_wave & (WAVE_SPC_AUTOSCROLL | WAVE_SPC_SPIKEDASH)) == (WAVE_SPC_AUTOSCROLL | WAVE_SPC_SPIKEDASH)) {
         spawn_levels = spawn_level_spikedash;
         allowed_spikes = 255U;
         scrolled_length = 10U;
         clock_interval = 8U;
     }
-    else if(special_wave & WAVE_SPC_LOWTIME) {
-        clock_interval = 4U;
-    }
     else if(special_wave & WAVE_SPC_AUTOSCROLL) {
+        spawn_levels = spawn_level_data + 32U;
         scrolled_length = 10U;
         clock_interval = 8U;
-        spawn_levels = spawn_level_data + 32U;
     }
     else if(special_wave & WAVE_SPC_SQUIDS) {
         spawn_levels = spawn_level_squids;
