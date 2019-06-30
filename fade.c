@@ -47,6 +47,8 @@ void fadeToWhiteCGB(UBYTE delay) {
             if(b <= 29U) b += 2U; else b = 31U;
             palette_buffer[c] = RGB(r, g, b);
         }
+
+        while((STAT_REG & 3U) == 1U) {}
         set_bkg_palette(0, 8U, palette_buffer);
 
         for(c = 0U; c != delay; ++c) {
@@ -92,6 +94,8 @@ void fadeFromWhiteCGB(UBYTE delay) {
             if(b <= 31U-i) b += i; else b = 31U;
             palette_buffer2[c] = RGB(r, g, b);
         }
+
+        while((STAT_REG & 3U) == 1U) {}
         set_bkg_palette(0U, 8U, palette_buffer2);
 
         for(c = 0U; c != delay; ++c) {

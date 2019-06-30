@@ -1336,9 +1336,10 @@ void showWaveScreen() {
     enable_interrupts();
 
     for(i = 48U; i != 0U; i -= 4U) {
+        snd_update();
+        while((STAT_REG & 3U) != 1U) {}
         move_bkg(0U, i);
         move_win(7U, 96+i);
-        snd_update();
         wait_vbl_done();
     }
     move_bkg(0U, 0U);
