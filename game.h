@@ -84,14 +84,14 @@ void enterGame();
 #define INGAME_COMPLETED 2U
 #define INGAME_QUIT      3U
 
-// Special waves
-#define WAVE_SPC_SQUIDS       1U
-#define WAVE_SPC_AUTOSCROLL   2U
-#define WAVE_SPC_SPIKEDASH    3U
-#define WAVE_SPC_GHOSTS       4U
-#define WAVE_SPC_LOWTIME      5U
-#define WAVE_SPC_DOUBLESPIKES 6U
+// Wave effects
+#define WAVE_SPC_SQUIDS        1U
+#define WAVE_SPC_AUTOSCROLL    2U
+#define WAVE_SPC_SPIKEDASH     4U
+#define WAVE_SPC_GHOSTS        8U
+#define WAVE_SPC_LOWTIME      16U
+#define WAVE_SPC_DOUBLESPIKES 32U
 
-#define WAVE_SPC_LOOP 30U
+#define WAVE_SPC_LOOP 35U // 7 * 5
 
 #endif
