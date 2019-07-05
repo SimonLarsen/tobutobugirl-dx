@@ -542,12 +542,11 @@ void updatePlayer() {
     if(!dashes && (ticks & 4U)) palette = OBJ_PAL1 | 7U;
 
     // Dash marker
-    if(show_dashcounter) {
-        if(special_wave & WAVE_SPC_SPIKEDASH) {
-            setSprite(player_x-12U, player_y-9U, 94U, 5U | ((ticks & 8U) >> 2));
-        } else {
-            setSprite(player_x-12U, player_y-9U, 24U+(dashes << 1), palette | 5U);
-        }
+    if(special_wave & WAVE_SPC_SPIKEDASH) {
+        setSprite(player_x-12U, player_y-9U, 94U, 5U | ((ticks & 8U) >> 2));
+    }
+    else if(show_dashcounter) {
+        setSprite(player_x-12U, player_y-9U, 24U+(dashes << 1), palette | 5U);
     }
 
     if(player_xdir == LEFT) {
