@@ -1624,6 +1624,7 @@ ingame_start:
             intoPortalAnimation();
         } else {
             STOP_MUSIC;
+            wait_vbl_done();
             if(level == 3U && player_skin == 1U) {
                 saveCatAnimation();
                 gamestate = GAMESTATE_ENDING;
