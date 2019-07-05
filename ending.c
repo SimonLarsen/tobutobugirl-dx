@@ -321,8 +321,10 @@ void enterEnding() {
 
     fadeFromWhite(8U);
 
-    ticks = 0U;
     scroll_y = 20U;
+    ticks = 0U;
+    if(CGB_MODE) ticks = 6U;
+
     while(scene_state != ENDING_STATE_END) {
         updateJoystate();
 

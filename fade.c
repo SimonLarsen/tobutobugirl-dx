@@ -35,7 +35,7 @@ void fadeToWhiteCGB(UBYTE delay) {
 
     get_bkg_palette(palette_buffer);
 
-    for(i = 0U; i != 14U; ++i) {
+    for(i = 0U; i != 15U; ++i) {
         for(c = 0U; c != 32U; ++c) {
             v = palette_buffer[c];
             r = GET_RED(v);
@@ -82,7 +82,7 @@ void fadeFromWhiteCGB(UBYTE delay) {
     UBYTE r, g, b;
     UWORD v;
 
-    for(i = 29U; i != 1U; i -= 2U) {
+    for(i = 31U; i != 1U; i -= 2U) {
         for(c = 0U; c != 32U; ++c) {
             v = palette_buffer[c];
             r = GET_RED(v);
