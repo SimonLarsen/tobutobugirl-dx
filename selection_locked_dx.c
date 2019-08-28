@@ -46,7 +46,7 @@ const unsigned char selection_locked_dx_tiles[] = {
 
 const unsigned int selection_locked_dx_palette_data[] = {
 	  0, 12521, 27503, 32767,
-      0, 12521, 4245, 14043
+      0, 12521, 4245, 15067
 };
 const unsigned char selection_locked_dx_palettes[] = {
 	  3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,

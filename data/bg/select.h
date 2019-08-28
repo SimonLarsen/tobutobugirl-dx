@@ -33,9 +33,9 @@ const unsigned char select_tiles[] = {
 #define select_palette_data_length 3U
 #define select_palette_offset 0U
 const unsigned int select_palette_data[] = {
-	22887, 13507, 10492,   0,
-    31710,   0, 10492,   0,
-    32767, 13507,   0,   0
+	23911, 14498, 9403,   0,
+    31710,   0, 9403,   0,
+    32767, 14498,   0,   0
 };
 const unsigned char select_palettes[] = {
 	  0,   0,  66,   1,   1,   8,   0,   0,  51,   2,   2,  10,   0,   0,  10,   2,   2,  10,   0,   0,

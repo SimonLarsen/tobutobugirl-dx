@@ -54,8 +54,8 @@ const unsigned char pause_bg_tiles[] = {
 };
 
 const unsigned int pause_bg_palette_data[] = {
-	32767, 18907, 16553,   0,
-    6940, 28114, 16553,   0,
+	32767, 18907, 16456,   0,
+    764, 28116, 16456,   0,
     32767, 18907,   0,   0
 };
 const unsigned char pause_bg_palettes[] = {

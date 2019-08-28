@@ -97,8 +97,8 @@ const unsigned char selection5_dx_tiles[] = {
 };
 
 const unsigned int selection5_dx_palette_data[] = {
-	  0, 32767, 12521, 20157,
-    4269, 12521, 20157, 32767
+	  0, 32767, 12521, 16988,
+    3212, 12521, 16988, 32767
 };
 const unsigned char selection5_dx_palettes[] = {
 	  3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,

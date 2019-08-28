@@ -172,8 +172,8 @@ const unsigned char background1_dx_tiles[] = {
 };
 
 const unsigned int background1_dx_palette_data[] = {
-	29258, 29002, 32766, 24812,
-    24812, 11082, 29258, 2338
+	27111, 24742, 32766, 23656,
+    23656, 934, 27111, 289
 };
 const unsigned char background1_dx_palettes[] = {
 	  0,   0, 255,   0,   0, 195,   1,   1,   7,   0,   0,  11,   1,   1, 108

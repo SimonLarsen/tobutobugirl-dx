@@ -58,8 +58,8 @@ const unsigned char wipe_tiles[] = {
 #define wipe_palette_data_length 2U
 #define wipe_palette_offset 0U
 const unsigned int wipe_palette_data[] = {
-	22887, 13507, 10492,   0,
-    32767, 13507, 10492,   0
+	23911, 14498, 9403,   0,
+    32767, 14498, 9403,   0
 };
 const unsigned char wipe_palettes[] = {
 	  0,   0,  65,   1,   1,   9,   0,   0,  46,   1,   1, 120,   0,   0,  27,   1,   1,   6,   0,   0,

@@ -70,9 +70,9 @@ const unsigned char tangram_tiles[] = {
 #define tangram_palette_data_length 3U
 #define tangram_palette_offset 0U
 const unsigned int tangram_palette_data[] = {
-	32767, 10712, 7434,   0,
-    32767, 26422, 7434,   0,
-    32767, 22163, 7434,   0
+	32767, 9626, 4266,   0,
+    32767, 28505, 4266,   0,
+    32767, 22197, 4266,   0
 };
 const unsigned char tangram_palettes[] = {
 	  0,   0,  90,   1,   0,   0,   2,   1,   0,   0,  19,   1,   0,   0,  30,   2,   0,   0,  17,   2,

@@ -20,8 +20,8 @@ const unsigned char win_base_dx_tiles[] = {
 #define win_base_dx_palette_data_length 2U
 #define win_base_dx_palette_offset 0U
 const unsigned int win_base_dx_palette_data[] = {
-	32767, 20083, 13773,   0,
-    22887, 13507, 32767,   0
+	32767, 20083, 14798,   0,
+    23911, 14498, 32767,   0
 };
 const unsigned char win_base_dx_palettes[] = {
 	  1,   1,   4,   0,   0,  12,   1,   1,   7,   0,   0,  14,   1,   1,   6,   0,   0,  14,   1,   1,

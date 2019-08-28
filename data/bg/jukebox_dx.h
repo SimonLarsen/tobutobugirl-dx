@@ -173,12 +173,12 @@ const unsigned char jukebox_dx_tiles[] = {
 #define jukebox_dx_palette_data_length 7U
 #define jukebox_dx_palette_offset 0U
 const unsigned int jukebox_dx_palette_data[] = {
-	28638,   0, 9695, 4250,
-      0, 19995, 28638, 9695,
-      0, 7401, 9695, 28638,
-      0, 7401, 19995, 28638,
-      0, 4250, 9695, 19995,
-    4250, 9695, 19995, 28638,
+	26558,   0, 9695, 4250,
+      0, 18938, 26558, 9695,
+      0, 7401, 9695, 26558,
+      0, 7401, 18938, 26558,
+      0, 4250, 9695, 18938,
+    4250, 9695, 18938, 26558,
       0, 7401, 4250, 9695
 };
 const unsigned char jukebox_dx_palettes[] = {

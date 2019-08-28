@@ -94,9 +94,9 @@ const unsigned char selection1_tiles[] = {
 };
 
 const unsigned int selection1_palette_data[] = {
-	32767, 29258, 24812,   0,
-      0, 11082, 24812,   0,
-      0, 11082, 2339,   0
+	32767, 29223, 23722,   0,
+      0, 934, 23722,   0,
+      0, 934, 2339,   0
 };
 const unsigned char selection1_palettes[] = {
 	  3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,

@@ -3,9 +3,9 @@
 
 #define jukebox_sprites_palette_data_length 4U
 const unsigned int jukebox_sprites_palette_data[] = {
-    32767, 7423, 5170,   0,
-    32767, 7423, 2186,   0,
-    32767, 32767, 10492,   0,
+    32767, 6366, 5137,   0,
+    32767, 6366, 2187,   0,
+    32767, 32767, 9404,   0,
     32767, 32767, 13755, 3114
 };
 

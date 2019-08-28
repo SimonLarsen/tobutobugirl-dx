@@ -3,7 +3,7 @@
 
 #define ranks_palette_data_length 1U
 const unsigned int ranks_palette_data[] = {
-    30975, 32767, 7420,   0
+    31775, 32767, 3196,   0
 };
 
 #endif

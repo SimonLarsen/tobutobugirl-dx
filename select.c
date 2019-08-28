@@ -135,15 +135,15 @@ void initSelect() {
 void selectUpdateSprites() {
     UBYTE frame, pal;
 
-    setSprite(24U-arrow_offset1, 68U, 37U, OBJ_PAL1);
-    setSprite(32U-arrow_offset1, 68U, 39U, OBJ_PAL1);
-    setSprite(24U-arrow_offset1, 76U, 38U, OBJ_PAL1);
-    setSprite(32U-arrow_offset1, 76U, 40U, OBJ_PAL1);
+    setSprite(24U-arrow_offset1, 68U, 37U, OBJ_PAL1 | 2U);
+    setSprite(32U-arrow_offset1, 68U, 39U, OBJ_PAL1 | 2U);
+    setSprite(24U-arrow_offset1, 76U, 38U, OBJ_PAL1 | 2U);
+    setSprite(32U-arrow_offset1, 76U, 40U, OBJ_PAL1 | 2U);
 
-    setSprite(136U+arrow_offset2, 68U, 39U, OBJ_PAL1 | FLIP_X);
-    setSprite(144U+arrow_offset2, 68U, 37U, OBJ_PAL1 | FLIP_X);
-    setSprite(136U+arrow_offset2, 76U, 40U, OBJ_PAL1 | FLIP_X);
-    setSprite(144U+arrow_offset2, 76U, 38U, OBJ_PAL1 | FLIP_X);
+    setSprite(136U+arrow_offset2, 68U, 39U, OBJ_PAL1 | FLIP_X | 2U);
+    setSprite(144U+arrow_offset2, 68U, 37U, OBJ_PAL1 | FLIP_X | 2U);
+    setSprite(136U+arrow_offset2, 76U, 40U, OBJ_PAL1 | FLIP_X | 2U);
+    setSprite(144U+arrow_offset2, 76U, 38U, OBJ_PAL1 | FLIP_X | 2U);
     
     if(levels_completed >= 4U) {
         switch(select_panda_state) {

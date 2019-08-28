@@ -134,9 +134,9 @@ const unsigned char background4_tiles[] = {
 };
 
 const unsigned int background4_palette_data[] = {
-	32767, 17182, 16586,   0,
-    32632, 20039, 16586,   0,
-    32632, 16720, 16586,   0
+	32767, 14078, 15529,   0,
+    32632, 21064, 15529,   0,
+    32632, 17681, 15529,   0
 };
 const unsigned char background4_palettes[] = {
 	  0,   0, 154,   1,   1,   2,   0,   0,   2,   1,   1,   2,   0,   0,   3,   1,   1,   3,   0,   0,

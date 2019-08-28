@@ -78,8 +78,8 @@ const unsigned char selection_highscore_dx_tiles[] = {
 const unsigned int selection_highscore_dx_palette_data[] = {
 	  0, 28638, 10587, 3189,
       0, 4164, 2258, 28638,
-      0, 4164, 13610, 28638,
-      0, 2258, 13610, 28638,
+      0, 4164, 14634, 28638,
+      0, 2258, 14634, 28638,
       0, 4164, 10587, 28638
 };
 const unsigned char selection_highscore_dx_palettes[] = {
