@@ -8,6 +8,16 @@ More info at: http://tangramgames.dk/tobutobugirldx.
 
 In order to play the game you will need to either flash the game to a Game Boy flash cart or use a Game Boy emulator. The binaries are provided through [itch.io](https://tangramgames.itch.io/tobutobugirldx).
 
+## Compilation
+
+The build chain is currently a huge mess involving an old version of GBDK/LCC, a more recent version of SDCC and some custom tools. I plan on cleaning things up at some point. In the meantime, if you still want try and compile this you should install the following tools and then change the paths in the Makefile accordingly:
+
+* [GBDK 2.96](http://gbdk.sourceforge.net)
+* [GBDK-n](https://github.com/andreasjhkarlsson/gbdk-n)
+* [SDCC 3.8.0](http://sdcc.sourceforge.net)
+* [pyimgtogb](https://github.com/SimonLarsen/pyimgtogb)
+* [mmlgb](https://github.com/SimonLarsen/mmlgb)
+
 ## License
 
 The source code for Tobu Tobu Girl is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
