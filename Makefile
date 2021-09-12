@@ -1,6 +1,7 @@
-CC=lcc
-CFLAGS=-Wa-l -Wl-m -Wl-j
-SDCCN=/home/simon/share/sdcc-3.8.0/bin/sdcc -mgbz80 --no-std-crt0 -I "${GBDKNDIR}/include" -I "${GBDKNDIR}/include/asm"
+GBDKDIR = ./gbdk
+CC=${GBDKDIR}/bin/lcc
+CFLAGS=-Wl-m -Wl-j
+SDCCN=${GBDKDIR}/bin/sdcc -mgbz80 --no-std-crt0 -I "${GBDKDIR}/include" -I "${GBDKDIR}/include/asm"
 IMGTOGB=imgtogb.py
 IMGTOSGB=imgtosgb.py
 GETPALETTE=imgtogbpal.py
@@ -20,6 +21,20 @@ endef
 
 default: tobudx.gb
 
+
+clean: tidy
+	find data/songs \( -iname '*.asm' -o -iname '*.h' \) -delete
+
+
+cfiles = $(wildcard *.c)
+tidy:
+	rm -f tobudx.gb $(OBJ) $(OBJ_BANK1) $(OBJ_BANK2) $(OBJ_BANK3) $(OBJ_BANK4) $(OBJ_BANK5) $(OBJ_BANK6) \
+	$(OBJ_BANK7) $(OBJ_BANK8) $(OBJ_BANK9) $(OBJ_BANK10) $(OBJ_BANK11) tobudx.map tobudx.sym tobudx.rel \
+	tobudx.ihx tobudx.noi
+	find ./ \( -iname '*.lst' -o -iname '*.sym' \) -delete
+	rm -f $(cfiles:.c=.asm) $(cfiles:.c=.rel)
+
+
 include backgrounds.mk
 include sprites.mk
 include sgb.mk
@@ -27,7 +42,7 @@ include songs.mk
 
 OBJ=main.o fade.o gamestate.o set_data_rle.o cos.o circles.o zoom_circles.o characters.o arrow.o sound.o \
 	mmlgb/driver/music.o mmlgb/driver/freq.o mmlgb/driver/noisefreq.o mmlgb/driver/vib.o \
-	math.o getpal.o sgb_send_packet.o mymemset.o data_ptrs.o
+	math.o getpal.o sgb_send_packet.o mymemset.o
 
 OBJ_BANK1=game.o pause.o
 OBJ_BANK2=select.o highscore.o unlocked.o
@@ -67,6 +82,12 @@ $(OBJ_BANK10): CFLAGS+=-bo10
 $(OBJ_BANK11): CFLAGS+=-bo11
 
 $(RAM_BANK1): CFLAGS+=-ba0
+
+
+ifeq (,$(filter clean tidy,$(MAKECMDGOALS)))
+$(info $(shell make -C mmlgb/driver))
+endif
+
 
 arrow.asm: arrow.c arrow.h
 	${compile-source}
@@ -295,4 +316,4 @@ tobudx.gb: $(OBJ) $(OBJ_SONGS) \
 	$(OBJ_BANK1) $(OBJ_BANK2) $(OBJ_BANK3) $(OBJ_BANK4) \
 	$(OBJ_BANK5) $(OBJ_BANK6) $(OBJ_BANK7) $(OBJ_BANK8) \
 	$(OBJ_BANK9) $(OBJ_BANK10) $(OBJ_BANK11)
-	$(CC) $(CFLAGS) -Wl-yt03 -Wl-yo16 -Wl-ya1 -Wl-yp0x143=0x80 -Wl-yp0x146=0x03 -Wl-yp0x14A=0x01 -Wl-yp0x14B=0x33 -Wl-yp0x14C=0x00 $^ -o $@
+	$(CC) $(CFLAGS) -Wm-yS -Wm-ynTOBUDX -Wm-yt03 -Wm-yo16 -Wm-ya1 -Wm-yc -Wm-ys -Wm-yj $^ -o $@

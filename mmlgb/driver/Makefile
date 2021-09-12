@@ -1,6 +1,7 @@
-CC=lcc
+GBDKDIR = ../../gbdk
+CC=${GBDKDIR}/bin/lcc
 CFLAGS=-Wa-l -Wl-m -Wl-j
-SDCCN=/home/simon/share/sdcc-3.8.0/bin/sdcc -mgbz80 --no-std-crt0 -I "${GBDKNDIR}/include" -I "${GBDKNDIR}/include/asm"
+SDCCN=${GBDKDIR}/bin/sdcc -mgbz80 --no-std-crt0 -I "${GBDKDIR}/include" -I "${GBDKDIR}/include/asm"
 
 default: ASMFILES
 

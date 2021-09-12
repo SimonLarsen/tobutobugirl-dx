@@ -1,5 +1,6 @@
 #include <gb/gb.h>
-#include <gb/rand.h>
+#include <gb/cgb.h>
+#include <rand.h>
 #include "defines.h"
 #include "ending.h"
 #include "gamestate.h"
