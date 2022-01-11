@@ -1,14 +1,13 @@
 GBDKDIR = ./gbdk
 CC=${GBDKDIR}/bin/lcc
-CFLAGS=-Wl-m -Wl-j
-SDCCN=${GBDKDIR}/bin/sdcc -mgbz80 --no-std-crt0 -I "${GBDKDIR}/include" -I "${GBDKDIR}/include/asm"
+CFLAGS=-Wl-m -Wl-j -mgbz80:gb -Wf--no-std-crt0
 IMGTOGB=imgtogb.py
 IMGTOSGB=imgtosgb.py
 GETPALETTE=imgtogbpal.py
 MMLGB=mmlgb/parser/MMLGB.jar
 
 define compile-source
-	$(SDCCN) $(CFLAGS) -c $< && python scripts/fixcode.py $@ $@
+	$(CC) $(CFLAGS) -c $<
 endef
 
 define compile-asm
@@ -29,7 +28,7 @@ clean: tidy
 cfiles = $(wildcard *.c)
 tidy:
 	rm -f tobudx.gb $(OBJ) $(OBJ_BANK1) $(OBJ_BANK2) $(OBJ_BANK3) $(OBJ_BANK4) $(OBJ_BANK5) $(OBJ_BANK6) \
-	$(OBJ_BANK7) $(OBJ_BANK8) $(OBJ_BANK9) $(OBJ_BANK10) $(OBJ_BANK11) tobudx.map tobudx.sym tobudx.rel \
+	$(OBJ_BANK7) $(OBJ_BANK8) $(OBJ_BANK9) $(OBJ_BANK10) $(OBJ_BANK11) $(OBJ_SONGS) tobudx.map tobudx.sym tobudx.rel \
 	tobudx.ihx tobudx.noi
 	find ./ \( -iname '*.lst' -o -iname '*.sym' \) -delete
 	rm -f $(cfiles:.c=.asm) $(cfiles:.c=.rel)
@@ -69,17 +68,17 @@ OBJ_SONGS=title_song.o mainmenu_song.o score_tally_song.o highscore_song.o plain
 		tangram_vox_song.o level_clear_song.o unlocked_song.o minigame_song.o potaka_song.o \
 		heaven_song.o
 
-$(OBJ_BANK1): CFLAGS+=-bo1
-$(OBJ_BANK2): CFLAGS+=-bo2
-$(OBJ_BANK3): CFLAGS+=-bo3
-$(OBJ_BANK4): CFLAGS+=-bo4
-$(OBJ_BANK5): CFLAGS+=-bo5
-$(OBJ_BANK6): CFLAGS+=-bo6
-$(OBJ_BANK7): CFLAGS+=-bo7
-$(OBJ_BANK8): CFLAGS+=-bo8
-$(OBJ_BANK9): CFLAGS+=-bo9
-$(OBJ_BANK10): CFLAGS+=-bo10
-$(OBJ_BANK11): CFLAGS+=-bo11
+$(OBJ_BANK1): CFLAGS+=-Wf-bo1
+$(OBJ_BANK2): CFLAGS+=-Wf-bo2
+$(OBJ_BANK3): CFLAGS+=-Wf-bo3
+$(OBJ_BANK4): CFLAGS+=-Wf-bo4
+$(OBJ_BANK5): CFLAGS+=-Wf-bo5
+$(OBJ_BANK6): CFLAGS+=-Wf-bo6
+$(OBJ_BANK7): CFLAGS+=-Wf-bo7
+$(OBJ_BANK8): CFLAGS+=-Wf-bo8
+$(OBJ_BANK9): CFLAGS+=-Wf-bo9
+$(OBJ_BANK10): CFLAGS+=-Wf-bo10
+$(OBJ_BANK11): CFLAGS+=-Wf-bo11
 
 $(RAM_BANK1): CFLAGS+=-ba0
 
