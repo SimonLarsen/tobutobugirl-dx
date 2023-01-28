@@ -1,26 +1,22 @@
 _mydiv::
-    ld	e, #0
-	ldhl	sp,#2
-    ld	a, (hl+)
-    ld	c, (hl)
+    ld c, #0
 1$:
-    sub a, c
+    sub a, e
     jr C, 2$
-    inc e
+    inc c
     jr 1$
 2$:
+    ld a, c
     ret
 
 
 _mymod::
-	ldhl	sp,#2
-    ld	a, (hl+)
-    ld	c, (hl)
-    ld	e, a
+    ld c, a
 1$:
-    sub a, c
+    sub a, e
     jr C, 2$
-    ld e, a
+    ld c, a
     jr 1$
 2$:
+    ld a, c
     ret
