@@ -8,8 +8,8 @@
 
 void _setSprite(UBYTE y, UBYTE x, UBYTE tile, UBYTE prop);
 void clearRemainingSprites();
-UBYTE mydiv(UBYTE num, UBYTE denom);
-UBYTE mymod(UBYTE num, UBYTE denom);
+UBYTE mydiv(UBYTE num, UBYTE denom) PRESERVES_REGS(b, d, h, l);
+UBYTE mymod(UBYTE num, UBYTE denom) PRESERVES_REGS(b, d, h, l);
 UWORD mydiv16(UWORD num, UWORD denom);
 UWORD mymod16(UWORD num, WORD denom);
 #define drawNumber8(x, y, value) (drawNumber16((x), (y), (value)))
