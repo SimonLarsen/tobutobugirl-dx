@@ -142,8 +142,6 @@ void enterLogos() {
 	BGP_REG = 0xE4U;
 	fadeFromWhite(8U);
 
-	disable_interrupts();
-
 	for(i = 0U; i != 10U; ++i) wait_vbl_done();
 
 	disable_interrupts();
