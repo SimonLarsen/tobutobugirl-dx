@@ -4,7 +4,7 @@ A dual GB/GBC remaster of Tobu Tobu Girl.
 
 More info at: http://tangramgames.dk/tobutobugirldx.
 
-This fork changes the code so that it can be built with just GBDK-2020, greatly simplifying the build process. However, as of now, the game is not functional due to the memcpy function being broken, so the game will not run as is.
+This fork changes the code so that it can be built with just GBDK-2020, greatly simplifying the build process.
 
 ## Playing the game
 
