@@ -114,6 +114,5 @@ extern const UBYTE rank_letters[4];
 void get_bkg_palette(const UBYTE *buffer) OLDCALL;
 void get_sprite_palette(const UBYTE *buffer) OLDCALL;
 void mymemset(UBYTE *dest, UBYTE value, UWORD count) OLDCALL;
-//void mymemcpy(UBYTE *dest, const UBYTE *source, UWORD count) OLDCALL;
 
 #endif
