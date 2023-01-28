@@ -180,18 +180,14 @@ __set_tiles_rle::
 00103$:
 ;gamestate.c:365: out += (y << 5) + x;
 	ldhl	sp,#12
-	ld	c, (hl)
-	ld	b, #0x00
-	sla	c
-	rl	b
-	sla	c
-	rl	b
-	sla	c
-	rl	b
-	sla	c
-	rl	b
-	sla	c
-	rl	b
+; (y << 5) == ((y << 8) >> 3)
+	ld	b, (hl)
+	xor	a, a
+.rept 3
+	sra	b
+	rra
+.endm
+	ld	c, a
 	dec	hl
 	ld	a, (hl)
 	ldhl	sp,#2
