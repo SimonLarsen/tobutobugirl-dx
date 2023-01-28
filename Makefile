@@ -1,9 +1,10 @@
 GBDKDIR = ./gbdk
+PYIMGTOGBDIR = ./pyimgtogb
 CC=${GBDKDIR}/bin/lcc
-CFLAGS=-Wl-m -Wl-j -mgbz80:gb -Wf--no-std-crt0
-IMGTOGB=imgtogb.py
-IMGTOSGB=imgtosgb.py
-GETPALETTE=imgtogbpal.py
+CFLAGS=-Wl-m -Wl-j -msm83:gb -Wf--no-std-crt0
+IMGTOGB=${PYIMGTOGBDIR}/imgtogb.py
+IMGTOSGB=${PYIMGTOGBDIR}/imgtosgb.py
+GETPALETTE=${PYIMGTOGBDIR}/imgtogbpal.py
 MMLGB=mmlgb/parser/MMLGB.jar
 
 define compile-source

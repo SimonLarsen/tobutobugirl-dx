@@ -1,7 +1,7 @@
 #ifndef SGB_SEND_PACKET_H
 #define SGB_SEND_PACKET_H
 
-void sgb_send_packet(UBYTE* data);
+void sgb_send_packet(UBYTE* data) OLDCALL;
 
 /*
 void sgb_send_packet(UBYTE* data) {
