@@ -593,7 +593,6 @@ void mus_update3() {
 			case T_WAVE:
 				note = *mus_data3++;
 				NR30_REG = 0x0U;
-				//for some reason this crashes the game
 				memcpy(0xFF30, mus_wave + (note << 4), 16U);
 				NR30_REG = 0x80U;
 				break;
