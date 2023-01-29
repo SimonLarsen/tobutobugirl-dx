@@ -1,4 +1,6 @@
 #include <gb/gb.h>
+#include <gb/cgb.h>
+#include <string.h>
 #include "defines.h"
 #include "gamestate.h"
 #include "set_data_rle.h"
@@ -139,8 +141,6 @@ void enterLogos() {
 
 	BGP_REG = 0xE4U;
 	fadeFromWhite(8U);
-
-	disable_interrupts();
 
 	for(i = 0U; i != 10U; ++i) wait_vbl_done();
 

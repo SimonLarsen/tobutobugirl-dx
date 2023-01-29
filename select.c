@@ -1,4 +1,5 @@
 #include <gb/gb.h>
+#include <gb/cgb.h>
 #include "defines.h"
 #include "select.h"
 #include "fade.h"

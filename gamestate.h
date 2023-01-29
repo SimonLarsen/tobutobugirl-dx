@@ -8,8 +8,8 @@
 
 void _setSprite(UBYTE y, UBYTE x, UBYTE tile, UBYTE prop);
 void clearRemainingSprites();
-UBYTE mydiv(UBYTE num, UBYTE denom);
-UBYTE mymod(UBYTE num, UBYTE denom);
+UBYTE mydiv(UBYTE num, UBYTE denom) PRESERVES_REGS(b, d, h, l);
+UBYTE mymod(UBYTE num, UBYTE denom) PRESERVES_REGS(b, d, h, l);
 UWORD mydiv16(UWORD num, UWORD denom);
 UWORD mymod16(UWORD num, WORD denom);
 #define drawNumber8(x, y, value) (drawNumber16((x), (y), (value)))
@@ -111,9 +111,8 @@ extern const UBYTE level_names[8][6];
 extern const UBYTE level_max_time[4];
 extern const UBYTE rank_letters[4];
 
-void get_bkg_palette(const UBYTE *buffer);
-void get_sprite_palette(const UBYTE *buffer);
+void get_bkg_palette(const UBYTE *buffer) OLDCALL;
+void get_sprite_palette(const UBYTE *buffer) OLDCALL;
 void mymemset(UBYTE *dest, UBYTE value, UWORD count);
-//void mymemcpy(UBYTE *dest, const UBYTE *source, UWORD count);
 
 #endif

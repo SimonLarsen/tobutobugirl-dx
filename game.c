@@ -1,6 +1,7 @@
 #include <gb/gb.h>
 #include <gb/cgb.h>
-#include <gb/rand.h>
+#include <rand.h>
+#include <string.h>
 #include "defines.h"
 #include "game.h"
 #include "fade.h"

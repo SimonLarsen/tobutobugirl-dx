@@ -4,18 +4,16 @@ A dual GB/GBC remaster of Tobu Tobu Girl.
 
 More info at: http://tangramgames.dk/tobutobugirldx.
 
+This fork changes the code so that it can be built with just GBDK-2020, greatly simplifying the build process.
+
 ## Playing the game
 
 In order to play the game you will need to either flash the game to a Game Boy flash cart or use a Game Boy emulator. The binaries are provided through [itch.io](https://tangramgames.itch.io/tobutobugirldx).
 
 ## Compilation
+This fork eliminates the need for different versions of GBDK and SDCC, so only GBDK-2020 is required. pyimgtogb is also included in the repository.
 
-The build chain is currently a huge mess involving an old version of GBDK/LCC, a more recent version of SDCC and some custom tools. I plan on cleaning things up at some point. In the meantime, if you still want try and compile this you should install the following tools and then change the paths in the Makefile accordingly:
-
-* [GBDK 2.96](http://gbdk.sourceforge.net)
-* [GBDK-n](https://github.com/andreasjhkarlsson/gbdk-n)
-* [SDCC 3.8.0](http://sdcc.sourceforge.net)
-* [pyimgtogb](https://github.com/SimonLarsen/pyimgtogb)
+* [GBDK-2020](https://github.com/gbdk-2020/gbdk-2020)
 * [mmlgb](https://github.com/SimonLarsen/mmlgb)
 
 ## License
